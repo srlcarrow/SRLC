@@ -1,6 +1,8 @@
-<?php
+<html>
+    <head>
 
-var_dump('rajith');
-
-?>
-
+    </head>
+    <body>
+        Rajith
+    </body>
+</html>
