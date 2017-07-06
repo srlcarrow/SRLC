@@ -1,0 +1,20 @@
+2017/07/06 19:36:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "Test".' in C:\xampp\htdocs\yii\yii\framework\web\CController.php:486
+Stack trace:
+#0 C:\xampp\htdocs\yii\yii\framework\web\CController.php(270): CController->missingAction('Test')
+#1 C:\xampp\htdocs\yii\yii\framework\web\CWebApplication.php(282): CController->run('Test')
+#2 C:\xampp\htdocs\yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/Test')
+#3 C:\xampp\htdocs\yii\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\SRLC\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/SRLC/site/Test
+---
+2017/07/06 19:36:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "Test".' in C:\xampp\htdocs\yii\yii\framework\web\CController.php:486
+Stack trace:
+#0 C:\xampp\htdocs\yii\yii\framework\web\CController.php(270): CController->missingAction('Test')
+#1 C:\xampp\htdocs\yii\yii\framework\web\CWebApplication.php(282): CController->run('Test')
+#2 C:\xampp\htdocs\yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/Test')
+#3 C:\xampp\htdocs\yii\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\SRLC\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/SRLC/site/Test
+---
