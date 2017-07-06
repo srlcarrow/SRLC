@@ -1,4 +1,4 @@
 <?php
 
-var_dump('rajith');
+var_dump('rajith'); ?>
 
