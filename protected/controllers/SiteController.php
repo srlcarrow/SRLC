@@ -100,5 +100,4 @@ class SiteController extends Controller {
         echo 'test';
     }  
     
-
 }
