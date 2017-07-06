@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'SRLC',
+    'name' => 'My Web Application',
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
@@ -15,13 +15,15 @@ return array(
         'application.components.*',
     ),
     'modules' => array(
-        // uncomment the following to enable the Gii tool
-
-        'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            'password' => '1234',
-            'ipFilters' => array('127.0.0.1', $_SERVER['REMOTE_ADDR']),
-        ),
+    // uncomment the following to enable the Gii tool
+    /*
+      'gii'=>array(
+      'class'=>'system.gii.GiiModule',
+      'password'=>'Enter Your Password Here',
+      // If removed, Gii defaults to localhost only. Edit carefully to taste.
+      'ipFilters'=>array('127.0.0.1','::1'),
+      ),
+     */
     ),
     // application components
     'components' => array(
