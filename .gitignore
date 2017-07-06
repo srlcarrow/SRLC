@@ -1,1 +1,27 @@
-/nbproject/private/
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+protected/config/database.php
+
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+*~
+*.lock
+*.swp
+*.out
+*.swo
+*-backupfile
