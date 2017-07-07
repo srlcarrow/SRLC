@@ -49,7 +49,7 @@
 <div class="container" id="page">
 
     <!--Message area-->
-    <div class="alert alert-success adm-alert" role="alert"></div>
+    <div class="alert alert-info adm-alert" role="alert"></div>
 
     <?php echo $content; ?>
 

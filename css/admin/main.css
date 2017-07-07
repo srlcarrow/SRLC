@@ -1,3 +1,10 @@
+.mt-30 {
+    margin-top:30px !important;
+}
+.mb-15 {
+    margin-bottom:15px !important;
+}
+
 .adm-panel .panel-heading {
     padding: 15px;
 }
@@ -19,4 +26,9 @@
 .adm-right.adm-btn {
     margin-left: 15px;
 }
-
+.adm-tbl-action_2 {
+    width: 7%;
+}
+.adm-tbl-action_3 {
+    width: 11%;
+}
