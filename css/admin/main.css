@@ -1,0 +1,22 @@
+.adm-panel .panel-heading {
+    padding: 15px;
+}
+
+.adm-panel .panel-heading h3 {
+    margin: 0;
+}
+.adm-panel .panel-body{
+    padding-top:30px;
+}
+.adm-alert {
+    display: none;
+}
+
+.adm-right {
+    float: right;
+}
+
+.adm-right.adm-btn {
+    margin-left: 15px;
+}
+
