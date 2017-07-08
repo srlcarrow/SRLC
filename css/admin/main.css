@@ -1,34 +1,23 @@
 .mt-30 {
-    margin-top:30px !important;
+    margin-top: 30px !important;
 }
+
 .mb-15 {
-    margin-bottom:15px !important;
+    margin-bottom: 15px !important;
 }
 
-.adm-panel .panel-heading {
-    padding: 15px;
+.navbar-fixed {
+    height: 90px;
 }
 
-.adm-panel .panel-heading h3 {
-    margin: 0;
-}
-.adm-panel .panel-body{
-    padding-top:30px;
-}
-.adm-alert {
-    display: none;
+.logo-link img {
+    margin-top: 10px;
 }
 
-.adm-right {
-    float: right;
-}
-
-.adm-right.adm-btn {
-    margin-left: 15px;
-}
 .adm-tbl-action_2 {
     width: 7%;
 }
+
 .adm-tbl-action_3 {
     width: 11%;
 }

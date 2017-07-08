@@ -1,29 +1,15 @@
-<nav class="navbar navbar-default">
-    <div class="container">
-
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand logo-link" href="#">
-                <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
-            </a>
+<div class="navbar-fixed">
+    <nav class=" light-blue accent-3">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a class="brand-logo logo-link" href="#">
+                    <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
+                </a>
+                <ul class="hide-on-med-and-down right">
+                    <li><a href="#">Admin</a></li>
+                    <li><a href="#">Category</a></li>
+                </ul>
+            </div>
         </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="#">Category</a>
-                </li>
-                <li>
-                    <a href="#">Link</a>
-                </li>
-            </ul>
-        </div>
-
-    </div>
-</nav>
+    </nav>
+</div>
