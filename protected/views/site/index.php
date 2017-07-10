@@ -1,20 +1,77 @@
-<?php
-/* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name;
-?>
+<div class="row">
+    <div class="col s12">
+        <div class="card ">
+            <div class="card-content">
+                <h5 class="grey-text text-darken-1">Add Category</h5>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+                <div class="row">
+                    <div class="col s12 m8">
+                        <div class="input-field">
+                            <input type="text">
+                            <label >Category Name</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-field">
+                            <input type="text">
+                            <label>Category Order</label>
+                        </div>
+                    </div>
+                </div>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+            </div>
+            <div class="card-action right-align">
+                <button type="button" class=" btn waves-effect waves-light red lighten-1">Clear</button>
+                <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+<!--Data Showing area-->
+
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+
+                <h5 class="grey-text text-darken-1">Categories</h5>
+
+                <table class="responsive-table bordered striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Order</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Category 1</td>
+                        <td>2</td>
+                        <td class="adm-tbl-action_2">
+                            <a href="#"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
+                            <a href="#"><i class="material-icons red-text lighten-2">delete</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Category 3</td>
+                        <td>1</td>
+                        <td class="adm-tbl-action_2">
+                            <a href="#"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
+                            <a href="#"><i class="material-icons red-text lighten-2">delete</i></a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

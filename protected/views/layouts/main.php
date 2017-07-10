@@ -2,59 +2,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="en">
 
-	<!-- blueprint CSS framework -->
-<!--	<link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection">
-	<link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">-->
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection">
-	<![endif]-->
+    <!--========================================================
+        Stylesheet
+    =========================================================-->
 
-<!--	<link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/main.css">
-	<link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/form.css">-->
+    <!--CSS | Materialize-->
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/materialize.min.css">
+    <!--CSS | Materialize Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--CSS | Common-->
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom/common.css">
+    <!--CSS | Admin-->
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin/main.css">
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <!--========================================================
+        Javascript
+    =========================================================-->
+    <!--JS | Jquery Lib-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
+    <!--JS | Materialize-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/materialize.min.js'; ?>"></script>
+    <!--JS | Lodash-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/lib/lodash-4.17.4.min.js'; ?>"></script>
+    <!--JS | Admin Common-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/admin/common.js'; ?>"></script>
+
+
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
 
+<!-- ======================================================
+        Header Container
+=========================================================-->
+<header>
+    <?php $this->beginContent('//layouts/menu'); ?>
+    <?php echo $content; ?>
+    <?php $this->endContent(); ?>
+</header>
+
+<!-- ======================================================
+       Main Container
+=========================================================-->
 <div class="container" id="page">
 
-	<div id="header">
-		<div id="logo"><?php //echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+    <!--Message area-->
+    <div class="alert alert-info adm-alert" role="alert"></div>
 
-<!--	<div id="mainmenu">
-		<?php //$this->widget('zii.widgets.CMenu',array(
-			//'items'=>array(
-//				array('label'=>'Home', 'url'=>array('/site/index')),
-//				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-//				array('label'=>'Contact', 'url'=>array('/site/contact')),
-//				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-//				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-//			),
-		//)); ?>
-	</div>-->
-        
-        <!-- mainmenu -->
-        
-	<?php //if(isset($this->breadcrumbs)):?>
-		<?php //$this->widget('zii.widgets.CBreadcrumbs', array(
-			//'links'=>$this->breadcrumbs,
-		//)); ?><!-- breadcrumbs -->
-	<?php //endif?>
+    <?php echo $content; ?>
 
-	<?php echo $content; ?>
+</div>
 
-	<div class="clear"></div>
-
-	<div id="footer">
-		
-	</div><!-- footer -->
-
-</div><!-- page -->
+<!-- ======================================================
+       Footer Container
+=========================================================-->
 
 </body>
 </html>
