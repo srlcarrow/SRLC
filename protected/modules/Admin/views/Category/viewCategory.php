@@ -1,3 +1,5 @@
+ <!--JS | Jquery Lib-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
 <div class="row">
     <div class="col s12">
         <div class="card ">
@@ -43,7 +45,7 @@
     function loadCategoryData() {
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->createUrl('Category/ViewCategoryData'); ?>",
+            url: "<?php echo Yii::app()->createUrl('Admin/Category/ViewCategoryData'); ?>",
             data: '',
             dataType: 'json',
             success: function (responce) {
