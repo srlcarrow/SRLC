@@ -14,6 +14,7 @@ return array(
         'application.models.*',
         'application.components.*',
         'application.modules.Admin.models.*',
+        'application.modules.Admin.controllers.*'
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool

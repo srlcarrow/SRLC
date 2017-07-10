@@ -33,16 +33,7 @@
                     </li>
                 </ul>
                 <?php
-//                $menu = Links::model()->findAll(
-//                        array(
-//                            'select' => '*',
-//                            'condition' => 'lnk_parent_id=0 AND lnk_depth=1',
-//                            'order' => 'lnk_order'
-//                ));
-                $menu = Links::model()->findAll();
-//                $menu = 'rajithiiiyyyyyygghngcccccccccccccccccccccccccccccccccccccccccccc';
-                var_dump($menu);
-                exit;
+                $menu = Links::model()->findAllByAttributes(array('lnk_parent_id'=>0),array('order'=>'lnk_order ASC'));              
                 ?>
             </div>
         </div>

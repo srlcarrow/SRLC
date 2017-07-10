@@ -6,6 +6,10 @@ class CategoryController extends Controller {
         $this->render('viewCategory');
     }
 
+    public function actionViewCategoryData() {
+        $this->render('ajaxLoad/viewCategory');
+    }
+
 }
 ?>
 
