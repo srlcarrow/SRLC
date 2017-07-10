@@ -68,3 +68,17 @@ var Message = (function () {
     return _message;
 
 })();
+
+/*=========================================
+Search bar
+=========================================*/
+
+$(function () {
+    $(document).find('.search-input-wrp input[type="text"].input-search').on('focus',function () {
+        $(this).parents('.search-input-wrp').addClass('input-focus');
+    });
+
+    $(document).find('.search-input-wrp input[type="text"].input-search').on('blur',function () {
+        $(this).parents('.search-input-wrp').removeClass('input-focus');
+    });
+});
