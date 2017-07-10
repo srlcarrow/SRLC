@@ -1,6 +1,6 @@
 <?php
 
-class EmpController extends Controller {
+class EmployerController extends Controller {
 
     public function actionIndex() {
         $this->render('index');
