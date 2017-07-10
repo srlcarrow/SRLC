@@ -7,7 +7,7 @@ class CategoryController extends Controller {
     }
 
     public function actionViewCategoryData() {
-        $this->render('ajaxLoad/viewCategory');
+        $this->renderPartial('ajaxLoad/viewCategoryData');
     }
 
 }
