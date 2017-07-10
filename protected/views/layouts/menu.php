@@ -1,4 +1,14 @@
 <div class="navbar-fixed">
+    
+    
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <!--<li class="divider"></li>-->
+        <li><a href="#!">three</a></li>
+    </ul>
+    
+    
     <nav class="light-blue accent-3">
         <div class="container">
             <div class="nav-wrapper">
@@ -8,7 +18,8 @@
                 <ul class="hide-on-med-and-down right">
                     <li><a href="#">Admin</a></li>
                     <li><a href="#">Category</a></li>
-                    <li>
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+<!--                    <li>
                         <a href="#">Category </a>
                         <ul>
                             <li><a href="#">Sub 1</a></li>
@@ -30,7 +41,7 @@
                         </ul>
 
 
-                    </li>
+                    </li>-->
                 </ul>
                 <?php
 //                $menu = Links::model()->findAll(
@@ -39,10 +50,10 @@
 //                            'condition' => 'lnk_parent_id=0 AND lnk_depth=1',
 //                            'order' => 'lnk_order'
 //                ));
-                $menu = Links::model()->findAll();
+//                $menu = Links::model()->findAll();
 //                $menu = 'rajithiiiyyyyyygghngcccccccccccccccccccccccccccccccccccccccccccc';
-                var_dump($menu);
-                exit;
+//                var_dump($menu);
+//                exit;
                 ?>
             </div>
         </div>
@@ -50,7 +61,7 @@
 </div>
 
 <script>
-    $(function () {
+    $(function() {
         $(".dropdown-button").dropdown();
     })
 </script>
