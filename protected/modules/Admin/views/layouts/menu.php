@@ -1,9 +1,9 @@
-<!--<div class="navbar-fixed">
+<div class="navbar-fixed">
     <nav class="light-blue accent-3">
         <div class="container">
             <div class="nav-wrapper">
                 <a class="brand-logo logo-link" href="#">
-                    <img src="<?php //echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
+                    <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
                 </a>
                 <ul class="hide-on-med-and-down right menu">
                     <li><a href="#">Admin</a></li>
@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <?php
-                //$menu = Links::model()->findAllByAttributes(array('lnk_parent_id'=>0),array('order'=>'lnk_order ASC'));              
+                $menu = Links::model()->findAllByAttributes(array('lnk_parent_id'=>0),array('order'=>'lnk_order ASC'));              
 
                 ?>
             </div>
@@ -39,4 +39,4 @@
     })
 </script>
 
--->
+
