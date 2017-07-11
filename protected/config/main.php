@@ -14,6 +14,7 @@ return array(
         'application.models.*',
         'application.components.*',
         'application.modules.Admin.models.*',
+        'application.modules.Admin.controllers.*'
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -24,7 +25,7 @@ return array(
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
-        'Admin',
+        'Admin' => array(),
     ),
     // application components
     'components' => array(

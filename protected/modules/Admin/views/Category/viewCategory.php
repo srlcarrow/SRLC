@@ -1,4 +1,5 @@
-
+<!--JS | Jquery Lib-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
 <div class="row">
     <div class="col s12">
         <div class="card ">
@@ -31,47 +32,25 @@
 
 
 <!--Data Showing area-->
+<div class="ajaxLoad"></div>
 
-<div class="row">
-    <div class="col s12">
-        <div class="card">
-            <div class="card-content">
+<!-- ===========================================================================
+        Backend Script
+============================================================================ -->
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        loadCategoryData();
+    });
 
-                <h5 class="grey-text text-darken-1">Categories</h5>
-
-                <table class="responsive-table bordered striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Order</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Category 1</td>
-                        <td>2</td>
-                        <td class="adm-tbl-action_2">
-                            <a href="#"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
-                            <a href="#"><i class="material-icons red-text lighten-2">delete</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Category 3</td>
-                        <td>1</td>
-                        <td class="adm-tbl-action_2">
-                            <a href="#"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
-                            <a href="#"><i class="material-icons red-text lighten-2">delete</i></a>
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+    function loadCategoryData() {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/ViewCategoryData'; ?>",
+            data: '',
+            dataType: 'json',
+            success: function (responce) {
+                
+            }
+        });
+    }
+</script>
