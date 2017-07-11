@@ -16,6 +16,31 @@
 }
 
 /*------------------------------------
+    Messages
+------------------------------------*/
+.adm-alert {
+    display: none;
+    font-size: 14px;
+    padding: 15px;
+}
+
+.success {
+    background: #e57373;
+}
+
+.info {
+    background: #ce93d8;
+}
+
+.warning {
+    background: #fff176;
+}
+
+.danger {
+    background: #ef5350;
+}
+
+/*------------------------------------
     Search Bar
 ------------------------------------*/
 
@@ -93,10 +118,11 @@
     width: 100%;
     background: #ccc;
 }
+
 .menu ul ul,
 .menu ul ul ul {
-    right:100%;
-    top:0;
+    right: 100%;
+    top: 0;
     display: none;
 }
 
@@ -109,6 +135,6 @@
     background: #000;
 }
 
-.login-panel h5{
+.login-panel h5 {
 
 }

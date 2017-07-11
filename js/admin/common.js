@@ -7,7 +7,7 @@ var Message = (function () {
     var _message = {};
 
     function removeClasses() {
-        var classes = ['alert-success','alert-info','alert-warning','alert-danger'];
+        var classes = ['success','info','warning','danger'];
         classes.map(function (item) {
             $('.adm-alert').removeClass(item);
         });
@@ -17,10 +17,10 @@ var Message = (function () {
     function loadMessage(msg,type) {
 
         var msgTypes = {
-            'success':'alert-success',
-            'info':'alert-info',
-            'warning':'alert-warning',
-            'danger':'alert-danger'
+            'success':'success',
+            'info':'info',
+            'warning':'warning',
+            'danger':'danger'
         };
 
         removeClasses();
