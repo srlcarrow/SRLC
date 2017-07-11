@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div class="col s6 push-s3">
+    <div class="col s4 push-s4">
         <div class="card-panel login-panel">
             <h5 class="grey-text text-darken-2 mb-30">Login</h5>
 
@@ -16,8 +16,8 @@
                             <label>Password</label>
                         </div>
                     </div>
-                    <div class="col s12">
-                        <button type="button" class="btn waves-light waves-effect">Login</button>
+                    <div class="col s12 mt-15">
+                        <button type="button" class="btn-login btn waves-light waves-effect blue">Login</button>
                     </div>
                 </div>
             </form>
