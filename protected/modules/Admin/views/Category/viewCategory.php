@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col s12">
         <div class="card ">
@@ -35,23 +34,12 @@
                             <i class="material-icons m-0 red-text">delete</i>
                         </button>
                     </div>
-                    <div class="col s4 input-no-label">
-                        <input type="text" class="pr-20">
-                        <button class="cm-btn ps-absolute right-5 btn-delete-input">
-                            <i class="material-icons m-0 red-text">delete</i>
-                        </button>
-                    </div>
-                    <div class="col s4 input-no-label">
-                        <input type="text" class="pr-20">
-                        <button class="cm-btn ps-absolute right-5 btn-delete-input">
-                            <i class="material-icons m-0 red-text">delete</i>
-                        </button>
-                    </div>
+
                 </div>
 
             </div>
             <div class="card-action right-align">
-                <button type="button" class=" btn waves-effect waves-light red lighten-1">Clear</button>
+                <button type="button" class=" btn waves-effect waves-light red lighten-1 btn-form-clean">Clear</button>
                 <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
             </div>
         </div>
@@ -68,8 +56,13 @@
 
 <script>
 
-    //Add new inputs
-    $('.add-new-input').on('click', function () {
+    function buildInput(appendEle) {
+
+        //Clear old
+        if (arguments[1]) {
+            $(appendEle).html('');
+        }
+
         var html = '';
         html += '<div class="col s4 input-no-label">';
         html += '<input type="text" class="pr-20">';
@@ -78,13 +71,25 @@
         html += '</button>';
         html += '</div>';
 
-        $('.row-input').append(html);
+        $(appendEle).append(html);
+    }
+
+    //Add new inputs
+    $('.add-new-input').on('click', function () {
+        buildInput('.row-input');
     });
 
     //Delete Input
     $(document).on('click', '.btn-delete-input', function () {
         $(this).parents('.input-no-label').remove();
-    })
+    });
+
+    $(document).on('click', '.btn-form-clean', function () {
+        buildInput('.row-input', true);
+        $('input').val('');
+    });
+
+
 </script>
 
 <!-- ===========================================================================
