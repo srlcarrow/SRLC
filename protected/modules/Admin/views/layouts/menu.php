@@ -12,7 +12,7 @@
                         <a href="#">Category </a>
                         <ul>
                             <li><a href="#">Sub 1</a></li>
-                            <li>
+                            <li class="hasChild">
                                 <a href="#">Sub 2</a>
                                 <ul>
                                     <li><a href="#">Sub 1</a></li>

@@ -159,7 +159,7 @@ button.cm-btn.add {
     display: none;
     position: absolute;
     width: 100%;
-    background: #ccc;
+    background: #00B0FF;
 }
 
 .menu ul ul,
@@ -172,6 +172,24 @@ button.cm-btn.add {
 .menu li ul li {
     width: 100%;
     position: relative;
+}
+
+.menu li a {
+    position: relative;
+}
+
+.menu li.hasChild > a {
+    padding-left: 30px;
+}
+
+.menu li.hasChild > a::before {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    content: '<';
+    font-size: 20px;
+    left:15px;
+    display: inline-block;
 }
 
 .login-page {
