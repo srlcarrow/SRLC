@@ -2,6 +2,8 @@
 
 class AdminModule extends CWebModule {
 
+    private $_assetsUrl;
+
     public function init() {
         $this->layout = "layouts/main";
         // this method is called when the module is being created
@@ -22,6 +24,18 @@ class AdminModule extends CWebModule {
             return true;
         } else
             return false;
+    }
+
+
+
+    /**
+     * @return string the base URL that contains all published asset files of this module.
+     */
+    public function getAssetsUrl()
+    {
+        if($this->_assetsUrl===null)
+            $this->_assetsUrl=Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('Admin.public'),true,-1,true);
+        return $this->_assetsUrl;
     }
 
 }

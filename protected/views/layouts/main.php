@@ -15,7 +15,7 @@
     CSS | Common
     <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/custom/common.css">
     CSS | Admin
-    <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/admin/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/admin/mai2n.css">
 
     <!--========================================================
         Javascript

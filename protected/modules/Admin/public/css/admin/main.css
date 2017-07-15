@@ -15,6 +15,74 @@
     width: 11%;
 }
 
+.ps-absolute {
+    position: absolute;
+}
+
+/*------------------------------------
+    Button
+------------------------------------*/
+button.cm-btn,
+a.cm-btn,
+button.cm-btn:focus {
+    outline: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    float: left;
+    font-size: 16px;
+    color: #424242;
+    line-height: 24px;
+}
+
+a.cm-btn i,
+button.cm-btn i {
+    color: inherit;
+    margin-right: 10px;
+}
+
+a.cm-btn:hover,
+button.cm-btn:hover,
+a.cm-btn:hover i,
+button.cm-btn:hover i {
+    opacity: 0.86;
+}
+
+a.cm-btn.right,
+button.cm-btn.right {
+    float: right;
+}
+
+a.cm-btn.add,
+button.cm-btn.add {
+    color: #42a5f5;
+}
+
+/*------------------------------------
+    Messages
+------------------------------------*/
+.adm-alert {
+    display: none;
+    font-size: 14px;
+    padding: 15px;
+}
+
+.success {
+    background: #e57373;
+}
+
+.info {
+    background: #ce93d8;
+}
+
+.warning {
+    background: #fff176;
+}
+
+.danger {
+    background: #ef5350;
+}
+
 /*------------------------------------
     Search Bar
 ------------------------------------*/
@@ -110,6 +178,18 @@
     background: #000;
 }
 
-.login-panel .btn-login {
-    width: 100%;
+.login-panel h5 {
+
+}
+
+.input-no-label {
+    position: relative;
+}
+
+.input-no-label input {
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    position: relative;
+    height: 24px !important;
 }

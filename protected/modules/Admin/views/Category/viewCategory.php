@@ -1,5 +1,4 @@
-<!--JS | Jquery Lib-->
-<script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
+
 <div class="row">
     <div class="col s12">
         <div class="card ">
@@ -10,7 +9,7 @@
                     <div class="col s12 m8">
                         <div class="input-field">
                             <input type="text">
-                            <label >Category Name</label>
+                            <label>Category Name</label>
                         </div>
                     </div>
                     <div class="col s12 m4">
@@ -18,6 +17,35 @@
                             <input type="text">
                             <label>Category Order</label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <button class="cm-btn add right add-new-input"><i class="material-icons left">&#xE148;</i>Add
+                            New
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row row-input">
+                    <div class="col s4 input-no-label">
+                        <input type="text" class="pr-20">
+                        <button class="cm-btn ps-absolute right-5 btn-delete-input">
+                            <i class="material-icons m-0 red-text">delete</i>
+                        </button>
+                    </div>
+                    <div class="col s4 input-no-label">
+                        <input type="text" class="pr-20">
+                        <button class="cm-btn ps-absolute right-5 btn-delete-input">
+                            <i class="material-icons m-0 red-text">delete</i>
+                        </button>
+                    </div>
+                    <div class="col s4 input-no-label">
+                        <input type="text" class="pr-20">
+                        <button class="cm-btn ps-absolute right-5 btn-delete-input">
+                            <i class="material-icons m-0 red-text">delete</i>
+                        </button>
                     </div>
                 </div>
 
@@ -35,6 +63,31 @@
 <div class="ajaxLoad"></div>
 
 <!-- ===========================================================================
+        Custom Script
+============================================================================ -->
+
+<script>
+
+    //Add new inputs
+    $('.add-new-input').on('click', function () {
+        var html = '';
+        html += '<div class="col s4 input-no-label">';
+        html += '<input type="text" class="pr-20">';
+        html += '<button class="cm-btn ps-absolute right-5 btn-delete-input">';
+        html += '<i class="material-icons m-0 red-text">delete</i>';
+        html += '</button>';
+        html += '</div>';
+
+        $('.row-input').append(html);
+    });
+
+    //Delete Input
+    $(document).on('click', '.btn-delete-input', function () {
+        $(this).parents('.input-no-label').remove();
+    })
+</script>
+
+<!-- ===========================================================================
         Backend Script
 ============================================================================ -->
 <script type="text/javascript">
@@ -49,7 +102,7 @@
             data: '',
             dataType: 'json',
             success: function (responce) {
-                
+
             }
         });
     }

@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <?php
-                $menu = Links::model()->findAllByAttributes(array('lnk_parent_id'=>0),array('order'=>'lnk_order ASC'));              
+//                $menu = Links::model()->findAllByAttributes(array('lnk_parent_id'=>0),array('order'=>'lnk_order ASC'));
 
                 ?>
             </div>
@@ -33,10 +33,5 @@
     </nav>
 </div>
 
-<script>
-    $(function() {
-        $(".dropdown-button").dropdown();
-    })
-</script>
 
 
