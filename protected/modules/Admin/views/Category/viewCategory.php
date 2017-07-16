@@ -144,7 +144,6 @@
         $('#name').val(categories.cat_name);
         $('#order').val(categories.cat_order);
 
-
         if (subCategories.length > 0) {
             $('.row-input > .input-no-label').remove();
         } else {

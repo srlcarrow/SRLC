@@ -43,6 +43,7 @@
 <script type="text/javascript">
     var row = 0;
     function deleteCategory(id) {
+        Alert.confirm();
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/DeleteCategory'; ?>",
