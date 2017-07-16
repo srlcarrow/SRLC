@@ -82,3 +82,45 @@ $(function () {
         $(this).parents('.search-input-wrp').removeClass('input-focus');
     });
 });
+
+/*=========================================
+Sweet Alert
+=========================================*/
+
+var Alert = (function(){
+
+    var _alert = {};
+
+    _alert.confirm = function(option){
+        
+        var _option = {
+            title: "Are you sure?",
+            msg: "You will not be able to recover this imaginary file!",
+            type: "warning"
+        };
+
+        _option = $.extends(_option,option);
+
+        swal({
+                title: _option.title,
+                text: _option.msg,
+                type: _option.type,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            // function(isConfirm){
+            //     if (isConfirm) {
+            //         swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            //     } else {
+            //         swal("Cancelled", "Your imaginary file is safe :)", "error");
+            //     }
+            // },
+            function(){
+                //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            });
+     }
+
+     return _alert;
+})();
