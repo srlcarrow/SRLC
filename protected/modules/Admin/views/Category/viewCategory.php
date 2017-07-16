@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 <!--JS | Jquery Lib-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddCategory')); ?>
+=======
+>>>>>>> cdcf5cdfb516f05325a5f39b04a17d75dd86dc2f
 <div class="row">
     <div class="col s12">
         <div class="card ">
@@ -12,6 +15,7 @@
                         <div class="input-field">
                             <input name="name" type="text">
                             <label >Category Name</label>
+
                         </div>
                     </div>
                     <div class="col s12 m4">
@@ -22,10 +26,29 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col s12">
+                        <button class="cm-btn add right add-new-input"><i class="material-icons left">&#xE148;</i>Add
+                            New
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row row-input">
+                    <div class="col s4 input-no-label">
+                        <input type="text" class="pr-20">
+                        <button class="cm-btn ps-absolute right-5 btn-delete-input">
+                            <i class="material-icons m-0 red-text">delete</i>
+                        </button>
+                    </div>
+
+                </div>
+
             </div>
             <div class="card-action right-align">
                 <button type="button" class=" btn waves-effect waves-light red lighten-1">Clear</button>
                 <button id="saveCategory" type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+
             </div>
         </div>
     </div>
@@ -34,6 +57,48 @@
 
 <!--Data Showing area-->
 <div class="ajaxLoad"></div>
+
+<!-- ===========================================================================
+        Custom Script
+============================================================================ -->
+
+<script>
+
+    function buildInput(appendEle) {
+
+        //Clear old
+        if (arguments[1]) {
+            $(appendEle).html('');
+        }
+
+        var html = '';
+        html += '<div class="col s4 input-no-label">';
+        html += '<input type="text" class="pr-20">';
+        html += '<button class="cm-btn ps-absolute right-5 btn-delete-input">';
+        html += '<i class="material-icons m-0 red-text">delete</i>';
+        html += '</button>';
+        html += '</div>';
+
+        $(appendEle).append(html);
+    }
+
+    //Add new inputs
+    $('.add-new-input').on('click', function () {
+        buildInput('.row-input');
+    });
+
+    //Delete Input
+    $(document).on('click', '.btn-delete-input', function () {
+        $(this).parents('.input-no-label').remove();
+    });
+
+    $(document).on('click', '.btn-form-clean', function () {
+        buildInput('.row-input', true);
+        $('input').val('');
+    });
+
+
+</script>
 
 <!-- ===========================================================================
         Backend Script
