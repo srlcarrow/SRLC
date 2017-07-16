@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 <!--JS | Jquery Lib-->
-<script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
+<script src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js';      ?>"></script>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddCategory')); ?>
-=======
->>>>>>> cdcf5cdfb516f05325a5f39b04a17d75dd86dc2f
 <div class="row">
     <div class="col s12">
         <div class="card ">
@@ -13,14 +10,14 @@
                 <div class="row">
                     <div class="col s12 m8">
                         <div class="input-field">
-                            <input name="name" type="text">
+                            <input name="name" type="text" required>
                             <label >Category Name</label>
 
                         </div>
                     </div>
                     <div class="col s12 m4">
                         <div class="input-field">
-                            <input name="order" type="text">
+                            <input name="order" type="text" required>
                             <label>Category Order</label>
                         </div>
                     </div>
@@ -28,7 +25,7 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <button class="cm-btn add right add-new-input"><i class="material-icons left">&#xE148;</i>Add
+                        <button type="button" class="cm-btn add right add-new-input"><i class="material-icons left">&#xE148;</i>Add
                             New
                         </button>
                     </div>
@@ -36,12 +33,12 @@
 
                 <div class="row row-input">
                     <div class="col s4 input-no-label">
-                        <input type="text" class="pr-20">
+                        <input id="hiddenSubCatId_0" name="hiddenSubCat_0" type="hidden" value="0" class="hiddenSubCat">
+                        <input id="subCatId_0" name="subCatName_0" type="text" class="pr-20">
                         <button class="cm-btn ps-absolute right-5 btn-delete-input">
                             <i class="material-icons m-0 red-text">delete</i>
                         </button>
                     </div>
-
                 </div>
 
             </div>
@@ -63,9 +60,9 @@
 ============================================================================ -->
 
 <script>
-
+    var i = 0;
     function buildInput(appendEle) {
-
+        i = i + 1;
         //Clear old
         if (arguments[1]) {
             $(appendEle).html('');
@@ -73,7 +70,8 @@
 
         var html = '';
         html += '<div class="col s4 input-no-label">';
-        html += '<input type="text" class="pr-20">';
+        html += '<input type="hidden" id="hiddenSubCatId_' + i + '" name="hiddenSubCat_' + i + '" value="0" class="hiddenSubCat">';
+        html += '<input type="text" id="subCatId_' + i + '" name="subCatName_' + i + '" class="pr-20">';
         html += '<button class="cm-btn ps-absolute right-5 btn-delete-input">';
         html += '<i class="material-icons m-0 red-text">delete</i>';
         html += '</button>';
@@ -127,10 +125,36 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
+                    Message.success(responce.msg);
+                    $("#formAddCategory")[0].reset();
+                    $('.row-input > .input-no-label').not(':first').remove();
                     loadCategoryData();
                 }
             }
         });
     });
+
+    function loadDataToEdit(data) {
+        $("#formAddCategory")[0].reset();
+        if (data.length > 0) {
+            $('.row-input > .input-no-label').remove();
+        } else {
+            $('.pr-20').attr('value', '');
+            $('.row-input > .input-no-label').not(':first').remove();
+        }
+
+        for (var i = 0, max = data.length; i < max; i++) {
+            var html = '';
+            html += '<div class="col s4 input-no-label">';
+            html += '<input type="hidden" id="hiddenSubCatId_' + i + '" name="hiddenSubCat_' + i + '" value="' + data[i]['scat_id'] + '" class="hiddenSubCat">';
+            html += '<input type="text" id="subCatId_' + i + '"  name="subCatName_' + i + '" value="' + data[i]['scat_name'] + '" class="pr-20">';
+            html += '<button class="cm-btn ps-absolute right-5 btn-delete-input">';
+            html += '<i class="material-icons m-0 red-text">delete</i>';
+            html += '</button>';
+            html += '</div>';
+
+            $('.row-input').append(html);
+        }
+    }
 
 </script>
