@@ -27,6 +27,10 @@
         <script src="<?php echo Yii::app()->baseUrl . '/js/lib/lodash-4.17.4.min.js'; ?>"></script>
         <!--JS | Admin Common-->
         <script src="<?php echo $this->module->assetsUrl . '/js/admin/common.js'; ?>"></script>
+        <!--JS | Admin Jquery Validation-->
+        <script src="<?php echo $this->module->assetsUrl . '/js/admin/validate/jquery.validate.js'; ?>"></script>
+        <!--JS | Admin Sweet Alert-->
+        <script src="<?php echo $this->module->assetsUrl . '/js/admin/sweetalert/sweetalert.min.js'; ?>"></script>
 
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>

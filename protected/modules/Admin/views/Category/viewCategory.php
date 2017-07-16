@@ -40,7 +40,7 @@
             </div>
             <div class="card-action right-align">
                 <button type="button" class=" btn waves-effect waves-light red lighten-1 btn-form-clean">Clear</button>
-                <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+                <button id="df" type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
             </div>
         </div>
     </div>
