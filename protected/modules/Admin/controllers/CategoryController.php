@@ -12,13 +12,28 @@ class CategoryController extends Controller {
     }
 
     public function actionSaveCategory() {
-        try {
-//            var_dump($_POST);exit;
-            $model = new AdmCategory();
+        try {          
+            if ($_POST['hiddenId'] == 0) {
+                $model = new AdmCategory();
+            } else {
+                $model = AdmCategory::model()->findByPk($_POST['hiddenId']);
+            }
             $model->cat_name = $_POST['name'];
             $model->cat_order = $_POST['order'];
             if ($model->save(false)) {
-                $subCat = new AdmSubcategory();
+                $catId = $model->cat_id;
+                $data = $_POST['hiddenSubCat'];
+                for ($i = 0; $i < count($data); $i++) {
+                    if ($data[$i] == 0) {
+                        $subCat = new AdmSubcategory();
+                    } else {
+                        $subCat = AdmSubcategory::model()->findByPk($data[$i]);
+                    }
+                    $subCat->ref_cat_id = $catId;
+                    $subCat->scat_name = $_POST['subCatName'][$i];
+                    $subCat->scat_order = 0;
+                    $subCat->save(false);
+                }
 
                 $this->msgHandler(200, "Successfully Saved...");
             }

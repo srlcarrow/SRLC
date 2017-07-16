@@ -53,8 +53,7 @@
                     loadCategoryData();
                 }
             }
-        }
-        );
+        });
     }
 
     function editCategory(id) {
@@ -65,12 +64,12 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    loadDataToEdit(responce.data.subCategoryData);
+                    loadDataToEdit(responce.data);
                 }
             }
         }
         );
     }
 
-    
+
 </script>
