@@ -88,6 +88,34 @@ $(function () {
 
 var Alert = (function () {
 
+    /*
+     How to use....
+
+     ----------------
+     Confirm Alert
+     -----------------
+
+     Default
+     1. Alert.confirm();
+
+     Your Way
+     2. Alert.confirm({
+     title: "Your message title goes here",
+     msg: "Your message goes here",
+
+     ---- Call after confirm btn was click.---
+     confirmed: function(){
+     //Your code
+     },
+
+     ---- Call after confirm btn was click.---
+     canceled: function(){
+     //Your code
+     }
+     });
+
+     */
+
     var _alert = {};
 
     _alert.confirm = function (option) {
@@ -95,7 +123,9 @@ var Alert = (function () {
         var _option = {
             title: "Are you sure?",
             msg: "You will not be able to recover this imaginary file!",
-            type: "warning"
+            type: "warning",
+            confirmed: null,
+            canceled: null
         };
 
         _option = $.extend(_option, option);
@@ -109,16 +139,20 @@ var Alert = (function () {
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: true
             },
-//             function(isConfirm){
-//                 if (isConfirm) {
-//                     return;
-//                 } else {
-//                     swal("Cancelled", "Your imaginary file is safe :)", "error");
-//                 }
-//             },
-            function () {
-                //swal("Deleted!", "Your imaginary file has been deleted.", "success");
-            });
+            function (isConfirm) {
+                if (isConfirm) {
+                    // Call after confirm btn click
+                    if (typeof _option.confirmed === 'function') {
+                        _option.confirmed();
+                    }
+                } else {
+                    // Call after cancel btn click
+                    if (typeof _option.canceled === 'function') {
+                        _option.canceled();
+                    }
+                }
+            }
+        );
     };
 
     return _alert;
