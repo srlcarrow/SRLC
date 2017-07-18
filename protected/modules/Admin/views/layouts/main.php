@@ -15,7 +15,7 @@
         <!--CSS | Common-->
         <link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/custom/common.css">
         <!--CSS | Sweet Alert-->
-        <link rel="stylesheet" type="text/css" href="<?php echo  $this->module->assetsUrl; ?>/css/plugins/sweetalert/sweetalert.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo  $this->module->assetsUrl; ?>/css/plugins/sweetalert.css">
         <!--CSS | Admin-->
         <link rel="stylesheet" type="text/css" href="<?php echo  $this->module->assetsUrl; ?>/css/admin/main.css">
       
@@ -29,7 +29,7 @@
         <!--JS | Lodash-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/lib/lodash-4.17.4.min.js'; ?>"></script>
         <!--JS | Sweet Alert-->
-        <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/sweetalert/sweetalert.min.js'; ?>"></script>
+        <script src="<?php echo $this->module->assetsUrl . '/js/plugins/sweetalert/sweetalert.min.js'; ?>"></script>
         <!--JS | Admin Common-->
         <script src="<?php echo $this->module->assetsUrl . '/js/admin/common.js'; ?>"></script>
 
