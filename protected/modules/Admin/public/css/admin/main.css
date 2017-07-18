@@ -68,19 +68,23 @@ button.cm-btn.add {
 }
 
 .success {
-    background: #e57373;
+    background: #66bb6a;
+    color: #fff;
 }
 
 .info {
-    background: #ce93d8;
+    background: #bbdefb;
+    color: #fff;
 }
 
 .warning {
-    background: #fff176;
+    background: #fff9c4;
+    color: #004d40;
 }
 
 .danger {
     background: #ef5350;
+    color: #ffffff;
 }
 
 /*------------------------------------
