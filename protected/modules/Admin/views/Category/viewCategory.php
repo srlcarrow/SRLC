@@ -60,6 +60,7 @@
 ============================================================================ -->
 
 <script>
+
     var i = 0;
     function buildInput(appendEle) {
         i = i + 1;
@@ -143,6 +144,14 @@
     });
 
     function loadDataToEdit(data) {
+
+        //Update Text fields
+        $(document).ready(function () {
+            Materialize.updateTextFields();
+            //page Scroll to up
+            Scroll.toUp();
+        });
+
         $("#formAddCategory")[0].reset();
         var categories = data.categoryData;
         var subCategories = data.subCategoryData;

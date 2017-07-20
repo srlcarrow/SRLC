@@ -41,6 +41,7 @@
     </div>
 </div>
 <script type="text/javascript">
+
     var row = 0;
     function deleteCategory(id) {
         function _deleteCategory(id) {
