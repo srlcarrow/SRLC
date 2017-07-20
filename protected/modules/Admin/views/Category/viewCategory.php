@@ -77,8 +77,8 @@
         html += '</button>';
         html += '</div>';
 
-        $(appendEle).append(html);
-        appendEle.find('.input-no-label:last input[type="text"]').focus();
+        $(appendEle).append($(html));
+        $('.input-no-label input[type="text"]').focus();
     }
 
     //Add new inputs
