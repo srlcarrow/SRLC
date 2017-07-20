@@ -1,4 +1,9 @@
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'login')); ?>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="login-form">
     <div class="row">
         <div class="col s4 push-s4">
@@ -10,7 +15,7 @@
                         <div class="col s12">
                             <div class="input-field">
                                 <input id="username" name="username" type="text" required>
-                                <label>Email or Username</label>
+                                <label>Username</label>
                             </div>
                             <div class="input-field">
                                 <input id="password" name="password" type="password" required>
@@ -29,6 +34,22 @@
 <?php $this->endWidget(); ?>
 
 <script>
+    $(function () {
+        $('#password').keypress(function (e) {
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                login()
+                return false;
+            }
+        });
+
+        $("#username").keypress(function (e) {
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                login()
+                return false;
+            }
+        });
+    });
+
     function login() {
         $.ajax({
             type: 'POST',
@@ -38,7 +59,8 @@
             success: function (responce) {
                 if (responce.code == 200) {
 <?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
-<?php } else { ?> window.location = http_path + "Admin/Default/Index"; <?php } ?>
+<?php } else { ?> window.location = http_path + "Admin/Default/Index";
+<?php } ?>
                 }
                 else{
                 alert('wrong');

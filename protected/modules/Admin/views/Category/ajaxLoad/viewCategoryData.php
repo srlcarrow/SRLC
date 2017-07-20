@@ -51,6 +51,9 @@
                 dataType: 'json',
                 success: function (responce) {
                     if (responce.code == 200) {
+                        $("#formAddCategory")[0].reset();
+                        $('.pr-20').attr('value', '');
+                        $('.row-input > .input-no-label').not(':first').remove();
                         loadCategoryData();
                     }
                 }

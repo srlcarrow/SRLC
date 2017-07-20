@@ -6,8 +6,8 @@ $mainLinks = AdmLinks::model()->findAllByAttributes(array('lnk_parent_id' => 0, 
     <nav class="light-blue accent-3">
         <div class="container">
             <div class="nav-wrapper">
-                <a class="brand-logo logo-link" href="#">
-                    <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
+                <a class="brand-logo logo-link" href="<?php echo Yii::app()->request->baseUrl . "/Admin/Default/Index"; ?>">
+                   <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
                 </a>
                 <ul class="hide-on-med-and-down right menu">
                     <?php

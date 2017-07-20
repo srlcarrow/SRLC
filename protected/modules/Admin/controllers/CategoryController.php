@@ -24,6 +24,7 @@ class CategoryController extends Controller {
             }
             $model->cat_name = $_POST['name'];
             $model->cat_order = $_POST['order'];
+
             if ($model->save(false)) {
                 $catId = $model->cat_id;
                 $data = $_POST['hiddenSubCat'];
