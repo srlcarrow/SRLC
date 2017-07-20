@@ -10,11 +10,11 @@
 
     <!--CSS | Materialize-->
     <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/materialize.min.css">
-    CSS | Materialize Icons
+    <!--CSS | Materialize Icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    CSS | Common
+    <!--CSS | Common-->
     <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/custom/common.css">
-    CSS | Admin
+    <!--CSS | Admin-->
     <link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/admin/mai2n.css">
 
     <!--========================================================
@@ -22,11 +22,11 @@
     =========================================================-->
     <!--JS | Jquery Lib-->
     <script src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
-    JS | Materialize
+    <!--JS | Materialize-->
     <script src="<?php //echo Yii::app()->baseUrl . '/js/materialize.min.js'; ?>"></script>
-    JS | Lodash
+    <!--JS | Lodash-->
     <script src="<?php //echo Yii::app()->baseUrl . '/js/lib/lodash-4.17.4.min.js'; ?>"></script>
-    JS | Admin Common
+    <!--JS | Admin Common-->
     <script src="<?php //echo Yii::app()->baseUrl . '/js/admin/common.js'; ?>"></script>
 
 
@@ -39,9 +39,9 @@
         Header Container
 =========================================================-->
 <header>
-    <?php $this->beginContent('//layouts/menu'); ?>
-    <?php echo $content; ?>
-    <?php $this->endContent(); ?>
+    <?php // $this->beginContent('//layouts/menu'); ?>
+    <?php // echo $content; ?>
+    <?php // $this->endContent(); ?>
 </header>
 
 <!-- ======================================================

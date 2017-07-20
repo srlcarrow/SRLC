@@ -2,6 +2,10 @@
 
 class CategoryController extends Controller {
 
+    public function init() {
+        $this->redirectToLogin();
+    }
+
     public function actionViewCategory() {
         $this->render('viewCategory');
     }

@@ -1,4 +1,5 @@
 <?php
+
 class Controller extends CController {
 
     /**
@@ -27,5 +28,11 @@ class Controller extends CController {
         }
     }
 
-}
+    public function redirectToLogin() {
+        parent::init();
+        if (yii::app()->user->isGuest) {
+            $this->redirect(array('Default/ViewLogin', 'controllerAction' => Yii::app()->urlManager->parseUrl(Yii::app()->request), 'request_arr' => $_REQUEST));
+        }
+    }
 
+}
