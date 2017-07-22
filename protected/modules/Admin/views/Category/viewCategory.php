@@ -1,5 +1,6 @@
 <!--JS | Jquery Lib-->
-<script src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js';                                       ?>"></script>
+<script
+    src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js';                                       ?>"></script>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddCategory')); ?>
 <div class="row">
     <div class="col s12">
@@ -9,10 +10,10 @@
 
                 <div class="row">
                     <div class="col s12 m8">
-                        <div class="input-field">                            
+                        <div class="input-field">
                             <input id="hiddenId" name="hiddenId" type="hidden" value="0" required>
                             <input id="name" name="name" type="text" required>
-                            <label >Category Name</label>
+                            <label>Category Name</label>
                         </div>
                     </div>
                     <div class="col s12 m4">
@@ -25,7 +26,8 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <button type="button" class="cm-btn add right add-new-input"><i class="material-icons left">&#xE148;</i>Add
+                        <button type="button" class="cm-btn add right add-new-input"><i class="material-icons left">
+                                &#xE148;</i>Add
                             New
                         </button>
                     </div>
@@ -43,8 +45,11 @@
 
             </div>
             <div class="card-action right-align">
-                <button type="button" class=" btn waves-effect waves-light red lighten-1" onclick="clearCategory()">Clear</button>
-                <button id="saveCategory" type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+                <button type="button" class=" btn waves-effect waves-light red lighten-1" onclick="clearCategory()">
+                    Clear
+                </button>
+                <button id="saveCategory" type="submit" class="btn waves-effect waves-light blue lighten-1">Save
+                </button>
 
             </div>
         </div>
@@ -98,9 +103,13 @@
         $(this).parents('.input-no-label').remove();
     });
 
+    //Form clean
     $(document).on('click', '.btn-form-clean', function () {
         buildInput('.row-input', true);
         $('input').val('');
+        $(document).ready(function () {
+            Materialize.updateTextFields();
+        });
     });
 
 
@@ -199,6 +208,9 @@
         $("#formAddCategory")[0].reset();
         $('.pr-20').attr('value', '');
         $('.row-input > .input-no-label').not(':first').remove();
+        $(document).ready(function () {
+            Materialize.updateTextFields();
+        });
     }
 
 </script>

@@ -1,11 +1,7 @@
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'login')); ?>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="login-form">
-    <div class="row">
+
+<div class="login-form ">
+    <div class="row mb-0">
         <div class="col s4 push-s4">
             <div class="card-panel login-panel">
                 <h5 class="grey-text text-darken-2 mb-30">Login</h5>
@@ -23,7 +19,9 @@
                             </div>
                         </div>
                         <div class="col s12 mt-15">
-                            <button type="button" onclick="login()" class="btn-login btn waves-light waves-effect blue">Login</button>
+                            <button type="button" onclick="login()" class="btn-login btn waves-light waves-effect blue">
+                                Login
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -58,12 +56,12 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-<?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
-<?php } else { ?> window.location = http_path + "Admin/Default/Index";
-<?php } ?>
+                    <?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
+                    <?php } else { ?> window.location = http_path + "Admin/Default/Index";
+                    <?php } ?>
                 }
-                else{
-                alert('wrong');
+                else {
+                   Message.danger('Ops!, Something went wrong.');
                 }
             }
         });

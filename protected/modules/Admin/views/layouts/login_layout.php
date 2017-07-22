@@ -43,7 +43,15 @@
     <body class="login">
         <!--Login form-->
         <div class="content">
+
             <?php echo $content; ?>
+
+            <div class="row">
+                <div class="col s4 offset-s4">
+                    <!--Message area-->
+                    <div class="card-panel adm-alert" role="alert"></div>
+                </div>
+            </div>
         </div>
     </body>
 
