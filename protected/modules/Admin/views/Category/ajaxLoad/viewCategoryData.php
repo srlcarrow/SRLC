@@ -16,24 +16,23 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Category 1</td>
-                            <td>2</td>
-                            <td class="adm-tbl-action_2">
-                                <a href="#"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
-                                <a href="#"><i class="material-icons red-text lighten-2">delete</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Category 3</td>
-                            <td>1</td>
-                            <td class="adm-tbl-action_2">
-                                <a href="#"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
-                                <a href="#"><i class="material-icons red-text lighten-2">delete</i></a>
-                            </td>
-                        </tr>
+                        <?php
+                        $row = 1;
+                        foreach ($categories as $category) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row; ?></td>
+                                <td><?php echo $category->cat_name; ?></td>
+                                <td><?php echo $category->cat_order; ?></td>
+                                <td class="adm-tbl-action_2">
+                                    <a id="<?php echo $category->cat_id; ?>" onclick="editCategory(this.id)"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
+                                    <a id="<?php echo $category->cat_id; ?>" onclick="deleteCategory(this.id)"><i class="material-icons red-text lighten-2">delete</i></a>
+                                </td>
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
 
                     </tbody>
                 </table>
@@ -41,3 +40,37 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var row = 0;
+    function deleteCategory(id) {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/DeleteCategory'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    loadCategoryData();
+                }
+            }
+        }
+        );
+    }
+
+    function editCategory(id) {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/GetEditCategoryData'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    loadDataToEdit(responce.data.subCategoryData);
+                }
+            }
+        }
+        );
+    }
+
+    
+</script>
