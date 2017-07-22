@@ -192,7 +192,7 @@ button.cm-btn.add {
     height: 16px;
     content: '<';
     font-size: 20px;
-    left:15px;
+    left: 15px;
     display: inline-block;
 }
 
@@ -217,5 +217,17 @@ button.cm-btn.add {
 }
 
 .login-form {
-    margin-top:10%;
+    margin-top: 10%;
+}
+
+.expand-card-head {
+
+}
+
+.expand-card-content {
+    display: none;
+}
+
+.company-form {
+    display: none;
 }

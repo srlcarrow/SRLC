@@ -6,6 +6,10 @@ class EmployerController extends Controller {
         $this->render('ViewEmployer');
     }
 
+    public function actionAdd() {
+        $this->render('add');
+    }
+
 }
 ?>
 

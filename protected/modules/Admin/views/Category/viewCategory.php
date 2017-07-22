@@ -1,7 +1,5 @@
 <!--JS | Jquery Lib-->
 
-<script src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
-
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddCategory')); ?>
 <div class="row">
     <div class="col s12">
@@ -21,7 +19,6 @@
                     </div>
                     <div class="col s12 m4">
                         <div class="input-field">
-
                             <input id="order" name="order" type="text" required>
 
                             <label>Category Order</label>
@@ -34,6 +31,7 @@
 
                         <button type="button" class="cm-btn add right add-new-input"><i class="material-icons left">
                                 &#xE148;</i>Add New
+
                         </button>
                     </div>
                 </div>
@@ -52,7 +50,6 @@
 
             </div>
             <div class="card-action right-align">
-
                 <button type="button" class=" btn waves-effect waves-light red lighten-1" onclick="clearCategory()">
                     Clear
                 </button>
@@ -74,6 +71,7 @@
 ============================================================================ -->
 
 <script>
+
     var i = 0;
     function buildInput(appendEle) {
         i = i + 1;
@@ -87,7 +85,6 @@
         html += '<input type="hidden" id="hiddenSubCatId_' + i + '" name="hiddenSubCat[]" value="0" class="hiddenSubCat">';
         html += '<input type="text" id="subCatId_' + i + '" name="subCatName[]" class="pr-20">';
         html += '<button id="delSubCatId_0" class="cm-btn ps-absolute right-5 btn-delete-input">';
-
         html += '<i class="material-icons m-0 red-text">delete</i>';
         html += '</button>';
         html += '</div>';
@@ -245,6 +242,5 @@
             Materialize.updateTextFields();
         });
     }
-
 
 </script>
