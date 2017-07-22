@@ -43,18 +43,30 @@
 <script type="text/javascript">
     var row = 0;
     function deleteCategory(id) {
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/DeleteCategory'; ?>",
-            data: {id: id},
-            dataType: 'json',
-            success: function (responce) {
-                if (responce.code == 200) {
-                    loadCategoryData();
+        function _deleteCategory(id) {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/DeleteCategory'; ?>",
+                data: {id: id},
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        $("#formAddCategory")[0].reset();
+                        $('.pr-20').attr('value', '');
+                        $('.row-input > .input-no-label').not(':first').remove();
+                        loadCategoryData();
+                    }
                 }
-            }
+            });
         }
-        );
+
+        Alert.confirm({
+            confirmed: function () {
+                _deleteCategory(id);
+            }
+        });
+
+
     }
 
     function editCategory(id) {
@@ -65,12 +77,13 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    loadDataToEdit(responce.data.subCategoryData);
+
+                    loadDataToEdit(responce.data);
                 }
             }
-        }
-        );
+        });
     }
 
-    
+
+
 </script>

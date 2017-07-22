@@ -2,6 +2,10 @@
 
 class CategoryController extends Controller {
 
+    public function init() {
+        $this->redirectToLogin();
+    }
+
     public function actionViewCategory() {
         $this->render('viewCategory');
     }
@@ -13,12 +17,30 @@ class CategoryController extends Controller {
 
     public function actionSaveCategory() {
         try {
-//            var_dump($_POST);exit;
-            $model = new AdmCategory();
+
+            if ($_POST['hiddenId'] == 0) {
+                $model = new AdmCategory();
+            } else {
+                $model = AdmCategory::model()->findByPk($_POST['hiddenId']);
+            }
             $model->cat_name = $_POST['name'];
             $model->cat_order = $_POST['order'];
+
             if ($model->save(false)) {
-                $subCat = new AdmSubcategory();
+                $catId = $model->cat_id;
+                $data = $_POST['hiddenSubCat'];
+                for ($i = 0; $i < count($data); $i++) {
+                    if ($data[$i] == 0) {
+                        $subCat = new AdmSubcategory();
+                    } else {
+                        $subCat = AdmSubcategory::model()->findByPk($data[$i]);
+                    }
+                    $subCat->ref_cat_id = $catId;
+                    $subCat->scat_name = $_POST['subCatName'][$i];
+                    $subCat->scat_order = 0;
+                    $subCat->save(false);
+                }
+
 
                 $this->msgHandler(200, "Successfully Saved...");
             }
@@ -32,6 +54,22 @@ class CategoryController extends Controller {
             $id = $_POST['id'];
             $model = new AdmCategory();
             if ($model->deleteByPk($id)) {
+
+                $subCategory = new AdmSubcategory();
+                $subCategory->deleteAllByAttributes(array('ref_cat_id' => $id));
+                $this->msgHandler(200, "Deleted Successfully...");
+            }
+        } catch (Exception $exc) {
+            $this->msgHandler(400, $exc->getTraceAsString());
+        }
+    }
+
+    public function actionDeleteSubCategory() {
+        try {
+            $id = $_POST['id'];
+            $model = new AdmSubcategory();
+            if ($model->deleteByPk($id)) {
+
                 $this->msgHandler(200, "Deleted Successfully...");
             }
         } catch (Exception $exc) {
