@@ -1,6 +1,6 @@
 <!--JS | Jquery Lib-->
 <script
-    src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js';                                       ?>"></script>
+src="<?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js';                                        ?>"></script>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddCategory')); ?>
 <div class="row">
     <div class="col s12">
@@ -133,8 +133,14 @@
             }
         });
     }
-    $('#saveCategory').click(function (e) {
-        e.preventDefault();
+
+    $("#formAddCategory").validate({
+        submitHandler: function () {
+            SaveCategory();
+        }
+    });
+
+    function SaveCategory() {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/SaveCategory'; ?>",
@@ -150,7 +156,7 @@
                 }
             }
         });
-    });
+    }
 
     function loadDataToEdit(data) {
 
