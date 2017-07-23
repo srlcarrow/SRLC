@@ -12,10 +12,16 @@
                         </div>
                     </div>
                     <div class="col s12 m8">
-                        <div class="row">
+                        <div class="row">                          
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comName" type="text">
+                                    <?php echo Chtml::dropDownList('ref_ind_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry')); ?>                                    
+                                    <label>Industry</label>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input name="comName" type="text" autocomplete="off" required>
                                     <label>Company Name</label>
                                 </div>
                             </div>
@@ -23,7 +29,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
-                                    <input name="comAddress" type="text">
+                                    <input name="comAddress" type="text"  autocomplete="off" required>
                                     <label>Address</label>
                                 </div>
                             </div>
@@ -31,13 +37,13 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comTel" type="text">
+                                    <input name="comTel" type="tel"  autocomplete="off" required>
                                     <label>Contact No</label>
                                 </div>
                             </div>
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comMobi" type="text">
+                                    <input name="comMobi"  autocomplete="off" type="tel">
                                     <label>Contact No (Optional)</label>
                                 </div>
                             </div>
@@ -47,14 +53,14 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comEmail" type="email">
+                                    <input name="comEmail" type="email"  autocomplete="off" required>
                                     <label>Email</label>
                                 </div>
                             </div>
 
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comConPerson" type="text">
+                                    <input name="comConPerson"  autocomplete="off" type="text">
                                     <label>Contact Person</label>
                                 </div>
                             </div>
@@ -77,8 +83,13 @@
 <!--</div>-->
 
 <script>
-    $('#saveEmployer').click(function (e) {
-        e.preventDefault();
+    $("#formAddEmployer").validate({
+        submitHandler: function () {
+            saveEmployer();
+        }
+    });
+
+    function saveEmployer() {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/SaveEmployer'; ?>",
@@ -91,7 +102,7 @@
                 }
             }
         });
-    });
+    }
 
     $('#clearAddEmployer').click(function (e) {
         $("#formAddEmployer")[0].reset();
@@ -101,6 +112,7 @@
         $("#formAddEmployer")[0].reset();
         $('.company-form').slideUp('fast', function () {
             $('.search-area,.company-cards').slideDown('slow');
+            loadEmployerData();
         })
     });
 </script>

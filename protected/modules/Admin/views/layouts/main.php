@@ -9,16 +9,16 @@
             Stylesheet
         =========================================================-->
         <!--CSS | Materialize-->
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl;  ?>/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/materialize.min.css">
         <!--CSS | Materialize Icons-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--CSS | Common-->
         <link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/custom/common.css">
         <!--CSS | Sweet Alert-->
-        <link rel="stylesheet" type="text/css" href="<?php echo  $this->module->assetsUrl; ?>/css/plugins/sweetalert.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/plugins/sweetalert.css">
         <!--CSS | Admin-->
-        <link rel="stylesheet" type="text/css" href="<?php echo  $this->module->assetsUrl; ?>/css/admin/main.css">
-      
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/admin/main.css">
+
         <!--========================================================
             Javascript
         =========================================================-->
@@ -32,6 +32,8 @@
         <script src="<?php echo $this->module->assetsUrl . '/js/plugins/sweetalert/sweetalert.min.js'; ?>"></script>
         <!--JS | Admin Common-->
         <script src="<?php echo $this->module->assetsUrl . '/js/admin/common.js'; ?>"></script>
+        <!--JS | Admin Validation-->
+        <script src="<?php echo $this->module->assetsUrl . '/js/admin/jquery.validate.js'; ?>"></script>
 
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -47,7 +49,7 @@
             <?php echo $content; ?>
             <?php $this->endContent(); ?>            
         </header>
-        
+
 
         <!-- ======================================================
                Main Container
@@ -57,7 +59,7 @@
             <!--Message area-->
             <div class="card-panel adm-alert" role="alert"></div>
 
-        <?php echo $content; ?>
+            <?php echo $content; ?>
 
         </div>
 

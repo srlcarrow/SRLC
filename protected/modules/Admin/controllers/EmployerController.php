@@ -22,7 +22,7 @@ class EmployerController extends Controller {
             $model->employer_address = $_POST['comAddress'];
             $model->employer_tel = $_POST['comTel'];
             $model->employer_mobi = $_POST['comMobi'];
-            $model->employer_email = $_POST['comEmail'];
+            $model->employer_email = strtolower(str_replace(' ', '', $_POST['comEmail']));
             $model->employer_contact_person = $_POST['comConPerson'];
             if ($model->save(false)) {
                 $this->msgHandler(200, "Successfully Saved...");

@@ -35,10 +35,6 @@ class Controller extends CController {
         }
     }
 
-    public static function getNextEmployerRefereneNo() {
-        
-    }
-
    
 
 }
