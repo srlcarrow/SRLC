@@ -21,7 +21,11 @@
 .f-12 {
     font-size: 12px !important;
 }
-
+.border-r-0 {
+    -webkit-border-radius:0 !important;
+    -moz-border-radius:0 !important;
+    border-radius:0 !important;
+}
 .hide-block {
     display: none;
 }

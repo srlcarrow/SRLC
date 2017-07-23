@@ -1,3 +1,20 @@
+$(function () {
+    var advanceToggle = false;
+
+    $('.btnAdvance').on('click', function () {
+        advanceToggle = !advanceToggle;
+        if (advanceToggle) {
+            $('.more-panel').slideDown('fast');
+            $('.search-action').addClass('hide');
+        }else {
+            $('.more-panel').slideUp('fast');
+            $('.search-action').removeClass('hide');
+        }
+    });
+
+
+});
+
 /*======================================
  Message
  =======================================*/
