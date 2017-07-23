@@ -1,4 +1,15 @@
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
+<?php
+// Image Crop
+Yii::app()->clientScript->registerCssFile($this->module->assetsUrl . '/css/plugins/imageCrop/image-crop.css', 'screen');
+
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/lib/jquery.2.0.0.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerScriptFile($this->module->assetsUrl . '/js/plugins/imageCrop/jquery.cropit.js', CClientScript::POS_HEAD);
+?>
+
+
 <div class="row">
+
 
     <div class="col s12">
         <button class="cm-btn add right addNewCompany">
@@ -12,12 +23,40 @@
                 <h5 class="grey-text text-darken-1">Add Company</h5>
 
                 <div class="row">
-                    <div class="col s12 m4">
+                    <div class="col s12 m5">
                         <div class="row">
-                            <div class="col s12">Company logo</div>
+                            <div class="col s12">
+
+                                <div class="image-editor">
+                                    <div class="dist">
+                                        <p>Add photo by dropping them here</p>
+                                        <img src="<?php echo $this->module->assetsUrl; ?>/css/plugins/imageCrop/gallery.svg">
+                                    </div>
+                                    <div class="image-wrp dash-br">
+                                        <div class="cropit-preview no-background"></div>
+                                    </div>
+                                    <div class="action-wrp">
+                                        <!--set error msg-->
+                                        <div class="error-msg"></div>
+                                        <div class="upload-wrp">
+                                            <div class="upload dark">
+                                                <input type="file" class=" cropit-image-input" >
+                                            </div>
+                                            <span>Image Upload</span>
+                                        </div>
+
+                                        <div class="range-slider">
+                                            <input min="0" max="1" type="range" step="0.01" class="cropit-image-zoom-input rangeSlide" data-rangeslider>
+                                            <!--<input min="0" max="1" step="0.01" type="range" class="rangeSlide" data-rangeslider>-->
+                                        </div>
+                                        <p class="upload-note">Please make sure you will upload only 'jpg' file that is not exceeding 5 MB </p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    <div class="col s12 m8">
+                    <div class="col s12 m7">
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
@@ -123,8 +162,23 @@
             </div>
         </div>
     </div>
+
+    <div class="col s12">
+        <ul class=" right pagination">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!">1</a></li>
+            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!">4</a></li>
+            <li class="waves-effect"><a href="#!">5</a></li>
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
 </div>
 
+<!-- ===========================================================================
+        Custom Script
+============================================================================ -->
 
 <script>
     $(function () {
@@ -156,3 +210,78 @@
     });
 
 </script>
+
+<!-- ===========================================================================
+       Plugin Script
+============================================================================ -->
+<!--<script>-->
+<!--    $(function() {-->
+<!--        $('.image-editor').cropit({-->
+<!--            exportZoom: 1.25,-->
+<!--            imageBackground: true,-->
+<!--            imageBackgroundBorderWidth: 20,-->
+<!--            imageState: {-->
+<!--                src: 'http://lorempixel.com/500/400/',-->
+<!--            },-->
+<!--        });-->
+<!---->
+<!--        $('.rotate-cw').click(function() {-->
+<!--            $('.image-editor').cropit('rotateCW');-->
+<!--        });-->
+<!--        $('.rotate-ccw').click(function() {-->
+<!--            $('.image-editor').cropit('rotateCCW');-->
+<!--        });-->
+<!---->
+<!--        $('.export').click(function() {-->
+<!--            var imageData = $('.image-editor').cropit('export');-->
+<!--            window.open(imageData);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<script>
+
+
+
+    $(window).load(function () {
+        resetAl();
+
+        $('.image-editor').cropit({
+            imageBackground: true,
+            onImageLoading: function () {
+
+            },
+            onImageLoaded: function () {
+
+            },
+            onImageError: function (e) {
+//                e.message
+            },
+            width: 225,
+            height: 150
+        });
+
+        $('.export').click(function () {
+            var $modal = $('#myModal2');
+            var $imageCropper = $('.image-editor');
+            var imageData = $imageCropper.cropit('export', {
+                type: 'image/jpeg'
+            });
+            //reset
+            resetAl();
+        });
+        function resetAl() {
+            $('.dist').css('display', 'block');
+            $('.image-wrp').removeClass('solid-br').addClass('dash-br');
+            $('.cropit-preview-image').attr('src', '');
+            $('.cropit-image-zoom-input').val(0);
+            $('.cropit-preview-background').attr('src', '');
+        }
+    })
+
+
+</script>
+
+<!-- ===========================================================================
+        Backend Script
+============================================================================ -->
+

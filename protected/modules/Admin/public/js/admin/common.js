@@ -162,14 +162,52 @@ var Alert = (function () {
 /*=========================================
  Scroll
  =========================================*/
-
+$('.modal').modal();
 var Scroll = (function () {
     var _scroll = {};
 
-    _scroll.toUp = function(pos) {
-       var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
-        $("html, body").animate({ scrollTop: _pos }, "slow");
+    _scroll.toUp = function (pos) {
+        var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
+        $("html, body").animate({scrollTop: _pos}, "slow");
     };
 
     return _scroll;
 }());
+
+// var Modal = (function () {
+//     var _modal = {};
+//
+//
+//     _modal.show = function (option) {
+//         var defaultOpt = {
+//            loadAjax:null
+//         };
+//
+//         var opt = $.extend(defaultOpt,option);
+//
+//         $('.modal').modal({
+//                 dismissible: true,
+//                 opacity: .5,
+//                 inDuration: 300,
+//                 outDuration: 200,
+//                 startingTop: '4%',
+//                 endingTop: '10%',
+//                 ready: function (modal, trigger) {
+//                     alert("Ready");
+//                     console.log(modal, trigger);
+//
+//                     if(opt.loadAjax && typeof opt.loadAjax == 'function') {
+//                         opt.loadAjax.call(this,modal, trigger);
+//                     }
+//                 },
+//                 complete: function () {
+//                     alert('Closed');
+//                 } // Callback for Modal close
+//             }
+//         );
+//     };
+//
+//
+//     return _modal;
+// })();
+
