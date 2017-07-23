@@ -162,13 +162,13 @@ var Alert = (function () {
 /*=========================================
  Scroll
  =========================================*/
-$('.modal').modal();
+
 var Scroll = (function () {
     var _scroll = {};
 
-    _scroll.toUp = function (pos) {
-        var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
-        $("html, body").animate({scrollTop: _pos}, "slow");
+    _scroll.toUp = function(pos) {
+       var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
+        $("html, body").animate({ scrollTop: _pos }, "slow");
     };
 
     return _scroll;
