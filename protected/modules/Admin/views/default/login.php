@@ -10,11 +10,11 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="input-field">
-                                <input id="username" name="username" type="text" required>
+                                <input id="username" autocomplete="off" name="username" type="text" required>
                                 <label>Username</label>
                             </div>
                             <div class="input-field">
-                                <input id="password" name="password" type="password" required>
+                                <input id="password" autocomplete="off" name="password" type="password" required>
                                 <label>Password</label>
                             </div>
                         </div>
@@ -56,12 +56,13 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    <?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
-                    <?php } else { ?> window.location = http_path + "Admin/Default/Index";
-                    <?php } ?>
+                Message.success('Login Success..');
+<?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
+<?php } else { ?> window.location = http_path + "Admin/Default/Index";
+<?php } ?>
                 }
                 else {
-                   Message.danger('Ops!, Something went wrong.');
+                Message.danger('Ops!, Something went wrong.');
                 }
             }
         });

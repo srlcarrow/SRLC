@@ -25,15 +25,15 @@ var Message = (function () {
         removeClasses();
 
         $('.adm-alert')
-            .html(msg)
-            .addClass(msgTypes[type])
-            .slideDown('slow', function () {
-                var _this = $(this);
-                setTimeout(function () {
-                    _this.slideUp('fast');
-                    removeClasses();
-                }, 3000);
-            });
+                .html(msg)
+                .addClass(msgTypes[type])
+                .slideDown('slow', function () {
+                    var _this = $(this);
+                    setTimeout(function () {
+                        _this.slideUp('fast');
+                        removeClasses();
+                    }, 3000);
+                });
     }
 
     _message.success = function (msg) {
@@ -90,30 +90,30 @@ var Alert = (function () {
 
     /*
      How to use....
-
+     
      ----------------
      Confirm Alert
      -----------------
-
+     
      Default
      1. Alert.confirm();
-
+     
      Your Way
      2. Alert.confirm({
      title: "Your message title goes here",
      msg: "Your message goes here",
-
+     
      ---- Call after confirm btn was click.---
      confirmed: function(){
      //Your code
      },
-
+     
      ---- Call after confirm btn was click.---
      canceled: function(){
      //Your code
      }
      });
-
+     
      */
 
     var _alert = {};
@@ -131,27 +131,27 @@ var Alert = (function () {
         _option = $.extend(_option, option);
 
         swal({
-                title: _option.title,
-                text: _option.msg,
-                type: _option.type,
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: true
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    // Call after confirm btn click
-                    if (typeof _option.confirmed === 'function') {
-                        _option.confirmed();
-                    }
-                } else {
-                    // Call after cancel btn click
-                    if (typeof _option.canceled === 'function') {
-                        _option.canceled();
+            title: _option.title,
+            text: _option.msg,
+            type: _option.type,
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        // Call after confirm btn click
+                        if (typeof _option.confirmed === 'function') {
+                            _option.confirmed();
+                        }
+                    } else {
+                        // Call after cancel btn click
+                        if (typeof _option.canceled === 'function') {
+                            _option.canceled();
+                        }
                     }
                 }
-            }
         );
     };
 
@@ -166,9 +166,9 @@ var Alert = (function () {
 var Scroll = (function () {
     var _scroll = {};
 
-    _scroll.toUp = function(pos) {
-       var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
-        $("html, body").animate({ scrollTop: _pos }, "slow");
+    _scroll.toUp = function (pos) {
+        var _pos = (pos > 0 && pos != undefined) ? pos : 0;
+        $("html, body").animate({scrollTop: _pos}, "slow");
     };
 
     return _scroll;

@@ -18,6 +18,7 @@ class EmployerController extends Controller {
     public function actionSaveEmployer() {
         try {
             $model = new EmpEmployers();
+            $model->ref_ind_id = $_POST['ref_ind_id'];
             $model->employer_name = $_POST['comName'];
             $model->employer_address = $_POST['comAddress'];
             $model->employer_tel = $_POST['comTel'];
