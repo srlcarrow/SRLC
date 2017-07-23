@@ -1,6 +1,12 @@
+<div class="ajaxLoadAdd"></div>
 
-<!--Search Area-->
-<div class="row">
+<div class="row search-area ">
+    <div class="col s12">
+        <button class="cm-btn add right addNewCompany">
+            <i class="material-icons left">&#xE148;</i>Add New
+        </button>
+    </div>
+
     <div class="col s12">
         <div class="card-panel">
             <div class="search-input-wrp grey lighten-3">
@@ -14,35 +20,39 @@
             </div>
         </div>
     </div>
+    <div class="ajaxLoad"></div>
 </div>
 
-<div class="row">
-    <div class="col s12">
-        <div class="card-panel detail-card outer-tb-15">
-            <div class="row mb-0">
-                <div class="col s6">
-                    <h6 class="grey-text text-darken-1 ">Abc Company</h6>
-                </div>
-                <div class="col s3">
-                    <h6 class="grey-text text-darken-1">Inactive</h6>
-                </div>
-                <div class="col s3">
-                    <button class="right btn waves-effect waves-light btn-">View</button>
-                </div>
-            </div>
-        </div>
-        <div class="card-panel detail-card outer-tb-15">
-            <div class="row mb-0">
-                <div class="col s6">
-                    <h6 class="grey-text text-darken-1 ">Abc Company</h6>
-                </div>
-                <div class="col s3">
-                    <h6 class="grey-text text-darken-1">Inactive</h6>
-                </div>
-                <div class="col s3">
-                    <button class="right btn waves-effect waves-light btn-">View</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<script>
+    $(document).ready(function (e) {
+        loadEmployerData();
+    });
+
+    function loadEmployerData() {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/ViewEmployerData'; ?>",
+            data: '',
+            success: function (responce) {
+                $(".ajaxLoad").html(responce);
+            }
+        });
+    }
+    
+    $('.addNewCompany').on('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/EmployerAdd'; ?>",
+            data: '',
+            success: function (responce) {
+                $('.search-area,.company-cards').slideUp('fast', function () {
+                    $(".ajaxLoadAdd").html(responce);
+                    $('.company-form').slideDown('slow');
+
+                })
+            }
+        });
+
+    });
+</script>

@@ -1,0 +1,106 @@
+<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddEmployer')); ?>
+<div class="row">
+    <div class="col s12 company-form">
+        <div class="card ">
+            <div class="card-content">
+                <h5 class="grey-text text-darken-1">Add Company</h5>
+
+                <div class="row">
+                    <div class="col s12 m4">
+                        <div class="row">
+                            <div class="col s12">Company logo</div>
+                        </div>
+                    </div>
+                    <div class="col s12 m8">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input name="comName" type="text">
+                                    <label>Company Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <input name="comAddress" type="text">
+                                    <label>Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input name="comTel" type="text">
+                                    <label>Contact No</label>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input name="comMobi" type="text">
+                                    <label>Contact No (Optional)</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input name="comEmail" type="email">
+                                    <label>Email</label>
+                                </div>
+                            </div>
+
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input name="comConPerson" type="text">
+                                    <label>Contact Person</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="card-action right-align">
+                <button id="closeAddEmployer" type="button" class=" btn_close_Company btn waves-effect waves-light red lighten-1">Close</button>
+                <button id="clearAddEmployer" type="button" class=" btn waves-effect waves-light red lighten-1">Clear</button>
+                <button id="saveEmployer" type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->endWidget(); ?>
+<!--</div>-->
+
+<script>
+    $('#saveEmployer').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/SaveEmployer'; ?>",
+            data: $('#formAddEmployer').serialize(),
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    Message.success(responce.msg);
+                    $("#formAddEmployer")[0].reset();
+                }
+            }
+        });
+    });
+
+    $('#clearAddEmployer').click(function (e) {
+        $("#formAddEmployer")[0].reset();
+    });
+
+    $('#closeAddEmployer').click(function (e) {
+        $("#formAddEmployer")[0].reset();
+        $('.company-form').slideUp('fast', function () {
+            $('.search-area,.company-cards').slideDown('slow');
+        })
+    });
+</script>
