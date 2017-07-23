@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="ajaxLoad"></div>
+    <div class="col s12 ajaxLoad"></div>
 </div>
 
 

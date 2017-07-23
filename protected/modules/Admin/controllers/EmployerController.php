@@ -11,6 +11,10 @@ class EmployerController extends Controller {
         $this->renderPartial('ajaxLoad/ViewEmployerData', array('employers' => $employers));
     }
 
+    public function actionLoadPaymentPopup() {
+        $this->renderPartial('ajaxLoad/paymentPopup');
+    }
+
     public function actionEmployerAdd() {
         $this->renderPartial('ajaxLoad/addEmployer');
     }
