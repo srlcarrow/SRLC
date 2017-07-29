@@ -1,3 +1,20 @@
+$(function () {
+    var advanceToggle = false;
+
+    $('.btnAdvance').on('click', function () {
+        advanceToggle = !advanceToggle;
+        if (advanceToggle) {
+            $('.more-panel').slideDown('fast');
+            $('.search-action').addClass('hide');
+        }else {
+            $('.more-panel').slideUp('fast');
+            $('.search-action').removeClass('hide');
+        }
+    });
+
+
+});
+
 /*======================================
  Message
  =======================================*/
@@ -166,10 +183,50 @@ var Alert = (function () {
 var Scroll = (function () {
     var _scroll = {};
 
-    _scroll.toUp = function(pos) {
-       var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
-        $("html, body").animate({ scrollTop: _pos }, "slow");
+    _scroll.toUp = function (pos) {
+        var _pos = ( pos > 0 && pos != undefined) ? pos : 0;
+        $("html, body").animate({scrollTop: _pos}, "slow");
     };
 
     return _scroll;
 }());
+
+var Modal = (function () {
+    var _modal = {};
+
+
+    _modal.show = function (option) {
+        var defaultOpt = {
+            loadAjax: null
+        };
+
+        var opt = $.extend(defaultOpt, option);
+
+        $('.modal').modal('open', {
+                dismissible: true,
+                opacity: .5,
+                inDuration: 300,
+                outDuration: 200,
+                startingTop: '4%',
+                endingTop: '10%',
+                ready: function (modal, trigger) {
+
+                    if (opt.loadAjax && typeof opt.loadAjax == 'function') {
+                        opt.loadAjax.call(this, modal, trigger);
+                    }
+                }
+            }
+        );
+    };
+
+    _modal.close = function () {
+        $('.modal').modal('close', {
+            complete: function () {
+
+            } // Callback for Modal close
+        });
+    };
+
+    return _modal;
+})();
+

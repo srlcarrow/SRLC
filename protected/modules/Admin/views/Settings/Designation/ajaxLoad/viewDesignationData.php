@@ -3,14 +3,14 @@
         <div class="card">
             <div class="card-content">
 
-                <h5 class="grey-text text-darken-1">Categories</h5>
+                <h5 class="grey-text text-darken-1">Designations</h5>
 
                 <table class="responsive-table bordered striped">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Order</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -18,15 +18,18 @@
                     <tbody>
                         <?php
                         $row = 1;
-                        foreach ($categories as $category) {
+                        foreach ($designations as $designation) {
                             ?>
                             <tr>
                                 <td><?php echo $row; ?></td>
-                                <td><?php echo $category->cat_name; ?></td>
-                                <td><?php echo $category->cat_order; ?></td>
+                                <td><?php echo $designation->desig_name; ?></td>
+                                <td><?php
+                                    $category = AdmCategory::model()->findByPk($designation->ref_cat_id);
+                                    echo $category->cat_name;
+                                    ?></td>
                                 <td class="adm-tbl-action_2">
-                                    <a id="<?php echo $category->cat_id; ?>" onclick="editCategory(this.id)"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
-                                    <a id="<?php echo $category->cat_id; ?>" onclick="deleteCategory(this.id)"><i class="material-icons red-text lighten-2">delete</i></a>
+                                    <a id="<?php echo $designation->desig_id; ?>" onclick="editDesignation(this.id)"><i class="material-icons grey-text lighten-2">mode_edit</i></a>
+                                    <a id="<?php echo $designation->desig_id; ?>" onclick="deleteDesignation(this.id)"><i class="material-icons red-text lighten-2">delete</i></a>
                                 </td>
                             </tr>
                             <?php
@@ -43,19 +46,17 @@
 <script type="text/javascript">
 
     var row = 0;
-    function deleteCategory(id) {
-        function _deleteCategory(id) {
+    function deleteDesignation(id) {
+        function _deleteDesignation(id) {
             $.ajax({
                 type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/DeleteCategory'; ?>",
+                url: "<?php echo Yii::app()->baseUrl . '/Admin/Designation/DeleteDesignation'; ?>",
                 data: {id: id},
                 dataType: 'json',
                 success: function (responce) {
                     if (responce.code == 200) {
-                        $("#formAddCategory")[0].reset();
-                        $('.pr-20').attr('value', '');
-                        $('.row-input > .input-no-label').not(':first').remove();
-                        loadCategoryData();
+                        $("#formAddDesignation")[0].reset();
+                        loadDesignation();
                     }
                 }
             });
@@ -63,26 +64,25 @@
 
         Alert.confirm({
             confirmed: function () {
-                _deleteCategory(id);
+                _deleteDesignation(id);
             }
         });
 
-
     }
 
-    function editCategory(id) {
+    function editDesignation(id) {
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Admin/Category/GetEditCategoryData'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Designation/GetEditDesignationData'; ?>",
             data: {id: id},
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-
                     loadDataToEdit(responce.data);
                 }
             }
         });
     }
+
 
 </script>

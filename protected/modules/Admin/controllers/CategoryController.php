@@ -7,12 +7,12 @@ class CategoryController extends Controller {
     }
 
     public function actionViewCategory() {
-        $this->render('viewCategory');
+        $this->render('/Settings/Category/viewCategory');
     }
 
     public function actionViewCategoryData() {
         $categories = AdmCategory::model()->findAll();
-        $this->renderPartial('ajaxLoad/viewCategoryData', array('categories' => $categories));
+        $this->renderPartial('/Settings/Category/ajaxLoad/viewCategoryData', array('categories' => $categories));
     }
 
     public function actionSaveCategory() {

@@ -1,3 +1,34 @@
+.f-24 {
+    font-size: 24px !important;
+}
+
+.f-20 {
+    font-size: 20px !important;
+}
+
+.f-18 {
+    font-size: 18px !important;
+}
+
+.f-16 {
+    font-size: 16px !important;
+}
+
+.f-14 {
+    font-size: 14px !important;
+}
+
+.f-12 {
+    font-size: 12px !important;
+}
+.border-r-0 {
+    -webkit-border-radius:0 !important;
+    -moz-border-radius:0 !important;
+    border-radius:0 !important;
+}
+.hide-block {
+    display: none;
+}
 
 .navbar-fixed {
     height: 90px;
@@ -230,4 +261,14 @@ button.cm-btn.add {
 
 .company-form {
     display: none;
+}
+
+.logo-wrp {
+    width: 225px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.logo-wrp img {
+    width: 100%;
 }
