@@ -22,9 +22,9 @@
     font-size: 12px !important;
 }
 .border-r-0 {
-    -webkit-border-radius:0 !important;
-    -moz-border-radius:0 !important;
-    border-radius:0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
 }
 .hide-block {
     display: none;
@@ -48,6 +48,10 @@
 
 .ps-absolute {
     position: absolute;
+}
+
+.ps-relative {
+    position: relative;
 }
 
 /*------------------------------------
@@ -179,6 +183,13 @@ button.cm-btn.add {
     padding-bottom: 15px;
 }
 
+input.h-20 {
+    height: 20px !important;
+    margin-bottom:0 !important;
+}
+input[disabled].disabled {
+    border: none !important;
+}
 /*====================================
    Menu
 =====================================*/
