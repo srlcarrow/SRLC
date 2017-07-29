@@ -230,3 +230,19 @@ var Modal = (function () {
     return _modal;
 })();
 
+
+
+
+// $(function () {
+//     $('.btn-editAndSave').on('click',function () {
+//         var $this = $(this);
+//         var input = $this.prev('input');
+//         if(input.is(':disabled')) {
+//             input.prop('disabled',false);
+//             $this.find('i').html('save');
+//         }else {
+//             input.prop('disabled',true);
+//             $this.find('i').html('edit');
+//         }
+//     });
+// });
