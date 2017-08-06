@@ -283,3 +283,13 @@ input[disabled].disabled {
 .logo-wrp img {
     width: 100%;
 }
+span.badge.empty::after {
+    content: "";
+}
+span.badge.empty {
+    background-color: #26a69a;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 300;
+}

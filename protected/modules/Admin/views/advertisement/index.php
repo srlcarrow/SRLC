@@ -1,3 +1,16 @@
+<!--echo  $this->module->assetsUrl-->
+<!-- Include external CSS. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
+      type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/codemirror.css">
+
+<!-- Include Editor style. -->
+<link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_editor.pkgd.min.css" rel="stylesheet"
+      type="text/css"/>
+<link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_style.min.css" rel="stylesheet"
+      type="text/css"/>
+
+
 <div class="row">
 
     <div class="col s12">
@@ -320,7 +333,8 @@
                     <div class="row">
                         <div class="col s12">
                             <h6 class="f-12 grey-text text-darken-1">Upload image or Note</h6>
-                            <h5 class="f-14 grey-text text-darken-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam obcaecati odit veniam!</h5>
+                            <h5 class="f-14 grey-text text-darken-3">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Ipsam obcaecati odit veniam!</h5>
                         </div>
                     </div>
 
@@ -414,19 +428,37 @@
     });
 
     //Order edit
-    $('.btn-editAndSave').on('click',function () {
+    $('.btn-editAndSave').on('click', function () {
         var $this = $(this);
         var input = $this.prev('input');
-        if(input.is(':disabled')) {
-            input.prop('disabled',false);
+        if (input.is(':disabled')) {
+            input.prop('disabled', false);
             $this.find('i').html('save');
-        }else {
-            input.prop('disabled',true);
+        } else {
+            input.prop('disabled', true);
             $this.find('i').html('edit');
         }
     });
 
     $(document).ready(function () {
         $('select').material_select();
+    });
+</script>
+
+<!-- Include external JS libs. -->
+<script type="text/javascript"
+        src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/codemirror.min.js"></script>
+<script type="text/javascript"
+        src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/xml.min.js"></script>
+
+<!-- Include Editor JS files. -->
+<script type="text/javascript"
+        src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/froala_editor.pkgd.min.js"></script>
+
+<!-- Initialize the editor. -->
+<script> $(function () {
+        $('textarea').froalaEditor({
+            heightMin: 380
+        })
     });
 </script>

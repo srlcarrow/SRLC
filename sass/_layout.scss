@@ -1,0 +1,32 @@
+@import "variable";
+
+.main-block {
+  float: left;
+  width: 100%;
+}
+
+.main-title {
+  margin-top: 230px;
+  @include transition($animation-1);
+  opacity: 1;
+
+  h1 {
+    color: $white;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 55px;
+  }
+
+  h3 {
+    color: rgba($white, $opt-3);
+    text-align: center;
+  }
+}
+
+//------------------------------------------------------------------
+//Search result style
+//------------------------------------------------------------------
+
+#searchContent {
+  margin: 30px 0;
+}

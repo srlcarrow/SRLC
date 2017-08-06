@@ -1,0 +1,202 @@
+@import "variable";
+
+//Space
+.lg-ml-20 {
+  margin-left: 20px;
+  @include breakpoint($medium) {
+    margin-left: 0;
+  }
+}
+
+.float-block {
+  float: left;
+  width: 100%;
+}
+
+.gradient {
+  background: rgb(41, 137, 216);
+  background: -moz-linear-gradient(-45deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
+  background: linear-gradient(135deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2989d8', endColorstr='#3de3ee', GradientType=1);
+}
+
+//Icon
+.icon {
+  display: inline-block;
+
+  &.icon-20 {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.icon-arrow-down {
+    height: 10px;
+    background: url("../images/system/icon/site/20/ic_20-arrow-down.png");
+  }
+}
+
+//Dot
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  @include border-radius(50%);
+  background: rgba($blue-dark, $opt-4);
+}
+
+//Search Box
+.search-box {
+  background: $white;
+  min-height: 60px;
+  -webkit-box-shadow: 0 2px 2px rgba($black, 0.20);
+  -moz-box-shadow: 0 2px 2px rgba($black, 0.20);
+  box-shadow: 0 2px 2px rgba($black, 0.20);
+  @include border-radius(6px);
+
+  .job-drop-down {
+    position: relative;
+    padding: 15px 30px;
+    cursor: pointer;
+
+    .selected-item {
+      font-size: $font-large;
+      color: $blue-dark;
+      font-weight: $font-w-regular;
+
+      //Media
+      @include breakpoint($small) {
+        font-size: $font-small;
+      }
+    }
+
+    &::before {
+      position: absolute;
+      display: inline-block;
+      content: '';
+      width: 1px;
+      height: 100%;
+      background: $black;
+      top: 0;
+      right: 0;
+
+      //Media Query
+      @include breakpoint($small) {
+        display: none;
+      }
+    }
+
+  }
+
+  .job-input {
+    padding: 15px 30px;
+    position: relative;
+
+    input[type="text"] {
+      outline: none;
+      border: none;
+      width: calc(100% - 60px);
+      height: 30px;
+      left: 30px;
+      top: 15px;
+      color: $black;
+      font-size: $font-large;
+
+      //Media
+      @include breakpoint($small) {
+        font-size: $font-small;
+      }
+    }
+  }
+}
+
+//Selector
+.selector {
+  position: relative;
+  float: left;
+  width: 100%;
+
+  select {
+    display: none;
+  }
+
+  .selected-option {
+    float: left;
+    font-size: $font-small;
+    color: $white;
+    font-weight: $font-w-medium;
+    width: inherit;
+    background: url("../images/system/icon/site/16/ic_16-arrow-down-white.png") no-repeat right 10px;
+    cursor: pointer;
+  }
+
+  .option-list {
+    float: left;
+    width: inherit;
+  }
+}
+
+//------------------------------------------------------------------
+//Search result style
+//------------------------------------------------------------------
+
+.total-jobs {
+  h4 {
+    color: $blue-light;
+    span {
+      margin: 0 3px;
+    }
+  }
+}
+
+.job-list-wrap {
+
+  .job-list {
+
+    > li {
+      border-bottom: 1px solid $gray-light;
+      padding: 30px 24px 20px 24px;
+      @include transition($animation-1);
+
+      &:hover {
+        @include box-shadow2(0px, 10px, 15px, 2px, rgba($black, 0.30));
+      }
+
+      h3 {
+        color: $blue-dark;
+        margin-bottom: 10px;
+        font-weight: $font-w-medium;
+      }
+
+      h6 {
+        color: rgba($blue-dark, $opt-3);
+        display: inline-block;
+        width: 100%;
+        font-weight: $font-w-light;
+
+        span {
+
+          vertical-align: middle;
+
+          &.time-left {
+            float: right;
+          }
+        }
+      }
+
+      ul.more-details-list {
+        margin-top: 10px;
+
+        li {
+          display: inline-block;
+          font-size: $base-font-size;
+
+          &:not(:last-child) {
+            margin-right: 50px;
+          }
+        }
+      }
+
+    }
+  }
+}

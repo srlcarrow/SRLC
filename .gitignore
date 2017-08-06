@@ -11,3 +11,4 @@ nbproject
 # windows thumbnail cache
 Thumbs.db
 /demos/
+/node_modules/
