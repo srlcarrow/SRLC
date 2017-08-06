@@ -1,0 +1,12 @@
+{
+  "name": "myProjects",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/srlcarrow/SRLC.git",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
+}

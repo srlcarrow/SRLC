@@ -1,0 +1,114 @@
+//---------------------------------------------------
+//Variables
+//---------------------------------------------------
+
+//Header Font size
+$h1: 55px;
+$h2: 36px;
+$h3: 24px;
+$h4: 18px;
+$h5: 16px;
+$h6: 14px;
+
+//Base font size
+$base-font-size: 14px;
+
+//Font Family
+$roboto: 'Roboto', sans-serif;
+
+//Font sizes
+$font-xs-large: 55px;
+$font-largest: 36px;
+$font-large: 24px;
+$font-small: 18px;
+$font-smallest: 16px;
+$font-xs-small: $base-font-size;
+
+//Font weight
+$font-w-light: 300;
+$font-w-regular: 400;
+$font-w-medium: 500;
+
+//Opacity
+$opt-1: 1;
+$opt-2: 0.86;
+$opt-3: 0.56;
+$opt-4: 0.30;
+
+//Colors
+$white: #fff;
+$black: #000;
+$blue-dark: #2c2b3f;
+$blue-light: #2491f6;
+$blue-light-2: #028dda;
+$blue-light-3: #3de3ee;
+$gray-light: #bfbfc5;
+
+//Animation
+$animation-1: all 0.8s cubic-bezier(.01, .87, .29, .97);
+
+//---------------------------------------------------
+//Functions
+//---------------------------------------------------
+
+//Font size by base font
+@function fontSizeByBase($val) {
+  @return $base-font-size * $val / 100;
+}
+
+//---------------------------------------------------
+//Mixing
+//---------------------------------------------------
+
+//Responsive
+$small: 'small';
+$medium: 'medium';
+$large: 'large';
+
+@mixin breakpoint($breakpoint) {
+  @if $breakpoint == "small" {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $breakpoint == "medium" {
+    @media (max-width: 992px) {
+      @content;
+    }
+  } @else if $breakpoint == "large" {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+//Box Shadow
+@mixin box-shadow2($top, $left, $blur, $spread,$color) {
+  -webkit-box-shadow: $top $left $blur $spread $color;
+  -moz-box-shadow: $top $left $blur $spread $color;
+  box-shadow: $top $left $blur $spread $color;
+}
+
+//Border radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+//Transition
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
+//Transform
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
