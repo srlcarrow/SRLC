@@ -89,6 +89,7 @@ ul li, ol li {
   list-style: none; }
 
 a,
+a:active,
 a:hover,
 a:focus {
   text-decoration: none; }
@@ -1764,10 +1765,16 @@ ul.more-details-list {
   /* Microsoft Edge */
   color: rgba(0, 0, 0, 0.3); }
 
-.popup-container.registration-popup .popup {
+.popup-container.registration-popup .popup, .popup-container.sign-in-popup .popup {
   width: 40%;
   left: calc(100% - 70%);
   padding: 30px 100px; }
+
+.popup-container.sign-in-popup .forget_password {
+  font-size: 14px;
+  color: #028dda; }
+  .popup-container.sign-in-popup .forget_password:hover {
+    text-decoration: underline; }
 
 input[type="radio"] + label {
   font-size: 16px;

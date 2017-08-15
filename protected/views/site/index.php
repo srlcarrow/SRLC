@@ -61,7 +61,7 @@
                 <li class="active"><a href="#">Job Seeker</a></li>
                 <li><a href="#">Employer</a></li>
                 <li><a href="#">Contact Us</a></li>
-                <li class="sign-link"><a href="#">Sign in</a></li>
+                <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
                 <li class="register-link"><a class="cm-btn btn-registration" href="#">Register</a></li>
             </ul>
         </div>
