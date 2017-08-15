@@ -32,7 +32,7 @@
     <!--JS | Scroll magic-->
     <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
 
-    <title>Site</title>
+    <title>4You</title>
 </head>
 <body>
 

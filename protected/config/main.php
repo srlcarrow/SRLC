@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Super Jobs',
+    'name' => '4You',
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
@@ -63,11 +63,14 @@ return array(
              */
             ),
         ),
+        'swiftMailer' => array(
+            'class' => 'ext.swiftMailer.SwiftMailer',
+        ),
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
-    ),  
+    ),
 );
