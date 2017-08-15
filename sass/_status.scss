@@ -11,40 +11,57 @@ header {
   }
 }
 
+.navbar {
+  margin-bottom: 0;
+
+  &.light-blue {
+    background: $blue-light-4;
+  }
+  &.nav-bottom-space {
+    padding-bottom: 10px;
+  }
+}
+
 .navbar-nav {
-  padding: 10px 15px;
+  padding: 12px 15px;
 
   li {
     a {
-      padding: 0 20px;
-      color: $white;
+      padding: 5px 20px;
+      color: rgba($white, 0.56);
       font-size: $font-smallest;
-
+      display: block;
+      
       &:hover {
-        color: rgba($white, 0.56);
+        color: $white;
       }
+    }
+
+    &.active {
+      color: $white;
     }
   }
 
   li.sign-link {
     margin-left: 10px;
+
     a {
-      padding: 0 20px;
+      color: $white;
     }
   }
 
   li.register-link {
     a {
       color: $blue-dark;
-      background: $white;
-      padding: 6px 24px;
       font-size: $base-font-size;
-      @include border-radius(3px);
-      //-webkit-box-shadow: 0 2px 0 rgba($black);
-      //-moz-box-shadow: 0 2px 0 rgba($black);
-      //box-shadow: 0 2px 0 rgba($black);
     }
   }
+}
+
+.nav-bar-space {
+  float: left;
+  width: 100%;
+  margin-top: 66px;
 }
 
 //Search area
@@ -89,6 +106,7 @@ header {
     .filters {
       height: auto;
       opacity: 1;
+      overflow: visible;
     }
   }
 
@@ -119,5 +137,91 @@ ul.more-details-list {
       margin-bottom: 2px;
       margin-right: 4px;
     }
+  }
+}
+
+.popup-container {
+  &.isShow {
+    opacity: 1;
+    z-index: 998;
+
+    .popup {
+      @include transform(scale(1));
+    }
+  }
+}
+
+//------------------------------------------------------------------
+//Input placeholder
+//------------------------------------------------------------------
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: rgba($black, 0.30);
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: rgba($black, 0.30);
+  opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: rgba($black, 0.30);
+  opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgba($black, 0.30);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: rgba($black, 0.30);
+}
+
+//-------------------------------------
+//Registration Popup
+//-------------------------------------
+.popup-container {
+
+  &.registration-popup {
+    .popup {
+      width: 40%;
+      left: calc(100% - 70%);
+      padding: 30px 100px;
+    }
+  }
+
+  //Sign in popup
+  &.sign-in-popup {
+    @extend .registration-popup;
+
+    .forget_password {
+      font-size: $base-font-size;
+      color: $blue-light-2;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+//-------------------------------------
+//Form style
+//-------------------------------------
+
+//Radio button
+input[type="radio"] {
+
+  & + label {
+    font-size: 16px;
+    line-height: 20px;
+    height: auto;
+    padding-left: 25px;
+  }
+}
+
+.input-wrapper {
+  .float-text {
+    font-size: $font-smallest;
+    color: rgba($black,$opt-2);
   }
 }

@@ -30,6 +30,31 @@ class SiteController extends Controller {
         $this->render('index');
     }
 
+    public function actionCategoryPopup()
+    {
+        $this->renderPartial('ajaxLoad/popups/category');
+    }
+
+    public function actionRegistrationPopup()
+    {
+        $this->renderPartial('ajaxLoad/popups/registration');
+    }
+
+    public function actionSignInPopup()
+    {
+        $this->renderPartial('ajaxLoad/popups/sign_in_form');
+    }
+
+    public function actionPasswordResetFrom()
+    {
+        $this->renderPartial('ajaxLoad/popups/password_reset_form');
+    }
+
+    public function actionAdvertisement()
+    {
+        $this->render('advertisement');
+    }
+
     /**
      * This is the action to handle external exceptions.
      */

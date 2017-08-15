@@ -1,5 +1,85 @@
 @import "variable";
 
+//Margin
+@include margin;
+
+//Padding
+@include padding;
+
+//Text color class
+//Text Black
+@include text-color($black, black);
+
+//Text Dark Blue
+@include text-color($blue-dark, dark-blue);
+
+//Font Weight
+.f-light {
+  font-weight: $font-w-light;
+}
+
+.f-regular {
+  font-weight: $font-w-regular;
+}
+
+.f-medium {
+  font-weight: $font-w-medium;
+}
+
+//Button
+button.cm-btn,
+a.cm-btn {
+  color: $blue-dark;
+  background: $white;
+  padding: 6px 24px;
+  font-size: $base-font-size;
+  @include border-radius(3px);
+  @include box-shadow(0, 1px, 1px, 0, rgba($black, 0.40));
+  outline: none;
+  border: none;
+
+  &.right {
+    float: right;
+  }
+
+  &:hover {
+    @include box-shadow(0, 1px, 1px, 0, rgba($black, 0.60));
+  }
+
+  //Sizes
+  &.large {
+    padding: 10px 30px;
+    font-size: $font-small;
+    @include border-radius(5px);
+    @include box-shadow(0, 2px, 1px, 0, rgba($black, 0.40));
+
+    &:hover {
+      @include box-shadow(0, 2px, 1px, 0, rgba($black, 0.60));
+    }
+  }
+
+  //Background Colors
+  &.light-blue-4 {
+    color: $white;
+    background: $blue-light-4;
+  }
+
+  &.light-blue {
+    color: $white;
+    background: $blue-light;
+  }
+
+  //Text Transform
+  &.up-case {
+    text-transform: uppercase;
+  }
+}
+
+.fifty-block {
+  float: left;
+  width: 50%;
+}
+
 //Space
 .lg-ml-20 {
   margin-left: 20px;
@@ -131,8 +211,35 @@
   }
 
   .option-list {
+    display: none;
+    top: 30px;
+    left: 0;
     float: left;
     width: inherit;
+    position: absolute;
+    min-width: 165px;
+    z-index: 2;
+    max-height: 260px;
+    background: $white;
+    @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.30));
+    overflow-y: scroll;
+
+    li {
+      padding: 8px 10px;
+      color: rgba($blue-dark, $opt-2);
+      font-size: $base-font-size;
+      cursor: pointer;
+
+      &.selected,
+      &:hover {
+        color: rgba($blue-dark, $opt-1);
+        background: rgba($blue-dark, 0.15);
+      }
+
+      &.disabled {
+        display: none;
+      }
+    }
   }
 }
 
@@ -156,10 +263,11 @@
     > li {
       border-bottom: 1px solid $gray-light;
       padding: 30px 24px 20px 24px;
+      @include float-block;
       @include transition($animation-1);
 
       &:hover {
-        @include box-shadow2(0px, 10px, 15px, 2px, rgba($black, 0.30));
+        @include box-shadow(0px, 10px, 15px, 2px, rgba($black, 0.30));
       }
 
       h3 {
@@ -186,17 +294,130 @@
 
       ul.more-details-list {
         margin-top: 10px;
+        @include float-block;
 
         li {
           display: inline-block;
           font-size: $base-font-size;
+          min-width: 100px;
 
           &:not(:last-child) {
-            margin-right: 50px;
+            margin-right: 15px;
+          }
+
+          @include breakpoint($small) {
+            @include float-block;
+            width: 45%;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-right: 5%;
           }
         }
       }
 
     }
   }
+}
+
+//main Popup
+.popup-container {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  @include transition($animation-2);
+  background: rgba($blue-dark, .60);
+
+  .popup {
+    @include transition($animation-popup);
+    position: fixed;
+    z-index: 999;
+    width: 60%;
+    top: calc(100% - 90%);
+    left: calc(100% - 80%);
+    background: $white;
+    @include border-radius(10px);
+    @include transform(scale(0));
+
+    @include breakpoint($medium) {
+      width: 80%;
+      top: calc(100% - 97%);
+      left: calc(100% - 90%);
+    }
+
+    .category-list {
+      li {
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+
+        a {
+          color: rgba($black, $opt-3);
+          font-size: $font-small;
+
+          &.active,
+          &:hover {
+            color: rgba($black, $opt-1);
+          }
+
+          span {
+            margin-left: 10px;
+          }
+
+        }
+      }
+    }
+
+    .man-category {
+      padding: 50px;
+      background: $white-light;
+      @include border-radius(10px);
+    }
+    .sub-category {
+      @extend .man-category;
+      background: $white-xs-light;
+
+      .category-list {
+        li {
+          a {
+            &.active,
+            &:hover {
+              color: $blue-light;
+
+              span {
+                color: $blue-light;
+              }
+            }
+            span {
+              color: $black;
+            }
+          }
+        }
+      }
+    }
+
+    .close {
+      display: inline-block;
+      position: absolute;
+      right: -55px;
+      top: -12px;
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
+      opacity: .56;
+      background: url("../images/system/icon/site/26/ic_26-cross-white.png") no-repeat center center;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+  }
+
+
 }

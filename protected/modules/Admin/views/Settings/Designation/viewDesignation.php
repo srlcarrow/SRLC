@@ -63,6 +63,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddDesignation'));
     });
 
     $(document).ready(function () {
+
         $('select').material_select();
     });
 
@@ -123,8 +124,11 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddDesignation'));
         var designations = data.designationData;
 
         $('#hiddenId').val(designations.desig_id);
-        $('#ref_cat_id').val(designations.ref_cat_id);
+//        $('#ref_cat_id').val();
         $('#name').val(designations.desig_name);
+        $('#ref_cat_id').find('option[value="'+designations.ref_cat_id+'"]').prop('selected',true);
+
+        $('select').material_select();
     }
 
     function clearDesignation() {

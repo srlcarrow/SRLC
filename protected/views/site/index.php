@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Site</title>
+
 
     <!--========================================================
          Stylesheet
@@ -15,12 +15,38 @@
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css">
     <!--CSS | Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <!--CSS | Main-->
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 
+    <!--========================================================
+       Javascript
+    =========================================================-->
+
+    <script>
+        var BASE_URL = "<?php echo Yii::app()->baseUrl; ?>";
+    </script>
+
+    <!--JS | Jquery Lib-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
+    <!--JS | Scroll magic-->
+    <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
+
+    <title>Site</title>
 </head>
 <body>
 
+<!------------------------------------
+    Header Section
+------------------------------------->
+<div class="popup-container">
+    <div class="popup">
+        <span class="close"></span>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
 <!------------------------------------
     Header Section
 ------------------------------------->
@@ -35,8 +61,8 @@
                 <li class="active"><a href="#">Job Seeker</a></li>
                 <li><a href="#">Employer</a></li>
                 <li><a href="#">Contact Us</a></li>
-                <li class="sign-link"><a href="#">Sign in</a></li>
-                <li class="register-link"><a href="#">Register</a></li>
+                <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
+                <li class="register-link"><a class="cm-btn btn-registration" href="#">Register</a></li>
             </ul>
         </div>
     </nav>
@@ -58,7 +84,7 @@
 
                 <div class="col-sm-12 search-box">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 job-drop-down">
+                        <div class="col-md-4 col-sm-6 job-drop-down show-category">
                             <div class="selected-item">
                                 <span>Job Category</span>
                                 <i class="icon icon-20 icon-arrow-down right"></i>
@@ -80,11 +106,15 @@
                                 </div>
                                 <ul class="option-list"></ul>
 
-                                <select name="" id="">
-                                    <option value="1"></option>
+                                <select class="type" name="" id="">
+                                    <option value="" disabled="disabled">Type</option>
+                                    <option value="1">IT</option>
+                                    <option value="3">Managenet</option>
+                                    <option value="2">lorem</option>
                                 </select>
                             </div>
                         </div>
+
 
                         <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
                             <div class="selector">
@@ -93,8 +123,9 @@
                                 </div>
                                 <ul class="option-list"></ul>
 
-                                <select name="" id="">
-                                    <option value="1"></option>
+                                <select class="district" name="" id="">
+                                    <option value="" disabled="disabled">District</option>
+                                    <option value="56">Colombo</option>
                                 </select>
                             </div>
                         </div>
@@ -106,8 +137,9 @@
                                 </div>
                                 <ul class="option-list"></ul>
 
-                                <select name="" id="">
-                                    <option value="1"></option>
+                                <select class="city" name="" id="">
+                                    <option value="" disabled="disabled">City</option>
+                                    <option value="778">Colombo</option>
                                 </select>
                             </div>
                         </div>
@@ -177,15 +209,15 @@
                                         <i class="dot"></i>
                                         Full Time
                                     </li>
-                                    <li>
+                                    <li title="">
                                         <i class="dot"></i>
                                         3+ Yrs
                                     </li>
-                                    <li>
+                                    <li title="City">
                                         <i class="dot"></i>
-                                        752 Dr Danister De Silva Mawatha, Colombo 00900
+                                        Negambo
                                     </li>
-                                    <li>
+                                    <li title="Salary">
                                         <i class="dot"></i>
                                         75k - 100k
                                     </li>
@@ -240,12 +272,17 @@
 
 
 <!--========================================================
-        Javascript
+     Javascript
 =========================================================-->
+<!--JS | Common js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.js'; ?>"></script>
+<!--JS | Main js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.js'; ?>"></script>
 
-<!--JS | Jquery Lib-->
-<script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
-<script src="<?php echo Yii::app()->baseUrl . '/js/custom/main.js'; ?>"></script>
+<!--JS | Common Server js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.server.js'; ?>"></script>
+<!--JS | Server js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
 
 </body>
 </html>
