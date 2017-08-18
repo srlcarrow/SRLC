@@ -8,7 +8,7 @@
 
                 <div class="col-md-12">
                     <div class="input-wrapper">
-                        <input type="text">
+                        <input type="text" autofocus>
                         <div class="float-text">Username</div>
                     </div>
 

@@ -8,7 +8,7 @@
 
                 <div class="col-md-12">
                     <div class="input-wrapper">
-                        <input type="text">
+                        <input class="emil_username" type="text" autofocus>
                         <div class="float-text">Email or Username</div>
                     </div>
                 </div>
@@ -20,3 +20,7 @@
 
     </div>
 </div>
+
+<script>
+    $('.emil_username').focus();
+</script>
