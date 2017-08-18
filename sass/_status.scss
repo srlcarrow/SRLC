@@ -188,6 +188,20 @@ ul.more-details-list {
       padding: 30px 100px;
     }
   }
+
+  //Sign in popup
+  &.sign-in-popup {
+    @extend .registration-popup;
+
+    .forget_password {
+      font-size: $base-font-size;
+      color: $blue-light-2;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 //-------------------------------------

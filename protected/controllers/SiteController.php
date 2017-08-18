@@ -40,6 +40,15 @@ class SiteController extends Controller {
         $this->renderPartial('ajaxLoad/popups/registration');
     }
 
+    public function actionSignInPopup()
+    {
+        $this->renderPartial('ajaxLoad/popups/sign_in_form');
+    }
+
+    public function actionPasswordResetFrom()
+    {
+        $this->renderPartial('ajaxLoad/popups/password_reset_form');
+    }
 
     public function actionAdvertisement()
     {

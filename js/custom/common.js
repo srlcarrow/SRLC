@@ -54,6 +54,14 @@ var Popup = (function () {
 
     };
 
+    _Popup.loadNewLayout = function (html) {
+        if (popupContainer.hasClass('isShow')) {
+            popupContainer.find('.content')
+                .html('')
+                .html(html);
+        }
+    };
+
     _Popup.hide = function (callback) {
         hide(callback);
     };
@@ -64,10 +72,12 @@ var Popup = (function () {
 var Input = (function () {
 
     var _selectors = 'input[type="text"],input[type="password"],input[type="number"],input[type="email"],textarea';
-
+    var isBuild = false;
 
     function init() {
-        $('.input-wrapper').each(function () {
+        var inputWrapper = $('.input-wrapper');
+
+        inputWrapper.each(function (index) {
 
             var $this = $(this);
 
@@ -84,13 +94,7 @@ var Input = (function () {
                 .append(_input)
                 .append(_labelText)
                 .append(_inputLine)
-                .append(_animateLine)
-
-
-            // $this.find('.input-box')
-            //     .append(_input)
-            //     .append(_labelText);
-
+                .append(_animateLine);
 
             //On Input Focus
             $(document).on('focus', _selectors, function (evt) {
@@ -121,20 +125,28 @@ var Input = (function () {
                 }, 300);
             });
 
+            if (index === (inputWrapper.length - 1)) {
+                isBuild = true;
+                updateInput();
+            }
         });
     }
 
     function updateInput() {
 
-        $(document).find(_selectors).each(function () {
-            var $this = $(this);
-            var _parent = $this.parents('.input-wrapper');
+        if (isBuild) {
+            setTimeout(function () {
+                $(document).find(_selectors).each(function () {
+                    var $this = $(this);
+                    var _parent = $this.parents('.input-wrapper');
 
-            if ($this.val().length > 0) {
-                _parent.addClass('text-top');
-            }
+                    if ($this.val().length > 0) {
+                        _parent.addClass('text-top');
+                    }
 
-        });
+                });
+            }, 100)
+        }
     }
 
     $(document).ready(function () {
@@ -144,6 +156,7 @@ var Input = (function () {
     init();
 
     return {
+        isBuild: isBuild,
         init:init,
         updateInput: updateInput
     }
@@ -151,11 +164,36 @@ var Input = (function () {
 })();
 
 //Registration
-$('.btn-registration').on('click', function () {
-    RegistrationPopup().html(function (html) {
+$('.btn-registration').on('click', function (evt) {
+
+    evt.preventDefault();
+
+    loadLayoutByAjax('/Site/RegistrationPopup', function (html) {
         Popup.addClass('registration-popup');
         Popup.show(html);
         Input.init();
-    })
+    });
 });
 
+
+//Sign In
+$('.btn-sign-in').on('click', function (evt) {
+
+    evt.preventDefault();
+
+    loadLayoutByAjax('/Site/SignInPopup', function (html) {
+        Popup.addClass('sign-in-popup');
+        Popup.show(html);
+        Input.init();
+    });
+
+});
+
+$('.popup-container').on('click', '.forget_password', function (evt) {
+    evt.preventDefault();
+
+    loadLayoutByAjax('/Site/PasswordResetFrom', function (html) {
+        Popup.loadNewLayout(html);
+        Input.init();
+    })
+});

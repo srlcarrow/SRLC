@@ -6,6 +6,7 @@ class AdvertisementController extends Controller {
         $this->render('viewAdvertisements');
     }
     
+    
 }
 ?>
 
