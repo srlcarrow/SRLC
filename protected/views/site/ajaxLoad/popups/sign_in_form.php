@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="input-wrapper">
-                        <input type="password">
+                        <input id="pword" name="pword" type="password">
                         <div class="float-text">Password</div>
                     </div>
                 </div>
@@ -29,3 +29,4 @@
     </div>
 
 </div>
+<?php $this->endWidget(); ?>

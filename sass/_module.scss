@@ -350,6 +350,16 @@ a.cm-btn {
       left: calc(100% - 90%);
     }
 
+    .pop-message {
+      font-size: $font-large;
+      font-weight: $font-w-light;
+      text-align: center;
+
+      &.success {
+        color: $blue-light;
+      }
+    }
+
     .category-list {
       li {
         &:not(:last-child) {
@@ -418,6 +428,5 @@ a.cm-btn {
     }
 
   }
-
 
 }

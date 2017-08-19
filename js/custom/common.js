@@ -55,8 +55,12 @@ var Popup = (function () {
     };
 
     _Popup.loadNewLayout = function (html) {
+        popupContainer.find('.content')
+            .css('opacity',0);
+
         if (popupContainer.hasClass('isShow')) {
             popupContainer.find('.content')
+                .animate({'opacity':1},800)
                 .html('')
                 .html(html);
         }
@@ -163,7 +167,11 @@ var Input = (function () {
 
 })();
 
+
+
+//------------------------------------------------------------------------------------
 //Registration
+//------------------------------------------------------------------------------------
 $('.btn-registration').on('click', function (evt) {
 
     evt.preventDefault();
@@ -176,7 +184,10 @@ $('.btn-registration').on('click', function (evt) {
 });
 
 
+
+//------------------------------------------------------------------------------------
 //Sign In
+//------------------------------------------------------------------------------------
 $('.btn-sign-in').on('click', function (evt) {
 
     evt.preventDefault();

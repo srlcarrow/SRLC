@@ -15,7 +15,7 @@ class CategoryController extends Controller {
         $this->renderPartial('/Settings/Category/ajaxLoad/viewCategoryData', array('categories' => $categories));
     }
 
-    public function actionSaveCategory() {
+    public function actionSaveCategory() {        
         try {
 
             if ($_POST['hiddenId'] == 0) {
