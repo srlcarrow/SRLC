@@ -1610,6 +1610,12 @@ a.cm-btn {
         width: 80%;
         top: calc(100% - 97%);
         left: calc(100% - 90%); } }
+    .popup-container .popup .pop-message {
+      font-size: 24px;
+      font-weight: 300;
+      text-align: center; }
+      .popup-container .popup .pop-message.success {
+        color: #2491f6; }
     .popup-container .popup .category-list li:not(:last-child) {
       margin-bottom: 20px; }
     .popup-container .popup .category-list li a {
@@ -1769,6 +1775,8 @@ ul.more-details-list {
   width: 40%;
   left: calc(100% - 70%);
   padding: 30px 100px; }
+  .popup-container.registration-popup .popup .employer, .popup-container.sign-in-popup .popup .employer {
+    display: none; }
 
 .popup-container.sign-in-popup .forget_password {
   font-size: 14px;

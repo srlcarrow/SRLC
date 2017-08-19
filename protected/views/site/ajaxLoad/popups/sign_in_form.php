@@ -1,4 +1,3 @@
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formSignIn')); ?>
 <div class="row">
 
     <div class="col-md-12">
@@ -9,7 +8,7 @@
 
                 <div class="col-md-12">
                     <div class="input-wrapper">
-                        <input id="uname" name="uname" type="text">
+                        <input type="text">
                         <div class="float-text">Username</div>
                     </div>
 
