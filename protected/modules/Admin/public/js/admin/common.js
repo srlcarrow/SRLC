@@ -232,7 +232,6 @@ var Modal = (function () {
 
 
 
-
 // $(function () {
 //     $('.btn-editAndSave').on('click',function () {
 //         var $this = $(this);
@@ -246,3 +245,4 @@ var Modal = (function () {
 //         }
 //     });
 // });
+

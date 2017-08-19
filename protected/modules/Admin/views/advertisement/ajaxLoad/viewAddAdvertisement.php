@@ -1,4 +1,10 @@
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement')); ?>
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
+    'stateful' => true,
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+        )));
+?>
 <div class="card ">
     <div class="card-content">
         <h5 class="grey-text text-darken-1">Add Advertisement</h5>
@@ -120,7 +126,7 @@
                     <div class="file-field input-field">
                         <div class="btn">
                             <span>Upload</span>
-                            <input id="image" name="image" type="file">
+                            <?php echo $form->fileField($model, 'image'); ?>    
                         </div>
                         <div class="file-path-wrapper">
                             <input id="imagePath" name="imagePath" class="file-path validate" type="text">

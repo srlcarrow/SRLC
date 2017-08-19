@@ -1,5 +1,4 @@
 <?php
-
 class Controller extends CController {
 
     /**
@@ -27,7 +26,6 @@ class Controller extends CController {
             echo json_encode(array("code" => $code, "msg" => $msg, "data" => $data));
         }
     }
-
     public function redirectToLogin() {
         parent::init();
         if (yii::app()->user->isGuest) {
@@ -38,3 +36,4 @@ class Controller extends CController {
    
 
 }
+
