@@ -31,7 +31,7 @@ header {
       color: rgba($white, 0.56);
       font-size: $font-smallest;
       display: block;
-      
+
       &:hover {
         color: $white;
       }
@@ -186,6 +186,11 @@ ul.more-details-list {
       width: 40%;
       left: calc(100% - 70%);
       padding: 30px 100px;
+
+      .employer {
+        display: none;
+
+      }
     }
   }
 
@@ -201,6 +206,7 @@ ul.more-details-list {
         text-decoration: underline;
       }
     }
+
   }
 }
 
@@ -222,6 +228,6 @@ input[type="radio"] {
 .input-wrapper {
   .float-text {
     font-size: $font-smallest;
-    color: rgba($black,$opt-2);
+    color: rgba($black, $opt-2);
   }
 }

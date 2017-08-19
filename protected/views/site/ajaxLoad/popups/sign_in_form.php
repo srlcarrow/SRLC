@@ -8,12 +8,12 @@
 
                 <div class="col-md-12">
                     <div class="input-wrapper">
-                        <input type="text" autofocus>
+                        <input type="text">
                         <div class="float-text">Username</div>
                     </div>
 
                     <div class="input-wrapper">
-                        <input type="password">
+                        <input id="pword" name="pword" type="password">
                         <div class="float-text">Password</div>
                     </div>
                 </div>
@@ -29,3 +29,4 @@
     </div>
 
 </div>
+<?php $this->endWidget(); ?>
