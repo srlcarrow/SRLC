@@ -7,7 +7,7 @@ $form-radio-button-color: #2491f6;
 $animation-float-text: 0.2s all cubic-bezier(.26, .28, .42, .78);
 $animation-animate-line: 0.6s all cubic-bezier(.4, .19, .51, .98);
 $animation-radio-and-checkbox: 0.5s all cubic-bezier(.35, .12, 0, .98);
-
+$animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
 
 //Transition
 @mixin transition($transition...) {
@@ -25,6 +25,7 @@ $animation-radio-and-checkbox: 0.5s all cubic-bezier(.35, .12, 0, .98);
   -webkit-transform: $transforms;
   transform: $transforms;
 }
+
 //Transition Duration
 @mixin transition-duration($duration) {
   transition-duration: $duration;
@@ -33,7 +34,7 @@ $animation-radio-and-checkbox: 0.5s all cubic-bezier(.35, .12, 0, .98);
   -o-transition-duration: $duration;
 }
 
-@mixin transform-origin ($origin...){
+@mixin transform-origin($origin...) {
   -webkit-transform-origin: $origin;
   -moz-transform-origin: $origin;
   -o-transform-origin: $origin;
@@ -79,7 +80,6 @@ $animation-radio-and-checkbox: 0.5s all cubic-bezier(.35, .12, 0, .98);
   input[type="number"]:focus {
     outline: none;
   }
-
 
   .input-line,
   .animate-line {
@@ -146,35 +146,44 @@ $animation-radio-and-checkbox: 0.5s all cubic-bezier(.35, .12, 0, .98);
 /*-------------------------------------
    Radio And Checkbox
 -------------------------------------*/
+
+@mixin label {
+  padding-left: 30px;
+  height: 25px;
+  font-size: 14px;
+  line-height: 23px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+@mixin label_after_before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+}
+
 input[type="radio"] {
   pointer-events: none;
   display: none;
 
   & + label {
-    padding-left: 30px;
-    height: 25px;
-    font-size: 14px;
-    line-height: 23px;
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
+    @include label;
   }
 
   & + label::before,
   & + label::after {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    left: 0;
-    top: 0;
+    @include label_after_before;
     @include transition($animation-radio-and-checkbox)
   }
 
   & + label::before {
-    border: 2px solid rgba($black,0.30);
+    border: 2px solid rgba($black, 0.30);
   }
 
   & + label::after {
@@ -187,6 +196,42 @@ input[type="radio"] {
   &:checked + label::after {
     @include transform(scale(1));
   }
+}
+
+input[type="checkbox"] {
+
+  pointer-events: none;
+  display: none;
+
+  & + label {
+    @include label;
+  }
+
+  & + label::before,
+  & + label::after {
+    @include label_after_before;
+    border-radius: 2px;
+  }
+
+  & + label::before {
+    border: 2px solid rgba($black, 0.30);
+  }
+
+  & + label::after {
+    left: 0;
+    top: 0;
+
+  }
+
+  &:checked + label::after {
+    background: $form-radio-button-color url("../images/system/icon/site/12/ic_12-tick-white.png") no-repeat center 3px;
+  }
+}
+
+.state-wrapper {
+  float: left;
+  width: 100%;
+  margin-top: 20px;
 }
 
 

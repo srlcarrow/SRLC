@@ -66,6 +66,26 @@ class SiteController extends Controller {
         $this->render('advertisement');
     }
 
+    public function actionJobSeeker()
+    {
+        $this->render('jobSeekerRegistration');
+    }
+
+    public function actionFormStepOne()
+    {
+        $this->renderPartial('ajaxLoad/jobSeeker/form_step1');
+    }
+
+    public function actionFormStepTwo()
+    {
+        $this->renderPartial('ajaxLoad/jobSeeker/form_step2');
+    }
+
+    public function actionFormStepThree()
+    {
+        $this->renderPartial('ajaxLoad/jobSeeker/form_step3');
+    }
+
     /**
      * This is the action to handle external exceptions.
      */

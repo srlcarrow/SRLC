@@ -29,33 +29,27 @@
 //Button
 button.cm-btn,
 a.cm-btn {
-  color: $blue-dark;
-  background: $white;
-  padding: 6px 24px;
+  color: $white;
+  padding: 7px 20px;
   font-size: $base-font-size;
   @include border-radius(3px);
-  @include box-shadow(0, 1px, 1px, 0, rgba($black, 0.40));
   outline: none;
   border: none;
+  background: $btn-default-color;
 
   &.right {
     float: right;
   }
 
   &:hover {
-    @include box-shadow(0, 1px, 1px, 0, rgba($black, 0.60));
+    background: rgba($btn-default-color, $opt-2);
   }
 
   //Sizes
   &.large {
-    padding: 10px 30px;
-    font-size: $font-small;
+    padding: 12px 45px;
+    font-size: $font-smallest;
     @include border-radius(5px);
-    @include box-shadow(0, 2px, 1px, 0, rgba($black, 0.40));
-
-    &:hover {
-      @include box-shadow(0, 2px, 1px, 0, rgba($black, 0.60));
-    }
   }
 
   //Background Colors
@@ -67,11 +61,42 @@ a.cm-btn {
   &.light-blue {
     color: $white;
     background: $blue-light;
+
+    &:hover {
+      background: rgba($blue-light, $opt-2);
+    }
   }
 
   //Text Transform
   &.up-case {
     text-transform: uppercase;
+  }
+}
+
+//file Uploader
+.file-uploader {
+  display: inline-block;
+  position: relative;
+
+  input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+  .button {
+    padding: 12px 20px;
+    font-size: $base-font-size;
+    font-weight: $font-w-regular;
+    color: $white;
+    line-height: 14px;
+    background: #cfcfd2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
   }
 }
 
@@ -93,6 +118,32 @@ a.cm-btn {
   width: 100%;
 }
 
+//Table Block
+.d-table {
+  display: table;
+  width: 100%;
+
+  .d-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+
+    &.width-0 {
+      width: 0;
+    }
+
+    &.width-100 {
+      width: 100%;
+    }
+  }
+
+  &.cell-full-width {
+
+    .d-table-cell {
+      width: 100%;
+    }
+  }
+}
+
 .gradient {
   background: rgb(41, 137, 216);
   background: -moz-linear-gradient(-45deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
@@ -105,14 +156,44 @@ a.cm-btn {
 .icon {
   display: inline-block;
 
+  &.v-middle {
+    vertical-align: middle;
+  }
+
   &.icon-20 {
     width: 20px;
     height: 20px;
+
+    &.icon-linkin {
+      background: url("../images/system/icon/site/20/ic_20-link.png");
+    }
   }
 
   &.icon-arrow-down {
     height: 10px;
     background: url("../images/system/icon/site/20/ic_20-arrow-down.png");
+  }
+
+  &.icon-16 {
+    width: 16px;
+    height: 16px;
+
+    &.ic-cross {
+      background: url("../images/system/icon/site/16/ic_16-cross.png");
+    }
+  }
+
+  &.icon-10 {
+    width: 10px;
+    height: 10px;
+
+    &.icon-cross {
+      background: url("../images/system/icon/site/10/ic_10-cross.png");
+    }
+  }
+
+  &.pointer {
+    cursor: pointer;
   }
 }
 
@@ -239,6 +320,22 @@ a.cm-btn {
       &.disabled {
         display: none;
       }
+    }
+  }
+
+  &.dark {
+    margin-top: 20px;
+
+    .selected-option {
+      color: rgba($black, $opt-2);
+      font-size: $font-smallest;
+      font-weight: $font-w-regular;
+      border-bottom: 1px solid rgba($black, 0.2);
+      background: url("../images/system/icon/site/16/ic_16-arrow-down.png") no-repeat right 5px;
+    }
+
+    .option-list {
+      top: 20px;
     }
   }
 }
@@ -429,4 +526,84 @@ a.cm-btn {
 
   }
 
+<<<<<<< HEAD
+=======
+}
+
+//Step List
+.step-list {
+  margin: 0;
+  padding: 0;
+  display: table;
+  width: 100%;
+
+  li {
+    display: table-cell;
+
+    &.width-0 {
+      width: 0;
+    }
+  }
+}
+
+.selected-items {
+  .item {
+    padding: 7px 18px;
+    font-size: $font-xs-small;
+    font-weight: $font-w-regular;
+    color: rgba($black, $opt-2);
+    float: left;
+    margin-top: 10px;
+    margin-right: 15px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: #e7e7e8;
+    line-height: 12px;
+
+    span {
+      margin-left: 15px;
+    }
+  }
+}
+
+//Input Search Box
+.input-search-box {
+  position: relative;
+
+  .search-result {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 41px;
+    z-index: 9;
+    max-height: 230px;
+    overflow-y: scroll;
+    background: $white;
+    @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.30));
+
+    ul {
+
+      li {
+        font-size: $base-font-size;
+        color: $blue-dark;
+        padding: 8px 15px;
+        font-weight: $font-w-regular;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba($gray-light, 0.30);
+        }
+      }
+    }
+  }
+
+  &.is-active {
+
+    .search-result {
+      display: block;
+    }
+
+  }
+>>>>>>> 4cfffb37fd7244fb7b7c83ed506f3696a99d0cdd
 }

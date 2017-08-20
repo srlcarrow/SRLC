@@ -54,6 +54,11 @@ header {
     a {
       color: $blue-dark;
       font-size: $base-font-size;
+      background: $white;
+
+      &:hover {
+        background: rgba($white, $opt-2);
+      }
     }
   }
 }
@@ -229,5 +234,75 @@ input[type="radio"] {
   .float-text {
     font-size: $font-smallest;
     color: rgba($black, $opt-2);
+<<<<<<< HEAD
+=======
   }
+}
+
+//-------------------------------------
+//Step List
+//-------------------------------------
+
+.step-list {
+
+  li {
+
+    &.width-200 {
+      width: 200px;
+    }
+
+    .light-text {
+      color: rgba($blue-dark, $opt-4);
+    }
+
+    .light-text-active {
+      color: $blue-dark;
+    }
+
+    a {
+      display: inline-block;
+      cursor: context-menu;
+
+      span {
+        display: inline-block;
+        text-align: left;
+      }
+
+      span.number {
+        font-size: 77px;
+        margin-right: 15px;
+        font-weight: $font-w-light;
+        @extend .light-text;
+      }
+
+      span.text {
+        font-size: $font-small;
+        font-weight: $font-w-regular;
+        @extend .light-text;
+      }
+    }
+
+    &.active {
+      a {
+        span {
+          @extend .light-text-active;
+        }
+      }
+    }
+
+>>>>>>> 4cfffb37fd7244fb7b7c83ed506f3696a99d0cdd
+  }
+}
+
+//Cross button
+.btn-remove-input {
+  position: absolute;
+  bottom: 3px;
+  cursor: pointer;
+  right: 0;
+}
+
+//icon-linkin
+.icon-linkin {
+  margin-right:15px;
 }

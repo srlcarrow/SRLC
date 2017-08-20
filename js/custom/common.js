@@ -48,21 +48,20 @@ var Popup = (function () {
         if (ajaxLoad !== undefined) {
 
             popupContainer.find('.content')
-                .html('')
-                .html(ajaxLoad);
+                    .html('')
+                    .html(ajaxLoad);
         }
 
     };
 
     _Popup.loadNewLayout = function (html) {
         popupContainer.find('.content')
-            .css('opacity',0);
-
+                .css('opacity', 0);
         if (popupContainer.hasClass('isShow')) {
             popupContainer.find('.content')
-                .animate({'opacity':1},800)
-                .html('')
-                .html(html);
+                    .animate({'opacity': 1}, 800)
+                    .html('')
+                    .html(html);
         }
     };
 
@@ -94,11 +93,11 @@ var Input = (function () {
             var _labelText = $this.find('.float-text');
 
             $this
-            // .append(_inputBox)
-                .append(_input)
-                .append(_labelText)
-                .append(_inputLine)
-                .append(_animateLine);
+                    // .append(_inputBox)
+                    .append(_input)
+                    .append(_labelText)
+                    .append(_inputLine)
+                    .append(_animateLine);
 
             //On Input Focus
             $(document).on('focus', _selectors, function (evt) {
@@ -108,7 +107,7 @@ var Input = (function () {
                 if (!_parent.hasClass('focus')) {
 
                     _parent.addClass('focus')
-                        .addClass('text-top');
+                            .addClass('text-top');
                 }
             });
 
@@ -118,7 +117,7 @@ var Input = (function () {
                 var _parent = $this.parents('.input-wrapper');
 
                 _parent.removeClass('focus')
-                    .addClass('blur');
+                        .addClass('blur');
 
                 if (_parent.hasClass('text-top') && $this.val().length === 0) {
                     _parent.removeClass('text-top');
@@ -161,18 +160,210 @@ var Input = (function () {
 
     return {
         isBuild: isBuild,
-        init:init,
+        init: init,
         updateInput: updateInput
     }
 
 })();
+   
+//Selector
+        var Select = (function () {
 
+            var select = {};
+
+            select.init = function () {
+                $('.selector').each(function () {
+                    var $this = $(this);
+
+                    var selectedOption = $this.find('.selected-option');
+                    var optionList = $this.find('.option-list');
+                    var htmlSelect = $this.find('select');
+
+                    var HTMLSelect = {
+                        selected: function (selectedDisabled) {
+
+                            var selected = htmlSelect.find('option:disabled');
+
+                            if (selectedDisabled) {
+                                selected = htmlSelect.find('option:disabled');
+                            } else {
+                                selected = htmlSelect.find('option:selected');
+                            }
+
+                            return [
+                                selected,
+                                selected.val(),
+                                selected.html()
+                            ];
+                        },
+                        options: function () {
+                            var list = [];
+                            htmlSelect.find('option').each(function () {
+                                var isSelected = false;
+                                var isDisabled = false;
+
+                                if ($(this).is(':selected')) {
+                                    isSelected = true;
+                                }
+
+                                if ($(this).prop('disabled')) {
+                                    isDisabled = true;
+                                }
+
+                                var opt = {
+                                    val: $(this).val(),
+                                    text: $(this).html(),
+                                    isSelected: isSelected,
+                                    isDisabled: isDisabled
+                                };
+                                list.push(opt);
+                            });
+                            return list;
+                        },
+                        getSelectVal: function () {
+                            return htmlSelect.val();
+                        },
+                        update: function (val) {
+                            htmlSelect.find('option[value="' + val + '"]').prop('selected', true);
+                            htmlSelect.trigger('change');
+                        }
+
+                    };
+
+                    //Show Selected
+                    function setSelected(isSelectedVal) {
+                        selectedOption.find('span').html(HTMLSelect.selected(isSelectedVal)[2]);
+                    }
+
+                    //Set options to list
+                    function setOptions() {
+                        optionList.html('');
+
+                        HTMLSelect.options().map(function (option) {
+                            console.log(option)
+                            var li = $('<li>');
+
+                            if (option.isSelected) {
+                                li.addClass('selected');
+                            }
+                            if (option.isDisabled) {
+                                li.addClass('disabled');
+                            }
+
+                            li.html(option.text);
+                            li.attr('data-val', option.val);
+                            optionList.append(li);
+                        });
+
+                    }
+
+
+                    setSelected(true);
+                    setOptions();
+
+                    selectedOption.on('click', function () {
+                        $('.option-list').css('display', 'none');
+                        optionList.css('display', 'block');
+                    });
+
+                    //option click
+                    optionList.find('li').on('click', function () {
+                        optionList.css('display', 'none');
+                        var $this = $(this);
+                        var val = $this.attr('data-val');
+
+                        HTMLSelect.update(val);
+                        setSelected(false);
+                    });
+
+
+                    $(document).on('click', function (evt) {
+                        var target = $(evt.target);
+
+                        if (!target.parents().hasClass('selector')) {
+                            optionList.css('display', 'none');
+                        }
+                    });
+
+                })
+            };
+
+            select.change = function () {
+
+            };
+
+            select.init();
+
+            return select;
+
+        })();
+
+$.fn.SearchBox = function (opt) {
+    return $(this).each(function () {
+
+        var defOption = {
+            itemClick: null,
+            onEnter: null
+        };
+
+        var option = $.extend(defOption, opt);
+
+        var $this = $(this);
+        var $input = $this.find('input');
+        var $searchPanel = $this.find('.search-result');
+
+        $this.addClass('input-search-box');
+
+
+        $input.on('keyup', function () {
+            if ($(this).val().length > 0) {
+                $this.addClass('is-active');
+            } else {
+                $this.removeClass('is-active');
+            }
+        });
+
+        $input.on('keypress', function (evt) {
+            if (evt.keyCode == 13) {
+
+                if (typeof option.onEnter === 'function') {
+                    $this.removeClass('is-active');
+                    option.onEnter.call($this, $(this));
+                    $input.val('');
+                }
+            }
+        });
+
+        $searchPanel.find('li').on('click', function () {
+            if (typeof option.itemClick === 'function') {
+                $this.removeClass('is-active');
+                $input.val('');
+                option.itemClick.call($this, $(this));
+            }
+
+        })
+
+    })
+};
+
+
+var SearchBox = (function () {
+
+    var search = {};
+
+    $('.input-search-box').each(function () {
+
+
+        return search;
+    });
+
+})();
 
 
 //------------------------------------------------------------------------------------
 //Registration
 //------------------------------------------------------------------------------------
-$('.btn-registration').on('click', function (evt) {
+        $('.btn-registration').on('click', function (evt) {
 
     evt.preventDefault();
 
@@ -183,12 +374,10 @@ $('.btn-registration').on('click', function (evt) {
     });
 });
 
-
-
 //------------------------------------------------------------------------------------
 //Sign In
 //------------------------------------------------------------------------------------
-$('.btn-sign-in').on('click', function (evt) {
+        $('.btn-sign-in').on('click', function (evt) {
 
     evt.preventDefault();
 
