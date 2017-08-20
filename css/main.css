@@ -1991,3 +1991,13 @@ input[type="radio"] + label {
 
 .icon-linkin {
   margin-right: 15px; }
+
+.company-logo-wrp {
+  width: 212px;
+  height: 114px;
+  border: 1px solid #ebebeb;
+  float: left;
+  margin-right: 30px; }
+
+.cmp_logo_upload {
+  margin-top: 67px; }

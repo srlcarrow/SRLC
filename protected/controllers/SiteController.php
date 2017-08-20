@@ -60,6 +60,11 @@ class SiteController extends Controller {
         $this->render('createAdd');
     }
 
+    public function actionEmployerRegister()
+    {
+        $this->render('employer_register');
+    }
+
     public function actionJobSeeker()
     {
         $this->render('jobSeekerRegistration');
