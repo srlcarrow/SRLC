@@ -55,6 +55,11 @@ class SiteController extends Controller {
         $this->render('advertisement');
     }
 
+    public function actionCreateAdvertisement()
+    {
+        $this->render('createAdd');
+    }
+
     public function actionJobSeeker()
     {
         $this->render('jobSeekerRegistration');
