@@ -17,6 +17,7 @@ class CategoryController extends Controller {
 
     public function actionSaveCategory() {        
         try {
+
             if ($_POST['hiddenId'] == 0) {
                 $model = new AdmCategory();
             } else {
@@ -40,6 +41,7 @@ class CategoryController extends Controller {
                     $subCat->save(false);
                 }
 
+
                 $this->msgHandler(200, "Successfully Saved...");
             }
         } catch (Exception $exc) {
@@ -52,6 +54,7 @@ class CategoryController extends Controller {
             $id = $_POST['id'];
             $model = new AdmCategory();
             if ($model->deleteByPk($id)) {
+
                 $subCategory = new AdmSubcategory();
                 $subCategory->deleteAllByAttributes(array('ref_cat_id' => $id));
                 $this->msgHandler(200, "Deleted Successfully...");
@@ -66,6 +69,7 @@ class CategoryController extends Controller {
             $id = $_POST['id'];
             $model = new AdmSubcategory();
             if ($model->deleteByPk($id)) {
+
                 $this->msgHandler(200, "Deleted Successfully...");
             }
         } catch (Exception $exc) {
