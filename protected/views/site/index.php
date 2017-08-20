@@ -76,7 +76,7 @@
         <div class="row">
 
             <div class="col-md-12 main-title">
-                <h1>Find a job fit to your life style</h1>
+                <h1>Hi ... Find a job fit to your life style</h1>
                 <h3>Simply dummy text of the printing and typesetting industry</h3>
             </div>
 
