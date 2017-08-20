@@ -1,29 +1,42 @@
 <div class="fifty-block man-category">
     <ul class="category-list main">
-        <li><a href="10">IT - Software</a></li>
-        <li><a href="12">Hospital</a></li>
-        <li><a href="13">Legal</a></li>
-        <li><a href="14">Human Resourse</a></li>
-        <li><a href="15">IT - Software</a></li>
-        <li><a href="16">Hospital</a></li>
-        <li><a href="17">Legal</a></li>
-        <li><a href="18">Human Resourse</a></li>
-        <li><a href="19">IT - Software</a></li>
-        <li><a href="20">Hospital</a></li>
-        <li><a href="21">Legal</a></li>
+        <?php
+        foreach ($categories as $category) {
+            ?>
+            <li><a id="<?php echo "c_" . $category->cat_id; ?>" onclick="getSubCat(this.id)" href=""><?php echo $category->cat_name; ?></a></li>
+            <?php
+        }
+        ?>
     </ul>
 </div>
-<div class="fifty-block sub-category">
+<div id="subCat" class="fifty-block sub-category">
     <ul class="category-list sub overflow-scroll">
-        <li><a href="s12">Software Engineer<span>(143)</span></a></li>
-        <li><a href="s13">IOS<span>(45)</span></a></li>
-        <li><a href="s14">Android<span></span></a></li>
-        <li><a href="s15">QA<span></span></a></li>
-        <li><a href="s16">DevOps<span></span></a></li>
-        <li><a href="s17">Java Script<span></span></a></li>
-        <li><a href="s18">Front End<span></span></a></li>
-        <li><a href="s18">UI / UX<span></span></a></li>
-        <li><a href="s19">Graphic Design<span></span></a></li>
+        <!--Sub Categories Load Here-->
     </ul>
-
 </div>
+
+<script>
+    function getSubCat(id) {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/GetSubCategoriesByCatId'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    loadSubCategories(responce.data);
+                }
+            }
+        });
+    }
+
+    function loadSubCategories(data) {
+        $("#subCat ul").html("");
+        var subCategories = data.subCategoryData;
+        for (var i = 0, max = subCategories.length; i < max; i++) {
+            $("#subCat ul").append('<li><a id="sub_"' + subCategories[i]['scat_id'] + ' href="">' + subCategories[i]['scat_name'] + '<span>(143)</span></a></li>');
+        }
+    }
+
+
+</script>

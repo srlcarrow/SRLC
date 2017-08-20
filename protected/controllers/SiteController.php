@@ -30,28 +30,39 @@ class SiteController extends Controller {
         $this->render('index');
     }
 
-    public function actionCategoryPopup()
-    {
-        $this->renderPartial('ajaxLoad/popups/category');
+    public function actionCategoryPopup() {
+        $categories = AdmCategory::model()->findAll(array('order' => 'cat_order'));
+        $this->renderPartial('ajaxLoad/popups/category', array('categories' => $categories));
     }
 
-    public function actionRegistrationPopup()
-    {
+    public function actionGetSubCategoriesByCatId() {
+        $catId = explode("_", $_POST['id'])[1];
+        $subCategories = AdmSubcategory::model()->findAllByAttributes(array('ref_cat_id' => $catId), array('order' => 'scat_order'));
+        $subCatData = array();
+        foreach ($subCategories as $subCategory) {
+            $subCat["scat_id"] = $subCategory->scat_id;
+            $subCat["ref_cat_id"] = $subCategory->ref_cat_id;
+            $subCat["scat_name"] = $subCategory->scat_name;
+            $subCat["scat_order"] = $subCategory->scat_order;
+            array_push($subCatData, $subCat);
+        }
+
+        $this->msgHandler(200, "Data Transfer", array('subCategoryData' => $subCatData));
+    }
+
+    public function actionRegistrationPopup() {
         $this->renderPartial('ajaxLoad/popups/registration');
     }
 
-    public function actionSignInPopup()
-    {
+    public function actionSignInPopup() {
         $this->renderPartial('ajaxLoad/popups/sign_in_form');
     }
 
-    public function actionPasswordResetFrom()
-    {
+    public function actionPasswordResetFrom() {
         $this->renderPartial('ajaxLoad/popups/password_reset_form');
     }
 
-    public function actionAdvertisement()
-    {
+    public function actionAdvertisement() {
         $this->render('advertisement');
     }
 
@@ -119,6 +130,6 @@ class SiteController extends Controller {
     public function actionLogout() {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
-    }  
+    }
 
 }

@@ -1,6 +1,6 @@
 
 function loadJobData(category) {
-
+    console.log(category);
 }
 
 //Category Popup
