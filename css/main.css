@@ -366,6 +366,21 @@ input[type="checkbox"] {
 .jobSeeker-block {
   padding-top: 68px; }
 
+.site-pagination {
+  float: right;
+  margin: 30px 0; }
+  .site-pagination ul {
+    float: right; }
+    .site-pagination ul li {
+      float: left; }
+      .site-pagination ul li:not(:last-child) {
+        margin-right: 24px; }
+      .site-pagination ul li a {
+        font-size: 18px;
+        color: rgba(44, 43, 63, 0.56); }
+      .site-pagination ul li.active a {
+        color: #2491f6; }
+
 .mt-0 {
   margin-top: 0px !important; }
 
