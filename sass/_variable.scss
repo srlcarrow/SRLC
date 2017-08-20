@@ -48,11 +48,14 @@ $blue-light-3: #3de3ee;
 $blue-light-4: #39dded;
 $gray-light: #bfbfc5;
 
+//Button Color
+$btn-default-color: #cfcfd2;
 
 //Animation
 $animation-1: all 0.8s cubic-bezier(.01, .87, .29, .97);
 $animation-2: all 0.5s cubic-bezier(.01, .87, .29, .97);
 $animation-popup: all 0.4s cubic-bezier(.64, .1, .27, 1.44);
+$animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);;
 //$animation-popup: all 0.8s cubic-bezier(.83,.07,.1,1.4);
 
 //---------------------------------------------------
@@ -184,6 +187,7 @@ $large: 'large';
   -webkit-transform: $transforms;
   transform: $transforms;
 }
+
 //Transition Duration
 @mixin transition-duration($duration) {
   transition-duration: $duration;
@@ -192,7 +196,7 @@ $large: 'large';
   -o-transition-duration: $duration;
 }
 
-@mixin transform-origin ($origin...){
+@mixin transform-origin($origin...) {
   -webkit-transform-origin: $origin;
   -moz-transform-origin: $origin;
   -o-transform-origin: $origin;

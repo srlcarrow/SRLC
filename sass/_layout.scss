@@ -35,7 +35,7 @@
   margin-left: 20px;
 
   @include breakpoint($medium) {
-    margin-top:30px;
+    margin-top: 30px;
     margin-left: 0;
   }
 
@@ -70,3 +70,10 @@
   padding-top: 68px;
 }
 
+//------------------------------------------------------------------
+//Job Seeker Layout
+//------------------------------------------------------------------
+
+.jobSeeker-block {
+  padding-top: 68px;
+}

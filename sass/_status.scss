@@ -54,6 +54,11 @@ header {
     a {
       color: $blue-dark;
       font-size: $base-font-size;
+      background: $white;
+
+      &:hover {
+        background: rgba($white, $opt-2);
+      }
     }
   }
 }
@@ -230,4 +235,73 @@ input[type="radio"] {
     font-size: $font-smallest;
     color: rgba($black, $opt-2);
   }
+}
+
+//-------------------------------------
+//Step List
+//-------------------------------------
+
+.step-list {
+
+  li {
+
+    &.width-200 {
+      width: 200px;
+    }
+
+    .light-text {
+      color: rgba($blue-dark, $opt-4);
+    }
+
+    .light-text-active {
+      color: $blue-dark;
+    }
+
+    a {
+      display: inline-block;
+      cursor: context-menu;
+
+      span {
+        display: inline-block;
+        text-align: left;
+      }
+
+      span.number {
+        font-size: 77px;
+        margin-right: 15px;
+        font-weight: $font-w-light;
+        @extend .light-text;
+      }
+
+      span.text {
+        font-size: $font-small;
+        font-weight: $font-w-regular;
+        @extend .light-text;
+      }
+    }
+
+    &.active {
+      a {
+        span {
+          @extend .light-text-active;
+        }
+      }
+    }
+
+  }
+}
+
+//Cross button
+.btn-remove-input {
+  position: absolute;
+  bottom: 3px;
+  cursor: pointer;
+  right: 0;
+}
+
+//icon-linkin
+.icon-linkin {
+  bottom:3px;
+  left:0;
+  position: absolute;
 }
