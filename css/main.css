@@ -1422,6 +1422,27 @@ a.cm-btn {
   a.cm-btn.up-case {
     text-transform: uppercase; }
 
+.file-uploader {
+  display: inline-block;
+  position: relative; }
+  .file-uploader input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; }
+  .file-uploader .button {
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    line-height: 14px;
+    background: #cfcfd2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; }
+
 .fifty-block {
   float: left;
   width: 50%; }
@@ -1442,6 +1463,10 @@ a.cm-btn {
   .d-table .d-table-cell {
     display: table-cell;
     vertical-align: middle; }
+    .d-table .d-table-cell.width-0 {
+      width: 0; }
+    .d-table .d-table-cell.width-100 {
+      width: 100%; }
   .d-table.cell-full-width .d-table-cell {
     width: 100%; }
 
@@ -1941,6 +1966,4 @@ input[type="radio"] + label {
   right: 0; }
 
 .icon-linkin {
-  bottom: 3px;
-  left: 0;
-  position: absolute; }
+  margin-right: 15px; }

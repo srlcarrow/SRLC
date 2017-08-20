@@ -209,10 +209,25 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="input-wrapper">
-                    <span class="icon icon-20 icon-linkin ps-absolute"></span>
-                    <input class="pl-30" placeholder="Link" id="" name="" type="text">
-                    <label for="">Linked in Account</label>
+                <div class="d-table">
+                    <div class="d-table-cell width-0">
+                        <span class="icon icon-20 icon-linkin mt-12"></span>
+                    </div>
+                    <div class="d-table-cell width-100">
+                        <div class="input-wrapper">
+                            <input id="" name="" type="text">
+                            <div class="float-text">Linked in Account</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <h5>Upload CV</h5>
+                <div class="file-uploader">
+                    <div class="button">Brows...</div>
+                    <input type="file">
                 </div>
             </div>
         </div>

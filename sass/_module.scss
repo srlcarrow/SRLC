@@ -73,6 +73,33 @@ a.cm-btn {
   }
 }
 
+//file Uploader
+.file-uploader {
+  display: inline-block;
+  position: relative;
+
+  input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+  .button {
+    padding: 12px 20px;
+    font-size: $base-font-size;
+    font-weight: $font-w-regular;
+    color: $white;
+    line-height: 14px;
+    background: #cfcfd2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+  }
+}
+
 .fifty-block {
   float: left;
   width: 50%;
@@ -99,6 +126,14 @@ a.cm-btn {
   .d-table-cell {
     display: table-cell;
     vertical-align: middle;
+
+    &.width-0 {
+      width: 0;
+    }
+
+    &.width-100 {
+      width: 100%;
+    }
   }
 
   &.cell-full-width {
