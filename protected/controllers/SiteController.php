@@ -70,7 +70,13 @@ class SiteController extends Controller {
         $this->renderPartial('ajaxLoad/popups/sign_in_form');
     }
 
-    public function actionPasswordResetFrom() {
+    public function actionCompanyLogoUploadPopup()
+    {
+        $this->renderPartial('ajaxLoad/popups/company_logo_uploader');
+    }
+
+    public function actionPasswordResetFrom()
+    {
         $this->renderPartial('ajaxLoad/popups/password_reset_form');
     }
 
@@ -78,7 +84,19 @@ class SiteController extends Controller {
         $this->render('advertisement');
     }
 
-    public function actionJobSeeker() {
+
+    public function actionCreateAdvertisement()
+    {
+        $this->render('createAdd');
+    }
+
+    public function actionEmployerRegister()
+    {
+        $this->render('employer_register');
+    }
+
+    public function actionJobSeeker()
+    {
         $this->render('jobSeekerRegistration');
     }
 

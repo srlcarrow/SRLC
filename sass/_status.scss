@@ -11,6 +11,10 @@ header {
   }
 }
 
+.hide-block {
+  display: none;
+}
+
 .navbar {
   margin-bottom: 0;
 
@@ -186,11 +190,15 @@ ul.more-details-list {
 //-------------------------------------
 .popup-container {
 
+  .small {
+    width: 40%;
+    left: calc(100% - 70%);
+    padding: 30px 100px;
+  }
+
   &.registration-popup {
     .popup {
-      width: 40%;
-      left: calc(100% - 70%);
-      padding: 30px 100px;
+      @extend .small;
 
       .employer {
         display: none;
@@ -201,7 +209,7 @@ ul.more-details-list {
 
   //Sign in popup
   &.sign-in-popup {
-    @extend .registration-popup;
+    @extend .small;
 
     .forget_password {
       font-size: $base-font-size;
@@ -213,6 +221,13 @@ ul.more-details-list {
     }
 
   }
+
+  &.small-size {
+    .popup {
+      @extend .small;
+    }
+  }
+
 }
 
 //-------------------------------------
@@ -304,5 +319,36 @@ input[type="radio"] {
 
 //icon-linkin
 .icon-linkin {
-  margin-right:15px;
+  margin-right: 15px;
+}
+
+.company-logo-wrp {
+  width: 212px;
+  height: 114px;
+  border: 1px solid #ebebeb;
+  float: left;
+  margin-right: 30px;
+}
+
+.cmp_logo_upload {
+  margin-top: 67px;
+}
+
+//Image Crop
+.company-logo-upload {
+  .cropit-preview {
+    background-size: cover;
+    border: 1px solid #ccc;
+    width: 212px;
+    height: 114px;
+  }
+  .cropit-preview-image-container {
+    cursor: move;
+  }
+  .image-size-label {
+    margin-top: 10px;
+  }
+  input, .export {
+    display: block;
+  }
 }

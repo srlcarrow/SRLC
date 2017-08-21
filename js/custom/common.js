@@ -92,12 +92,19 @@ var Input = (function () {
             var _input = $this.find(_selectors);
             var _labelText = $this.find('.float-text');
 
-            $this
-                    // .append(_inputBox)
+
+            if ($this.children('.input-line').length > 0) {
+                $this.find(_inputLine).remove();
+                $this.find(_animateLine).remove();
+
+            } else {
+                $this
                     .append(_input)
                     .append(_labelText)
                     .append(_inputLine)
                     .append(_animateLine);
+            }
+
 
             //On Input Focus
             $(document).on('focus', _selectors, function (evt) {
