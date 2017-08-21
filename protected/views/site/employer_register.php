@@ -28,9 +28,11 @@
     </script>
 
     <!--JS | Jquery Lib-->
-    <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<!--    <script src="--><?php //echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?><!--"></script>-->
     <!--JS | Scroll magic-->
     <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
+
 
     <title>Site</title>
 </head>
@@ -207,5 +209,15 @@
 <!--JS | Common Server js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.server.js'; ?>"></script>
 
+<script>
+    $('.cmp_logo_upload').on('click',function () {
+
+        loadLayoutByAjax('/Site/CompanyLogoUploadPopup',function (html) {
+            Popup.addClass('small-size');
+            Popup.addClass('company-logo-upload');
+            Popup.show(html);
+        })
+    })
+</script>
 </body>
 </html>
