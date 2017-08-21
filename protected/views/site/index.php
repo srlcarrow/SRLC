@@ -47,6 +47,7 @@
                 </div>
             </div>
         </div>
+
         <!------------------------------------
         Header Section
     ------------------------------------->
@@ -56,22 +57,6 @@
                     <div class="navbar-header">
                         <a class="" href="#"></a>
                     </div>
-
-            </nav>
-        </header>
-
-        <!------------------------------------
-        Search Section
-    ------------------------------------->
-        <section class="main-block search-section gradient full-height">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-12 main-title">
-                        <h1>Hi ... Find a job fit to your life style</h1>
-                        <h3>Simply dummy text of the printing and typesetting industry</h3>
-                    </div>
-
                     <ul class="navbar-nav navbar-right hidden-xs">
                         <li class="active"><a href="#">Job Seeker</a></li>
                         <li><a href="#">Employer</a></li>
@@ -80,236 +65,144 @@
                         <li class="register-link"><a class="cm-btn btn-registration" href="#">Register</a></li>
                     </ul>
                 </div>
-                </nav>
-                </header>
+            </nav>
+        </header>
 
-                <!------------------------------------
-                Search Section
-            ------------------------------------->
-                <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
-                <section class="main-block search-section gradient full-height">
-                    <div class="container">
-                        <div class="row">
+        <!------------------------------------
+        Search Section
+    ------------------------------------->
+        <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
+        <section class="main-block search-section gradient full-height">
+            <div class="container">
+                <div class="row">
 
-                            <div class="col-md-12 main-title">
-                                <h1>Find a job fit to your life style</h1>
-                                <h3>Simply dummy text of the printing and typesetting industry</h3>
+                    <div class="col-md-12 main-title">
+                        <h1>Find a job fit to your life style</h1>
+                        <h3>Simply dummy text of the printing and typesetting industry</h3>
+                    </div>
+
+                    <div class="col-sm-12 col-md-10 col-md-offset-1 search-area">
+
+                        <div class="col-sm-12 search-box">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6 job-drop-down show-category">
+                                    <div class="selected-item">
+                                        <span>Job Category</span>
+                                        <i class="icon icon-20 icon-arrow-down right"></i>
+                                    </div>
+                                    <div class="list"></div>
+                                </div>
+                                <div class="col-md-8 col-sm-6 job-input">
+                                    <input type="text" placeholder="Or Type Job Title / Keyword">
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="col-sm-12 col-md-10 col-md-offset-1 search-area">
-
-                                <div class="col-sm-12 search-box">
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-6 job-drop-down show-category">
-                                            <div class="selected-item">
-                                                <span>Job Category</span>
-                                                <i class="icon icon-20 icon-arrow-down right"></i>
-                                            </div>
-                                            <div class="list"></div>
+                        <div class="col-md-8 col-md-offset-1 col-xs-12 filters">
+                            <div class="row">
+                                <div class="selector-wrap col-xs-12 col-sm-4 col-md-3">
+                                    <div class="selector">
+                                        <div class="selected-option">
+                                            <span>Type</span>
                                         </div>
-                                        <div class="col-md-8 col-sm-6 job-input">
-                                            <input type="text" placeholder="Or Type Job Title / Keyword">
-                                        </div>
+                                        <ul class="option-list"></ul>
+                                        <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type')); ?>
                                     </div>
                                 </div>
 
-                                <div class="col-md-8 col-md-offset-1 col-xs-12 filters">
-                                    <div class="row">
-                                        <div class="selector-wrap col-xs-12 col-sm-4 col-md-3">
-                                            <div class="selector">
-                                                <div class="selected-option">
-                                                    <span>Type</span>
-                                                </div>
-                                                <ul class="option-list"></ul>
-                                                <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type')); ?>
-                                            </div>
+
+                                <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
+                                    <div class="selector">
+                                        <div class="selected-option">
+                                            <span>District</span>
                                         </div>
-
-
-                                        <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
-                                            <div class="selector">
-                                                <div class="selected-option">
-                                                    <span>District</span>
-                                                </div>
-                                                <ul class="option-list"></ul>
-                                                <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
-                                            </div>
-                                        </div>
-
-                                        <div class="selector-wrap col-xs-12 col-sm-4 col-md-3 lg-ml-20">
-                                            <div class="selector">
-                                                <div class="selected-option">
-                                                    <span>City</span>
-                                                </div>
-                                                <ul class="option-list"></ul>
-
-                                                <select class="city" name="" id="">
-                                                    <option value="" disabled="disabled">City</option>
-                                                    <option value="778">Colombo</option>
-                                                </select>
-                                                <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District')); ?>
-                                            </div>
-                                        </div>
+                                        <ul class="option-list"></ul>
+                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
                                     </div>
+                                </div>
 
+                                <div  class="selector-wrap col-xs-12 col-sm-4 col-md-3 lg-ml-20">
+                                    <div  class="selector">
+                                        <div class="selected-option">
+                                            <span>City</span>
+                                        </div>
+                                        <ul id="citiesList" class="option-list"></ul>
+                                        <select id="cities">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                </section>
-                <?php $this->endWidget(); ?>
-                <!------------------------------------
-                Search Result Section
-            ------------------------------------->
-                <section class="main-block" id="searchContent">
 
-                    <div class="container">
-                        <div class="row">
+                </div>
+            </div>
+        </section>
+        <?php $this->endWidget(); ?>
+        <!------------------------------------
+        Search Result Section
+    ------------------------------------->
+        <div id="ajaxLoadAdvertisements"></div>
 
-                            <div class="col-md-10 col-md-offset-1 col-xs-12">
+        <!------------------------------------
+        Footer Section
+    ------------------------------------->
+        <footer>
 
-                                <div class="row">
-
-                                    <div class="total-jobs col-xs-12">
-                                        <h4>10<span>of</span>124</h4>
-                                    </div>
-
-
-                                    <div class="job-list-wrap col-xs-12">
-
-                                        <ul class="float-block job-list">
-                                            <li>
-                                                <h3>Project Manager</h3>
-                                                <h6>
-                                                    <span>Sysco Labs (Pvt) Ltd</span>
-                                                    <span class="time-left">Yesterday</span>
-                                                </h6>
-                                                <ul class="more-details-list">
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        Intern
-                                                    </li>
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        3+ Yrs
-                                                    </li>
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        Colobmo 03
-                                                    </li>
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        75k - 100k
-                                                    </li>
-
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h3>Project Manager</h3>
-                                                <h6>
-                                                    <span>VirtusaPolaris Pvt. Ltd.</span>
-                                                    <span class="time-left">1 hour</span>
-                                                </h6>
-                                                <ul class="more-details-list">
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        Full Time
-                                                    </li>
-                                                    <li title="">
-                                                        <i class="dot"></i>
-                                                        3+ Yrs
-                                                    </li>
-                                                    <li title="City">
-                                                        <i class="dot"></i>
-                                                        Negambo
-                                                    </li>
-                                                    <li title="Salary">
-                                                        <i class="dot"></i>
-                                                        75k - 100k
-                                                    </li>
-
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h3>Project Manager</h3>
-                                                <h6>
-                                                    <span>Sysco Labs (Pvt) Ltd</span>
-                                                    <span class="time-left">Yesterday</span>
-                                                </h6>
-                                                <ul class="more-details-list">
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        Intern
-                                                    </li>
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        3+ Yrs
-                                                    </li>
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        Colobmo 03
-                                                    </li>
-                                                    <li>
-                                                        <i class="dot"></i>
-                                                        75k - 100k
-                                                    </li>
-
-                                                </ul>
-                                            </li>
-                                        </ul>
-
-                                    </div>
+        </footer>
 
 
-                                </div>
+        <!--========================================================
+             Javascript
+        =========================================================-->
+        <!--JS | Common js-->
+        <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.js'; ?>"></script>
+        <!--JS | Main js-->
+        <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.js'; ?>"></script>
 
-                            </div>
+        <!--JS | Common Server js-->
+        <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.server.js'; ?>"></script>
+        <!--JS | Server js-->
+        <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
 
-                            <div class="col-xs-12 site-pagination">
-                                <ul>
-                                    <li class="active">
-                                        <a href="#">1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">3</a>
-                                    </li>
-                                </ul>
-                            </div>
+    </body>
+</html>
 
-                        </div>
-                    </div>
-                </section>
+<script>
+            $(document).ready(function (e) {
+                loadAdvertisementData(1);
+            });
 
-                <!------------------------------------
-                Footer Section
-            ------------------------------------->
-                <footer>
+            function loadAdvertisementData() {
+                $.ajax({
+                    type: 'POST',
+                    url: "<?php echo Yii::app()->baseUrl . '/Advertisement/ViewAdvertisements'; ?>",
+                    data: $('#frmSearch').serialize(),
+                    success: function (responce) {
+                        $("#ajaxLoadAdvertisements").html(responce);
+                    }
+                });
+            }
 
-                </footer>
-
-
-                <!--========================================================
-                     Javascript
-                =========================================================-->
-                <!--JS | Common js-->
-                <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.js'; ?>"></script>
-                <!--JS | Main js-->
-                <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.js'; ?>"></script>
-
-                <!--JS | Common Server js-->
-                <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.server.js'; ?>"></script>
-                <!--JS | Server js-->
-                <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
-
-                </body>
-                </html>
-
-                <script>
-                            function loadCities() {
-                                alert('rrr');
+            function loadCities() {
+                $("#cities").empty();
+                $("#citiesList").empty();
+                var id = $('#district_id').val();
+                $.ajax({
+                    type: 'POST',
+                    url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
+                    data: {id: id},
+                    dataType: 'json',
+                    success: function (responce) {
+                        if (responce.code == 200) {
+                            var cities = responce.data.cityData;
+                            for (var i = 0, max = cities.length; i < max; i++) {
+                                $('#cities').append($("<option>aaaa</option>").attr("value", cities[i]['city_id']).text(cities[i]['city_name']));
+                                $('#citiesList').append($("<option>aaaa</option>").attr("value", cities[i]['city_id']).text(cities[i]['city_name']));
                             }
-                </script>
+                        }
+                    }
+                });
+            }
+</script>

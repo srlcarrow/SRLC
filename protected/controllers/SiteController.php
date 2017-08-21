@@ -50,6 +50,18 @@ class SiteController extends Controller {
         $this->msgHandler(200, "Data Transfer", array('subCategoryData' => $subCatData));
     }
 
+    public function actionGetCitiesByDistrictID() {
+        $cities = AdmCity::model()->findAllByAttributes(array('ref_district_id' => $_POST['id']), array('order' => 'city_name'));
+        $cityData = array();
+        foreach ($cities as $city) {
+            $cityDat["city_id"] = $city->city_id;
+            $cityDat["city_name"] = $city->city_name;
+            array_push($cityData, $cityDat);
+        }
+
+        $this->msgHandler(200, "Data Transfer", array('cityData' => $cityData));
+    }
+
     public function actionRegistrationPopup() {
         $this->renderPartial('ajaxLoad/popups/registration');
     }
@@ -66,23 +78,19 @@ class SiteController extends Controller {
         $this->render('advertisement');
     }
 
-    public function actionJobSeeker()
-    {
+    public function actionJobSeeker() {
         $this->render('jobSeekerRegistration');
     }
 
-    public function actionFormStepOne()
-    {
+    public function actionFormStepOne() {
         $this->renderPartial('ajaxLoad/jobSeeker/form_step1');
     }
 
-    public function actionFormStepTwo()
-    {
+    public function actionFormStepTwo() {
         $this->renderPartial('ajaxLoad/jobSeeker/form_step2');
     }
 
-    public function actionFormStepThree()
-    {
+    public function actionFormStepThree() {
         $this->renderPartial('ajaxLoad/jobSeeker/form_step3');
     }
 

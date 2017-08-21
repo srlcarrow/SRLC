@@ -34,7 +34,7 @@
         $("#subCat ul").html("");
         var subCategories = data.subCategoryData;
         for (var i = 0, max = subCategories.length; i < max; i++) {
-            $("#subCat ul").append('<li><a id="sub_"' + subCategories[i]['scat_id'] + ' href="">' + subCategories[i]['scat_name'] + '<span>(143)</span></a></li>');
+            $("#subCat ul").append('<li><a id="sub_"' + subCategories[i]['scat_id'] + ' href="">' + subCategories[i]['scat_name'] + '<span>(add count)</span></a></li>');
         }
     }
 
