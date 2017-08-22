@@ -48,20 +48,20 @@ var Popup = (function () {
         if (ajaxLoad !== undefined) {
 
             popupContainer.find('.content')
-                    .html('')
-                    .html(ajaxLoad);
+                .html('')
+                .html(ajaxLoad);
         }
 
     };
 
     _Popup.loadNewLayout = function (html) {
         popupContainer.find('.content')
-                .css('opacity', 0);
+            .css('opacity', 0);
         if (popupContainer.hasClass('isShow')) {
             popupContainer.find('.content')
-                    .animate({'opacity': 1}, 800)
-                    .html('')
-                    .html(html);
+                .animate({'opacity': 1}, 800)
+                .html('')
+                .html(html);
         }
     };
 
@@ -114,7 +114,7 @@ var Input = (function () {
                 if (!_parent.hasClass('focus')) {
 
                     _parent.addClass('focus')
-                            .addClass('text-top');
+                        .addClass('text-top');
                 }
             });
 
@@ -124,7 +124,7 @@ var Input = (function () {
                 var _parent = $this.parents('.input-wrapper');
 
                 _parent.removeClass('focus')
-                        .addClass('blur');
+                    .addClass('blur');
 
                 if (_parent.hasClass('text-top') && $this.val().length === 0) {
                     _parent.removeClass('text-top');
@@ -172,138 +172,135 @@ var Input = (function () {
     }
 
 })();
-   
+
 //Selector
-        var Select = (function () {
+var Select = (function () {
 
-            var select = {};
+    var select = {};
 
-            select.init = function () {
-                $('.selector').each(function () {
-                    var $this = $(this);
+    select.init = function () {
+        $('.selector').each(function () {
+            var $this = $(this);
 
-                    var selectedOption = $this.find('.selected-option');
-                    var optionList = $this.find('.option-list');
-                    var htmlSelect = $this.find('select');
+            var selectedOption = $this.find('.selected-option');
+            var optionList = $this.find('.option-list');
+            var htmlSelect = $this.find('select');
 
-                    var HTMLSelect = {
-                        selected: function (selectedDisabled) {
+            var HTMLSelect = {
+                selected: function (selectedDisabled) {
 
-                            var selected = htmlSelect.find('option:disabled');
+                    var selected = htmlSelect.find('option:disabled');
 
-                            if (selectedDisabled) {
-                                selected = htmlSelect.find('option:disabled');
-                            } else {
-                                selected = htmlSelect.find('option:selected');
-                            }
-
-                            return [
-                                selected,
-                                selected.val(),
-                                selected.html()
-                            ];
-                        },
-                        options: function () {
-                            var list = [];
-                            htmlSelect.find('option').each(function () {
-                                var isSelected = false;
-                                var isDisabled = false;
-
-                                if ($(this).is(':selected')) {
-                                    isSelected = true;
-                                }
-
-                                if ($(this).prop('disabled')) {
-                                    isDisabled = true;
-                                }
-
-                                var opt = {
-                                    val: $(this).val(),
-                                    text: $(this).html(),
-                                    isSelected: isSelected,
-                                    isDisabled: isDisabled
-                                };
-                                list.push(opt);
-                            });
-                            return list;
-                        },
-                        getSelectVal: function () {
-                            return htmlSelect.val();
-                        },
-                        update: function (val) {
-                            htmlSelect.find('option[value="' + val + '"]').prop('selected', true);
-                            htmlSelect.trigger('change');
-                        }
-
-                    };
-
-                    //Show Selected
-                    function setSelected(isSelectedVal) {
-                        selectedOption.find('span').html(HTMLSelect.selected(isSelectedVal)[2]);
+                    if (selectedDisabled) {
+                        selected = htmlSelect.find('option:disabled');
+                    } else {
+                        selected = htmlSelect.find('option:selected');
                     }
 
-                    //Set options to list
-                    function setOptions() {
-                        optionList.html('');
+                    return [
+                        selected,
+                        selected.val(),
+                        selected.html()
+                    ];
+                },
+                options: function () {
+                    var list = [];
+                    htmlSelect.find('option').each(function () {
+                        var isSelected = false;
+                        var isDisabled = false;
 
-                        HTMLSelect.options().map(function (option) {
-                            console.log(option)
-                            var li = $('<li>');
-
-                            if (option.isSelected) {
-                                li.addClass('selected');
-                            }
-                            if (option.isDisabled) {
-                                li.addClass('disabled');
-                            }
-
-                            li.html(option.text);
-                            li.attr('data-val', option.val);
-                            optionList.append(li);
-                        });
-
-                    }
-
-
-                    setSelected(true);
-                    setOptions();
-
-                    selectedOption.on('click', function () {
-                        $('.option-list').css('display', 'none');
-                        optionList.css('display', 'block');
-                    });
-
-                    //option click
-                    optionList.find('li').on('click', function () {
-                        optionList.css('display', 'none');
-                        var $this = $(this);
-                        var val = $this.attr('data-val');
-
-                        HTMLSelect.update(val);
-                        setSelected(false);
-                    });
-
-
-                    $(document).on('click', function (evt) {
-                        var target = $(evt.target);
-
-                        if (!target.parents().hasClass('selector')) {
-                            optionList.css('display', 'none');
+                        if ($(this).is(':selected')) {
+                            isSelected = true;
                         }
+
+                        if ($(this).prop('disabled')) {
+                            isDisabled = true;
+                        }
+
+                        var opt = {
+                            val: $(this).val(),
+                            text: $(this).html(),
+                            isSelected: isSelected,
+                            isDisabled: isDisabled
+                        };
+                        list.push(opt);
                     });
-
-                })
-            };
-
-            select.change = function () {
+                    return list;
+                },
+                getSelectVal: function () {
+                    return htmlSelect.val();
+                },
+                update: function (val) {
+                    htmlSelect.find('option[value="' + val + '"]').prop('selected', true);
+                    htmlSelect.trigger('change');
+                }
 
             };
 
-            select.init();
+            //Show Selected
+            function setSelected(isSelectedVal) {
+                selectedOption.find('span').html(HTMLSelect.selected(isSelectedVal)[2]);
+            }
 
-            return select;
+            //Set options to list
+            function setOptions() {
+                optionList.html('');
 
-        })();
+                HTMLSelect.options().map(function (option) {
+
+                    var li = $('<li>');
+
+                    if (option.isSelected) {
+                        li.addClass('selected');
+                    }
+                    if (option.isDisabled) {
+                        li.addClass('disabled');
+                    }
+
+                    li.html(option.text);
+                    li.attr('data-val', option.val);
+                    optionList.append(li);
+                });
+
+            }
+
+
+            setSelected(true);
+            setOptions();
+
+            selectedOption.on('click', function () {
+                $('.option-list').css('display', 'none');
+                optionList.css('display', 'block');
+            });
+
+            //option click
+            optionList.find('li').on('click', function () {
+                optionList.css('display', 'none');
+                var $this = $(this);
+                var val = $this.attr('data-val');
+
+                HTMLSelect.update(val);
+                setSelected(false);
+            });
+
+
+            $(document).on('click', function (evt) {
+                var target = $(evt.target);
+
+                if (!target.parents().hasClass('selector')) {
+                    optionList.css('display', 'none');
+                }
+            });
+
+        })
+    };
+
+
+    select.init();
+
+    return select;
+
+})();
 
 $.fn.SearchBox = function (opt) {
     return $(this).each(function () {
@@ -370,7 +367,7 @@ var SearchBox = (function () {
 //------------------------------------------------------------------------------------
 //Registration
 //------------------------------------------------------------------------------------
-        $('.btn-registration').on('click', function (evt) {
+$('.btn-registration').on('click', function (evt) {
 
     evt.preventDefault();
 
@@ -384,7 +381,7 @@ var SearchBox = (function () {
 //------------------------------------------------------------------------------------
 //Sign In
 //------------------------------------------------------------------------------------
-        $('.btn-sign-in').on('click', function (evt) {
+$('.btn-sign-in').on('click', function (evt) {
 
     evt.preventDefault();
 
