@@ -1,5 +1,6 @@
 <div class="fifty-block man-category">
     <ul class="category-list main">
+        <li><a id="c_0" onclick="getSubCat(this.id)" href="">All</a></li>
         <?php
         foreach ($categories as $category) {
             ?>
@@ -10,7 +11,7 @@
     </ul>
 </div>
 <div id="subCat" class="fifty-block sub-category">
-    <ul class="category-list sub overflow-scroll">
+    <ul class="category-list sub overflow-scroll">       
         <!--Sub Categories Load Here-->
     </ul>
 </div>
@@ -33,10 +34,9 @@
     function loadSubCategories(data) {
         $("#subCat ul").html("");
         var subCategories = data.subCategoryData;
+        $("#subCat ul").append('<li><a id="sub_0" href="">All</a></li>');
         for (var i = 0, max = subCategories.length; i < max; i++) {
-            $("#subCat ul").append('<li><a id="sub_"' + subCategories[i]['scat_id'] + ' href="">' + subCategories[i]['scat_name'] + '<span>(add count)</span></a></li>');
+            $("#subCat ul").append('<li><a id="sub_' + subCategories[i]['scat_id'] + '" href="" onclick="loadAdvertisementData(1)">' + subCategories[i]['scat_name'] + '<span>(add count)</span></a></li>');
         }
     }
-
-
 </script>

@@ -7,91 +7,50 @@
                 <div class="row">
 
                     <div class="total-jobs col-xs-12">
-                        <h4>10<span>of</span>124</h4>
+                        <h4><?php echo $currentPage * $limit; ?><span>of</span><?php echo $pageCount; ?></h4>
                     </div>
 
 
                     <div class="job-list-wrap col-xs-12">
 
                         <ul class="float-block job-list">
-                            <li>
-                                <h3>Project Manager</h3>
-                                <h6>
-                                    <span>Sysco Labs (Pvt) Ltd</span>
-                                    <span class="time-left">Yesterday</span>
-                                </h6>
-                                <ul class="more-details-list">
-                                    <li>
-                                        <i class="dot"></i>
-                                        Intern
-                                    </li>
-                                    <li>
-                                        <i class="dot"></i>
-                                        3+ Yrs
-                                    </li>
-                                    <li>
-                                        <i class="dot"></i>
-                                        Colobmo 03
-                                    </li>
-                                    <li>
-                                        <i class="dot"></i>
-                                        75k - 100k
-                                    </li>
+                            <?php
+                            foreach ($data as $value) {
+                                $title = $value->ad_is_use_desig_as_title == 1 ? $value->desig_name : $value->ad_title;
+                                ?>
+                                <li>
+                                    <h3><?php echo $title; ?></h3>
+                                    <h6>
+                                        <span><?php echo $value->employer_name; ?></span>
+                                        <span class="time-left">Yesterday</span>
+                                    </h6>
+                                    <ul class="more-details-list">
+                                        <li>
+                                            <i class="dot"></i>
+                                            <?php echo $value->wt_name; ?>
+                                        </li>
+                                        <li>
+                                            <i class="dot"></i>
+                                            <?php echo explode('.', $value->ad_expected_experience)[0]; ?> Yrs
+                                        </li>
+                                        <li>
+                                            <i class="dot"></i>
+                                            <?php echo $value->city_name; ?>
+                                        </li>
+                                        <li>
+                                            <i class="dot"></i>
+                                            <?php
+                                            $salary = $value->ad_is_negotiable == 0 ? $value->ad_salary : "Negotiable";
+                                            echo $salary;
+                                            ?>
+                                        </li>
 
-                                </ul>
-                            </li>
-                            <li>
-                                <h3>Project Manager</h3>
-                                <h6>
-                                    <span>VirtusaPolaris Pvt. Ltd.</span>
-                                    <span class="time-left">1 hour</span>
-                                </h6>
-                                <ul class="more-details-list">
-                                    <li>
-                                        <i class="dot"></i>
-                                        Full Time
-                                    </li>
-                                    <li title="">
-                                        <i class="dot"></i>
-                                        3+ Yrs
-                                    </li>
-                                    <li title="City">
-                                        <i class="dot"></i>
-                                        Negambo
-                                    </li>
-                                    <li title="Salary">
-                                        <i class="dot"></i>
-                                        75k - 100k
-                                    </li>
+                                    </ul>
+                                </li>
+                                <?php
+                            }
+                            ?>
 
-                                </ul>
-                            </li>
-                            <li>
-                                <h3>Project Manager</h3>
-                                <h6>
-                                    <span>Sysco Labs (Pvt) Ltd</span>
-                                    <span class="time-left">Yesterday</span>
-                                </h6>
-                                <ul class="more-details-list">
-                                    <li>
-                                        <i class="dot"></i>
-                                        Intern
-                                    </li>
-                                    <li>
-                                        <i class="dot"></i>
-                                        3+ Yrs
-                                    </li>
-                                    <li>
-                                        <i class="dot"></i>
-                                        Colobmo 03
-                                    </li>
-                                    <li>
-                                        <i class="dot"></i>
-                                        75k - 100k
-                                    </li>
-
-                                </ul>
-                            </li>
                         </ul>
 
                     </div>
@@ -102,17 +61,14 @@
             </div>
 
             <div class="col-xs-12 site-pagination">
-                <ul>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                </ul>
+                <?php
+                Paginations::setLimit(10);
+                Paginations::setPage($currentPage);
+                Paginations::setJSCallback("loadAdvertisementData");
+                Paginations::setTotalPages($pageCount);
+                Paginations::makePagination();
+                Paginations::drawPagination();
+                ?>
             </div>
 
         </div>
