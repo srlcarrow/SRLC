@@ -30,7 +30,7 @@ var SelectedCategory = (function () {
             $('.category-list.main li a').removeClass('active');
             $this.addClass('active');
             _category.categoryID.main = [
-                $parentUl.find('li a.active').attr('href'),
+                $parentUl.find('li a.active').attr('id'),
                 $parentUl.find('li a.active').text()
             ]
         }
@@ -40,7 +40,7 @@ var SelectedCategory = (function () {
             $('.category-list.sub li a').removeClass('active');
             $this.addClass('active');
             _category.categoryID.sub = [
-                $parentUl.find('li a.active').attr('href'),
+                $parentUl.find('li a.active').attr('id'),
                 $parentUl.find('li a.active').text()
             ];
             //Call after select

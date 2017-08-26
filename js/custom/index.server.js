@@ -1,6 +1,14 @@
+window.MAIN_ID = '';
+window.SUB_ID = '';
+
+window.clearCategoryIds = function () {
+    window.MAIN_ID = '';
+    window.SUB_ID = '';
+};
 
 function loadJobData(category) {
-    console.log(category);
+    MAIN_ID = category.main[0];
+    SUB_ID = category.sub[0];
 }
 
 //Category Popup
