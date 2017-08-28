@@ -19,12 +19,12 @@
                     </select>
                 </div>
             </div>
-            
+
             <div class="col-md-6">
-                    <div class="state-wrapper">
-                        <input type="checkbox" id="s">
-                        <label for="s">Looking for a Internship Opportunity</label>
-                    </div>
+                <div class="state-wrapper">
+                    <input type="checkbox" id="s">
+                    <label for="s">Looking for a Internship Opportunity</label>
+                </div>
             </div>
 
         </div>
@@ -107,8 +107,14 @@
 
     //Next step
     $('.btn-next').on('click', function () {
-
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepThree'; ?>",
+            success: function (responce) {
+                $("#step").html(responce);
+            }
+        });
         //GO to next step
-        JobSeekerStep.next(2);
+//        JobSeekerStep.next(2);
     });
 </script>
