@@ -31,7 +31,8 @@
         <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
         <!--JS | Scroll magic-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
-
+        
+        
         <title>4You</title>
     </head>
     <body>
