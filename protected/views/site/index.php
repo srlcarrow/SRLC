@@ -1,11 +1,9 @@
-<!------------------------------------
-Search Section
-------------------------------------->
 <style>
     .navbar.light-blue {
         background: none!important;
     }
 </style>
+
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
 <section class="main-block search-section gradient full-height">
     <div class="container">

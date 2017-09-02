@@ -64,7 +64,6 @@
         <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.js'; ?>"></script>
         <!--JS | Main js-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.js'; ?>"></script>
-
         <!--JS | Common Server js-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.server.js'; ?>"></script>
         <!--JS | Server js-->
