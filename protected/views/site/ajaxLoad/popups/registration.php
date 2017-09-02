@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="col-md-12 ">
                     <div class="input-wrapper">
                         <input id="email" name="email" type="text">
                         <div class="float-text">Email</div>

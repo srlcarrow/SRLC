@@ -94,9 +94,32 @@
   }
 }
 
-
 .top-space-block {
   padding-top: 68px;
+}
+
+//------------------------------------------------------------------
+//Data table
+//------------------------------------------------------------------
+.data-table {
+  tr {
+    padding: 0;
+
+    td {
+      padding: 0;
+
+      .data {
+        padding: 10px 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+  }
 }
 
 //------------------------------------------------------------------

@@ -209,14 +209,16 @@ ul.more-details-list {
 
   //Sign in popup
   &.sign-in-popup {
-    @extend .small;
+    .popup {
+      @extend .small;
 
-    .forget_password {
-      font-size: $base-font-size;
-      color: $blue-light-2;
+      .forget_password {
+        font-size: $base-font-size;
+        color: $blue-light-2;
 
-      &:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -349,4 +351,27 @@ input[type="radio"] {
   input, .export {
     display: block;
   }
+}
+
+.data-user-profile {
+
+  .heading {
+    width: 250px;
+
+    @include breakpoint($small) {
+      width: 50%;
+    }
+  }
+
+  .details {
+    width: 65%;
+
+    @include breakpoint($small) {
+      width: 50%;
+    }
+  }
+}
+
+.data-employer-profile {
+  @extend .data-user-profile;
 }

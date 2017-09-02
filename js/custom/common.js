@@ -40,6 +40,12 @@ var Popup = (function () {
         hide();
     });
 
+    $(document).on('keypress',function (e) {
+       if(e.keyCode === 27) {
+           hide();
+       }
+    });
+
     //Public functions
     _Popup.show = function (ajaxLoad) {
 
@@ -386,6 +392,7 @@ $('.btn-sign-in').on('click', function (evt) {
 
     loadLayoutByAjax('/Site/SignInPopup', function (html) {
         Popup.addClass('sign-in-popup');
+        Popup.addClass('small');
         Popup.show(html);
         Input.init();
     });
