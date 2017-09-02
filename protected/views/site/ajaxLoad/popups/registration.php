@@ -25,24 +25,16 @@
                         <input id="lname" name="lname" type="text">
                         <div class="float-text">Last Name</div>
                     </div>
-
-                    <div class="input-wrapper">
-                        <input id="email" name="email" type="text">
-                        <div class="float-text">Email</div>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <input id="contactNo" name="contactNo" type="text">
-                        <div class="float-text">Contact No</div>
-                    </div>
                 </div>
+
                 <div class="col-md-12 mt-10 hide-show employer">
                     <div class="input-wrapper">
                         <input id="cname" name="cname" type="text">
                         <div class="float-text">Company Name</div>
                     </div>
+                </div>
 
-
+                <div>
                     <div class="input-wrapper">
                         <input id="email" name="email" type="text">
                         <div class="float-text">Email</div>
@@ -52,14 +44,14 @@
                         <input id="contactNo" name="contactNo" type="text">
                         <div class="float-text">Contact No</div>
                     </div>
+
+                    <div class="col-md-12 mt-20">
+                        <button id="Register" type="button" onclick="userRegistration()"
+                                class="cm-btn large text-uppercase light-blue right">Register
+                        </button>
+                    </div>
                 </div>
 
-                <div class="col-md-12 mt-20">
-                    <button id="Register" type="button" onclick="userRegistration()"
-                            class="cm-btn large text-uppercase light-blue right">Register
-                    </button>
-                </div>
-            </div>
         </form>
     </div>
 </div>
@@ -86,10 +78,6 @@
     });
 
     function userRegistration() {
-
-
-
-
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         $.ajax({
             type: 'POST',
@@ -98,12 +86,12 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-//                    Message.success(responce.msg);
+                    //                    Message.success(responce.msg);
                     Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                     $("#formRegister")[0].reset();
-//                    $('.pr-20').attr('value', '');
-//                    $('.row-input > .input-no-label').not(':first').remove();
-//                    loadCategoryData();
+                    //                    $('.pr-20').attr('value', '');
+                    //                    $('.row-input > .input-no-label').not(':first').remove();
+                    //                    loadCategoryData();
                 }
             }
         });

@@ -32,7 +32,7 @@ class Controller extends CController {
         }
     }
 
-    public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
+    public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {       
         $sqlLimit = '';
         if ($limit == NULL) {
             $limit = 10;

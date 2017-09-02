@@ -48,20 +48,20 @@ var Popup = (function () {
         if (ajaxLoad !== undefined) {
 
             popupContainer.find('.content')
-                .html('')
-                .html(ajaxLoad);
+                    .html('')
+                    .html(ajaxLoad);
         }
 
     };
 
     _Popup.loadNewLayout = function (html) {
         popupContainer.find('.content')
-            .css('opacity', 0);
+                .css('opacity', 0);
         if (popupContainer.hasClass('isShow')) {
             popupContainer.find('.content')
-                .animate({'opacity': 1}, 800)
-                .html('')
-                .html(html);
+                    .animate({'opacity': 1}, 800)
+                    .html('')
+                    .html(html);
         }
     };
 
@@ -99,10 +99,10 @@ var Input = (function () {
 
             } else {
                 $this
-                    .append(_input)
-                    .append(_labelText)
-                    .append(_inputLine)
-                    .append(_animateLine);
+                        .append(_input)
+                        .append(_labelText)
+                        .append(_inputLine)
+                        .append(_animateLine);
             }
 
 
@@ -114,7 +114,7 @@ var Input = (function () {
                 if (!_parent.hasClass('focus')) {
 
                     _parent.addClass('focus')
-                        .addClass('text-top');
+                            .addClass('text-top');
                 }
             });
 
@@ -124,7 +124,7 @@ var Input = (function () {
                 var _parent = $this.parents('.input-wrapper');
 
                 _parent.removeClass('focus')
-                    .addClass('blur');
+                        .addClass('blur');
 
                 if (_parent.hasClass('text-top') && $this.val().length === 0) {
                     _parent.removeClass('text-top');
@@ -368,7 +368,6 @@ var SearchBox = (function () {
 //Registration
 //------------------------------------------------------------------------------------
 $('.btn-registration').on('click', function (evt) {
-
     evt.preventDefault();
 
     loadLayoutByAjax('/Site/RegistrationPopup', function (html) {

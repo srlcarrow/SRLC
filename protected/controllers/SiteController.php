@@ -27,7 +27,7 @@ class SiteController extends Controller {
     public function actionIndex() {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+        $this->render('index', array('isMain' => 1));
     }
 
     public function actionCategoryPopup() {
@@ -89,23 +89,6 @@ class SiteController extends Controller {
     public function actionEmployerRegister() {
         $this->render('employer_register');
     }
-
-    public function actionJobSeeker() {
-        $this->render('jobSeekerRegistration');
-    }
-
-    public function actionFormStepOne() {
-        $this->renderPartial('ajaxLoad/jobSeeker/form_step1');
-    }
-
-    public function actionFormStepTwo() {
-        $this->renderPartial('ajaxLoad/jobSeeker/form_step2');
-    }
-
-    public function actionFormStepThree() {
-        $this->renderPartial('ajaxLoad/jobSeeker/form_step3');
-    }
-
     /**
      * This is the action to handle external exceptions.
      */
