@@ -232,11 +232,12 @@ a.cm-btn {
 }
 
 .gradient {
-  background: rgb(41, 137, 216);
-  background: -moz-linear-gradient(-45deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
-  background: -webkit-linear-gradient(-45deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
-  background: linear-gradient(135deg, rgba(41, 137, 216, 1) 1%, rgba(61, 227, 238, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2989d8', endColorstr='#3de3ee', GradientType=1);
+background: #6eac1d; /* Old browsers */
+background: -moz-linear-gradient(-45deg,  #6eac1d 0%, #80c02b 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  #6eac1d 0%,#80c02b 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  #6eac1d 0%,#80c02b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6eac1d', endColorstr='#80c02b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 
 //Icon
