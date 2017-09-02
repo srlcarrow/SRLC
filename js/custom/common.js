@@ -40,10 +40,10 @@ var Popup = (function () {
         hide();
     });
 
-    $(document).on('keypress',function (e) {
-       if(e.keyCode === 27) {
-           hide();
-       }
+    $(document).on('keypress', function (e) {
+        if (e.keyCode === 27) {
+            hide();
+        }
     });
 
     //Public functions
@@ -54,20 +54,20 @@ var Popup = (function () {
         if (ajaxLoad !== undefined) {
 
             popupContainer.find('.content')
-                    .html('')
-                    .html(ajaxLoad);
+                .html('')
+                .html(ajaxLoad);
         }
 
     };
 
     _Popup.loadNewLayout = function (html) {
         popupContainer.find('.content')
-                .css('opacity', 0);
+            .css('opacity', 0);
         if (popupContainer.hasClass('isShow')) {
             popupContainer.find('.content')
-                    .animate({'opacity': 1}, 800)
-                    .html('')
-                    .html(html);
+                .animate({'opacity': 1}, 800)
+                .html('')
+                .html(html);
         }
     };
 
@@ -105,10 +105,10 @@ var Input = (function () {
 
             } else {
                 $this
-                        .append(_input)
-                        .append(_labelText)
-                        .append(_inputLine)
-                        .append(_animateLine);
+                    .append(_input)
+                    .append(_labelText)
+                    .append(_inputLine)
+                    .append(_animateLine);
             }
 
 
@@ -120,7 +120,7 @@ var Input = (function () {
                 if (!_parent.hasClass('focus')) {
 
                     _parent.addClass('focus')
-                            .addClass('text-top');
+                        .addClass('text-top');
                 }
             });
 
@@ -130,7 +130,7 @@ var Input = (function () {
                 var _parent = $this.parents('.input-wrapper');
 
                 _parent.removeClass('focus')
-                        .addClass('blur');
+                    .addClass('blur');
 
                 if (_parent.hasClass('text-top') && $this.val().length === 0) {
                     _parent.removeClass('text-top');
@@ -354,6 +354,50 @@ $.fn.SearchBox = function (opt) {
         })
 
     })
+};
+
+function msg(_this, _msg, _typeClass, _opt) {
+    var defOpt = {
+        delay: 3000
+    };
+    var opt = $.extend(defOpt, _opt);
+
+    var $this = _this;
+
+    $this
+        .html(_msg)
+        .addClass(_typeClass)
+        .slideDown('slow', function () {
+            setTimeout(function () {
+
+                $this.fadeOut(500, function () {
+                    $this.html('')
+                        .removeClass(_typeClass);
+                })
+
+            }, opt.delay)
+        });
+}
+
+$.fn.Success = function (_msg, _opt) {
+
+    return this.each(function () {
+        msg($(this), _msg, 'success', _opt);
+    });
+};
+
+$.fn.Error = function (_msg, _opt) {
+
+    return this.each(function () {
+        msg($(this), _msg, 'error', _opt);
+    });
+};
+
+$.fn.Info = function (_msg, _opt) {
+
+    return this.each(function () {
+        msg($(this), _msg, 'error', _opt);
+    });
 };
 
 

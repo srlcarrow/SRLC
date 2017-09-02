@@ -2205,7 +2205,10 @@ header {
   display: none; }
 
 .navbar {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
   .navbar.light-blue {
     background: #39dded; }
   .navbar.nav-bottom-space {
