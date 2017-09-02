@@ -1,6 +1,10 @@
 @import "variable";
 
 //Margin
+.m-auto {
+  margin: 0 auto;
+}
+
 @include margin;
 
 //Padding
@@ -13,6 +17,9 @@
 //Text Dark Blue
 @include text-color($blue-dark, dark-blue);
 
+//Text Orange
+@include text-color($orange, orange);
+
 //Font Weight
 .f-light {
   font-weight: $font-w-light;
@@ -24,6 +31,27 @@
 
 .f-medium {
   font-weight: $font-w-medium;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+//Alignment
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.width-100 {
+  width: 100%;
 }
 
 //Button
@@ -70,6 +98,61 @@ a.cm-btn {
   //Text Transform
   &.up-case {
     text-transform: uppercase;
+  }
+}
+
+.btn-img {
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: $font-smallest;
+
+  &::before {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 24px;
+    height: 24px;
+    content: '';
+    margin-right: 13px;
+  }
+
+  &.edit {
+    color: $orange;
+
+    &::before {
+      background: url("../images/system/icon/site/24/ic_24-edit.png");
+    }
+
+    &:hover {
+      $op: 0.86;
+
+      opacity: $op;
+
+      &::before {
+        opacity: $op
+      }
+    }
+  }
+
+  &.btn-img:hover {
+
+  }
+}
+
+.rounded-img {
+
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.with-border {
+  border: 8px solid rgba($black, 0.1);
+
+  &.bd-width-6 {
+    border-width: 6px;
   }
 }
 
@@ -123,6 +206,10 @@ a.cm-btn {
   display: table;
   width: 100%;
 
+  &.width-auto {
+    width: auto;
+  }
+
   .d-table-cell {
     display: table-cell;
     vertical-align: middle;
@@ -167,6 +254,32 @@ a.cm-btn {
     &.icon-linkin {
       background: url("../images/system/icon/site/20/ic_20-link.png");
     }
+
+    &.linkedin {
+      @extend .icon-linkin;
+    }
+
+    &.camera {
+      height: 16px;
+      background: url("../images/system/icon/site/20/ic_20-camera.png");
+    }
+  }
+
+  &.icon-24 {
+    width: 24px;
+    height: 24px;
+
+    &.call {
+      background: url("../images/system/icon/site/24/ic_24-call.png");
+    }
+
+    &.email {
+      background: url("../images/system/icon/site/24/ic_24-email.png");
+    }
+
+    &.edit {
+      background: url("../images/system/icon/site/24/ic_24-edit.png");
+    }
   }
 
   &.icon-arrow-down {
@@ -204,6 +317,39 @@ a.cm-btn {
   height: 6px;
   @include border-radius(50%);
   background: rgba($blue-dark, $opt-4);
+}
+
+//Line
+.bottom-line {
+  border-bottom: 1px solid rgba($black, .12);
+}
+
+//tab-horizontal
+.tab-horizontal {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    display: block;
+    background: $blue-light-4;
+    a {
+      padding: 15px 30px;
+      color: rgba($black, 0.87);
+      display: block;
+      font-size: $base-font-size;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 1px;
+    }
+
+    &.active {
+      a {
+        background: $white;
+      }
+    }
+  }
 }
 
 //Search Box
@@ -338,6 +484,28 @@ a.cm-btn {
       top: 20px;
     }
   }
+}
+
+.cm-message {
+  float: left;
+  font-size: $base-font-size;
+  font-weight: $font-w-regular;
+  color: $blue-dark;
+  padding: 8px 20px;
+  width: 100%;
+  margin: 15px 0;
+
+  &.success {
+    background: $success;
+  }
+  &.info {
+    background: $info;
+  }
+
+  &.error {
+    background: $error;
+  }
+
 }
 
 //------------------------------------------------------------------
@@ -526,8 +694,6 @@ a.cm-btn {
 
   }
 
-<<<<<<< HEAD
-=======
 }
 
 //Step List
@@ -605,5 +771,26 @@ a.cm-btn {
     }
 
   }
->>>>>>> 4cfffb37fd7244fb7b7c83ed506f3696a99d0cdd
+
+}
+
+//------------------------------------------------------------------
+//User Profile
+//------------------------------------------------------------------
+
+.profile-img {
+  display: block;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 8px solid rgba($black, .10);
+}
+
+//------------------------------------------------------------------
+//Employer Profile
+//------------------------------------------------------------------
+
+.employer-logo {
+  display: block;
+  border: 6px solid rgba($black, .10);
 }

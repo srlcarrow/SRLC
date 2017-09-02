@@ -47,6 +47,12 @@ $blue-light-2: #028dda;
 $blue-light-3: #3de3ee;
 $blue-light-4: #39dded;
 $gray-light: #bfbfc5;
+$orange: #f26922;
+
+//Message Color
+$success: $blue-light;
+$info: #ff0;
+$error: $orange;
 
 //Button Color
 $btn-default-color: #cfcfd2;
@@ -55,7 +61,8 @@ $btn-default-color: #cfcfd2;
 $animation-1: all 0.8s cubic-bezier(.01, .87, .29, .97);
 $animation-2: all 0.5s cubic-bezier(.01, .87, .29, .97);
 $animation-popup: all 0.4s cubic-bezier(.64, .1, .27, 1.44);
-$animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);;
+$animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
+;
 //$animation-popup: all 0.8s cubic-bezier(.83,.07,.1,1.4);
 
 //---------------------------------------------------
@@ -100,7 +107,7 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);;
           'r':'right'
   );
 
-  @for $i from 0 through 30 {
+  @for $i from 0 through 50 {
     @each $ctg in $class-margin-cag {
       .p#{$ctg}-#{$i} {
         padding-#{map-get($margin-map, $ctg)}: 0px + $i !important;

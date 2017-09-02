@@ -21,6 +21,11 @@ class AdvertisementController extends Controller {
         $this->renderPartial('/site/ajaxLoad/viewAdvertisements', array('data' => $result, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
     }
 
+    //Popup
+    public function actionApplyJob() {
+        $this->renderPartial('ajaxLoad/popup/jobApply');
+    }
+
 }
 ?>
 
