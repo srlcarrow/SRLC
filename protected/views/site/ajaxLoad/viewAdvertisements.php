@@ -60,15 +60,17 @@
 
             </div>
 
-            <div class="col-xs-12 site-pagination">
-                <?php
-                Paginations::setLimit(10);
-                Paginations::setPage($currentPage);
-                Paginations::setJSCallback("loadAdvertisementData");
-                Paginations::setTotalPages($pageCount);
-                Paginations::makePagination();
-                Paginations::drawPagination();
-                ?>
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                <div class="site-pagination">
+                    <?php
+                    Paginations::setLimit(10);
+                    Paginations::setPage($currentPage);
+                    Paginations::setJSCallback("loadAdvertisementData");
+                    Paginations::setTotalPages($pageCount);
+                    Paginations::makePagination();
+                    Paginations::drawPagination();
+                    ?>
+                </div>
             </div>
 
         </div>

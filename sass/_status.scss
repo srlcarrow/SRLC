@@ -17,6 +17,9 @@ header {
 
 .navbar {
   margin-bottom: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 
   &.light-blue {
     background: $blue-light-4;
@@ -127,6 +130,16 @@ header {
   opacity: 0;
   overflow: hidden;
   @include transition($animation-1);
+
+  .subCategory {
+    color: rgba($white, $opt-3);
+    padding: 15px 20px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    border-bottom: 1px dashed rgba($white, $opt-3);
+  }
 }
 
 //Selector Wrap
@@ -209,14 +222,16 @@ ul.more-details-list {
 
   //Sign in popup
   &.sign-in-popup {
-    @extend .small;
+    .popup {
+      @extend .small;
 
-    .forget_password {
-      font-size: $base-font-size;
-      color: $blue-light-2;
+      .forget_password {
+        font-size: $base-font-size;
+        color: $blue-light-2;
 
-      &:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -249,8 +264,6 @@ input[type="radio"] {
   .float-text {
     font-size: $font-smallest;
     color: rgba($black, $opt-2);
-<<<<<<< HEAD
-=======
   }
 }
 
@@ -305,7 +318,6 @@ input[type="radio"] {
       }
     }
 
->>>>>>> 4cfffb37fd7244fb7b7c83ed506f3696a99d0cdd
   }
 }
 
@@ -349,6 +361,39 @@ input[type="radio"] {
     margin-top: 10px;
   }
   input, .export {
+    display: block;
+  }
+}
+
+.data-user-profile {
+
+  .heading {
+    width: 250px;
+
+    @include breakpoint($small) {
+      width: 50%;
+    }
+  }
+
+  .details {
+    width: 65%;
+
+    @include breakpoint($small) {
+      width: 50%;
+    }
+  }
+}
+
+.data-employer-profile {
+  @extend .data-user-profile;
+}
+
+//
+#loadingmessage {
+  width: 100%;
+
+  img {
+    margin: 0 auto;
     display: block;
   }
 }

@@ -1,11 +1,9 @@
-<!------------------------------------
-Search Section
-------------------------------------->
 <style>
     .navbar.light-blue {
-        background: none!important;
+        background: none !important;
     }
 </style>
+
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
 <section class="main-block search-section gradient full-height">
     <div class="container">
@@ -28,44 +26,50 @@ Search Section
                             <div class="list"></div>
                         </div>
                         <div class="col-md-8 col-sm-6 job-input">
-                            <input id="searchText" name="searchText" type="text" placeholder="Or Type Job Title / Keyword">
+                            <input id="searchText" name="searchText" type="text"
+                                   placeholder="Or Type Job Title / Keyword">
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-8 col-md-offset-1 col-xs-12 filters">
+                <div class="col-md-12 col-xs-12 filters">
                     <div class="row">
-                        <div class="selector-wrap col-xs-12 col-sm-4 col-md-3">
-                            <div class="selector">
-                                <div class="selected-option">
-                                    <span>Type</span>
+                        <div class="col-md-4 col-sm-6">
+                            <h4 class="subCategory ">Sub Category</h4>
+                        </div>
+                        <div class="col-md-8 col-sm-6">
+                            <div class="row">
+                                <div class="selector-wrap col-xs-12 col-sm-4 col-md-3">
+                                    <div class="selector">
+                                        <div class="selected-option">
+                                            <span>Type</span>
+                                        </div>
+                                        <ul class="option-list"></ul>
+                                        <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'onchange' => 'loadAdvertisementData(1)')); ?>
+                                    </div>
                                 </div>
-                                <ul class="option-list"></ul>
-                                <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'onchange' => 'loadAdvertisementData(1)')); ?>
+                                <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
+                                    <div class="selector">
+                                        <div class="selected-option">
+                                            <span>District</span>
+                                        </div>
+                                        <ul class="option-list"></ul>
+                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
+                                    </div>
+                                </div>
+                                <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
+                                    <div class="selector">
+                                        <div class="selected-option">
+                                            <span>City</span>
+                                        </div>
+                                        <ul id="citiesList" class="option-list"></ul>
+                                        <select id="cities" name="cities" onchange="loadAdvertisementData(1)"></select>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-
-                        <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
-                            <div class="selector">
-                                <div class="selected-option">
-                                    <span>District</span>
-                                </div>
-                                <ul class="option-list"></ul>
-                                <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
-                            </div>
-                        </div>
-
-                        <div class="selector-wrap col-xs-12 col-sm-4 col-md-3 lg-ml-20">
-                            <div class="selector">
-                                <div class="selected-option">
-                                    <span>City</span>
-                                </div>
-                                <ul id="citiesList" class="option-list"></ul>
-                                <select id="cities" name="cities" onchange="loadAdvertisementData(1)"></select>
-
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -81,6 +85,7 @@ Search Result Section
 <div id="ajaxLoadAdvertisements">
 
 </div>
+
 <div id='loadingmessage'>
     <img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/>
 </div>
@@ -94,6 +99,7 @@ Search Result Section
     });
 
     var currentRequest = null;
+
     function loadAdvertisementData(page) {
         $('#loadingmessage').show();
         var catId = null;
@@ -137,10 +143,10 @@ Search Result Section
                     var cities = responce.data.cityData;
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#cities').append(
-                                $("<option>aaaa</option>")
+                            $("<option>aaaa</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {

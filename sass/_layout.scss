@@ -67,36 +67,59 @@
 //Pagination
 //------------------------------------------------------------------
 .site-pagination {
-  float: right;
   margin: 30px 0;
+  float: right;
 
-  ul {
-    float: right;
+  .paginations {
+    text-align: right;
 
-    li {
+    a {
       float: left;
+      font-size: $font-small;
+      color: rgba($blue-dark, $opt-3);
 
       &:not(:last-child) {
         margin-right: 24px;
       }
 
-      a {
-        font-size: $font-small;
-        color: rgba($blue-dark, $opt-3);
+      &.current {
+        color: $blue-light
       }
 
-      &.active {
-        a {
-          color: $blue-light
-        }
+      &.disabled {
+        color: rgba($blue-dark, $opt-4);
       }
+
     }
   }
 }
 
-
 .top-space-block {
   padding-top: 68px;
+}
+
+//------------------------------------------------------------------
+//Data table
+//------------------------------------------------------------------
+.data-table {
+  tr {
+    padding: 0;
+
+    td {
+      padding: 0;
+
+      .data {
+        padding: 10px 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+  }
 }
 
 //------------------------------------------------------------------

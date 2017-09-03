@@ -27,12 +27,18 @@ var SelectedCategory = (function () {
 
         //Main category
         if ($parentUl.hasClass('main')) {
+
             $('.category-list.main li a').removeClass('active');
             $this.addClass('active');
             _category.categoryID.main = [
                 $parentUl.find('li a.active').attr('id'),
                 $parentUl.find('li a.active').text()
-            ]
+            ];
+
+            //If select main category All that popup will be hide
+            if($this.hasClass('all')) {
+                loadJobsByCategory();
+            }
         }
 
         //Sub category
@@ -88,7 +94,7 @@ var JobSearch = (function () {
 
     //On input blur
     $jobInput.on('blur', function () {
-       // $isTitleHide = !$isTitleHide;
+        // $isTitleHide = !$isTitleHide;
     });
 
     //Show category Popup
@@ -107,11 +113,13 @@ var JobSearch = (function () {
 function loadJobsByCategory() {
     var category = SelectedCategory.categoryID;
 
+    // $('.job-input').find('input[type="text"]').val(category.sub[1]);
     $('.show-category').find('.selected-item span').text(category.main[1]);
-    $('.job-input').find('input[type="text"]').val(category.sub[1]);
+    $('.job-input').find('input[type="text"]').focus();
+    $('.subCategory').text(category.sub[1]);
 
-   // if($isTitleHide)
-       $isTitleHide = true;
+    // if($isTitleHide)
+    $isTitleHide = true;
 
     JobSearch.changeTitle();
     //Call to server

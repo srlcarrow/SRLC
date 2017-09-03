@@ -1,6 +1,6 @@
 <div class="fifty-block man-category">
     <ul class="category-list main">
-        <li><a id="c_0" onclick="getSubCat(this.id)" href="">All</a></li>
+        <li><a class="all" id="c_0" onclick="getSubCat(this.id)" href="">All</a></li>
         <?php
         foreach ($categories as $category) {
             ?>

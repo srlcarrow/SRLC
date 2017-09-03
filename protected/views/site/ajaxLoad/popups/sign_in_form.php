@@ -29,4 +29,4 @@
     </div>
 
 </div>
-<?php $this->endWidget(); ?>
+
