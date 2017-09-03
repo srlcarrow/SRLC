@@ -367,19 +367,20 @@ input[type="checkbox"] {
   margin: 30px 0; }
 
 .site-pagination {
-  float: right;
-  margin: 30px 0; }
-  .site-pagination ul {
-    float: right; }
-    .site-pagination ul li {
-      float: left; }
-      .site-pagination ul li:not(:last-child) {
+  margin: 30px 0;
+  float: right; }
+  .site-pagination .paginations {
+    text-align: right; }
+    .site-pagination .paginations a {
+      float: left;
+      font-size: 18px;
+      color: rgba(44, 43, 63, 0.56); }
+      .site-pagination .paginations a:not(:last-child) {
         margin-right: 24px; }
-      .site-pagination ul li a {
-        font-size: 18px;
-        color: rgba(44, 43, 63, 0.56); }
-      .site-pagination ul li.active a {
+      .site-pagination .paginations a.current {
         color: #2491f6; }
+      .site-pagination .paginations a.disabled {
+        color: rgba(44, 43, 63, 0.3); }
 
 .top-space-block {
   padding-top: 68px; }
@@ -1668,6 +1669,18 @@ input[type="checkbox"] {
 .text-orange.text-light-3 {
   color: rgba(242, 105, 34, 0.3); }
 
+.text-orange {
+  color: #f26922; }
+
+.text-orange.text-light-1 {
+  color: rgba(242, 105, 34, 0.86); }
+
+.text-orange.text-light-2 {
+  color: rgba(242, 105, 34, 0.56); }
+
+.text-orange.text-light-3 {
+  color: rgba(242, 105, 34, 0.3); }
+
 .f-light {
   font-weight: 300; }
 
@@ -2283,6 +2296,14 @@ header {
   -o-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   -webkit-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97); }
+  .filters .subCategory {
+    color: rgba(255, 255, 255, 0.56);
+    padding: 15px 20px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.56); }
 
 .selector-wrap {
   margin-top: 15px;
@@ -2418,3 +2439,9 @@ input[type="radio"] + label {
   @media (max-width: 767px) {
     .data-user-profile .details, .data-employer-profile .details {
       width: 50%; } }
+
+#loadingmessage {
+  width: 100%; }
+  #loadingmessage img {
+    margin: 0 auto;
+    display: block; }

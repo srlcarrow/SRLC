@@ -130,6 +130,16 @@ header {
   opacity: 0;
   overflow: hidden;
   @include transition($animation-1);
+
+  .subCategory {
+    color: rgba($white, $opt-3);
+    padding: 15px 20px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    border-bottom: 1px dashed rgba($white, $opt-3);
+  }
 }
 
 //Selector Wrap
@@ -257,7 +267,6 @@ input[type="radio"] {
   }
 }
 
-
 //-------------------------------------
 //Step List
 //-------------------------------------
@@ -377,4 +386,14 @@ input[type="radio"] {
 
 .data-employer-profile {
   @extend .data-user-profile;
+}
+
+//
+#loadingmessage {
+  width: 100%;
+
+  img {
+    margin: 0 auto;
+    display: block;
+  }
 }
