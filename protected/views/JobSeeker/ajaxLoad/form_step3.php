@@ -1,319 +1,433 @@
-<form>
-
-    <div class="col-md-12 ">
-
-        <div class="row mb-15">
-
-            <div class="col-md-6">
-                <div class="selector dark">
-                    <div class="selected-option">
-                        <span>Industry</span>
-                    </div>
-                    <ul class="option-list"></ul>
-
-                    <select class="type" name="" id="">
-                        <option value="" disabled="disabled">Industry</option>
-                        <option value="2">lorem</option>
-                        <option value="4">lorem</option>
-                        <option value="3">lorem</option>
-                    </select>
+<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree', 'enableAjaxValidation' => false, 'htmlOptions' => array('enctype' => 'multipart/form-data'))); ?>
+<div class="col-md-12 ">
+    <div class="row mb-15">
+        <div class="col-md-6">
+            <div class="selector dark">
+                <div class="selected-option">
+                    <span>Industry</span>
                 </div>
-            </div>
+                <ul class="option-list"></ul>
 
+                <?php echo Chtml::dropDownList('ind_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry')); ?>
+            </div>
         </div>
 
-        <div class="row mb-15">
+    </div>
 
-            <div class="col-md-6">
-                <div class="selector dark">
-                    <div class="selected-option">
-                        <span>Category (Field)</span>
-                    </div>
-                    <ul class="option-list"></ul>
-
-                    <select class="type" name="" id="">
-                        <option value="" disabled="disabled">Category (Field)</option>
-                        <option value="2">lorem</option>
-                        <option value="4">lorem</option>
-                        <option value="3">lorem</option>
-                    </select>
+    <div class="row mb-15">
+        <div class="col-md-6">
+            <div class="selector dark">
+                <div class="selected-option">
+                    <span>Category (Field)</span>
                 </div>
+                <ul class="option-list"></ul>
+
+                <?php echo Chtml::dropDownList('cat_id', "", CHtml::listData(AdmCategory::model()->findAll(array('order' => 'cat_order')), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'onChange' => 'loadSubCategories()')); ?>
             </div>
-
-            <div class="col-md-6">
-                <div class="selector dark">
-                    <div class="selected-option">
-                        <span>Sub Category</span>
-                    </div>
-                    <ul class="option-list"></ul>
-
-                    <select class="type" name="" id="">
-                        <option value="" disabled="disabled">Sub Category</option>
-                        <option value="2">lorem</option>
-                        <option value="4">lorem</option>
-                        <option value="3">lorem</option>
-                    </select>
-                </div>
-            </div>
-
         </div>
 
-
-        <div class="row mb-15">
-
-            <div class="col-md-6">
-                <div class="selector dark">
-                    <div class="selected-option">
-                        <span>Expected Job title</span>
-                    </div>
-                    <ul class="option-list"></ul>
-
-                    <select class="type" name="" id="">
-                        <option value="" disabled="disabled">Expected Job title</option>
-                        <option value="2">lorem</option>
-                        <option value="4">lorem</option>
-                        <option value="3">lorem</option>
-                    </select>
+        <div class="col-md-6">
+            <div class="selector dark">
+                <div class="selected-option">
+                    <span>Sub Category</span>
                 </div>
-            </div>
+                <ul class="option-list"></ul>
 
+                <select class="type" name="subCategories" id="subCategories">
+                </select>
+            </div>
         </div>
 
-        <div class="row mb-15">
+    </div>
 
-            <div class="col-md-6 mt-30">
-                <div class="d-table">
+
+    <div class="row mb-15">
+
+        <div class="col-md-6">
+            <div class="selector dark">
+                <div class="selected-option">
+                    <span>Expected Job title</span>
+                </div>
+                <ul class="option-list"></ul>
+
+                <select class="type" name="designations" id="designations">
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-15">
+
+        <div class="col-md-6 mt-30">
+            <div class="d-table">
+                <?php
+                foreach ($workTypes as $workType) {
+                    ?>
                     <div class="d-table-cell">
-                        <input type="checkbox" id="full-time">
+                        <input type="checkbox" id="<?php echo $workType->wt_id; ?>" name="<?php echo $workType->wt_id; ?>">
                         <label for="full-time">Full - time</label>
                     </div>
 
-                    <div class="d-table-cell">
-                        <input type="checkbox" id="part-time">
-                        <label for="part-time">Part-time</label>
-                    </div>
 
-                    <div class="d-table-cell">
-                        <input type="checkbox" id="contract">
-                        <label for="contract">Contract</label>
-                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
 
+    </div>
+
+
+    <div class="row mb-15">
+        <div class="col-md-6">
+            <div class="input-wrapper">
+                <input id="experience" name="experience" type="text" required>
+                <div class="float-text">Relevant No of years Experience</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-wrapper">
+                <input id="salary" name="salary" type="text">
+                <div class="float-text">Expected Monthly Salary (LKR)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15 mt-35">
+        <div class="col-md-6">
+            <input id="a" name="group2" type="radio">
+            <label for="a">Actively looking right now </label>
+            <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">Maximum matches. We'll get you in front of
+                employers ASAP and send you any new jobs that match your interests.</p>
+        </div>
+        <div class="col-md-6">
+            <input id="s" name="group2" type="radio">
+            <label for="s">Open, but not actively looking</label>
+            <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">Fewer matches. Employers can find you and we'll
+                be selective with the matches we send. </p>
+        </div>
+    </div>
+
+    <div class="row mb-15 mt-35 item-main-wrap">
+        <div class="col-md-12">
+            <h5 class="text-black">Where would you like to work </h5>
+            <p class="text-dark-blue text-light-3 f-12 mt-5">Select Maximum 3 Cities.</p>
+        </div>
+
+        <div class="col-md-12 selected-items">
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="selector dark">
+                <div class="selected-option">
+                    <span>District</span>
+                </div>
+                <ul class="option-list"></ul>
+                <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="selector dark">
+                <div class="selected-option">
+                    <span>City</span>
+                </div>
+                <ul class="option-list"></ul>
+
+                <select id="city" name="city" class="city"></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15 mt-35 skill-main-wrap">
+        <div class="col-md-12">
+            <h5 class="text-black">Skills</h5>
+            <p class="text-dark-blue text-light-3 f-12 mt-5">Used to match you with jobs that fit your skill set and
+                interests.</p>
+        </div>
+
+        <div class="col-md-12 selected-items">
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="input-wrapper input-search-box">
+                <input id="searchSkills" name="searchSkills" type="text" onkeyup="skillsSearch()">
+
+                <div class="search-result">
+                    <ul id="skills">
+                        <!--                        <li id="2">Javascript</li>
+                                                <li id="22">Java</li>
+                                                <li id="26">PHP</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-table">
+                <div class="d-table-cell width-0">
+                    <span class="icon icon-20 icon-linkin mt-12"></span>
+                </div>
+                <div class="d-table-cell width-100">
+                    <div class="input-wrapper">
+                        <input id="" name="" type="text">
+                        <div class="float-text">Linked in Account</div>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-
-        <div class="row mb-15">
-            <div class="col-md-6">
-                <div class="input-wrapper">
-                    <input id="" name="" type="text">
-                    <div class="float-text">Relevant No of years Experience</div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="input-wrapper">
-                    <input id="" name="" type="text">
-                    <div class="float-text">Expected Monthly Salary (LKR)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-15 mt-35">
-            <div class="col-md-6">
-                <input id="a" name="group2" type="radio">
-                <label for="a">Actively looking right now </label>
-                <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">Maximum matches. We'll get you in front of
-                    employers ASAP and send you any new jobs that match your interests.</p>
-            </div>
-            <div class="col-md-6">
-                <input id="s" name="group2" type="radio">
-                <label for="s">Open, but not actively looking</label>
-                <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">Fewer matches. Employers can find you and we'll
-                    be selective with the matches we send. </p>
-            </div>
-        </div>
-
-        <div class="row mb-15 mt-35 item-main-wrap">
-            <div class="col-md-12">
-                <h5 class="text-black">Where would you like to work </h5>
-                <p class="text-dark-blue text-light-3 f-12 mt-5">Select Maximum 3 Cities.</p>
-            </div>
-
-            <div class="col-md-12 selected-items">
-
-            </div>
-
-            <div class="col-md-6">
-                <div class="selector dark">
-                    <div class="selected-option">
-                        <span>District</span>
-                    </div>
-                    <ul class="option-list"></ul>
-
-                    <select class="type" name="" id="">
-                        <option value="" disabled="disabled">District</option>
-                        <option value="2">Colombo</option>
-                        <option value="4">Maharagama</option>
-                        <option value="3">Nugegoda</option>
-                        <option value="5">Boralla</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="selector dark">
-                    <div class="selected-option">
-                        <span>City</span>
-                    </div>
-                    <ul class="option-list"></ul>
-
-                    <select class="city" name="" id="">
-                        <option value="" disabled="disabled">City</option>
-                        <option value="2">Colombo</option>
-                        <option value="4">Maharagama</option>
-                        <option value="3">Nugegoda</option>
-                        <option value="5">Boralla</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-15 mt-35 skill-main-wrap">
-            <div class="col-md-12">
-                <h5 class="text-black">Skills</h5>
-                <p class="text-dark-blue text-light-3 f-12 mt-5">Used to match you with jobs that fit your skill set and
-                    interests.</p>
-            </div>
-
-            <div class="col-md-12 selected-items">
-
-            </div>
-
-            <div class="col-md-6">
-                <div class="input-wrapper input-search-box">
-                    <input id="" name="" type="text">
-
-                    <div class="search-result">
-                        <ul>
-                            <li id="2">Javascript</li>
-                            <li id="22">Java</li>
-                            <li id="26">PHP</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="d-table">
-                    <div class="d-table-cell width-0">
-                        <span class="icon icon-20 icon-linkin mt-12"></span>
-                    </div>
-                    <div class="d-table-cell width-100">
-                        <div class="input-wrapper">
-                            <input id="" name="" type="text">
-                            <div class="float-text">Linked in Account</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-6">
-                <h5>Upload CV</h5>
-                <div class="file-uploader">
-                    <div class="button">Brows...</div>
-                    <input type="file">
-                </div>
-            </div>
+        <div class="col-md-6">
+            <h5>Upload CV</h5>
+            <!--            <div class="file-uploader">
+                            <div class="button">Brows...</div>-->
+            <?php echo $form->labelEx($modelCV, 'cv_path'); ?>
+            <?php echo $form->fileField($modelCV, 'cv_path', array('size' => 36, 'maxlength' => 255)); ?>
+            <?php echo $form->error($modelCV, 'cv_path'); ?>
+            <!--            </div>
+                    </div>-->
         </div>
 
     </div>
 
     <div class="col-md-12 mt-20">
-        <button type="button" class="cm-btn large text-uppercase light-blue right">Finish</button>
+        <button type="submit" class="cm-btn large text-uppercase light-blue right">Finish</button>
+        <button type="button" class="cm-btn large text-uppercase light-blue right" onclick="back()">Back</button>
     </div>
-</form>
+    <?php $this->endWidget(); ?>
 
 
-<script>
-    Input.init();
-    Select.init();
+    <script>
+        Input.init();
+        Select.init();
 
-    //Item
-    function html(val, id) {
-        var html = '';
-        html += '<div class="item" id="' + id + '">' + val + '<span class="icon icon-10 icon-cross v-middle pointer btn-close"></span></div>';
-        return html;
-    }
+        //Item
+        function html(val, id) {
+            var html = '';
+            html += '<div class="item" id="' + id + '">' + val + '<span class="icon icon-10 icon-cross v-middle pointer btn-close"></span></div>';
+            return html;
+        }
 
-    $(function () {
+        $(function () {
 
-        var mainWrap = $('.skill-main-wrap');
-        var selectedItems = mainWrap.find('.selected-items');
-
-        $('.input-search-box').SearchBox({
-            itemClick: function (item) {
-                selectedItems.append(html(item.text(), item.attr('id')));
-                console.log(item)
-            },
-            onEnter: function (input) {
-                console.log(input)
-                selectedItems.append(html(input.val(), ''));
-            }
-        });
-
-        $('.skill-main-wrap').on('click', '.btn-close', function () {
-            var $this = $(this);
-            $this.parent('.item').remove();
-        });
-
-    });
-
-
-    //City
-    $(function () {
-
-        var city = [];
-
-        //City change
-        $('.city').change(function () {
-
-            var $this = $(this);
-            var mainWrap = $this.parents('.item-main-wrap');
+            var mainWrap = $('.skill-main-wrap');
             var selectedItems = mainWrap.find('.selected-items');
-            var selected = $this.find('option:selected');
-            var selectedId = selected.val();
 
-            var isExit = function () {
-                var isValid = false;
-                city.map(function (city) {
-                    if (selectedId === city) {
-                        isValid = true;
-                    }
-                });
-                return isValid;
-            };
+            $('.input-search-box').SearchBox({
+                itemClick: function (item) {
+                    selectedItems.append(html(item.text(), item.attr('id')));
+                    console.log(item)
+                },
+                onEnter: function (input) {
+                    console.log(input)
+                    selectedItems.append(html(input.val(), ''));
+                }
+            });
 
-            if (city.length < 3 && !isExit()) {
-                selectedItems.append(html(selected.text(), selectedId));
-                city.push(selected.val());
-            }
+            $('.skill-main-wrap').on('click', '.btn-close', function () {
+                var $this = $(this);
+                $this.parent('.item').remove();
+            });
+
         });
 
-        //Remove Item
-        $('.item-main-wrap').on('click', '.btn-close', function () {
-            var $this = $(this);
-            var $item = $this.parent('.item');
-            var $id = $item.attr('id');
-            $item.remove();
-            city.splice(city.indexOf($id), 1);
+
+        //City
+        $(function () {
+            var city = [];
+
+            //City change
+            $('.city').change(function () {
+
+                var $this = $(this);
+                var mainWrap = $this.parents('.item-main-wrap');
+                var selectedItems = mainWrap.find('.selected-items');
+                var selected = $this.find('option:selected');
+                var selectedId = selected.val();
+
+                var isExit = function () {
+                    var isValid = false;
+                    city.map(function (city) {
+                        if (selectedId === city) {
+                            isValid = true;
+                        }
+                    });
+                    return isValid;
+                };
+
+                if (city.length < 3 && !isExit()) {
+                    selectedItems.append(html(selected.text(), selectedId));
+                    city.push(selected.val());
+                }
+            });
+
+            //Remove Item
+            $('.item-main-wrap').on('click', '.btn-close', function () {
+                var $this = $(this);
+                var $item = $this.parent('.item');
+                var $id = $item.attr('id');
+                $item.remove();
+                city.splice(city.indexOf($id), 1);
+            })
+
         })
 
-    })
 
-</script>
+        function loadSubCategories() {
+            $("#subCategories").empty();
+
+            var id = $('#cat_id').val();
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetSubCategories'; ?>",
+                data: {id: id},
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        var subCats = responce.data.subCategoryData;
+                        for (var i = 0, max = subCats.length; i < max; i++) {
+                            $('#subCategories').append(
+                                    $("<option>" + subCats[i]['scat_name'] + "</option>")
+                                    .attr("value", subCats[i]['scat_id'])
+                                    .text(subCats[i]['scat_name'])
+                                    );
+                        }
+
+                        setTimeout(function () {
+                            Select.init();
+                        }, 200);
+
+                        loadDesignations();
+
+                    }
+                }
+            });
+        }
+
+        function loadDesignations() {
+            $("#designations").empty();
+
+            var id = $('#cat_id').val();
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
+                data: {id: id},
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        var designations = responce.data.designationData;
+                        for (var i = 0, max = designations.length; i < max; i++) {
+                            $('#designations').append(
+                                    $("<option>" + designations[i]['desig_name'] + "</option>")
+                                    .attr("value", designations[i]['desig_id'])
+                                    .text(designations[i]['desig_name'])
+                                    );
+                        }
+
+                        setTimeout(function () {
+                            Select.init();
+                        }, 200);
+                    }
+                }
+            });
+        }
+
+        function loadCities() {
+            $("#city").empty();
+
+            var id = $('#district_id').val();
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
+                data: {id: id},
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        var cities = responce.data.cityData;
+                        for (var i = 0, max = cities.length; i < max; i++) {
+                            $('#city').append(
+                                    $("<option>" + cities[i]['city_name'] + "</option>")
+                                    .attr("value", cities[i]['city_id'])
+                                    .text(cities[i]['city_name'])
+                                    );
+                        }
+
+                        setTimeout(function () {
+                            Select.init();
+                        }, 200)
+                    }
+                }
+            });
+        }
+
+        function back() {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
+                data: '',
+                success: function (responce) {
+                    $("#step").html(responce);
+                }
+            });
+        }
+
+        var currentRequest = null;
+        function skillsSearch() {
+            var searchSkill = "";
+            searchSkill = $('#searchSkills').val();
+
+            currentRequest = jQuery.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SearchSkills'; ?>",
+                data: {searchSkill: searchSkill},
+                dataType: 'json',
+                beforeSend: function () {
+                    if (currentRequest != null) {
+                        currentRequest.abort();
+                    }
+                },
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        $('#skills').empty();
+                        var skills = responce.data.skillsData;
+                        for (var i = 0, max = skills.length; i < max; i++) {
+                            $('#skills').append($("<li id=" + skills[i]['skill_id'] + ">" + skills[i]['skill_name'] + "</li>"));
+                        }
+                    }
+                }
+            });
+        }
+
+        $("#formStepThree").validate({
+            submitHandler: function () {
+                saveStepThree();
+            }
+        });
+
+        function saveStepThree() {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
+                data: $('#formStepThree').serialize(),
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        Message.success(responce.msg);
+                        $("#formAddCategory")[0].reset();
+                        $('.pr-20').attr('value', '');
+                        $('.row-input > .input-no-label').not(':first').remove();
+                        loadCategoryData();
+                    }
+                }
+            });
+        }
+
+    </script>

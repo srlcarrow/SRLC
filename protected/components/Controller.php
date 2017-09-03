@@ -32,7 +32,7 @@ class Controller extends CController {
         }
     }
 
-    public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {       
+    public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
         $sqlLimit = '';
         if ($limit == NULL) {
             $limit = 10;
@@ -98,6 +98,45 @@ class Controller extends CController {
         }
 
         return $str;
+    }
+
+    public static function GetSubCategoriesByCatId($catId) {
+        $subCategories = AdmSubcategory::model()->findAllByAttributes(array('ref_cat_id' => $catId), array('order' => 'scat_order'));
+        $subCatData = array();
+        foreach ($subCategories as $subCategory) {
+            $subCat["scat_id"] = $subCategory->scat_id;
+            $subCat["ref_cat_id"] = $subCategory->ref_cat_id;
+            $subCat["scat_name"] = $subCategory->scat_name;
+            $subCat["scat_order"] = $subCategory->scat_order;
+            array_push($subCatData, $subCat);
+        }
+
+        return $subCatData;
+    }
+
+    public static function GetDesignationsByCatId($catId) {
+        $designations = AdmDesignation::model()->findAllByAttributes(array('ref_cat_id' => $catId), array('order' => 'desig_name'));
+        $designationData = array();
+        foreach ($designations as $designation) {
+            $desig["desig_id"] = $designation->desig_id;
+            $desig["ref_cat_id"] = $designation->ref_cat_id;
+            $desig["desig_name"] = $designation->desig_name;
+            array_push($designationData, $desig);
+        }
+
+        return $designationData;
+    }
+
+    public static function searchSkills($searchText) {
+        $skills = yii::app()->db->createCommand("SELECT * FROM adm_skills WHERE skill_name LIKE '%" . $searchText . "%' ORDER BY skill_name;")->setFetchMode(PDO::FETCH_OBJ)->queryAll();
+        $skillsData = array();
+        foreach ($skills as $skill) {
+            $ability["skill_id"] = $skill->skill_id;
+            $ability["skill_name"] = $skill->skill_name;
+            array_push($skillsData, $ability);
+        }
+
+        return $skillsData;
     }
 
 }

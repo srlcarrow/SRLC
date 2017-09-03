@@ -32,7 +32,8 @@
         <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
         <!--JS | Scroll magic-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
-
+        <!--JS | Admin Validation-->
+        <script src="<?php echo Yii::app()->baseUrl . '/js/validate/jquery.validate.js'; ?>"></script>
 
         <title>4You</title>
     </head>
@@ -69,6 +70,7 @@
         <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.server.js'; ?>"></script>
         <!--JS | Server js-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
+
     </body>
 
     <!------------------------------------

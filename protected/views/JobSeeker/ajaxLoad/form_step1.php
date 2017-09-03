@@ -1,5 +1,5 @@
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formStepOne')); ?>
-<div class="col-md-12 ">
+<div class="col-md-12">
     <div class="row mb-15">
         <div class="col-md-12">
             <div class="input-wrapper">
@@ -144,13 +144,6 @@
     //Next step
     $('.btn-next').on('click', function () {
         saveStepOne();
-//        $.ajax({
-//            type: 'POST',
-//            url: "<?php // echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo';  ?>",
-//            success: function (responce) {
-//                $("#step").html(responce);
-//            }
-//        });
     });
 
     function saveStepOne() {
@@ -161,9 +154,19 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    Message.success(responce.msg);
-                    $("#formAddCategory")[0].reset();
+                    goToStepTwo();
                 }
+            }
+        });
+    }
+
+    function goToStepTwo() {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
+            data: '',
+            success: function (responce) {
+                $("#step").html(responce);
             }
         });
     }
