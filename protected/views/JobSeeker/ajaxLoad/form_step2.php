@@ -79,7 +79,7 @@
 
 <div class="col-md-12 mt-20">
     <button type="submit" class="cm-btn large text-uppercase light-blue right btn-next">Next</button>
-    <button type="button" class="cm-btn large text-uppercase light-blue " onclick="goToStepOne()">Back</button>
+    <button type="button" class="cm-btn large text-uppercase light-blue right" onclick="goToStepOne()">Back</button>
 </div>
 <?php $this->endWidget(); ?>
 

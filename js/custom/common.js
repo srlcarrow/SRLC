@@ -313,7 +313,8 @@ $.fn.SearchBox = function (opt) {
 
         var defOption = {
             itemClick: null,
-            onEnter: null
+            onEnter: null,
+            onKeyUp: null
         };
 
         var option = $.extend(defOption, opt);
@@ -328,23 +329,28 @@ $.fn.SearchBox = function (opt) {
         $input.on('keyup', function () {
             if ($(this).val().length > 0) {
                 $this.addClass('is-active');
+                if (typeof option.onKeyUp === 'function') {
+                    option.onKeyUp.call($this, $(this));
+                }
             } else {
                 $this.removeClass('is-active');
             }
         });
 
         $input.on('keypress', function (evt) {
+
             if (evt.keyCode == 13) {
 
                 if (typeof option.onEnter === 'function') {
                     $this.removeClass('is-active');
                     option.onEnter.call($this, $(this));
                     $input.val('');
+                    $input.focus();
                 }
             }
         });
 
-        $searchPanel.find('li').on('click', function () {
+        $searchPanel.find('ul li').on('click', function () {
             if (typeof option.itemClick === 'function') {
                 $this.removeClass('is-active');
                 $input.val('');

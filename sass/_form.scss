@@ -1,8 +1,10 @@
 //@import "variable";
 
 $black: #000;
+$white: #fff;
 $form-input-line-color: #3398f7;
 $form-radio-button-color: #2491f6;
+$error-background-color: rgba(#F26922, 0.86);
 
 $animation-float-text: 0.2s all cubic-bezier(.26, .28, .42, .78);
 $animation-animate-line: 0.6s all cubic-bezier(.4, .19, .51, .98);
@@ -89,6 +91,20 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
   input[type="email"]:focus,
   input[type="number"]:focus {
     outline: none;
+  }
+
+  span.error-val {
+    position: absolute;
+    top: 43px;
+    left: 0;
+    font-size: 12px;
+    background: $error-background-color;
+    color: $white;
+    width: 100%;
+    padding: 5px 8px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
   }
 
   .input-line,

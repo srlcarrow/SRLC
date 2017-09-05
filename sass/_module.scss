@@ -23,7 +23,6 @@
 //Text Orange
 @include text-color($orange, orange);
 
-
 //Font Weight
 .f-light {
   font-weight: $font-w-light;
@@ -67,10 +66,14 @@ a.cm-btn {
   @include border-radius(3px);
   outline: none;
   border: none;
+  margin-right: 5px;
+  margin-left: 0;
   background: $btn-default-color;
 
   &.right {
     float: right;
+    margin-right: 0;
+    margin-left: 5px;
   }
 
   &:hover {
@@ -236,11 +239,11 @@ a.cm-btn {
 }
 
 .gradient {
-background: #6eac1d; /* Old browsers */
-background: -moz-linear-gradient(-45deg,  #6eac1d 0%, #80c02b 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(-45deg,  #6eac1d 0%,#80c02b 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(135deg,  #6eac1d 0%,#80c02b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6eac1d', endColorstr='#80c02b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background: #6eac1d; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #6eac1d 0%, #80c02b 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #6eac1d 0%, #80c02b 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #6eac1d 0%, #80c02b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6eac1d', endColorstr='#80c02b', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 
 }
 
@@ -774,7 +777,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6eac1d', end
       display: block;
     }
 
-    
   }
 
 }

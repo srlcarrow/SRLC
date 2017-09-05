@@ -65,7 +65,8 @@
                 foreach ($workTypes as $workType) {
                     ?>
                     <div class="d-table-cell">
-                        <input type="checkbox" id="<?php echo $workType->wt_id; ?>" name="<?php echo $workType->wt_id; ?>">
+                        <input type="checkbox" id="<?php echo $workType->wt_id; ?>"
+                               name="<?php echo $workType->wt_id; ?>">
                         <label for="full-time">Full - time</label>
                     </div>
 
@@ -158,9 +159,9 @@
 
                 <div class="search-result">
                     <ul id="skills">
-                        <!--                        <li id="2">Javascript</li>
-                                                <li id="22">Java</li>
-                                                <li id="26">PHP</li>-->
+                        <li id="2">Javascript</li>
+                        <li id="22">Java</li>
+                        <li id="26">PHP</li>
                     </ul>
                 </div>
             </div>
@@ -187,247 +188,257 @@
 
         <div class="col-md-6">
             <h5>Upload CV</h5>
-            <!--            <div class="file-uploader">
-                            <div class="button">Brows...</div>-->
-            <?php echo $form->labelEx($modelCV, 'cv_path'); ?>
-            <?php echo $form->fileField($modelCV, 'cv_path', array('size' => 36, 'maxlength' => 255)); ?>
-            <?php echo $form->error($modelCV, 'cv_path'); ?>
-            <!--            </div>
-                    </div>-->
+            <div class="file-uploader">
+                <div class="button">Brows...</div>
+<!--                --><?php //echo $form->labelEx($modelCV, 'cv_path'); ?>
+                <?php echo $form->fileField($modelCV, 'cv_path', array('size' => 36, 'maxlength' => 255)); ?>
+                <?php echo $form->error($modelCV, 'cv_path'); ?>
+            </div>
         </div>
-
     </div>
 
-    <div class="col-md-12 mt-20">
-        <button type="submit" class="cm-btn large text-uppercase light-blue right">Finish</button>
-        <button type="button" class="cm-btn large text-uppercase light-blue right" onclick="back()">Back</button>
-    </div>
-    <?php $this->endWidget(); ?>
+</div>
+
+<div class="col-md-12 mt-20">
+    <button type="submit" class="cm-btn large text-uppercase light-blue right">Finish</button>
+    <button type="button" class="cm-btn large text-uppercase light-blue right" onclick="back()">Back</button>
+</div>
+<?php $this->endWidget(); ?>
 
 
-    <script>
-        Input.init();
-        Select.init();
+<script>
+    Input.init();
+    Select.init();
 
-        //Item
-        function html(val, id) {
-            var html = '';
-            html += '<div class="item" id="' + id + '">' + val + '<span class="icon icon-10 icon-cross v-middle pointer btn-close"></span></div>';
-            return html;
-        }
+    //Item
+    function html(val, id) {
+        var html = '';
+        html += '<div class="item" id="' + id + '">' + val + '<span class="icon icon-10 icon-cross v-middle pointer btn-close"></span></div>';
+        return html;
+    }
 
-        $(function () {
+    var mainWrap = $('.skill-main-wrap');
+    var selectedItems = mainWrap.find('.selected-items');
 
-            var mainWrap = $('.skill-main-wrap');
-            var selectedItems = mainWrap.find('.selected-items');
+    function loadSkillFnc() {
 
-            $('.input-search-box').SearchBox({
-                itemClick: function (item) {
-                    selectedItems.append(html(item.text(), item.attr('id')));
-                    console.log(item)
-                },
-                onEnter: function (input) {
-                    console.log(input)
-                    selectedItems.append(html(input.val(), ''));
+        $('.input-search-box').SearchBox({
+            itemClick: function (item) {
+                selectedItems.append(html(item.text(), item.attr('id')));
+            },
+            onEnter: function (input) {
+                if (input.val().length > 0) {
+                    var h = html(input.val(), '');
+                    selectedItems.append(h);
                 }
-            });
 
-            $('.skill-main-wrap').on('click', '.btn-close', function () {
-                var $this = $(this);
-                $this.parent('.item').remove();
-            });
+            }
+        });
+    }
 
+    $(function () {
+
+        //loadSkillFnc();
+
+        $('.skill-main-wrap').on('click', '.btn-close', function () {
+            var $this = $(this);
+            $this.parent('.item').remove();
         });
 
-
-        //City
-        $(function () {
-            var city = [];
-
-            //City change
-            $('.city').change(function () {
-
-                var $this = $(this);
-                var mainWrap = $this.parents('.item-main-wrap');
-                var selectedItems = mainWrap.find('.selected-items');
-                var selected = $this.find('option:selected');
-                var selectedId = selected.val();
-
-                var isExit = function () {
-                    var isValid = false;
-                    city.map(function (city) {
-                        if (selectedId === city) {
-                            isValid = true;
-                        }
-                    });
-                    return isValid;
-                };
-
-                if (city.length < 3 && !isExit()) {
-                    selectedItems.append(html(selected.text(), selectedId));
-                    city.push(selected.val());
-                }
-            });
-
-            //Remove Item
-            $('.item-main-wrap').on('click', '.btn-close', function () {
-                var $this = $(this);
-                var $item = $this.parent('.item');
-                var $id = $item.attr('id');
-                $item.remove();
-                city.splice(city.indexOf($id), 1);
-            })
-
-        })
+    });
 
 
-        function loadSubCategories() {
-            $("#subCategories").empty();
+    //City
+    $(function () {
+        var city = [];
 
-            var id = $('#cat_id').val();
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetSubCategories'; ?>",
-                data: {id: id},
-                dataType: 'json',
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        var subCats = responce.data.subCategoryData;
-                        for (var i = 0, max = subCats.length; i < max; i++) {
-                            $('#subCategories').append(
-                                    $("<option>" + subCats[i]['scat_name'] + "</option>")
-                                    .attr("value", subCats[i]['scat_id'])
-                                    .text(subCats[i]['scat_name'])
-                                    );
-                        }
+        //City change
+        $('.city').change(function () {
 
-                        setTimeout(function () {
-                            Select.init();
-                        }, 200);
+            var $this = $(this);
+            var mainWrap = $this.parents('.item-main-wrap');
+            var selectedItems = mainWrap.find('.selected-items');
+            var selected = $this.find('option:selected');
+            var selectedId = selected.val();
 
-                        loadDesignations();
-
+            var isExit = function () {
+                var isValid = false;
+                city.map(function (city) {
+                    if (selectedId === city) {
+                        isValid = true;
                     }
-                }
-            });
-        }
+                });
+                return isValid;
+            };
 
-        function loadDesignations() {
-            $("#designations").empty();
-
-            var id = $('#cat_id').val();
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
-                data: {id: id},
-                dataType: 'json',
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        var designations = responce.data.designationData;
-                        for (var i = 0, max = designations.length; i < max; i++) {
-                            $('#designations').append(
-                                    $("<option>" + designations[i]['desig_name'] + "</option>")
-                                    .attr("value", designations[i]['desig_id'])
-                                    .text(designations[i]['desig_name'])
-                                    );
-                        }
-
-                        setTimeout(function () {
-                            Select.init();
-                        }, 200);
-                    }
-                }
-            });
-        }
-
-        function loadCities() {
-            $("#city").empty();
-
-            var id = $('#district_id').val();
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
-                data: {id: id},
-                dataType: 'json',
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        var cities = responce.data.cityData;
-                        for (var i = 0, max = cities.length; i < max; i++) {
-                            $('#city').append(
-                                    $("<option>" + cities[i]['city_name'] + "</option>")
-                                    .attr("value", cities[i]['city_id'])
-                                    .text(cities[i]['city_name'])
-                                    );
-                        }
-
-                        setTimeout(function () {
-                            Select.init();
-                        }, 200)
-                    }
-                }
-            });
-        }
-
-        function back() {
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
-                data: '',
-                success: function (responce) {
-                    $("#step").html(responce);
-                }
-            });
-        }
-
-        var currentRequest = null;
-        function skillsSearch() {
-            var searchSkill = "";
-            searchSkill = $('#searchSkills').val();
-
-            currentRequest = jQuery.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SearchSkills'; ?>",
-                data: {searchSkill: searchSkill},
-                dataType: 'json',
-                beforeSend: function () {
-                    if (currentRequest != null) {
-                        currentRequest.abort();
-                    }
-                },
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        $('#skills').empty();
-                        var skills = responce.data.skillsData;
-                        for (var i = 0, max = skills.length; i < max; i++) {
-                            $('#skills').append($("<li id=" + skills[i]['skill_id'] + ">" + skills[i]['skill_name'] + "</li>"));
-                        }
-                    }
-                }
-            });
-        }
-
-        $("#formStepThree").validate({
-            submitHandler: function () {
-                saveStepThree();
+            if (city.length < 3 && !isExit()) {
+                selectedItems.append(html(selected.text(), selectedId));
+                city.push(selected.val());
             }
         });
 
-        function saveStepThree() {
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
-                data: $('#formStepThree').serialize(),
-                dataType: 'json',
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        Message.success(responce.msg);
-                        $("#formAddCategory")[0].reset();
-                        $('.pr-20').attr('value', '');
-                        $('.row-input > .input-no-label').not(':first').remove();
-                        loadCategoryData();
-                    }
-                }
-            });
-        }
+        //Remove Item
+        $('.item-main-wrap').on('click', '.btn-close', function () {
+            var $this = $(this);
+            var $item = $this.parent('.item');
+            var $id = $item.attr('id');
+            $item.remove();
+            city.splice(city.indexOf($id), 1);
+        })
 
-    </script>
+    })
+
+
+    function loadSubCategories() {
+        $("#subCategories").empty();
+
+        var id = $('#cat_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetSubCategories'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var subCats = responce.data.subCategoryData;
+                    for (var i = 0, max = subCats.length; i < max; i++) {
+                        $('#subCategories').append(
+                            $("<option>" + subCats[i]['scat_name'] + "</option>")
+                                .attr("value", subCats[i]['scat_id'])
+                                .text(subCats[i]['scat_name'])
+                        );
+                    }
+
+                    setTimeout(function () {
+                        Select.init();
+                    }, 200);
+
+                    loadDesignations();
+
+                }
+            }
+        });
+    }
+
+    function loadDesignations() {
+        $("#designations").empty();
+
+        var id = $('#cat_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var designations = responce.data.designationData;
+                    for (var i = 0, max = designations.length; i < max; i++) {
+                        $('#designations').append(
+                            $("<option>" + designations[i]['desig_name'] + "</option>")
+                                .attr("value", designations[i]['desig_id'])
+                                .text(designations[i]['desig_name'])
+                        );
+                    }
+
+                    setTimeout(function () {
+                        Select.init();
+                    }, 200);
+                }
+            }
+        });
+    }
+
+    function loadCities() {
+        $("#city").empty();
+
+        var id = $('#district_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var cities = responce.data.cityData;
+                    for (var i = 0, max = cities.length; i < max; i++) {
+                        $('#city').append(
+                            $("<option>" + cities[i]['city_name'] + "</option>")
+                                .attr("value", cities[i]['city_id'])
+                                .text(cities[i]['city_name'])
+                        );
+                    }
+
+                    setTimeout(function () {
+                        Select.init();
+                    }, 200)
+                }
+            }
+        });
+    }
+
+    function back() {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
+            data: '',
+            success: function (responce) {
+                $("#step").html(responce);
+            }
+        });
+    }
+
+    var currentRequest = null;
+
+    function skillsSearch() {
+        var searchSkill = "";
+        searchSkill = $('#searchSkills').val();
+
+        currentRequest = jQuery.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SearchSkills'; ?>",
+            data: {searchSkill: searchSkill},
+            dataType: 'json',
+            beforeSend: function () {
+                if (currentRequest != null) {
+                    currentRequest.abort();
+                }
+            },
+            success: function (responce) {
+                if (responce.code == 200) {
+                    $('#skills').empty();
+                    var skills = responce.data.skillsData;
+
+                    for (var i = 0, max = skills.length; i < max; i++) {
+                        $('#skills').append($("<li id=" + skills[i]['skill_id'] + ">" + skills[i]['skill_name'] + "</li>"));
+                    }
+                    loadSkillFnc();
+                }
+            }
+        });
+    }
+
+    $("#formStepThree").validate({
+        submitHandler: function () {
+            saveStepThree();
+        }
+    });
+
+    function saveStepThree() {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
+            data: $('#formStepThree').serialize(),
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    Message.success(responce.msg);
+                    $("#formAddCategory")[0].reset();
+                    $('.pr-20').attr('value', '');
+                    $('.row-input > .input-no-label').not(':first').remove();
+                    loadCategoryData();
+                }
+            }
+        });
+    }
+
+</script>
