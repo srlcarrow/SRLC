@@ -32,7 +32,8 @@ class EmployerController extends Controller {
     }
 
     public function actionProfile() {
-        $this->render('profile');
+        $employerData = EmpEmployers::model()->findByPk(1);
+        $this->render('profile', array('employerData' => $employerData));
     }
 
     public function actionPackage() {

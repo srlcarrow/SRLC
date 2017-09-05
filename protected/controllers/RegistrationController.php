@@ -11,9 +11,20 @@ class RegistrationController extends Controller {
         $model->jsbt_contact_no = $_POST['contactNo'];
         $model->jsbt_created_time = date('Y-m-d H:i:s');
         if ($model->save(false)) {
-            // Send the verification mail
+            $msg = "Test For Payroll";
+            $subjct = "Registered";
+            $to = "sahampath1990@gmail.com";
+            EmailGenerator::SendEmail($msg, $to, $subjct);
+
             $this->msgHandler(200, "Successfully Saved...");
         }
+    }
+
+    public function actionGen() {
+        $msg = "Test For Payroll";
+        $subjct = "Test Subject";
+        $to = "sahampath1990@gmail.com";
+        EmailGenerator::SendEmail($msg, $to, $subjct, '');
     }
 
 }

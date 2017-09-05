@@ -35,27 +35,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                             </div>
 
                             <div class="col-md-9 pl-0 pb-20 bottom-line">
-                                <h2 class="text-black mb-5">WSO2 (Pvt) Ltd</h2>
-                                <h5 class="text-dark-blue text-light-2 text-uppercase">128, Duplication Road, COlombo 4</h5>
+                                <h2 class="text-black mb-5"><?php echo $employerData->employer_name; ?></h2>
+                                <h5 class="text-dark-blue text-light-2 text-uppercase"><?php echo $employerData->employer_address; ?></h5>
 
                                 <div class="d-table width-auto mt-20">
                                     <div class="d-table-cell pr-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
-                                            <span>076 8969354 / 0116598752</span>
+                                            <span><?php echo $employerData->employer_tel; ?> / <?php echo $employerData->employer_mobi; ?></span>
                                         </h5>
                                     </div>
                                     <div class="d-table-cell pl-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 email mr-10 v-middle"></i>
-                                            <span>info@gmail.com</span>
+                                            <span><?php echo $employerData->employer_email; ?></span>
                                         </h5>
                                     </div>
                                 </div>
 
                                 <h5 class="text-dark-blue text-light-1 mt-20">
                                     <i class="icon icon-20 linkedin mr-10 v-middle"></i>
-                                    <span>Rishani</span>
+                                    <span><?php echo $employerData->employer_contact_person; ?></span>
                                 </h5>
                             </div>
                         </div>

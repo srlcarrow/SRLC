@@ -35,7 +35,8 @@ class SwiftMailer {
 	}
 	
 	public function smtpTransport($host=null, $port=null) {
-		return Swift_SmtpTransport::newInstance($host, $port);
+//		return Swift_SmtpTransport::newInstance($host, $port);
+                return SmtpTransport::newInstance($host, $port);
 	}
 	
 	public function sendmailTransport($command=null) {
