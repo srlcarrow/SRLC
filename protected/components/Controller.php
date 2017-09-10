@@ -139,4 +139,21 @@ class Controller extends CController {
         return $skillsData;
     }
 
+    public static function randomAccessToken($length = 16) {
+        $chars = "abcdefghijklmnopqrstuvwxyz";
+        $chars1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $chars2 = "0123456789";
+        $password = substr(str_shuffle($chars), 0, 4);
+        $password1 = substr(str_shuffle($chars1), 0, 3);
+        $password2 = substr(str_shuffle($chars2), 0, 1);
+        $passwordNew = str_shuffle($password . $password1 . $password2);
+        return $passwordNew;
+    }
+
+    public static function randomPassword($length = 8) {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
+        $password = substr(str_shuffle($chars), 0, $length);
+        return $password;
+    }
+
 }
