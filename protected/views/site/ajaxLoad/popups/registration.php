@@ -17,7 +17,7 @@
 
                 <div class="col-md-12 mt-10 hide-show job_seeker">
                     <div class="input-wrapper">
-                        <input id="fname" name="fname" type="text">
+                        <input id="fname" name="fname" type="text" required>
                         <div class="float-text">First Name</div>
                     </div>
 
@@ -29,24 +29,25 @@
 
                 <div class="col-md-12 mt-10 hide-show employer">
                     <div class="input-wrapper">
-                        <input id="cname" name="cname" type="text">
+                        <input id="cname" name="cname" type="text" required>
                         <div class="float-text">Company Name</div>
                     </div>
                 </div>
 
                 <div class="col-md-12 ">
                     <div class="input-wrapper">
-                        <input id="email" name="email" type="text">
+                        <input id="email" name="email" type="text" required>
+<!--                        <input id="email" name="email" type="text" onblur="validateEmail(this.value)" required>-->
                         <div class="float-text">Email</div>
                     </div>
 
                     <div class="input-wrapper">
-                        <input id="contactNo" name="contactNo" type="text">
+                        <input id="contactNo" name="contactNo" type="text" required>
                         <div class="float-text">Contact No</div>
                     </div>
 
                     <div class="col-md-12 mt-20">
-                        <button id="Register" type="button" onclick="userRegistration()"
+                        <button id="Register" type="submit"
                                 class="cm-btn large text-uppercase light-blue right">Register
                         </button>
                     </div>
@@ -73,27 +74,76 @@
 
     $("#formRegister").validate({
         submitHandler: function () {
-            userRegistration();
+            var emailAdd = $("#email").val();
+            var stat = validateEmail(emailAdd);
+            if (stat == true) {
+                userRegistration();
+            }
         }
     });
 
     function userRegistration() {
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
-        $.ajax({
+        currentRequest = jQuery.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
             data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
             dataType: 'json',
+            beforeSend: function () {
+                if (currentRequest != null) {
+                    currentRequest.abort();
+                }
+            },
             success: function (responce) {
                 if (responce.code == 200) {
-                    //                    Message.success(responce.msg);
                     Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                    $("#formRegister")[0].reset();
-                    //                    $('.pr-20').attr('value', '');
-                    //                    $('.row-input > .input-no-label').not(':first').remove();
-                    //                    loadCategoryData();
+                    $("#formRegister").reset();
                 }
             }
         });
+    }
+
+    function validateEmail(emailField) {
+        if (isValidEmail(emailField) == false) {
+            alert('Invalid Email Address');
+            return false;
+        }
+        if (isExistingEmail(emailField) == false) {
+            alert('Existing Email');
+            return false;
+        }
+        return true;
+    }
+
+    function isValidEmail(emailField) {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (reg.test(emailField) == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    function isExistingEmail(emailField) {
+        currentRequest = jQuery.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
+            data: {email: emailField},
+            dataType: 'json',
+            beforeSend: function () {
+                if (currentRequest != null) {
+                    currentRequest.abort();
+                }
+            },
+            success: function (responce) {
+                if (responce.code == 200 && responce.data['isExistingEmail'] === 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        return false;
     }
 </script>

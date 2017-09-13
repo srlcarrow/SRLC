@@ -81,22 +81,21 @@ class Controller extends CController {
 
     public static function searchWhereCriterias() {
         $str = "ad.ad_id !=0 ";
-        if (!empty($_REQUEST['catId']) && $_REQUEST['catId'] != 'undefined') {
+        if (!empty($_REQUEST['catId']) && $_REQUEST['catId'] != 'undefined' && $_REQUEST['catId'] != 0) {
             $str .= " AND ad.ref_cat_id = " . $_REQUEST['catId'];
         }
-        if (!empty($_REQUEST['subCatId']) && $_REQUEST['subCatId'] != 'undefined') {
+        if (!empty($_REQUEST['subCatId']) && $_REQUEST['subCatId'] != 'undefined' && $_REQUEST['subCatId'] != 0) {
             $str .= " AND ad.ref_subcat_id = " . $_REQUEST['subCatId'];
         }
-        if (!empty($_REQUEST['district_id'])) {
+        if (!empty($_REQUEST['district_id']) && $_REQUEST['district_id'] != 'undefined' && $_REQUEST['district_id'] != 0) {
             $str .= " AND ad.ref_district_id = " . $_REQUEST['district_id'];
         }
-        if (!empty($_REQUEST['cities'])) {
+        if (!empty($_REQUEST['cities']) && $_REQUEST['cities'] != 'undefined' && $_REQUEST['cities'] != 0) {
             $str .= " AND ad.ref_city_id =" . $_REQUEST['cities'] . " ";
         }
-        if (!empty($_REQUEST['wt_id'])) {
+        if (!empty($_REQUEST['wt_id']) && $_REQUEST['wt_id'] != 'undefined' && $_REQUEST['wt_id'] != 0) {
             $str .= " AND ad.ref_work_type_id =" . $_REQUEST['wt_id'] . " ";
         }
-
         return $str;
     }
 
@@ -151,9 +150,20 @@ class Controller extends CController {
     }
 
     public static function randomPassword($length = 8) {
-        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
+        $chars = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*";
         $password = substr(str_shuffle($chars), 0, $length);
         return $password;
+    }
+
+    static function encodeMailAction($id) {
+        $key = time() . "_4you_" . $id . "_srlc_" . self::randomAccessToken();
+        return base64_encode($key);
+    }
+
+    static function decodeMailAction($key) {
+        $dec_key = base64_decode($key);
+        $dec_data = explode("_", $dec_key);       
+        return $dec_data;
     }
 
 }

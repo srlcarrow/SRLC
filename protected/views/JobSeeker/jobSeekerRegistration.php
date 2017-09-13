@@ -61,6 +61,7 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepOne'; ?>",
+            data: {accessId: '<?php echo $accessId; ?>'},
             success: function (responce) {
                 $("#step").html(responce);
             }
