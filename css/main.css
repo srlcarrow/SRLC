@@ -1844,16 +1844,11 @@ a.cm-btn {
     width: 100%; }
 
 .gradient {
-  background: #6eac1d;
-  /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #6eac1d 0%, #80c02b 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #6eac1d 0%, #80c02b 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #6eac1d 0%, #80c02b 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6eac1d', endColorstr='#80c02b', GradientType=1);
-  /* IE6-9 fallback on horizontal gradient */ }
+  background: #ffca28;
+  background: -moz-linear-gradient(-45deg, #ffca28 0%, #fbab18 100%);
+  background: -webkit-linear-gradient(-45deg, #ffca28 0%, #fbab18 100%);
+  background: linear-gradient(135deg, #ffca28 0%, #fbab18 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca28', endColorstr='#fbab18',GradientType=1 ); }
 
 .icon {
   display: inline-block; }
