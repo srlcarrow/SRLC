@@ -1,7 +1,9 @@
 <nav class="navbar light-blue nav-bottom-space">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="" href="#"></a>
+            <a class="" href="<?php echo Yii::app()->baseUrl?>">
+                <img src="<?php echo Yii::app()->baseUrl?>/images/system/logo/logo-1.svg" alt="Logo">
+            </a>
         </div>
         <ul class="navbar-nav navbar-right hidden-xs">
             <li class="active"><a href="<?php echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration'; ?>">Job Seeker</a></li>

@@ -1,15 +1,4 @@
-(function () {
-
-
-    $(window).on('load resize', function () {
-        var pageHeight = $(window)[0].innerHeight;
-        $('.full-height').css('height', pageHeight + 'px')
-    });
-
-
-})();
-
-
+var $isTitleHide = false;
 //Job category Selection
 var SelectedCategory = (function () {
     var _category = {
@@ -36,7 +25,7 @@ var SelectedCategory = (function () {
             ];
 
             //If select main category All that popup will be hide
-            if($this.hasClass('all')) {
+            if ($this.hasClass('all')) {
                 loadJobsByCategory();
             }
         }
@@ -65,17 +54,18 @@ function hideTitle($isTitleHide) {
 
     if ($isTitleHide) {
 
-        $('body').scrollTop(0);
-
         $title.addClass('hide-title');
         $('.full-height').css('height', '');
-        searchSection.removeClass('full-height');
+        searchSection.removeClass('full-height').addClass('is-search-fixed');
+        var $searchSectionHeight = searchSection.height();
+
+        $('#ajaxLoadAdvertisements').css({'marginTop': $searchSectionHeight});
     } else {
         $title.removeClass('hide-title');
     }
 }
 
-var $isTitleHide = false;
+
 //Job Search
 var JobSearch = (function () {
 
@@ -134,5 +124,37 @@ function loadJobsByCategory() {
     // hide popup
     Popup.hide();
 }
+
+
+(function () {
+
+
+    $(window).on('load resize', function () {
+        var pageHeight = $(window)[0].innerHeight;
+        $('.full-height').css('height', pageHeight + 'px')
+    });
+
+    var $title = $('.main-title');
+    var titleTopPosition = (($title.offset().top) - 50);
+
+    $(window).scroll(function (e) {
+        var $scrollTop = $(window).scrollTop();
+        if ($scrollTop > titleTopPosition) {
+            $isTitleHide = true;
+            if ($isTitleHide) {
+                hideTitle($isTitleHide);
+                ///$(window).scrollTop(0);
+            }
+            //$(window).scrollTop(0)
+        }
+    });
+
+    if ($isTitleHide) {
+        setTimeout(function () {
+            $("html, body").animate({ scrollTop: "0" });
+        },1000)
+    }
+
+})();
 
 

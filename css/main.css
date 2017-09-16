@@ -1734,6 +1734,13 @@ input[type="checkbox"] {
 .width-100 {
   width: 100%; }
 
+.is-search-fixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 998; }
+
 button.cm-btn,
 a.cm-btn {
   color: #fff;
@@ -2248,10 +2255,11 @@ a.cm-btn {
   border: 6px solid rgba(0, 0, 0, 0.1); }
 
 header {
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 0;
-  left: 0; }
+  left: 0;
+  z-index: 999; }
   header.fixed {
     position: fixed; }
 
@@ -2264,6 +2272,9 @@ header {
   -moz-border-radius: 0;
   border-radius: 0;
   background: #fbab18; }
+  .navbar .navbar-header a {
+    margin-top: 6px;
+    display: block; }
 
 .navbar-nav {
   padding: 12px 15px; }
@@ -2485,3 +2496,7 @@ input[type="radio"] + label {
   #loadingmessage img {
     margin: 0 auto;
     display: block; }
+
+#ajaxLoadAdvertisements {
+  float: left;
+  width: 100%; }
