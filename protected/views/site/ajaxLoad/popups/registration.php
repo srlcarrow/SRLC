@@ -99,7 +99,7 @@
             success: function (responce) {
                 if (responce.code == 200) {
                     Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                    $("#formRegister").reset();
+                    //$("#formRegister").reset();
                 }
             }
         });
@@ -146,6 +146,6 @@
                 }
             }
         });
-        return false;
+        return true;
     }
 </script>

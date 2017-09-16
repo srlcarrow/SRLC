@@ -2,8 +2,9 @@
 
 $black: #000;
 $white: #fff;
-$form-input-line-color: #3398f7;
-$form-radio-button-color: #2491f6;
+$form-input-line-color: #fbab18;
+$form-radio-button-color: #fbab18;
+$error: #f26922;
 $error-background-color: rgba(#F26922, 0.86);
 
 $animation-float-text: 0.2s all cubic-bezier(.26, .28, .42, .78);
@@ -98,13 +99,14 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
     top: 43px;
     left: 0;
     font-size: 12px;
-    background: $error-background-color;
-    color: $white;
+    color: $error;
     width: 100%;
-    padding: 5px 8px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
+    padding: 2px 0;
+
+    & ~ .animate-line {
+      background: $error;
+      @include transform(scaleX(1));
+    }
   }
 
   .input-line,
