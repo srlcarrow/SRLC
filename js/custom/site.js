@@ -54,12 +54,13 @@ function hideTitle($isTitleHide) {
 
     if ($isTitleHide) {
 
+        //$title.slideUp(500);
         $title.addClass('hide-title');
         $('.full-height').css('height', '');
         searchSection.removeClass('full-height').addClass('is-search-fixed');
         var $searchSectionHeight = searchSection.height();
 
-        $('#ajaxLoadAdvertisements').css({'marginTop': $searchSectionHeight});
+        // $('#ajaxLoadAdvertisements').css({'marginTop': $searchSectionHeight});
     } else {
         $title.removeClass('hide-title');
     }
@@ -138,23 +139,49 @@ function loadJobsByCategory() {
     var titleTopPosition = (($title.offset().top) - 50);
 
     $(window).scroll(function (e) {
-        var $scrollTop = $(window).scrollTop();
-        if ($scrollTop > titleTopPosition) {
-            $isTitleHide = true;
-            if ($isTitleHide) {
-                hideTitle($isTitleHide);
-                ///$(window).scrollTop(0);
-            }
-            //$(window).scrollTop(0)
-        }
+        // var $scrollTop = $(window).scrollTop();
+        // if ($scrollTop > titleTopPosition) {
+        //     $isTitleHide = true;
+        //     if ($isTitleHide) {
+        //         hideTitle($isTitleHide);
+        //         ///$(window).scrollTop(0);
+        //     }
+        //     //$(window).scrollTop(0)
+        // }
     });
 
     if ($isTitleHide) {
-        setTimeout(function () {
-            $("html, body").animate({ scrollTop: "0" });
-        },1000)
+
     }
 
 })();
+
+(function () {
+    var controller = new ScrollMagic.Controller();
+
+    var dashboardId = 'title';
+
+    var dashboardScene = new ScrollMagic.Scene({
+        triggerElement: '#' + dashboardId,
+        duration: '70%',
+        offset: 226,
+    });
+
+    dashboardScene.setClassToggle('#' + dashboardId, 'active');
+    dashboardScene.addTo(controller);
+    dashboardScene.setPin("#jobs");
+    dashboardScene.on('enter', function () {
+        $isTitleHide = true;
+        hideTitle($isTitleHide);
+       // $('#jobs').css('marginTop','300px')
+        $("html, body").css({ scrollTop: "300px" });
+    });
+
+    dashboardScene.on('leave', function () {
+
+    });
+
+})();
+
 
 

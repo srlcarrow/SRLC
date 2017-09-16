@@ -11,7 +11,7 @@
                     </div>
 
 
-                    <div class="job-list-wrap col-xs-12">
+                    <div id="jobs" class="job-list-wrap col-xs-12">
 
                         <ul class="float-block job-list">
                             <?php
