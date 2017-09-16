@@ -53,13 +53,12 @@ function hideTitle($isTitleHide) {
     var searchSection = $('.search-section');
 
     if ($isTitleHide) {
-
         $title.addClass('hide-title');
         $('.full-height').css('height', '');
         searchSection.removeClass('full-height').addClass('is-search-fixed');
         var $searchSectionHeight = searchSection.height();
-
-        $('#ajaxLoadAdvertisements').css({'marginTop': $searchSectionHeight});
+        $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
+        $(window).scrollTop(0);
     } else {
         $title.removeClass('hide-title');
     }
@@ -138,23 +137,51 @@ function loadJobsByCategory() {
     var titleTopPosition = (($title.offset().top) - 50);
 
     $(window).scroll(function (e) {
-        var $scrollTop = $(window).scrollTop();
-        if ($scrollTop > titleTopPosition) {
-            $isTitleHide = true;
-            if ($isTitleHide) {
-                hideTitle($isTitleHide);
-                ///$(window).scrollTop(0);
-            }
-            //$(window).scrollTop(0)
-        }
+        // var $scrollTop = $(window).scrollTop();
+        // if ($scrollTop > titleTopPosition) {
+        //     $isTitleHide = true;
+        //     if ($isTitleHide) {
+        //         hideTitle($isTitleHide);
+        //         ///$(window).scrollTop(0);
+        //     }
+        //     //$(window).scrollTop(0)
+        // }
     });
 
     if ($isTitleHide) {
-        setTimeout(function () {
-            $("html, body").animate({ scrollTop: "0" });
-        },1000)
+
     }
 
 })();
+
+
+(function () {
+
+    var controller = new ScrollMagic.Controller();
+
+    var jobTitle = 'title';
+
+
+    var jobScene = new ScrollMagic.Scene({
+        triggerElement: '#' + jobTitle,
+        duration: '70%',
+        offset: 226,
+    });
+
+    jobScene.setClassToggle('#' + jobTitle, 'active');
+    jobScene.addTo(controller);
+    jobScene.reverse(false);
+
+    jobScene.on('enter', function () {
+        $isTitleHide = true;
+        hideTitle($isTitleHide);
+    });
+
+    jobScene.on('leave', function () {
+
+    });
+
+})();
+
 
 

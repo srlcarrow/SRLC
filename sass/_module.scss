@@ -621,7 +621,7 @@ a.cm-btn {
   height: 100%;
   opacity: 0;
   @include transition($animation-2);
-  background: rgba($blue-dark, .60);
+  background: rgba($blue-dark, .70);
 
   .popup {
     @include transition($animation-popup);
@@ -657,12 +657,12 @@ a.cm-btn {
         }
 
         a {
+          display: block;
           color: rgba($black, $opt-3);
           font-size: $font-small;
-
           &.active,
           &:hover {
-            color: rgba($black, $opt-1);
+            color: rgba($white, $opt-1);
           }
 
           span {

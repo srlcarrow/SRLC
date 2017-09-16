@@ -188,13 +188,16 @@ h1, h2, h3, h4, h5, h6, p, a, div, label {
     top: 43px;
     left: 0;
     font-size: 12px;
-    background: rgba(242, 105, 34, 0.86);
-    color: #fff;
+    color: #f26922;
     width: 100%;
-    padding: 5px 8px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px; }
+    padding: 2px 0; }
+    .input-wrapper span.error-val ~ .animate-line {
+      background: #f26922;
+      -moz-transform: scaleX(1);
+      -o-transform: scaleX(1);
+      -ms-transform: scaleX(1);
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1); }
   .input-wrapper .input-line,
   .input-wrapper .animate-line {
     position: absolute;
@@ -224,7 +227,7 @@ h1, h2, h3, h4, h5, h6, p, a, div, label {
   .input-wrapper .animate-line {
     height: 2px;
     bottom: -2px;
-    background: #3398f7;
+    background: #fbab18;
     -moz-transform: scaleX(0);
     -o-transform: scaleX(0);
     -ms-transform: scaleX(0);
@@ -288,7 +291,7 @@ input[type="radio"] {
   input[type="radio"] + label::before {
     border: 2px solid rgba(0, 0, 0, 0.3); }
   input[type="radio"] + label::after {
-    background: #2491f6;
+    background: #fbab18;
     -moz-transform: scale(0);
     -o-transform: scale(0);
     -ms-transform: scale(0);
@@ -331,7 +334,7 @@ input[type="checkbox"] {
     left: 0;
     top: 0; }
   input[type="checkbox"]:checked + label::after {
-    background: #2491f6 url("../images/system/icon/site/12/ic_12-tick-white.png") no-repeat center 3px; }
+    background: #fbab18 url("../images/system/icon/site/12/ic_12-tick-white.png") no-repeat center 3px; }
 
 .state-wrapper {
   float: left;
@@ -2121,7 +2124,7 @@ a.cm-btn {
   -o-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   -webkit-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
-  background: rgba(44, 43, 63, 0.6); }
+  background: rgba(44, 43, 63, 0.7); }
   .popup-container .popup {
     -moz-transition: all 0.4s cubic-bezier(0.64, 0.1, 0.27, 1.44);
     -o-transition: all 0.4s cubic-bezier(0.64, 0.1, 0.27, 1.44);
@@ -2155,10 +2158,11 @@ a.cm-btn {
     .popup-container .popup .category-list li:not(:last-child) {
       margin-bottom: 20px; }
     .popup-container .popup .category-list li a {
+      display: block;
       color: rgba(0, 0, 0, 0.56);
       font-size: 18px; }
       .popup-container .popup .category-list li a.active, .popup-container .popup .category-list li a:hover {
-        color: black; }
+        color: white; }
       .popup-container .popup .category-list li a span {
         margin-left: 10px; }
     .popup-container .popup .man-category, .popup-container .popup .sub-category {

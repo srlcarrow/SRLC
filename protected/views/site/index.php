@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-12 main-title">
+            <div class="col-md-12 main-title" id="title">
                 <h1>Find a job fit to your life style</h1>
                 <h3>Simply dummy text of the printing and typesetting industry</h3>
             </div>
@@ -94,6 +94,8 @@ Search Result Section
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
 <!--JS | Main js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
+<!--JS | Scroll js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
 
 <script>
     $(document).ready(function (e) {

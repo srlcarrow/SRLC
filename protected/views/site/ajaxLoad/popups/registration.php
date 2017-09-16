@@ -66,9 +66,7 @@
             var show = $this.data('show');
 
             $('.hide-show').slideUp('fast', function () {
-
                 $('.' + show).slideDown('slow')
-
             })
         });
 
@@ -77,11 +75,12 @@
             submitHandler: function () {
 
                 var emailAdd = $("#email").val();
-    //            var stat = validateEmail(emailAdd);
-    //            if (stat == true) {
+                //            var stat = validateEmail(emailAdd);
+                //            if (stat == true) {
                 userRegistration();
-    //            }
+
             }
+        }
         });
 
         function userRegistration() {
@@ -99,8 +98,9 @@
                 success: function (responce) {
                     if (responce.code == 200) {
                         Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                        $("#formRegister").reset();
+                        //$("#formRegister").reset();
                     }
+
                 }
             });
         }
@@ -145,7 +145,9 @@
                         return false;
                     }
                 }
+
             });
-            return true;
+            return false;
         }
     </script>
+
