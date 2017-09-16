@@ -2,12 +2,26 @@
 
 class JobSeekerController extends Controller {
 
-    public function actionViewRegistration() {
-        $this->render('jobSeekerRegistration');
+    public function actionViewRegistration($id) {
+        try {
+            $key = Controller::decodeMailAction($id);
+            $jsTempId = $key[2];
+            $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
+            if ($id == $jsBasicTempData->jsbt_encrypted_id) {
+                $this->render('jobSeekerRegistration', array('accessId' => $id));
+            } else {
+                echo "Invalid URL";
+                exit;
+            }
+        } catch (Exception $exc) {
+            echo "Invalid Verification";
+        }
     }
 
     public function actionFormStepOne() {
-        $this->renderPartial('ajaxLoad/form_step1');
+        $key = Controller::decodeMailAction($_POST['accessId']);
+        $jsTempId = $key[2];
+        $this->renderPartial('ajaxLoad/form_step1', array());
     }
 
     public function actionSaveStepOne() {
@@ -149,7 +163,5 @@ class JobSeekerController extends Controller {
             $this->msgHandler(400, $exc->getTraceAsString());
         }
     }
-    
-
 
 }

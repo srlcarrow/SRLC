@@ -141,12 +141,17 @@ Search Result Section
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
+                    $('#cities').append(
+                            $("<option>aaaa</option>")
+                            .attr("value", 0)
+                            .text("Select City")
+                            );
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#cities').append(
-                            $("<option>aaaa</option>")
+                                $("<option>aaaa</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
