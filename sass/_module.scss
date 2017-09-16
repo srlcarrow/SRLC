@@ -674,6 +674,8 @@ a.cm-btn {
     }
     .sub-category {
       @extend .man-category;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
       background: $white-xs-light;
 
       .category-list {

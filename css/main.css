@@ -2163,6 +2163,8 @@ a.cm-btn {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0; }
     .popup-container .popup .sub-category {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
       background: #feffff; }
       .popup-container .popup .sub-category .category-list li a.active, .popup-container .popup .sub-category .category-list li a:hover {
         color: #fbab18; }
