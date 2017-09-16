@@ -162,8 +162,19 @@ class Controller extends CController {
 
     static function decodeMailAction($key) {
         $dec_key = base64_decode($key);
-        $dec_data = explode("_", $dec_key);       
+        $dec_data = explode("_", $dec_key);
         return $dec_data;
+    }
+
+    static function encodePrimaryKeys($id) {
+        $key = time() . "_4you_" . $id . "_srlc_" . self::randomAccessToken();
+        return base64_encode($key);
+    }
+
+    static function decodePrimaryKeys($key) {
+        $dec_key = base64_decode($key);
+        $dec_data = explode("_", $dec_key);
+        return $dec_data[2];
     }
 
 }
