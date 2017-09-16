@@ -33,7 +33,7 @@
                 </div>
                 <ul class="option-list"></ul>
 
-                <?php echo Chtml::dropDownList('cat_id', "", CHtml::listData(AdmCategory::model()->findAll(array('order' => 'cat_order')), 'cat_id', 'cat_name'), array('empty' => 'Select District', 'onChange' => 'loadSubCategories()')); ?>
+                <?php echo Chtml::dropDownList('cat_id', "", CHtml::listData(AdmCategory::model()->findAll(array('order' => 'cat_order')), 'cat_id', 'cat_name'), array('empty' => 'Select District', 'options' => array($jsEmploymentData->ref_category_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>
             </div>
         </div>
 
@@ -157,22 +157,22 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepTwo'; ?>",
-            data: $('#formStepTwo').serialize(),
+            data: $('#formStepTwo').serialize() + '&jsBasicKey=<?php echo $jsBasicKey; ?>',
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    goToStepThree();
+                    goToStepThree(responce.data.jsBasicKey);
                 }
             }
         });
     }
 
 
-    function goToStepThree() {
+    function goToStepThree(jsBasicKey) {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepThree'; ?>",
-            data: '',
+            data: {jsBasicKey: jsBasicKey},
             success: function (responce) {
                 $("#step").html(responce);
             }

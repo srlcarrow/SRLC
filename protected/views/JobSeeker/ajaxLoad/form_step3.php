@@ -60,14 +60,14 @@
     <div class="row mb-15">
 
         <div class="col-md-6 mt-30">
-            <div class="d-table">
+            <div class="d-table work-type">
                 <?php
                 foreach ($workTypes as $workType) {
                     ?>
                     <div class="d-table-cell">
                         <input type="checkbox" id="<?php echo $workType->wt_id; ?>"
                                name="<?php echo $workType->wt_id; ?>">
-                        <label for="full-time">Full - time</label>
+                        <label for="<?php echo $workType->wt_id; ?>"><?php echo $workType->wt_name; ?></label>
                     </div>
 
 
@@ -116,7 +116,7 @@
             <p class="text-dark-blue text-light-3 f-12 mt-5">Select Maximum 3 Cities.</p>
         </div>
 
-        <div class="col-md-12 selected-items">
+        <div class="col-md-12 selected-items city-item">
 
         </div>
 
@@ -149,7 +149,7 @@
                 interests.</p>
         </div>
 
-        <div class="col-md-12 selected-items">
+        <div class="col-md-12 skills-item selected-items ">
 
         </div>
 
@@ -190,9 +190,7 @@
             <h5>Upload CV</h5>
             <div class="file-uploader">
                 <div class="button">Brows...</div>
-<!--                --><?php //echo $form->labelEx($modelCV, 'cv_path'); ?>
-                <?php echo $form->fileField($modelCV, 'cv_path', array('size' => 36, 'maxlength' => 255)); ?>
-                <?php echo $form->error($modelCV, 'cv_path'); ?>
+           
             </div>
         </div>
     </div>
@@ -209,6 +207,26 @@
 <script>
     Input.init();
     Select.init();
+
+
+    function getItems(_el) {
+        var result = [];
+        $(_el).each(function () {
+            result.push($(this).attr('id'));
+        });
+        return result;
+    }
+
+    function workTypes() {
+        var result = [];
+        $('.work-type').find('input[type="checkbox"]').each(function () {
+            var $this = $(this);
+            if ($this.is(':checked')) {
+                result.push($this.attr('id'));
+            }
+        });
+        return result;
+    }
 
     //Item
     function html(val, id) {
@@ -228,7 +246,7 @@
             },
             onEnter: function (input) {
                 if (input.val().length > 0) {
-                    var h = html(input.val(), '');
+                    var h = html(input.val(), input.val());
                     selectedItems.append(h);
                 }
 
@@ -303,10 +321,10 @@
                     var subCats = responce.data.subCategoryData;
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
-                            $("<option>" + subCats[i]['scat_name'] + "</option>")
+                                $("<option>" + subCats[i]['scat_name'] + "</option>")
                                 .attr("value", subCats[i]['scat_id'])
                                 .text(subCats[i]['scat_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -334,10 +352,10 @@
                     var designations = responce.data.designationData;
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
-                            $("<option>" + designations[i]['desig_name'] + "</option>")
+                                $("<option>" + designations[i]['desig_name'] + "</option>")
                                 .attr("value", designations[i]['desig_id'])
                                 .text(designations[i]['desig_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -362,10 +380,10 @@
                     var cities = responce.data.cityData;
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                            $("<option>" + cities[i]['city_name'] + "</option>")
+                                $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -423,11 +441,20 @@
         }
     });
 
+// var city = getItems('.city-item .item');
+//    var skills = getItems('.skills-item .item');
+//    var workType = workTypes();
     function saveStepThree() {
+
+        var city = getItems('.city-item .item');
+        var skills = getItems('.skills-item .item');
+        var workType = workTypes();
+
+
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
-            data: $('#formStepThree').serialize(),
+            data: $('#formStepThree').serialize() + '&cities=' + city + '&skills=' + skills + '&workType=' + workType + '&jsBasicKey=<?php echo $jsBasicKey; ?>',
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {

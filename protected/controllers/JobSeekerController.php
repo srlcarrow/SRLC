@@ -19,32 +19,124 @@ class JobSeekerController extends Controller {
     }
 
     public function actionFormStepOne() {
-        $key = Controller::decodeMailAction($_POST['accessId']);
+        $keyId = $_POST['accessId'];
+        $key = Controller::decodeMailAction($keyId);
         $jsTempId = $key[2];
-        $this->renderPartial('ajaxLoad/form_step1', array());
+
+        $jsBasicId = 0;
+        $status = 0;
+
+        if ($jsTempId != 0) {
+            $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
+            if ($jsBasicTempData->jsbt_type == 1) {
+                if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
+                    $jsBasicTempData->jsbt_is_verified = 1;
+                    if ($jsBasicTempData->save(false)) {
+                        $jsBasic = new JsBasic();
+                        $jsBasic->ref_jsbt_id = $jsBasicTempData->jsbt_id;
+                        $jsBasic->js_fname = $jsBasicTempData->jsbt_fname;
+                        $jsBasic->js_lname = $jsBasicTempData->jsbt_lname;
+                        $jsBasic->js_email = $jsBasicTempData->jsbt_email;
+                        $jsBasic->js_contact_no1 = $jsBasicTempData->jsbt_contact_no;
+                        $jsBasic->js_contact_no2 = '';
+                        $jsBasic->js_address = '';
+                        $jsBasic->js_gender = 0;
+                        $jsBasic->js_dob = '';
+                        $jsBasic->js_cv_path = '';
+                        if ($jsBasic->save(false)) {
+                            $status = 1; // Verified But Not Finished
+                        }
+                    }
+                } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
+                    $jsBasicId = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsBasicTempData->jsbt_id));
+                    $status = 1;
+                }
+            }
+        }
+
+        $jsBasicData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
+        $jsProfQualifications = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 1));
+        $jsMemberships = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 2));
+        $jsBasicKey = Controller::encodePrimaryKeys($jsBasicData->js_id);
+        if (count($jsBasicData) == 0) {
+            $jsBasicData = new JsBasic();
+        }
+
+        $this->renderPartial('ajaxLoad/form_step1', array('jsBasicData' => $jsBasicData, 'jsProfQualifications' => $jsProfQualifications, 'jsMemberships' => $jsMemberships, 'jsBasicKey' => $jsBasicKey));
     }
 
     public function actionSaveStepOne() {
         try {
-            $model = new JsBasic();
-            $model->js_name = '';
-            $model->js_email = '';
-            $model->js_contact_no1 = $_POST['contactNo'];
-            $model->js_contact_no2 = '';
+            $jsId = Controller::decodePrimaryKeys($_POST['jsBasicKey']);
+            $model = JsBasic::model()->findByPk($jsId);
             $model->js_address = $_POST['address'];
+            $model->js_contact_no2 = $_POST['contactNo'];
             $model->js_gender = 1;
             $model->js_dob = $_POST['dob'];
-//            if ($model->save(false)) {
-            $this->msgHandler(200, "Successfully Saved...");
-//            }
+            $model->js_experience = $_POST['experience'];
+            $model->js_highest_academic_quali = $_POST['highestAcaQuali'];
+            $model->js_nameof_academic_quali = $_POST['nameOfAcaQuali'];
+            $model->js_updated_time = date('Y-m-d H:i:s');
+            if ($model->save(false)) {
+                $profQualiIds = $_POST['profQualiHiddenName'];
+                $profQualiNames = $_POST['profQualiName'];
+
+                for ($i = 0; $i < count($profQualiIds); $i++) {
+                    if ($profQualiNames[$i] != "") {
+                        if ($profQualiIds[$i] == 0) {
+                            $JsQualifications = new JsQualifications();
+                        } else {
+                            $JsQualifications = JsQualifications::model()->findByPk($profQualiIds[$i]);
+                        }
+                        $JsQualifications->ref_js_id = $model->js_id;
+                        $JsQualifications->jsquali_type = 1;
+                        $JsQualifications->jsquali_qualification = $profQualiNames[$i];
+                        $JsQualifications->save(false);
+                    }
+                }
+
+                $membershipIds = $_POST['membershipHiddenName'];
+                $membershipNames = $_POST['membershipName'];
+                for ($i = 0; $i < count($membershipIds); $i++) {
+                    if ($membershipNames[$i] != "") {
+                        if ($membershipIds[$i] == 0) {
+                            $JsQualifications = new JsQualifications();
+                        } else {
+                            $JsQualifications = JsQualifications::model()->findByPk($membershipIds[$i]);
+                        }
+                        $JsQualifications->ref_js_id = $model->js_id;
+                        $JsQualifications->jsquali_type = 2;
+                        $JsQualifications->jsquali_qualification = $membershipNames[$i];
+                        $JsQualifications->save(false);
+                    }
+                }
+
+
+                $this->msgHandler(200, "Successfully Saved...", array('jsBasicKey' => $_POST['jsBasicKey']));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function actionDeleteQualification() {
+        try {
+            $id = $_POST['id'];
+            if (JsQualifications::model()->deleteByPk($id)) {
+                $this->msgHandler(200, "Deleted Successfully...");
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
     public function actionFormStepTwo() {
+        $jsBasicKey = $_POST['jsBasicKey'];
+        $jsId = Controller::decodePrimaryKeys($jsBasicKey);
+        $jsEmploymentData = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $jsId));
+
         $categories = AdmCategory::model()->findAll();
-        $this->renderPartial('ajaxLoad/form_step2', array('categories' => $categories));
+        $this->renderPartial('ajaxLoad/form_step2', array('categories' => $categories, 'jsBasicKey' => $jsBasicKey, 'jsEmploymentData' => $jsEmploymentData));
     }
 
     public function actionGetSubCategories() {
@@ -63,103 +155,90 @@ class JobSeekerController extends Controller {
     }
 
     public function actionFormStepThree() {
+        $jsBasicKey = $_POST['jsBasicKey'];
         $workTypes = AdmWorkType::model()->findAll();
-        $modelCV = new JsCv();
-        $this->renderPartial('ajaxLoad/form_step3', array('workTypes' => $workTypes, 'modelCV' => $modelCV));
+        $this->renderPartial('ajaxLoad/form_step3', array('workTypes' => $workTypes, 'jsBasicKey' => $jsBasicKey));
     }
 
     public function actionSaveStepTwo() {
         try {
-//            $model = new JsEmploymentData();
-//            $model->ref_js_id = 1;
-//            $model->ref_industry_id = $_POST['ind_id'];
-//            $model->ref_category_id = $_POST['cat_id'];
-//            $model->ref_sub_category_id = $_POST['subCategories'];
-//            $model->ref_designation_id = $_POST['designations'];
-//            $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
-//            $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
-//            $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
-//            $model->jsemp_expected_designation_id = $_POST['designations'];
-//            $model->jsemp_expected_salary = 0;
-//            $model->jsemp_no_of_experience_years = 0;
-//            $model->jsemp_no_of_experience_months = 0;
-//            if ($model->save(false)) {
-            $this->msgHandler(200, "Successfully Saved...");
-//            }
+            $jsId = Controller::decodePrimaryKeys($_POST['jsBasicKey']);
+            $jsEmploymentData = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $jsId));
+            if (count($jsEmploymentData) > 0) {
+                $model = $jsEmploymentData;
+            } else {
+                $model = new JsEmploymentData();
+            }
+
+            $model->ref_js_id = $jsId;
+            $model->ref_industry_id = $_POST['ind_id'];
+            $model->ref_category_id = $_POST['cat_id'];
+            $model->ref_sub_category_id = $_POST['subCategories'];
+            $model->ref_designation_id = $_POST['designations'];
+            $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
+            $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
+            $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
+            $model->jsemp_expected_designation_id = $_POST['designations'];
+            $model->jsemp_expected_salary = 0;
+            $model->jsemp_no_of_experience_years = 0;
+            $model->jsemp_no_of_experience_months = 0;
+            if ($model->save(false)) {
+                $this->msgHandler(200, "Successfully Saved...", array('jsBasicKey' => $_POST['jsBasicKey']));
+            }
         } catch (Exception $ex) {
             $this->msgHandler(400, $exc->getTraceAsString());
         }
     }
 
-//    public function actionSaveStepThree() {
-//        try {
-//            $path = Yii::app()->basePath . '/uploads';
-//            if (!is_dir($path)) {
-//                mkdir($path);
-//            }
-//            var_dump($_POST);
-//            exit;
-//            move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . "Test");
-//            exit;
-//            $model = new JsEmploymentData();
-//            $model->ref_js_id = 1;
-//            $model->ref_industry_id = $_POST['ind_id'];
-//            $model->ref_category_id = $_POST['cat_id'];
-//            $model->ref_sub_category_id = $_POST['subCategories'];
-//            $model->ref_designation_id = $_POST['designations'];
-//            $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
-//            $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
-//            $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
-//            $model->jsemp_expected_designation_id = $_POST['designations'];
-//            $model->jsemp_expected_salary = $_POST['salary'];
-//            $model->jsemp_no_of_experience_years = $_POST['experience'];
-//            $model->jsemp_no_of_experience_months = 0;
-//
-//            if ($model->save(false)) {
-//                $this->msgHandler(200, "Successfully Saved...");
-//            }
-//        } catch (Exception $ex) {
-//            $this->msgHandler(400, $exc->getTraceAsString());
-//        }
-//    }
     public function actionSaveStepThree() {
         try {
-            $model = new JsCv;
-//            $model->up_dated = date('Y-m-d');
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
-            $path = Yii::app()->basePath . '/../uploads';
 
-            if (!is_dir($path)) {
-                mkdir($path);
-            }
-            $file = CUploadedFile::getInstance($model, 'cv_path');
-            var_dump($file);
-            exit;
-            if (isset($_POST['JsCv']['cv_path'])) {
-                $model->cv_path = $_POST['JsCv']['cv_path'];
-                if (@!empty($_FILES['JsCv']['name']['cv_path'])) {
-                    $model->cv_path = $_POST['JsCv']['cv_path'];
-
-//                    if ($model->validate(array('doc_file'))) {
-//                        $model->doc_file = CUploadedFile::getInstance($model, 'doc_file');
-//                    } else {
-//                        $model->doc_file = '';
-//                    }
-
-                    $model->doc_file->saveAs($path . '/' . time() . '_' . str_replace(' ', '_', strtolower($model->doc_file)));
-
-                    $model->doc_type = $model->doc_file->getType();
-                    $model->doc_size = $model->doc_file->getSize();
-                }
-
-                $model->doc_file = time() . '_' . str_replace(' ', '_', strtolower($model->doc_file));
-
-                if ($model->save()) {
-                    $this->redirect(array('view', 'id' => $model->id));
+            $skills = explode(',', $_POST['skills']);
+            $skillsString = '';
+            $skillsArray = array();
+            foreach ($skills as $skill) {
+                if (is_numeric($skill)) {
+                    array_push($skillsArray, $skill);
+                } else {
+                    $modelSkills = new AdmSkills();
+                    $modelSkills->skill_name = $skill;
+                    if ($modelSkills->save(false)) {
+                        array_push($skillsArray, $modelSkills->skill_id);
+                    }
                 }
             }
-        } catch (Exception $exc) {
+
+            $skillsString = implode(',', $skillsArray);
+
+
+            $jsId = Controller::decodePrimaryKeys($_POST['jsBasicKey']);
+            $jsEmploymentData = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $jsId));
+            if (count($jsEmploymentData) > 0) {
+                $model = $jsEmploymentData;
+            } else {
+                $model = new JsEmploymentData();
+            }
+
+            $model->ref_js_id = $jsId;
+            $model->ref_industry_id = $_POST['ind_id'];
+            $model->ref_category_id = $_POST['cat_id'];
+            $model->ref_sub_category_id = $_POST['subCategories'];
+            $model->ref_designation_id = $_POST['designations'];
+            $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
+            $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
+            $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
+            $model->jsemp_expected_designation_id = $_POST['designations'];
+            $model->jsemp_expected_salary = $_POST['salary'];
+            $model->jsemp_no_of_experience_years = $_POST['experience'];
+            $model->jsemp_no_of_experience_months = 0;
+            $model->jsemp_expected_cities_to_work = $_POST['cities'];
+            $model->jsemp_skills = $skillsString;
+            $model->jsemp_create_time = date('Y-m-d H:i:s');
+            $model->jsemp_updated_time = date('Y-m-d H:i:s');
+            if ($model->save(false)) {
+                $this->msgHandler(200, "Successfully Saved...");
+            }
+        } catch (Exception $ex) {
             $this->msgHandler(400, $exc->getTraceAsString());
         }
     }
