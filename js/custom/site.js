@@ -59,7 +59,8 @@ function hideTitle($isTitleHide) {
         $('.full-height').css('height', '');
         searchSection.removeClass('full-height').addClass('is-search-fixed');
         var $searchSectionHeight = searchSection.height();
-
+        $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
+        $(window).scrollTop(0);
         // $('#ajaxLoadAdvertisements').css({'marginTop': $searchSectionHeight});
     } else {
         $title.removeClass('hide-title');
@@ -170,11 +171,15 @@ function loadJobsByCategory() {
     dashboardScene.setClassToggle('#' + dashboardId, 'active');
     dashboardScene.addTo(controller);
     dashboardScene.setPin("#jobs");
+    dashboardScene.on('add', function () {
+        $('#searchContent').fadeOut('fast');
+    });
     dashboardScene.on('enter', function () {
         $isTitleHide = true;
         hideTitle($isTitleHide);
-       // $('#jobs').css('marginTop','300px')
-        $("html, body").css({ scrollTop: "300px" });
+        $('#searchContent').fadeIn('fast');
+        // $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
+        // $(window).scrollTop(0);
     });
 
     dashboardScene.on('leave', function () {
