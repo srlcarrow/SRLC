@@ -126,9 +126,6 @@ Search Result Section
 
                 $('#loadingmessage').hide();
                 $("#ajaxLoadAdvertisements").html(responce);
-            },
-            error:function (error) {
-                console.log(error)
             }
         });
     }

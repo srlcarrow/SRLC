@@ -87,16 +87,8 @@ var JobSearch = (function () {
     search.changeTitle = function () {
         var $title = $('.main-title');
         var searchSection = $('.search-section');
-        if ($isTitleHide) {
 
-            $('body').scrollTop(0);
-
-            $title.addClass('hide-title');
-            $('.full-height').css('height', '');
-            searchSection.removeClass('full-height');
-        } else {
-            $title.removeClass('hide-title');
-        }
+        hideTitle($isTitleHide);
 
     };
 

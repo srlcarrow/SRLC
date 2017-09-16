@@ -77,13 +77,25 @@
       float: left;
       font-size: $font-small;
       color: rgba($blue-dark, $opt-3);
+      text-align: center;
+      margin-right: 24px;
+      width: 26px;
+      height: 26px;
+      @include border-radius(2px);
 
-      &:not(:last-child) {
-        margin-right: 24px;
+      &:first-child {
+        border: none;
+        width: auto;
+      }
+      &:last-child {
+        border: none;
+        margin-right: 0;
+        width: auto;
       }
 
       &.current {
-        color: $blue-light
+        color: $white;
+        background: $p-dark;
       }
 
       &.disabled {

@@ -390,11 +390,24 @@ input[type="checkbox"] {
     .site-pagination .paginations a {
       float: left;
       font-size: 18px;
-      color: rgba(44, 43, 63, 0.56); }
-      .site-pagination .paginations a:not(:last-child) {
-        margin-right: 24px; }
+      color: rgba(44, 43, 63, 0.56);
+      text-align: center;
+      margin-right: 24px;
+      width: 26px;
+      height: 26px;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px; }
+      .site-pagination .paginations a:first-child {
+        border: none;
+        width: auto; }
+      .site-pagination .paginations a:last-child {
+        border: none;
+        margin-right: 0;
+        width: auto; }
       .site-pagination .paginations a.current {
-        color: #2491f6; }
+        color: #fff;
+        background: #f5820c; }
       .site-pagination .paginations a.disabled {
         color: rgba(44, 43, 63, 0.3); }
 
@@ -2037,7 +2050,8 @@ a.cm-btn {
     background: #f26922; }
 
 .total-jobs h4 {
-  color: #2491f6; }
+  color: #f5820c;
+  font-weight: 500; }
   .total-jobs h4 span {
     margin: 0 3px; }
 
