@@ -63,12 +63,13 @@ a.cm-btn {
   color: $white;
   padding: 7px 20px;
   font-size: $base-font-size;
-  @include border-radius(3px);
+  @include border-radius(2px);
   outline: none;
   border: none;
   margin-right: 5px;
   margin-left: 0;
   background: $gray-light;
+  text-transform: uppercase;
 
   &.right {
     float: right;
@@ -80,23 +81,25 @@ a.cm-btn {
     background: rgba($gray-light, $opt-2);
   }
 
-
   //Sizes
   &.large {
-    padding: 10px 30px;
+    padding: 10px 40px;
     color: $black;
     font-size: $font-smallest;
-    @include border-radius(5px);
   }
 
   //Background Colors
   &.light-blue-4 {
-    //color: $white;
+    color: $black;
     background: $p-dark;
+
+    &:hover {
+      background: rgba($p-dark, $opt-2);
+    }
   }
 
   &.light-blue {
-    //color: $white;
+    color: $black;
     background: $p-dark;
 
     &:hover {
@@ -242,10 +245,10 @@ a.cm-btn {
 
 .gradient {
   background: #ffca28;
-  background: -moz-linear-gradient(-45deg,  #ffca28 0%, #fbab18 100%);
-    background: -webkit-linear-gradient(-45deg,  #ffca28 0%,#fbab18 100%);
-    background: linear-gradient(135deg,  #ffca28 0%,#fbab18 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca28', endColorstr='#fbab18',GradientType=1 );
+  background: -moz-linear-gradient(-45deg, #ffca28 0%, #fbab18 100%);
+  background: -webkit-linear-gradient(-45deg, #ffca28 0%, #fbab18 100%);
+  background: linear-gradient(135deg, #ffca28 0%, #fbab18 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffca28', endColorstr='#fbab18', GradientType=1);
 
 }
 
@@ -456,10 +459,13 @@ a.cm-btn {
     position: absolute;
     min-width: 165px;
     z-index: 2;
-    max-height: 260px;
     background: $white;
     @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.30));
-    overflow-y: scroll;
+
+    &.is-scroll {
+      overflow-y: scroll;
+      max-height: 260px;
+    }
 
     li {
       padding: 8px 10px;

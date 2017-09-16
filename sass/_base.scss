@@ -56,6 +56,11 @@ a {
   background: transparent;
 }
 
+a:active,
+a:focus {
+  outline: 0;
+}
+
 /* change colours to suit your needs */
 ins {
   background-color: #fff;

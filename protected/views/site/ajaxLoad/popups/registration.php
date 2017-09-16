@@ -46,10 +46,12 @@
                         <div class="float-text">Contact No</div>
                     </div>
 
-                    <div class="col-md-12 mt-20">
-                        <button id="Register" type="submit"
-                                class="cm-btn large text-uppercase light-blue right">Register
-                        </button>
+                    <div class="row">
+                        <div class="col-md-12 mt-20">
+                            <button id="Register" type="submit"
+                                    class="cm-btn large text-uppercase light-blue right">Register
+                            </button>
+                        </div>
                     </div>
                 </div>
 

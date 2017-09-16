@@ -59,6 +59,21 @@ var SelectedCategory = (function () {
 
 })();
 
+function hideTitle($isTitleHide) {
+    var $title = $('.main-title');
+    var searchSection = $('.search-section');
+
+    if ($isTitleHide) {
+
+        $('body').scrollTop(0);
+
+        $title.addClass('hide-title');
+        $('.full-height').css('height', '');
+        searchSection.removeClass('full-height');
+    } else {
+        $title.removeClass('hide-title');
+    }
+}
 
 var $isTitleHide = false;
 //Job Search

@@ -89,6 +89,12 @@ Search Result Section
 <div id='loadingmessage'>
     <img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/>
 </div>
+
+<!--JS | Server js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
+<!--JS | Main js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
+
 <script>
     $(document).ready(function (e) {
         loadAdvertisementData(1);
@@ -104,9 +110,8 @@ Search Result Section
         $('#loadingmessage').show();
         var catId = null;
         var subCatId = null;
-
-        catId = MAIN_ID.split("_")[1];
-        subCatId = SUB_ID.split("_")[1];
+        catId = MAIN_ID !== undefined ? MAIN_ID.split("_")[1] : 0;
+        subCatId = SUB_ID !== undefined ? SUB_ID.split("_")[1] : 0;
 
         currentRequest = jQuery.ajax({
             type: 'POST',
@@ -118,8 +123,12 @@ Search Result Section
                 }
             },
             success: function (responce) {
+
                 $('#loadingmessage').hide();
                 $("#ajaxLoadAdvertisements").html(responce);
+            },
+            error:function (error) {
+                console.log(error)
             }
         });
     }
@@ -142,16 +151,16 @@ Search Result Section
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
                     $('#cities').append(
-                            $("<option>aaaa</option>")
+                        $("<option>aaaa</option>")
                             .attr("value", 0)
                             .text("Select City")
-                            );
+                    );
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#cities').append(
-                                $("<option>aaaa</option>")
+                            $("<option>aaaa</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {

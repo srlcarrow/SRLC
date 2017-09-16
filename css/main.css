@@ -46,6 +46,10 @@ a {
   vertical-align: baseline;
   background: transparent; }
 
+a:active,
+a:focus {
+  outline: 0; }
+
 /* change colours to suit your needs */
 ins {
   background-color: #fff;
@@ -349,13 +353,13 @@ input[type="checkbox"] {
     .main-title {
       margin-top: 100px; } }
   .main-title h1 {
-    color: rgba(255, 255, 255, 0.86);
+    color: rgba(0, 0, 0, 0.86);
     text-align: center;
     margin-bottom: 20px;
     line-height: 55px;
     font-family: "Roboto Slab", serif; }
   .main-title h3 {
-    color: rgba(255, 255, 255, 0.56);
+    color: rgba(0, 0, 0, 0.56);
     text-align: center; }
 
 .side-panel {
@@ -1722,14 +1726,15 @@ a.cm-btn {
   color: #fff;
   padding: 7px 20px;
   font-size: 14px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
   outline: none;
   border: none;
   margin-right: 5px;
   margin-left: 0;
-  background: #bfbfc5; }
+  background: #bfbfc5;
+  text-transform: uppercase; }
   button.cm-btn.right,
   a.cm-btn.right {
     float: right;
@@ -1740,17 +1745,19 @@ a.cm-btn {
     background: rgba(191, 191, 197, 0.86); }
   button.cm-btn.large,
   a.cm-btn.large {
-    padding: 10px 30px;
+    padding: 10px 40px;
     color: #000;
-    font-size: 16px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px; }
+    font-size: 16px; }
   button.cm-btn.light-blue-4,
   a.cm-btn.light-blue-4 {
+    color: #000;
     background: #f5820c; }
+    button.cm-btn.light-blue-4:hover,
+    a.cm-btn.light-blue-4:hover {
+      background: rgba(245, 130, 12, 0.86); }
   button.cm-btn.light-blue,
   a.cm-btn.light-blue {
+    color: #000;
     background: #f5820c; }
     button.cm-btn.light-blue:hover,
     a.cm-btn.light-blue:hover {
@@ -1847,7 +1854,7 @@ a.cm-btn {
   background: -moz-linear-gradient(-45deg, #ffca28 0%, #fbab18 100%);
   background: -webkit-linear-gradient(-45deg, #ffca28 0%, #fbab18 100%);
   background: linear-gradient(135deg, #ffca28 0%, #fbab18 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffca28', endColorstr='#fbab18',GradientType=1 ); }
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffca28', endColorstr='#fbab18', GradientType=1); }
 
 .icon {
   display: inline-block; }
@@ -1986,12 +1993,13 @@ a.cm-btn {
     position: absolute;
     min-width: 165px;
     z-index: 2;
-    max-height: 260px;
     background: #fff;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-    overflow-y: scroll; }
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); }
+    .selector .option-list.is-scroll {
+      overflow-y: scroll;
+      max-height: 260px; }
     .selector .option-list li {
       padding: 8px 10px;
       color: rgba(44, 43, 63, 0.86);
@@ -2237,21 +2245,12 @@ header {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  background: #ffc928;
-  background: -moz-linear-gradient(-45deg, #ffc928 0%, #fbab18 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, #ffc928), color-stop(100%, #fbab18));
-  background: -webkit-linear-gradient(-45deg, #ffc928 0%, #fbab18 100%);
-  background: -o-linear-gradient(-45deg, #ffc928 0%, #fbab18 100%);
-  background: -ms-linear-gradient(-45deg, #ffc928 0%, #fbab18 100%);
-  background: linear-gradient(135deg, #ffc928 0%, #fbab18 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc928', endColorstr='#fbab18', GradientType=1 ); }
-  .navbar.nav-bottom-space {
-    padding-bottom: 10px; }
+  background: #fbab18; }
 
 .navbar-nav {
   padding: 12px 15px; }
   .navbar-nav li a {
-    padding: 5px 20px;
+    padding: 10px 20px;
     color: rgba(1, 1, 1, 0.56);
     font-size: 16px;
     display: block; }
@@ -2266,7 +2265,11 @@ header {
   .navbar-nav li.register-link a {
     color: rgba(255, 255, 255, 0.86);
     font-size: 14px;
-    background: #445a64; }
+    background: #445a64;
+    text-transform: capitalize;
+    padding: 10px 30px;
+    line-height: 1.4;
+    margin-right: 0; }
     .navbar-nav li.register-link a:hover {
       background: rgba(68, 90, 100, 0.86); }
 
@@ -2340,6 +2343,9 @@ ul.more-details-list {
     -ms-transform: scale(1);
     -webkit-transform: scale(1);
     transform: scale(1); }
+  .popup-container.isShow ~ header,
+  .popup-container.isShow ~ #content {
+    filter: blur(3px); }
 
 ::-webkit-input-placeholder {
   /* WebKit, Blink, Edge */

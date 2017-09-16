@@ -252,6 +252,12 @@ var Select = (function () {
             function setOptions() {
                 optionList.html('');
 
+                var optionLength = HTMLSelect.options().length;
+
+                if (optionLength > 9) {
+                    optionList.addClass('is-scroll');
+                }
+
                 HTMLSelect.options().map(function (option) {
 
                     var li = $('<li>');

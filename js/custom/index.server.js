@@ -1,14 +1,14 @@
-window.MAIN_ID = '';
-window.SUB_ID = '';
+var MAIN_ID = '0';
+var SUB_ID = '0';
 
 window.clearCategoryIds = function () {
-    window.MAIN_ID = '';
-    window.SUB_ID = '';
+    MAIN_ID = '0';
+    SUB_ID = '0';
 };
 
 function loadJobData(category) {
-    MAIN_ID = category.main[0];
-    SUB_ID = category.sub[0];
+    MAIN_ID = category.main.length > 0 ? category.main[0] : '0';
+    SUB_ID = category.sub.length > 0 ? category.sub[0] : '0';
 }
 
 //Category Popup
