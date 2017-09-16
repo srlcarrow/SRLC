@@ -37,9 +37,11 @@ $opt-3: 0.56;
 $opt-4: 0.30;
 
 //Colors
-$primary:#fbab18;
-$p-light:#ffca28;
-$p-dark:#f5820c;
+$primary: #fbab18;
+$p-light: #ffca28;
+$p-dark: #f5820c;
+
+$secondary: #445a64;
 
 $white: #fff;
 $white-light: #f7f7f7;
@@ -54,8 +56,8 @@ $blue-light-4: #39dded;
 $gray-light: #bfbfc5;
 $orange: #f26922;
 
-$dark-grey:#445a64;
-$dark-ash:#445a64;
+$dark-grey: #445a64;
+$dark-ash: $secondary;
 
 //Message Color
 $success: $blue-light;

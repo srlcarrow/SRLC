@@ -99,11 +99,11 @@ a.cm-btn {
   }
 
   &.light-blue {
-    color: $black;
-    background: $p-dark;
+    color: $white;
+    background: $secondary;
 
     &:hover {
-      background: rgba($p-dark, $opt-2);
+      background: rgba($secondary, $opt-2);
     }
   }
 
@@ -667,8 +667,10 @@ a.cm-btn {
 
     .man-category {
       padding: 50px;
-      background: $white-light;
+      background: $primary;
       @include border-radius(10px);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
     .sub-category {
       @extend .man-category;
@@ -679,10 +681,10 @@ a.cm-btn {
           a {
             &.active,
             &:hover {
-              color: $blue-light;
+              color: $primary;
 
               span {
-                color: $blue-light;
+                color: $primary;
               }
             }
             span {
