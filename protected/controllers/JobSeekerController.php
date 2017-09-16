@@ -191,8 +191,7 @@ class JobSeekerController extends Controller {
     }
 
     public function actionSaveStepThree() {
-        try {
-
+//        try {
             $skills = explode(',', $_POST['skills']);
             $skillsString = '';
             $skillsArray = array();
@@ -236,11 +235,15 @@ class JobSeekerController extends Controller {
             $model->jsemp_create_time = date('Y-m-d H:i:s');
             $model->jsemp_updated_time = date('Y-m-d H:i:s');
             if ($model->save(false)) {
+                $jsBasic = JsBasic::model()->findByPk($jsId);
+                $jsBasicTempData = JsBasicTemp::model()->findByPk($jsBasic->ref_jsbt_id);
+                $jsBasicTempData->jsbt_is_finished = 1;
+                $jsBasicTempData->save(false);
                 $this->msgHandler(200, "Successfully Saved...");
             }
-        } catch (Exception $ex) {
-            $this->msgHandler(400, $exc->getTraceAsString());
-        }
+//        } catch (Exception $ex) {
+//            $this->msgHandler(400, $exc->getTraceAsString());
+//        }
     }
 
 }
