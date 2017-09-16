@@ -2121,7 +2121,7 @@ a.cm-btn {
   -o-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   -webkit-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
-  background: rgba(44, 43, 63, 0.6); }
+  background: rgba(44, 43, 63, 0.7); }
   .popup-container .popup {
     -moz-transition: all 0.4s cubic-bezier(0.64, 0.1, 0.27, 1.44);
     -o-transition: all 0.4s cubic-bezier(0.64, 0.1, 0.27, 1.44);
@@ -2155,10 +2155,11 @@ a.cm-btn {
     .popup-container .popup .category-list li:not(:last-child) {
       margin-bottom: 20px; }
     .popup-container .popup .category-list li a {
+      display: block;
       color: rgba(0, 0, 0, 0.56);
       font-size: 18px; }
       .popup-container .popup .category-list li a.active, .popup-container .popup .category-list li a:hover {
-        color: black; }
+        color: white; }
       .popup-container .popup .category-list li a span {
         margin-left: 10px; }
     .popup-container .popup .man-category, .popup-container .popup .sub-category {

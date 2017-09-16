@@ -53,15 +53,12 @@ function hideTitle($isTitleHide) {
     var searchSection = $('.search-section');
 
     if ($isTitleHide) {
-
-        //$title.slideUp(500);
         $title.addClass('hide-title');
         $('.full-height').css('height', '');
         searchSection.removeClass('full-height').addClass('is-search-fixed');
         var $searchSectionHeight = searchSection.height();
         $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
         $(window).scrollTop(0);
-        // $('#ajaxLoadAdvertisements').css({'marginTop': $searchSectionHeight});
     } else {
         $title.removeClass('hide-title');
     }
@@ -157,32 +154,30 @@ function loadJobsByCategory() {
 
 })();
 
+
 (function () {
+
     var controller = new ScrollMagic.Controller();
 
-    var dashboardId = 'title';
+    var jobTitle = 'title';
 
-    var dashboardScene = new ScrollMagic.Scene({
-        triggerElement: '#' + dashboardId,
+
+    var jobScene = new ScrollMagic.Scene({
+        triggerElement: '#' + jobTitle,
         duration: '70%',
         offset: 226,
     });
 
-    dashboardScene.setClassToggle('#' + dashboardId, 'active');
-    dashboardScene.addTo(controller);
-    dashboardScene.setPin("#jobs");
-    dashboardScene.on('add', function () {
-        $('#searchContent').fadeOut('fast');
-    });
-    dashboardScene.on('enter', function () {
+    jobScene.setClassToggle('#' + jobTitle, 'active');
+    jobScene.addTo(controller);
+    jobScene.reverse(false);
+
+    jobScene.on('enter', function () {
         $isTitleHide = true;
         hideTitle($isTitleHide);
-        $('#searchContent').fadeIn('fast');
-        // $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
-        // $(window).scrollTop(0);
     });
 
-    dashboardScene.on('leave', function () {
+    jobScene.on('leave', function () {
 
     });
 
