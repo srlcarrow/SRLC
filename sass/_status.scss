@@ -42,6 +42,7 @@ header {
   padding: 12px 15px;
 
   li {
+    position: relative;
     a {
       padding: 10px 20px;
       color: rgba($black-2, 0.56);
@@ -63,6 +64,55 @@ header {
 
     a {
       color: $white;
+    }
+  }
+
+  li.profile-link {
+    @extend .sign-link;
+
+    span.arrow-down {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: rgba($white,$opt-2) transparent transparent;
+    }
+
+    &.is-active {
+      span.arrow-down {
+        border-color: rgba($white,1) transparent transparent;
+      }
+    }
+    .text-hi {
+      color: rgba($white, $opt-3);
+    }
+
+    .text-name {
+      color: rgba($white, $opt-2);
+    }
+
+    .drop-box {
+      background: #f7f7f7;
+      padding: 15px;
+      position: absolute;
+      z-index: 99;
+      right: 15px;
+      top: 35px;
+      min-width: 120px;
+      display: none;
+
+      .logout {
+        color: $primary;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0;
+        display: inline-block;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 

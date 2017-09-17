@@ -2293,19 +2293,51 @@ header {
 
 .navbar-nav {
   padding: 12px 15px; }
-  .navbar-nav li a {
-    padding: 10px 20px;
-    color: rgba(1, 1, 1, 0.56);
-    font-size: 16px;
-    display: block; }
-    .navbar-nav li a:hover {
+  .navbar-nav li {
+    position: relative; }
+    .navbar-nav li a {
+      padding: 10px 20px;
+      color: rgba(1, 1, 1, 0.56);
+      font-size: 16px;
+      display: block; }
+      .navbar-nav li a:hover {
+        color: #010101; }
+    .navbar-nav li.active {
       color: #010101; }
-  .navbar-nav li.active {
-    color: #010101; }
-  .navbar-nav li.sign-link {
+  .navbar-nav li.sign-link, .navbar-nav li.profile-link {
     margin-left: 10px; }
-    .navbar-nav li.sign-link a {
+    .navbar-nav li.sign-link a, .navbar-nav li.profile-link a {
       color: #fff; }
+  .navbar-nav li.profile-link span.arrow-down {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.86) transparent transparent; }
+  .navbar-nav li.profile-link.is-active span.arrow-down {
+    border-color: white transparent transparent; }
+  .navbar-nav li.profile-link .text-hi {
+    color: rgba(255, 255, 255, 0.56); }
+  .navbar-nav li.profile-link .text-name {
+    color: rgba(255, 255, 255, 0.86); }
+  .navbar-nav li.profile-link .drop-box {
+    background: #f7f7f7;
+    padding: 15px;
+    position: absolute;
+    z-index: 99;
+    right: 15px;
+    top: 35px;
+    min-width: 120px;
+    display: none; }
+    .navbar-nav li.profile-link .drop-box .logout {
+      color: #fbab18;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0;
+      display: inline-block; }
+      .navbar-nav li.profile-link .drop-box .logout:hover {
+        text-decoration: underline; }
   .navbar-nav li.register-link a {
     color: rgba(255, 255, 255, 0.86);
     font-size: 14px;
