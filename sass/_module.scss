@@ -23,7 +23,6 @@
 //Text Orange
 @include text-color($primary, orange);
 
-
 //Font Weight
 .f-light {
   font-weight: $font-w-light;
@@ -515,15 +514,12 @@ a.cm-btn {
   float: left;
   font-size: $base-font-size;
   font-weight: $font-w-regular;
-  color: $blue-dark;
+  color: $white;
   padding: 8px 20px;
   width: 100%;
-  margin: 15px 0;
+  margin: 5px 0;
   @include border-radius(2px);
-
-  &.success {
-    background: $success;
-  }
+  display: none;
 
   &.info {
     background: $info;
@@ -531,7 +527,10 @@ a.cm-btn {
 
   &.error {
     background: $error;
-    color: rgba($white,$opt-3);
+  }
+
+  &.success {
+    background: $success;
   }
 
 }
@@ -555,58 +554,64 @@ a.cm-btn {
   .job-list {
 
     > li {
-      border-bottom: 1px solid $gray-light;
-      padding: 30px 24px 20px 24px;
-      @include float-block;
-      @include transition($animation-1);
 
-      &:hover {
-        @include box-shadow(0px, 10px, 15px, 2px, rgba($black, 0.30));
-      }
-
-      h3 {
-        color: $blue-dark;
-        margin-bottom: 10px;
-        font-weight: $font-w-medium;
-      }
-
-      h6 {
+      a {
         color: rgba($blue-dark, $opt-3);
-        display: inline-block;
-        width: 100%;
-        font-weight: $font-w-light;
+        border-bottom: 1px solid $gray-light;
+        padding: 30px 24px 20px 24px;
+        @include float-block;
+        @include transition($animation-1);
 
-        span {
 
-          vertical-align: middle;
+        &:hover {
+          background: #fafafa;
+          @include box-shadow(0px, 10px, 15px, 2px, rgba($black, 0.30));
+        }
 
-          &.time-left {
-            float: right;
+        h3 {
+          color: $blue-dark;
+          margin-bottom: 10px;
+          font-weight: $font-w-medium;
+        }
+
+        h6 {
+          color: rgba($blue-dark, $opt-3);
+          display: inline-block;
+          width: 100%;
+          font-weight: $font-w-light;
+
+          span {
+
+            vertical-align: middle;
+
+            &.time-left {
+              float: right;
+            }
           }
         }
-      }
 
-      ul.more-details-list {
-        margin-top: 10px;
-        @include float-block;
+        ul.more-details-list {
+          margin-top: 10px;
+          @include float-block;
 
-        li {
-          display: inline-block;
-          font-size: $base-font-size;
-          min-width: 100px;
+          li {
+            display: inline-block;
+            font-size: $base-font-size;
+            min-width: 100px;
 
-          &:not(:last-child) {
-            margin-right: 15px;
-          }
+            &:not(:last-child) {
+              margin-right: 15px;
+            }
 
-          @include breakpoint($small) {
-            @include float-block;
-            width: 45%;
-            -ms-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-right: 5%;
+            @include breakpoint($small) {
+              @include float-block;
+              width: 45%;
+              -ms-text-overflow: ellipsis;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              margin-right: 5%;
+            }
           }
         }
       }

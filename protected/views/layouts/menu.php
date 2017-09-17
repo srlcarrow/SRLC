@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="" href="<?php echo Yii::app()->baseUrl ?>">
-                <img src="<?php echo Yii::app()->baseUrl ?>/images/system/logo/logo-1.svg" alt="Logo">
+                <img src="<?php echo Yii::app()->baseUrl ?>/images/system/logo/logo.png" alt="Logo">
             </a>
         </div>
         <ul class="navbar-nav navbar-right hidden-xs">
