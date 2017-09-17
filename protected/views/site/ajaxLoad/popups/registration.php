@@ -3,149 +3,150 @@
     <div class="col-md-12">
         <h3 class="text-black mb-50 text-center">Create Account</h3>
 
-        <form>
-            <div class="row">
-                <div class="col-md-6">
-                    <input class="radio-group" data-show="job_seeker" id="job_seeker" checked="checked" name="group1"
-                           type="radio">
-                    <label for="job_seeker">Job Seeker</label>
-                </div>
-                <div class="col-md-6">
-                    <input class="radio-group " data-show="employer" id="employer" name="group1" type="radio">
-                    <label for="employer">Employer</label>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input class="radio-group" data-show="job_seeker" id="job_seeker" checked="checked" name="group1"
+                       type="radio">
+                <label for="job_seeker">Job Seeker</label>
+            </div>
+            <div class="col-md-6">
+                <input class="radio-group " data-show="employer" id="employer" name="group1" type="radio">
+                <label for="employer">Employer</label>
+            </div>
 
-                <div class="col-md-12 mt-10 hide-show job_seeker">
-                    <div class="input-wrapper">
-                        <input id="fname" name="fname" type="text" required>
-                        <div class="float-text">First Name</div>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <input id="lname" name="lname" type="text">
-                        <div class="float-text">Last Name</div>
-                    </div>
+            <div class="col-md-12 mt-10 hide-show job_seeker">
+                <div class="input-wrapper">
+                    <input id="fname" name="fname" type="text" required>
+                    <div class="float-text">First Name</div>
                 </div>
 
-                <div class="col-md-12 mt-10 hide-show employer">
-                    <div class="input-wrapper">
-                        <input id="cname" name="cname" type="text" required>
-                        <div class="float-text">Company Name</div>
-                    </div>
+                <div class="input-wrapper">
+                    <input id="lname" name="lname" type="text">
+                    <div class="float-text">Last Name</div>
                 </div>
+            </div>
 
-                <div class="col-md-12 ">
-                    <div class="input-wrapper">
-                        <input id="email" name="email" type="text" required>
+            <div class="col-md-12 mt-10 hide-show employer">
+                <div class="input-wrapper">
+                    <input id="cname" name="cname" type="text" required>
+                    <div class="float-text">Company Name</div>
+                </div>
+            </div>
+
+            <div class="col-md-12 ">
+                <div class="input-wrapper">
+                    <input id="email" name="email" type="text" required>
 <!--                        <input id="email" name="email" type="text" onblur="validateEmail(this.value)" required>-->
-                        <div class="float-text">Email</div>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <input id="contactNo" name="contactNo" type="text" required>
-                        <div class="float-text">Contact No</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 mt-20">
-                            <button id="Register" type="submit"
-                                    class="cm-btn large text-uppercase light-blue right">Register
-                            </button>
-                        </div>
-                    </div>
+                    <div class="float-text">Email</div>
                 </div>
 
-        </form>
+                <div class="input-wrapper">
+                    <input id="contactNo" name="contactNo" type="text" required>
+                    <div class="float-text">Contact No</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mt-20">
+                        <button id="Register" type="submit"
+                                class="cm-btn large text-uppercase light-blue right">Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
-</div>
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 
-<script>
-    $('.radio-group').on('change', function () {
-        var $this = $(this);
-        var show = $this.data('show');
+    <script>
+        $('.radio-group').on('change', function () {
+            var $this = $(this);
+            var show = $this.data('show');
 
-        $('.hide-show').slideUp('fast', function () {
-
-            $('.' + show).slideDown('slow')
-
-        })
-    });
+            $('.hide-show').slideUp('fast', function () {
+                $('.' + show).slideDown('slow')
+            })
+        });
 
 
-    $("#formRegister").validate({
-        submitHandler: function () {
-            var emailAdd = $("#email").val();
-            var stat = validateEmail(emailAdd);
-            if (stat == true) {
+        $("#formRegister").validate({
+            submitHandler: function () {
+
+                var emailAdd = $("#email").val();
+                //            var stat = validateEmail(emailAdd);
+                //            if (stat == true) {
                 userRegistration();
-            }
-        }
-    });
 
-    function userRegistration() {
-        var isCheckedJobSeeker = $('#job_seeker').is(':checked');
-        currentRequest = jQuery.ajax({
-            type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
-            data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
-            dataType: 'json',
-            beforeSend: function () {
-                if (currentRequest != null) {
-                    currentRequest.abort();
-                }
-            },
-            success: function (responce) {
-                if (responce.code == 200) {
-                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                    //$("#formRegister").reset();
-                }
             }
         });
-    }
 
-    function validateEmail(emailField) {
-        if (isValidEmail(emailField) == false) {
-            alert('Invalid Email Address');
-            return false;
-        }
-        if (isExistingEmail(emailField) == false) {
-            alert('Existing Email');
-            return false;
-        }
-        return true;
-    }
+        function userRegistration() {
+            var isCheckedJobSeeker = $('#job_seeker').is(':checked');
+            currentRequest = jQuery.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
+                data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
+                dataType: 'json',
+                beforeSend: function () {
+                    if (currentRequest != null) {
+                        currentRequest.abort();
+                    }
+                },
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
+                        //$("#formRegister").reset();
+                    }
 
-    function isValidEmail(emailField) {
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(emailField) == false)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    function isExistingEmail(emailField) {
-        currentRequest = jQuery.ajax({
-            type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
-            data: {email: emailField},
-            dataType: 'json',
-            beforeSend: function () {
-                if (currentRequest != null) {
-                    currentRequest.abort();
                 }
-            },
-            success: function (responce) {
-                if (responce.code == 200 && responce.data['isExistingEmail'] === 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+            });
+        }
+
+        function validateEmail(emailField) {
+            if (isValidEmail(emailField) == false) {
+                alert('Invalid Email Address');
+                return false;
             }
-        });
-        return true;
-    }
-</script>
+            if (isExistingEmail(emailField) == false) {
+                alert('Existing Email');
+                return false;
+            }
+            return true;
+        }
+
+        function isValidEmail(emailField) {
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (reg.test(emailField) == false)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        function isExistingEmail(emailField) {
+            currentRequest = jQuery.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
+                data: {email: emailField},
+                dataType: 'json',
+                beforeSend: function () {
+                    if (currentRequest != null) {
+                        currentRequest.abort();
+                    }
+                },
+                success: function (responce) {
+                    if (responce.code == 200 && responce.data['isExistingEmail'] === 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            });
+            return false;
+        }
+    </script>
+

@@ -190,7 +190,7 @@
             <h5>Upload CV</h5>
             <div class="file-uploader">
                 <div class="button">Brows...</div>
-           
+
             </div>
         </div>
     </div>
