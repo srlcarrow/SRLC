@@ -2053,13 +2053,17 @@ a.cm-btn {
   color: #2c2b3f;
   padding: 8px 20px;
   width: 100%;
-  margin: 15px 0; }
+  margin: 15px 0;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px; }
   .cm-message.success {
-    background: #2491f6; }
+    background: #4fdb9b; }
   .cm-message.info {
-    background: #ff0; }
+    background: #6ecce0; }
   .cm-message.error {
-    background: #f26922; }
+    background: #f26b55;
+    color: rgba(255, 255, 255, 0.56); }
 
 .total-jobs h4 {
   color: #f5820c;
@@ -2158,7 +2162,7 @@ a.cm-btn {
       .popup-container .popup .pop-message.success {
         color: #2491f6; }
     .popup-container .popup .scroll {
-      max-height: 80px;
+      max-height: 380px;
       float: left;
       width: 100%;
       overflow: hidden; }
@@ -2289,19 +2293,51 @@ header {
 
 .navbar-nav {
   padding: 12px 15px; }
-  .navbar-nav li a {
-    padding: 10px 20px;
-    color: rgba(1, 1, 1, 0.56);
-    font-size: 16px;
-    display: block; }
-    .navbar-nav li a:hover {
+  .navbar-nav li {
+    position: relative; }
+    .navbar-nav li a {
+      padding: 10px 20px;
+      color: rgba(1, 1, 1, 0.56);
+      font-size: 16px;
+      display: block; }
+      .navbar-nav li a:hover {
+        color: #010101; }
+    .navbar-nav li.active {
       color: #010101; }
-  .navbar-nav li.active {
-    color: #010101; }
-  .navbar-nav li.sign-link {
+  .navbar-nav li.sign-link, .navbar-nav li.profile-link {
     margin-left: 10px; }
-    .navbar-nav li.sign-link a {
+    .navbar-nav li.sign-link a, .navbar-nav li.profile-link a {
       color: #fff; }
+  .navbar-nav li.profile-link span.arrow-down {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.86) transparent transparent; }
+  .navbar-nav li.profile-link.is-active span.arrow-down {
+    border-color: white transparent transparent; }
+  .navbar-nav li.profile-link .text-hi {
+    color: rgba(255, 255, 255, 0.56); }
+  .navbar-nav li.profile-link .text-name {
+    color: rgba(255, 255, 255, 0.86); }
+  .navbar-nav li.profile-link .drop-box {
+    background: #f7f7f7;
+    padding: 15px;
+    position: absolute;
+    z-index: 99;
+    right: 15px;
+    top: 35px;
+    min-width: 120px;
+    display: none; }
+    .navbar-nav li.profile-link .drop-box .logout {
+      color: #fbab18;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0;
+      display: inline-block; }
+      .navbar-nav li.profile-link .drop-box .logout:hover {
+        text-decoration: underline; }
   .navbar-nav li.register-link a {
     color: rgba(255, 255, 255, 0.86);
     font-size: 14px;
@@ -2512,9 +2548,22 @@ input[type="radio"] + label {
   float: left;
   width: 100%; }
 
-.mCS-my-theme.mCSB_scrollTools .mCSB_dragger_bar {
-  background-color: red;
-  width: 30px; }
+.mCS-4you-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: rgba(0, 0, 0, 0.56);
+  width: 10px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
 
-.mCS-my-theme.mCSB_scrollTools .mCSB_draggerRail {
-  background-color: red; }
+.mCS-4you-theme.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+  background-color: #000; }
+
+.mCS-4you-theme.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag {
+  background-color: #000; }
+
+.mCS-4you-theme.mCSB_scrollTools .mCSB_draggerRail {
+  background-color: rgba(0, 0, 0, 0.15);
+  width: 10px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }

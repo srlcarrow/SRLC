@@ -90,7 +90,7 @@ class EmailGenerator {
         $top = $format->email_format;
 
         $replacearrBody = array(
-            '[url]' => self::jobSeekerVerificationUrl($basicTemp->jsbt_encrypted_id),
+            '[url]' => self::employerVerificationUrl($basicTemp->jsbt_encrypted_id),
             '[name]' => $basicTemp->jsbt_fname,
             '[user_name]' => $basicTemp->jsbt_email,
             '[user_password]' => $pwd,
@@ -112,6 +112,10 @@ class EmailGenerator {
 
     public static function jobSeekerVerificationUrl($encryptedId) {
         return Yii::app()->getBaseUrl(true) . "/JobSeeker/ViewRegistration/id/" . $encryptedId;
+    }
+
+    public static function employerVerificationUrl($encryptedId) {
+        return Yii::app()->getBaseUrl(true) . "/Employer/EmployerRegister/id/" . $encryptedId;
     }
 
 }

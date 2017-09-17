@@ -17,8 +17,8 @@
 
         <div class="col-md-6">
             <div class="state-wrapper">
-                <input type="checkbox" id="s" name="lookingInternship">
-                <label for="s">Looking for a Internship Opportunity</label>
+                <input type="checkbox" id="s" name="isFresher">
+                <label for="s">Still I am a Fresher</label>
             </div>
         </div>
 
@@ -183,7 +183,7 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepOne'; ?>",
-            data: '',
+            data: {jsBasicKey: '<?php echo $jsBasicKey; ?>'},
             success: function (responce) {
                 $("#step").html(responce);
             }

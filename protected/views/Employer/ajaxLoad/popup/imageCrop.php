@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-md-12 mb-10">
-            <input type="range" min="0" max="100" value="1" data-rangeslider class="rangeSlide cropit-image-zoom-input">
+        <input type="range" min="0" max="100" value="1" data-rangeslider class="rangeSlide cropit-image-zoom-input">
     </div>
 
     <div class="col-md-12">
@@ -47,7 +47,19 @@
                 type: 'image/jpeg'
             });
 
-            alert(imageData);
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/Employer/UploadLogo'; ?>",
+                data: {imageData: imageData},
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        imageCropData.set(responce.data.fileName);
+                        imageCropData.trigger('updateImage',responce.data.fileName);
+                        Popup.hide();
+                    }
+                }
+            });
         });
     });
 </script>

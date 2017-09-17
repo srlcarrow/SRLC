@@ -425,6 +425,21 @@ var SearchBox = (function () {
 
 })();
 
+var imageCropData = (function () {
+    var cropDataName = null;
+    return {
+        set: function (_data) {
+            cropDataName = _data;
+        },
+        get: function () {
+            return cropDataName;
+        },
+        trigger: function (fn, data) {
+            window[fn].call(this, data);
+        }
+    };
+})();
+
 
 //------------------------------------------------------------------------------------
 //Registration
@@ -463,3 +478,31 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
         Input.init();
     })
 });
+
+
+(function () {
+    var isShow = false;
+
+    $('.profile-link').on('click', function (e) {
+        e.preventDefault();
+
+        var $this = $(this);
+
+        isShow = !isShow;
+
+        if (isShow) {
+            $this.addClass('is-active');
+            $this.find('.drop-box').fadeIn('fast');
+        } else {
+            $this.find('.drop-box').fadeOut('fast');
+            $this.removeClass('is-active');
+        }
+
+    });
+
+    $('.drop-box').on('click', function (e) {
+        // isShow = true;
+        isShow == true ? false : true;
+        // alert('as')
+    });
+})();

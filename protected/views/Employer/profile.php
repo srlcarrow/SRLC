@@ -79,6 +79,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
                             </div>
                         </div>
+                        
+                        
                     </div>
                 </div>
             </div>
