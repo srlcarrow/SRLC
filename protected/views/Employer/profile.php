@@ -70,7 +70,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <li><a href="#tab3">Password</a></li>
                                 </ul>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-9 pr-0 pl-0">
 
                                 <div class="tab-horizontal-content ">
 

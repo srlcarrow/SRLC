@@ -80,6 +80,14 @@ class EmployerController extends Controller {
         $this->renderPartial('ajaxLoad/package_form');
     }
 
+    public function actionJobPost() {
+        $this->renderPartial('ajaxLoad/jobPost');
+    }
+
+    public function actionPasswordReset() {
+        $this->renderPartial('ajaxLoad/passwordResetForm');
+    }
+
     //Popup
     public function actionImageCrop() {
         $this->renderPartial('ajaxLoad/popup/imageCrop');

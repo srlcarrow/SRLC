@@ -18,10 +18,11 @@
 @include text-color($blue-dark, dark-blue);
 
 //Text Orange
-@include text-color($orange, orange);
+//@include text-color($orange, orange);
 
 //Text Orange
-@include text-color($orange, orange);
+@include text-color($primary, orange);
+
 
 //Font Weight
 .f-light {
