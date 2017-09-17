@@ -17,35 +17,38 @@
                             <?php
                             foreach ($data as $value) {
                                 $title = $value->ad_is_use_desig_as_title == 1 ? $value->desig_name : $value->ad_title;
+                                $encryptedAdId = $value->ad_id;
                                 ?>
                                 <li>
-                                    <h3><?php echo $title; ?></h3>
-                                    <h6>
-                                        <span><?php echo $value->employer_name; ?></span>
-                                        <span class="time-left">Yesterday</span>
-                                    </h6>
-                                    <ul class="more-details-list">
-                                        <li>
-                                            <i class="dot"></i>
-                                            <?php echo $value->wt_name; ?>
-                                        </li>
-                                        <li>
-                                            <i class="dot"></i>
-                                            <?php echo explode('.', $value->ad_expected_experience)[0]; ?> Yrs
-                                        </li>
-                                        <li>
-                                            <i class="dot"></i>
-                                            <?php echo $value->city_name; ?>
-                                        </li>
-                                        <li>
-                                            <i class="dot"></i>
-                                            <?php
-                                            $salary = $value->ad_is_negotiable == 0 ? $value->ad_salary : "Negotiable";
-                                            echo $salary;
-                                            ?>
-                                        </li>
+                                    <a href="<?php echo Yii::app()->baseUrl . '/Advertisement/ViewAdvertisement/id/' . $encryptedAdId; ?> ">
+                                        <h3><?php echo $title; ?></h3>
+                                        <h6>
+                                            <span><?php echo $value->employer_name; ?></span>
+                                            <span class="time-left">Yesterday</span>
+                                        </h6>
+                                        <ul class="more-details-list">
+                                            <li>
+                                                <i class="dot"></i>
+                                                <?php echo $value->wt_name; ?>
+                                            </li>
+                                            <li>
+                                                <i class="dot"></i>
+                                                <?php echo explode('.', $value->ad_expected_experience)[0]; ?> Yrs
+                                            </li>
+                                            <li>
+                                                <i class="dot"></i>
+                                                <?php echo $value->city_name; ?>
+                                            </li>
+                                            <li>
+                                                <i class="dot"></i>
+                                                <?php
+                                                $salary = $value->ad_is_negotiable == 0 ? $value->ad_salary : "Negotiable";
+                                                echo $salary;
+                                                ?>
+                                            </li>
 
-                                    </ul>
+                                        </ul>
+                                    </a>
                                 </li>
                                 <?php
                             }

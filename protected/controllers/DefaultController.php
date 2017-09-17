@@ -49,9 +49,9 @@ class DefaultController extends Controller {
                     $msg = EmailGenerator::setEmailMessageBodyEmployer('reset_password', '2', $jsId, $email, $password, false);
                 }
 
-                $subjct = "Verify Your Account";  
+                $subjct = "Verify Your Account";
                 $to = $email;
-                EmailGenerator::SendEmail($msg, $to, $subjct);  
+                EmailGenerator::SendEmail($msg, $to, $subjct);
             }
 
             $this->msgHandler(200, "Login Successfull...");

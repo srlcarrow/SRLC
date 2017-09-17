@@ -370,8 +370,7 @@ $.fn.SearchBox = function (opt) {
 
 function msg(_this, _msg, _typeClass, _opt) {
     var defOpt = {
-        delay: 3000,
-        stay: false
+        delay: 3000
     };
     var opt = $.extend(defOpt, _opt);
 
@@ -381,17 +380,14 @@ function msg(_this, _msg, _typeClass, _opt) {
         .html(_msg)
         .addClass(_typeClass)
         .slideDown('slow', function () {
-            if (!opt.stay) {
-                setTimeout(function () {
+            setTimeout(function () {
 
-                    $this.fadeOut(500, function () {
-                        $this.html('')
-                            .removeClass(_typeClass);
-                    })
+                $this.fadeOut(500, function () {
+                    $this.html('')
+                        .removeClass(_typeClass);
+                })
 
-                }, opt.delay)
-            }
-
+            }, opt.delay)
         });
 }
 
@@ -412,7 +408,7 @@ $.fn.Error = function (_msg, _opt) {
 $.fn.Info = function (_msg, _opt) {
 
     return this.each(function () {
-        msg($(this), _msg, 'info', _opt);
+        msg($(this), _msg, 'error', _opt);
     });
 };
 

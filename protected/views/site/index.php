@@ -131,7 +131,6 @@ Search Result Section
                 }
             },
             success: function (responce) {
-
                 $('#loadingmessage').hide();
                 $("#ajaxLoadAdvertisements").html(responce);
             }
