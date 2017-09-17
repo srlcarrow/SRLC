@@ -38,7 +38,7 @@ class RegistrationController extends Controller {
                     }
 
                     $subjct = "Verify Your Account";
-                    $to = $_POST['email'];
+                    $to = $_POST['email'];                  
                     EmailGenerator::SendEmail($msg, $to, $subjct);
                 }
                 $this->msgHandler(200, "Successfully Saved...");

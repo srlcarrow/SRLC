@@ -89,8 +89,6 @@ class SiteController extends Controller {
         } else {
             $this->render('index');
         }
-
-        
     }
 
     public function actionPasswordResetFrom() {
