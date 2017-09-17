@@ -57,9 +57,9 @@
             success: function (responce) {
                 if (responce.code == 200) {
                 Message.success('Login Success..');
-<?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
-<?php } else { ?> window.location = http_path + "Admin/Default/Index";
-<?php } ?>
+                <?php if ($url != '') { ?> window.location = http_path + "<?php echo $url ?>";
+                <?php } else { ?> window.location = http_path + "Admin/Default/Index";
+                <?php } ?>
                 }
                 else {
                 Message.danger('Ops!, Something went wrong.');

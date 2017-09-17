@@ -3,6 +3,7 @@
 class RegistrationController extends Controller {
 
     public function actionRegister() {
+
         try {
             $model = new JsBasicTemp();
             $model->jsbt_type = $_POST['isCheckedJobSeeker'] == "true" ? 1 : 2;
