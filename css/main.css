@@ -2038,7 +2038,7 @@ a.cm-btn {
   float: left;
   font-size: 14px;
   font-weight: 400;
-  color: #2c2b3f;
+  color: #fff;
   padding: 8px 20px;
   width: 100%;
   margin: 5px 0;
@@ -2047,12 +2047,11 @@ a.cm-btn {
   border-radius: 2px;
   display: none; }
   .cm-message.info {
-    background: #6ecce0; }
+    background: #3DB9E9; }
   .cm-message.error {
-    background: #f26b55;
-    color: rgba(255, 255, 255, 0.56); }
+    background: #FF8A65; }
   .cm-message.success {
-    background: #4fdb9b; }
+    background: #00BFA5; }
 
 .total-jobs h4 {
   color: #f5820c;

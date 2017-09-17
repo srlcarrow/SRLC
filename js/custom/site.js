@@ -55,11 +55,10 @@ function hideTitle($isTitleHide) {
     if ($isTitleHide) {
         $title.addClass('hide-title');
         $('.full-height').css('height', '');
-        searchSection.removeClass('full-height');
-        // searchSection.removeClass('full-height').addClass('is-search-fixed');
+        searchSection.removeClass('full-height').addClass('is-search-fixed');
         var $searchSectionHeight = searchSection.height();
-        // $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
-        //$(window).scrollTop(0);
+        $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
+        $(window).scrollTop(0);
     } else {
         $title.removeClass('hide-title');
     }
@@ -134,7 +133,7 @@ function loadJobsByCategory() {
         $('.full-height').css('height', pageHeight + 'px')
     });
 
-    $('.navbar').removeClass('light-blue').css('backgroundColor', 'transparent');
+    $('.navbar').removeClass('light-blue').css('backgroundColor','transparent');
 })();
 
 
@@ -144,38 +143,20 @@ function loadJobsByCategory() {
 
     var jobTitle = 'title';
 
-    var titleOptio = $('#' + jobTitle).offset().top;
 
     var jobScene = new ScrollMagic.Scene({
         triggerElement: '#' + jobTitle,
-        duration: '30%',
-        offset: 80,
+        duration: '70%',
+        offset: 226,
     });
 
     jobScene.setClassToggle('#' + jobTitle, 'active');
     jobScene.addTo(controller);
-    // jobScene.reverse(false);
-    jobScene.on("leave", function (event) {
-        //jobScene.reverse(false);
-        // $('.main-title').css({
-        //     'marginTop': 0
-        // });
+    jobScene.reverse(false);
 
-        $('.full-height').css('height', '');
-    });
-
-    jobScene.on("progress", function (event) {
-        $('.main-title').css({
-            'opacity': (1 - event.progress),
-            'marginTop': (Number(titleOptio) - (event.progress * 5))
-        });
-    });
     jobScene.on('enter', function () {
-        //controller.scrollTo(100);
-        //$isTitleHide = true;
-        //hideTitle($isTitleHide);
-        //var mainTitle = $('.main-title').animate({'opacity': 0},500);
-        // searchSection.addClass('is-search-fixed');
+        $isTitleHide = true;
+        hideTitle($isTitleHide);
     });
 
     jobScene.on('leave', function () {

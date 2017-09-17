@@ -514,7 +514,7 @@ a.cm-btn {
   float: left;
   font-size: $base-font-size;
   font-weight: $font-w-regular;
-  color: $blue-dark;
+  color: $white;
   padding: 8px 20px;
   width: 100%;
   margin: 5px 0;
@@ -527,7 +527,6 @@ a.cm-btn {
 
   &.error {
     background: $error;
-    color: rgba($white, $opt-3);
   }
 
   &.success {
