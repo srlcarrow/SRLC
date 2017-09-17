@@ -22,13 +22,28 @@ class AdvertisementController extends Controller {
     }
 
     public function actionViewAdvertisement($id) {
-        $adData = EmpAdvertisement::model()->findByPk($id);        
+        $adData = EmpAdvertisement::model()->findByPk($id);
         $this->render('viewAdvertisements', array('adData' => $adData));
     }
 
     //Popup
     public function actionApplyJob() {
-        $this->renderPartial('ajaxLoad/popup/jobApply');
+        $userId = Yii::app()->user->getId();
+        $this->renderPartial('ajaxLoad/popup/jobApply', array('user' => $userId));
+    }
+
+    public function actionUploadCV() {
+        $target_dir = "uploads/cv/";
+
+        $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['image']);
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+
+        if (isset($_POST)) {
+            $check = getimagesize($_FILES['EmpAdvertisement']['tmp_name']['image']);
+            move_uploaded_file($_FILES["EmpAdvertisement"]["tmp_name"]['image'], $target_file);
+        }
+        exit;
     }
 
 }

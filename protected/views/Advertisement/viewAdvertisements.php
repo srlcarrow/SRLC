@@ -7,9 +7,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 ?>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmAdver')); ?>
 <?php
-$companyLogo = EmpEmployers::model()->findByPk($adData->ref_employer_id);
-var_dump($companyLogo);
-exit;
+$employerData = EmpEmployers::model()->findByPk($adData->ref_employer_id);
+$companyLogo = count($employerData) > 0 ? $employerData->employer_image : '';
+$employerAddress = count($employerData) > 0 ? $employerData->employer_address : '';
+
+$workType = AdmWorkType::model()->findByPk($adData->ref_work_type_id);
+$workType = count($workType) > 0 ? $workType->wt_name : 'Not Mentioned';
 ?>
 <div class="nav-bar-space"></div>
 
@@ -20,13 +23,13 @@ exit;
             <div class="col-sm-12 col-md-10 col-md-offset-1">
                 <div class="row">
                     <div class="col-md-12 mb-25">
-                        <img src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $companyLogo->employer_email; ?>" alt="">
+                        <img src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $companyLogo; ?>" alt="">
                     </div>
 
                     <div class="col-sm-12 col-md-8">
                         <div class="row">
                             <div class="col-md-12">
-                                <h2 class="text-dark-blue mb-25">Visual Designer</h2>
+                                <h2 class="text-dark-blue mb-25"><?php echo $adData->ad_title; ?></h2>
 
                                 <p class="text-dark-blue">Lorem Ipsum is simply dummy text of the printing and
                                     typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -40,22 +43,22 @@ exit;
                         <div class="side-panel">
                             <div class="side-panel-row">
                                 <h6 class="title">Type</h6>
-                                <h6 class="info">Full Time</h6>
+                                <h6 class="info"><?php echo $workType; ?></h6>
                             </div>
 
                             <div class="side-panel-row">
                                 <h6 class="title">Experience</h6>
-                                <h6 class="info">3+ Years</h6>
+                                <h6 class="info"><?php echo $adData->ad_expected_experience; ?></h6>
                             </div>
 
                             <div class="side-panel-row">
                                 <h6 class="title">Address</h6>
-                                <h6 class="info">182/1, Darmapala Mawatha, Colombo 2</h6>
+                                <h6 class="info"><?php echo $employerAddress; ?></h6>
                             </div>
 
                             <div class="side-panel-row">
                                 <h6 class="title">Salary</h6>
-                                <h6 class="info">Negotiable</h6>
+                                <h6 class="info"><?php echo $employerAddress; ?></h6>
                             </div>
 
                             <div class="side-panel-row">

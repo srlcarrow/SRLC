@@ -46,7 +46,7 @@ class EmpAdvertisement extends CActiveRecord {
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('ad_id, ref_district_id, ref_city_id, ref_industry_id, ref_cat_id, ref_subcat_id, ref_designation_id, ad_salary, ad_is_negotiable, ref_work_type, ad_title, ad_is_use_desig_as_title, ad_expire_date, ad_is_image, ad_image_url, ad_text', 'safe', 'on' => 'search'),
-            array('image', 'file', 'types' => 'jpg, gif, png', 'safe' => false),
+            array('image', 'file', 'types' => 'pdf', 'safe' => true),
         );
     }
 
