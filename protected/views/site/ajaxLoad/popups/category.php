@@ -58,7 +58,8 @@
         var subCategories = data.subCategoryData;
         $("#subCat ul").append('<li><a id="sub_0" href="">All</a></li>');
         for (var i = 0, max = subCategories.length; i < max; i++) {
-            $("#subCat ul").append('<li><a id="sub_' + subCategories[i]['scat_id'] + '" href="" onclick="loadAdvertisementData(1)">' + subCategories[i]['scat_name'] + '<span>(add count)</span></a></li>');
+//            $("#subCat ul").append('<li><a id="sub_' + subCategories[i]['scat_id'] + '" href="" onclick="loadAdvertisementData(1)">' + subCategories[i]['scat_name'] + '<span>(add count)</span></a></li>');
+            $("#subCat ul").append('<li><a id="sub_' + subCategories[i]['scat_id'] + '" href="" onclick="loadAdvertisementData(1)">' + subCategories[i]['scat_name'] + '</a></li>');
         }
 
         //Load Scrollbar
