@@ -13,8 +13,8 @@
                         <div class="float-text">Email or Username</div>
                     </div>
                 </div>
-                 <div class="col-md-12  mt-10">
-                    <div class="message cm-message"></div> 
+                <div class="col-md-12  mt-10">
+                    <div class="message cm-message"></div>
                 </div>
                 <div class="col-md-12 mt-20">
                     <button type="submit" class="cm-btn large text-uppercase light-blue right">Submit</button>
@@ -34,8 +34,11 @@
             resetPassword();
         }
     });
-    
+
     function resetPassword() {
+
+        $('.message').Info('Processing...', {stay: true});
+
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Default/ResetPassword'; ?>",

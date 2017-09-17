@@ -33,7 +33,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                         </div>
                         <div class="col-md-8 col-sm-6 job-input">
                             <input id="searchText" name="searchText" type="text"
-                                   placeholder="Or Type Job Title / Keyword">
+                                   placeholder="Type Job Title, Keyword or Company Name">
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,6 @@ Search Result Section
                 }
             },
             success: function (responce) {
-
                 $('#loadingmessage').hide();
                 $("#ajaxLoadAdvertisements").html(responce);
             }
