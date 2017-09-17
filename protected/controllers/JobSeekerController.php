@@ -41,7 +41,6 @@ class JobSeekerController extends Controller {
                         $jsBasic->js_contact_no2 = '';
                         $jsBasic->js_address = '';
                         $jsBasic->js_gender = 0;
-//                        $jsBasic->js_dob = '';
                         $jsBasic->js_experience = '';
                         $jsBasic->js_highest_academic_quali = '';
                         $jsBasic->js_nameof_academic_quali = '';

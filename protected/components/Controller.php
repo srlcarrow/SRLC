@@ -177,4 +177,24 @@ class Controller extends CController {
         return $dec_data[2];
     }
 
+    public function saveImageInMultipleSizes($widthArray, $fileName, $upload_dir, $data) {
+        foreach ($widthArray as $newWidth) {
+            $image = imagecreatefromstring($data);
+            $width = imagesx($image);
+            $height = imagesy($image);
+            $newHeight = ($height / $width) * $newWidth;
+// Resample
+            $image_p = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($image_p, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+// Buffering
+            ob_start();
+            imagepng($image_p);
+            $data = ob_get_contents();
+            ob_end_clean();
+            $file = $upload_dir . "/" . $fileName;
+            $result = file_put_contents($file, $data);
+        }
+        return $result;
+    }
+
 }

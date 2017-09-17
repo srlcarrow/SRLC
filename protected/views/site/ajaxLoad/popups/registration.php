@@ -57,96 +57,98 @@
 
         </div>
     </div>
-    <?php $this->endWidget(); ?>
+</div>
+<?php $this->endWidget(); ?>
 
 
-    <script>
-        $('.radio-group').on('change', function () {
-            var $this = $(this);
-            var show = $this.data('show');
+<script>
+    $('.radio-group').on('change', function () {
+        var $this = $(this);
+        var show = $this.data('show');
 
-            $('.hide-show').slideUp('fast', function () {
-                $('.' + show).slideDown('slow')
-            })
-        });
+        $('.hide-show').slideUp('fast', function () {
+            $('.' + show).slideDown('slow')
+        })
+    });
 
 
-        $("#formRegister").validate({
-            submitHandler: function () {
+    $("#formRegister").validate({
+        submitHandler: function () {
 
-                var emailAdd = $("#email").val();
-                //            var stat = validateEmail(emailAdd);
-                //            if (stat == true) {
-                userRegistration();
+            var emailAdd = $("#email").val();
+            //            var stat = validateEmail(emailAdd);
+            //            if (stat == true) {
+            userRegistration();
 
-            }
-        });
+        }
+    });
 
-        function userRegistration() {
-            var isCheckedJobSeeker = $('#job_seeker').is(':checked');
-            currentRequest = jQuery.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
-                data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
-                dataType: 'json',
-                beforeSend: function () {
-                    if (currentRequest != null) {
-                        currentRequest.abort();
-                    }
-                },
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                        //$("#formRegister").reset();
-                    }
-
+    function userRegistration() {
+        var isCheckedJobSeeker = $('#job_seeker').is(':checked');
+        currentRequest = jQuery.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
+            data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
+            dataType: 'json',
+            beforeSend: function () {
+                if (currentRequest != null) {
+                    currentRequest.abort();
                 }
-            });
-        }
-
-        function validateEmail(emailField) {
-            if (isValidEmail(emailField) == false) {
-                alert('Invalid Email Address');
-                return false;
-            }
-            if (isExistingEmail(emailField) == false) {
-                alert('Existing Email');
-                return false;
-            }
-            return true;
-        }
-
-        function isValidEmail(emailField) {
-            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-            if (reg.test(emailField) == false)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        function isExistingEmail(emailField) {
-            currentRequest = jQuery.ajax({
-                type: 'POST',
-                url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
-                data: {email: emailField},
-                dataType: 'json',
-                beforeSend: function () {
-                    if (currentRequest != null) {
-                        currentRequest.abort();
-                    }
-                },
-                success: function (responce) {
-                    if (responce.code == 200 && responce.data['isExistingEmail'] === 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+            },
+            success: function (responce) {
+                if (responce.code == 200) {
+                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
+                    //$("#formRegister").reset();
                 }
 
-            });
+            }
+        });
+    }
+
+
+    function validateEmail(emailField) {
+        if (isValidEmail(emailField) == false) {
+            alert('Invalid Email Address');
             return false;
         }
-    </script>
+        if (isExistingEmail(emailField) == false) {
+            alert('Existing Email');
+            return false;
+        }
+        return true;
+    }
+
+    function isValidEmail(emailField) {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (reg.test(emailField) == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    function isExistingEmail(emailField) {
+        currentRequest = jQuery.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
+            data: {email: emailField},
+            dataType: 'json',
+            beforeSend: function () {
+                if (currentRequest != null) {
+                    currentRequest.abort();
+                }
+            },
+            success: function (responce) {
+                if (responce.code == 200 && responce.data['isExistingEmail'] === 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        });
+        return false;
+    }
+</script>
 

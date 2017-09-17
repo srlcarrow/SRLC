@@ -140,16 +140,22 @@
         }
     });
 
+    function updateImage(image) {
+        var url = '<?php echo Yii::app()->baseUrl . '/uploads/company/logo/' ?>' + image;
+        $('.company-logo-wrp img').attr('src', url);
+    }
+
     function saveEmployer() {
+        var image = imageCropData.get();
+       
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveEmployer'; ?>",
-            data: $('#employerRegistration').serialize(),
+            data: $('#employerRegistration').serialize() + '&image=' + image + '&accessId=<?php echo $accessId; ?>',
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    Message.success(responce.msg);
-                    $("#employerRegistration")[0].reset();
+                    window.location =  http_path + '/Site/Index'  ;
                 }
             }
         });
