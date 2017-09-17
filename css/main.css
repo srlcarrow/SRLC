@@ -2041,17 +2041,18 @@ a.cm-btn {
   color: #2c2b3f;
   padding: 8px 20px;
   width: 100%;
-  margin: 15px 0;
+  margin: 5px 0;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  border-radius: 2px; }
-  .cm-message.success {
-    background: #4fdb9b; }
+  border-radius: 2px;
+  display: none; }
   .cm-message.info {
     background: #6ecce0; }
   .cm-message.error {
     background: #f26b55;
     color: rgba(255, 255, 255, 0.56); }
+  .cm-message.success {
+    background: #4fdb9b; }
 
 .total-jobs h4 {
   color: #f5820c;

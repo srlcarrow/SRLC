@@ -23,7 +23,6 @@
 //Text Orange
 @include text-color($primary, orange);
 
-
 //Font Weight
 .f-light {
   font-weight: $font-w-light;
@@ -518,12 +517,9 @@ a.cm-btn {
   color: $blue-dark;
   padding: 8px 20px;
   width: 100%;
-  margin: 15px 0;
+  margin: 5px 0;
   @include border-radius(2px);
-
-  &.success {
-    background: $success;
-  }
+  display: none;
 
   &.info {
     background: $info;
@@ -531,7 +527,11 @@ a.cm-btn {
 
   &.error {
     background: $error;
-    color: rgba($white,$opt-3);
+    color: rgba($white, $opt-3);
+  }
+
+  &.success {
+    background: $success;
   }
 
 }

@@ -156,10 +156,10 @@ function loadJobsByCategory() {
     jobScene.addTo(controller);
     // jobScene.reverse(false);
     jobScene.on("leave", function (event) {
-        jobScene.reverse(false);
-        $('.main-title').css({
-            'marginTop': 0
-        });
+        //jobScene.reverse(false);
+        // $('.main-title').css({
+        //     'marginTop': 0
+        // });
 
         $('.full-height').css('height', '');
     });
