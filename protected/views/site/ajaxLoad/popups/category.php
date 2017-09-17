@@ -20,7 +20,7 @@
 <script>
 
     $('.main').mCustomScrollbar({
-        theme: "my-theme",
+        theme: "dark-3",
         scrollButtons:{ enable: true }
     });
 

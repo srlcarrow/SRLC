@@ -518,16 +518,19 @@ a.cm-btn {
   padding: 8px 20px;
   width: 100%;
   margin: 15px 0;
+  @include border-radius(2px);
 
   &.success {
     background: $success;
   }
+
   &.info {
     background: $info;
   }
 
   &.error {
     background: $error;
+    color: rgba($white,$opt-3);
   }
 
 }
@@ -651,7 +654,7 @@ a.cm-btn {
     }
 
     .scroll {
-      max-height: 80px;
+      max-height: 380px;
       float: left;
       width: 100%;
       overflow: hidden;

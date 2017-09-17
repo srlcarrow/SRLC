@@ -421,20 +421,43 @@ input[type="radio"] {
   width: 100%;
 }
 
-.mCS-my-theme {
+//Scroll Bar
+@mixin hoverBar {
+  background-color: $black;
+}
+
+.mCS-4you-theme {
+
   &.mCSB_scrollTools {
 
     .mCSB_dragger {
 
-    }
+      .mCSB_dragger_bar {
+        background-color: rgba($black, $opt-3);
+        width: 10px;
+        @include border-radius(0)
+      }
 
-    .mCSB_dragger_bar {
-      background-color: red;
-      width: 30px;
+      &:hover {
+        .mCSB_dragger_bar {
+          @include hoverBar;
+        }
+
+      }
+
+      &.mCSB_dragger_onDrag {
+        @include hoverBar;
+      }
+
+      &:active {
+        //@include hoverBar;
+      }
     }
 
     .mCSB_draggerRail {
-      background-color: red;
+      background-color: rgba($black, .15);
+      width: 10px;
+      @include border-radius(0);
     }
   }
 }
