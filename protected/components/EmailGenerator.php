@@ -62,6 +62,7 @@ class EmailGenerator {
         $msg = $content->email_content;
         $subject = $content->email_subject;
         $top = $format->email_format;
+
         $replacearrBody = array(
             '[url]' => self::jobSeekerVerificationUrl($basicTemp->jsbt_encrypted_id),
             '[name]' => $basicTemp->jsbt_fname,
@@ -71,12 +72,38 @@ class EmailGenerator {
         $new_msg = self::str_replace_assoc($replacearrBody, $msg);
 
         $replacearrFull = array(
-            '[header_logo]' => Yii::app()->getBaseUrl(true) . "images/system/email/logo/logo-160.png",
+            '[header_logo]' => Yii::app()->getBaseUrl(true) . "/images/system/email/logo/logo-160.png",
             '[email_subject]' => $subject,
             '[email_message_body]' => $new_msg);
         $mailbody = self::str_replace_assoc($replacearrFull, $top);
-//        var_dump($new_msg);
-        return $new_msg;
+
+        return $mailbody;
+    }
+
+    static function setEmailMessageBodyEmployer($recognize, $type, $jsId, $user_name, $pwd, $code) {
+        $basicTemp = JsBasicTemp::model()->findByPk($jsId);
+        $content = AdmEmailContent::model()->find("recognize_text='" . $recognize . "'");
+        $format = AdmEmailFormat::model()->find('email_type="' . $type . '"');
+
+        $msg = $content->email_content;
+        $subject = $content->email_subject;
+        $top = $format->email_format;
+
+        $replacearrBody = array(
+            '[url]' => self::jobSeekerVerificationUrl($basicTemp->jsbt_encrypted_id),
+            '[name]' => $basicTemp->jsbt_fname,
+            '[user_name]' => $basicTemp->jsbt_email,
+            '[user_password]' => $pwd,
+        );
+        $new_msg = self::str_replace_assoc($replacearrBody, $msg);
+
+        $replacearrFull = array(
+            '[header_logo]' => Yii::app()->getBaseUrl(true) . "/images/system/email/logo/logo-160.png",
+            '[email_subject]' => $subject,
+            '[email_message_body]' => $new_msg);
+        $mailbody = self::str_replace_assoc($replacearrFull, $top);
+
+        return $mailbody;
     }
 
     private static function str_replace_assoc(array $replace, $msg) {

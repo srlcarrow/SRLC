@@ -4,8 +4,6 @@ class RegistrationController extends Controller {
 
     public function actionRegister() {
         try {
-            var_dump('rajith');
-            exit;
             $model = new JsBasicTemp();
             $model->jsbt_type = $_POST['isCheckedJobSeeker'] == "true" ? 1 : 2;
             $model->jsbt_fname = $_POST['isCheckedJobSeeker'] == "true" ? $_POST['fname'] : $_POST['cname'];
@@ -32,7 +30,12 @@ class RegistrationController extends Controller {
                 $user->user_is_verified = 0;
                 $user->user_created_date = date('Y-m-d H:i:s');
                 if ($user->save(false)) {
-                    $msg = EmailGenerator::setEmailMessageBodyJobSeeker('user_created', '2', $jsId, $jsBasicTemp->jsbt_email, $password, false);
+                    if ($model->jsbt_type == 1) {
+                        $msg = EmailGenerator::setEmailMessageBodyJobSeeker('user_created', '1', $jsId, $jsBasicTemp->jsbt_email, $password, false);
+                    } elseif ($model->jsbt_type == 2) {
+                        $msg = EmailGenerator::setEmailMessageBodyEmployer('user_created', '2', $jsId, $jsBasicTemp->jsbt_email, $password, false);
+                    }
+
                     $subjct = "Verify Your Account";
                     $to = $_POST['email'];
                     EmailGenerator::SendEmail($msg, $to, $subjct);

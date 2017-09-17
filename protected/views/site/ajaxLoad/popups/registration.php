@@ -80,7 +80,6 @@
                 userRegistration();
 
             }
-        }
         });
 
         function userRegistration() {
