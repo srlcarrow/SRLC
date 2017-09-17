@@ -46,6 +46,11 @@
                 </div>
 
                 <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="cm-message message"></div>
+                    </div>
+
                     <div class="col-md-12 mt-20">
                         <button id="Register" type="submit"
                                 class="cm-btn large text-uppercase light-blue right">Register
@@ -84,6 +89,9 @@
     });
 
     function userRegistration() {
+
+        $('.message').Info('Processing...', {stay: true});
+
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
             type: 'POST',
