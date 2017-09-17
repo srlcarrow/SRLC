@@ -144,20 +144,31 @@ function loadJobsByCategory() {
 
     var jobTitle = 'title';
 
+    var titleOptio = $('#' + jobTitle).offset().top;
 
     var jobScene = new ScrollMagic.Scene({
         triggerElement: '#' + jobTitle,
-        duration: '40%',
-        offset: 50,
+        duration: '30%',
+        offset: 80,
     });
 
     jobScene.setClassToggle('#' + jobTitle, 'active');
     jobScene.addTo(controller);
-    jobScene.reverse(false);
+    // jobScene.reverse(false);
+    jobScene.on("leave", function (event) {
+        jobScene.reverse(false);
+        $('.main-title').css({
+            'marginTop': 0
+        });
+
+        $('.full-height').css('height', '');
+    });
 
     jobScene.on("progress", function (event) {
-        console.log("Scene progress changed to " + event.progress , (1 - event.progress));
-       $('.main-title').animate({'opacity': (1 - event.progress)},500);
+        $('.main-title').css({
+            'opacity': (1 - event.progress),
+            'marginTop': (Number(titleOptio) - (event.progress * 5))
+        });
     });
     jobScene.on('enter', function () {
         //controller.scrollTo(100);
