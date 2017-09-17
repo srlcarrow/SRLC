@@ -6,11 +6,11 @@ $(function () {
             form: '/employer/PackageEdit'
         },
         tab2: {
-            view: 't',
+            view: '/employer/JobPost',
             form: 't'
         },
         tab3: {
-            view: 't',
+            view: '/employer/PasswordReset',
             form: 't'
         }
     };
