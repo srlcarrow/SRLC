@@ -23,8 +23,10 @@ class DefaultController extends Controller {
             $userId = Yii::app()->user->id;
             $userType = User::model()->findByAttributes(array('user_id' => $userId))->user_type;
 
-            if ($userType == 2) {
-                $url = 'Employer/Profile';
+            if ($userType == 1) {
+                $url = 'User/Profile';
+            }elseif ($userType == 2) {
+                $url = 'Employer/ProfileDetails';
             }
 
             $this->msgHandler(200, "Login Successfull...", array('url' => $url));
