@@ -133,25 +133,7 @@ function loadJobsByCategory() {
         $('.full-height').css('height', pageHeight + 'px')
     });
 
-    var $title = $('.main-title');
-    var titleTopPosition = (($title.offset().top) - 50);
-
-    $(window).scroll(function (e) {
-        // var $scrollTop = $(window).scrollTop();
-        // if ($scrollTop > titleTopPosition) {
-        //     $isTitleHide = true;
-        //     if ($isTitleHide) {
-        //         hideTitle($isTitleHide);
-        //         ///$(window).scrollTop(0);
-        //     }
-        //     //$(window).scrollTop(0)
-        // }
-    });
-
-    if ($isTitleHide) {
-
-    }
-
+    $('.navbar').removeClass('light-blue').css('backgroundColor','transparent');
 })();
 
 

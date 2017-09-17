@@ -5,7 +5,7 @@
  * It contains the authentication method that checks if the provided
  * data can identity the user.
  */
-class UserIdentity extends CUserIdentity {
+class SiteUserIdentity extends CUserIdentity {
 
     /**
      * Authenticates a user.
@@ -18,17 +18,16 @@ class UserIdentity extends CUserIdentity {
     public $_id;
 
     public function authenticate() {
-        $userData = AdmUser::model()->findByAttributes(array('user_name' => $this->username));
-        
+        $userData = User::model()->findByAttributes(array('user_name' => $this->username));
         if ($userData === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        } else if ($userData->user_password !== md5(md5('SRLC' . $this->password . $this->password))) {
+        } else if ($record->user_password !==  md5(md5('SRLC' . $reqPassword . $reqPassword))) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } else {
-            $this->_id = $userData->user_id;
+            $this->_id = $record->user_id;
             $this->errorCode = self::ERROR_NONE;
         }
-        return !$this->errorCode;
+        return !$this->errorCode;  
     }
 
     public function getId() {

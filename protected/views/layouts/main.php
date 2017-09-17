@@ -28,6 +28,10 @@
             var BASE_URL = "<?php echo Yii::app()->baseUrl; ?>";
         </script>
 
+        <script type="text/javascript" >
+            var http_path = "<?php echo Yii::app()->getBaseUrl(true); ?>/";   
+        </script>
+
         <!--JS | Jquery Lib-->
         <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
         <!--JS | Scroll magic-->

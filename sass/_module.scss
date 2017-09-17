@@ -62,7 +62,7 @@
   width: 100%;
   top: 0;
   left: 0;
-  z-index:998;
+  z-index: 998;
 }
 
 //Button
@@ -650,7 +650,14 @@ a.cm-btn {
       }
     }
 
+    .scroll {
+      max-height: 80px;
+      float: left;
+      width: 100%;
+      overflow: hidden;
+    }
     .category-list {
+
       li {
         &:not(:last-child) {
           margin-bottom: 20px;

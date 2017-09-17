@@ -111,9 +111,17 @@
             alert('Invalid Email Address');
             return false;
         }
-        if (isExistingEmail(emailField) == false) {
-            alert('Existing Email');
-            return false;
+
+        function validateEmail(emailField) {
+            if (isValidEmail(emailField) == false) {
+                alert('Invalid Email Address');
+                return false;
+            }
+            if (isExistingEmail(emailField) == false) {
+                alert('Existing Email');
+                return false;
+            }
+            return true;
         }
         return true;
     }

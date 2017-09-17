@@ -18,13 +18,13 @@ class UserIdentity extends CUserIdentity {
     public $_id;
 
     public function authenticate() {
-        $userData = AdmUser::model()->findByAttributes(array('user_name' => $this->username));
+        $userData = User::model()->findByAttributes(array('user_name' => $this->username));
         if ($userData === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        } else if ($record->user_password !==  md5(md5('SRLC' . $reqPassword . $reqPassword))) {
+        } else if ($userData->user_password != md5(md5('SRLC' . $this->password . $this->password))) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } else {
-            $this->_id = $record->user_id;
+            $this->_id = $userData->user_id;
             $this->errorCode = self::ERROR_NONE;
         }
         return !$this->errorCode;
