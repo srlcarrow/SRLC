@@ -25,7 +25,7 @@ class RegistrationController extends Controller {
                 $user = new User();
                 $user->ref_emp_or_js_id = $jsId;
                 $user->user_name = $jsBasicTemp->jsbt_email;
-                $user->user_password = md5($password . $password);
+                $user->user_password = md5(md5('SRLC' . $password . $password));
                 $user->user_access_token = $accessToken;
                 $user->user_type = $jsBasicTemp->jsbt_type;
                 $user->user_is_verified = 0;
