@@ -562,7 +562,9 @@ a.cm-btn {
         @include float-block;
         @include transition($animation-1);
 
+
         &:hover {
+          background: #fafafa;
           @include box-shadow(0px, 10px, 15px, 2px, rgba($black, 0.30));
         }
 
