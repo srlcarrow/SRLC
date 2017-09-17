@@ -44,9 +44,9 @@ class DefaultController extends Controller {
             $user->user_password = md5(md5('SRLC' . $password . $password));
             if ($user->save(false)) {
                 if ($userType == 1) {
-                    $msg = EmailGenerator::setEmailMessageBodyJobSeeker('user_created', '1', $jsId, $email, $password, false);
+                    $msg = EmailGenerator::setEmailMessageBodyJobSeeker('reset_password', '1', $jsId, $email, $password, false);
                 } elseif ($userType == 2) {
-                    $msg = EmailGenerator::setEmailMessageBodyEmployer('user_created', '2', $jsId, $email, $password, false);
+                    $msg = EmailGenerator::setEmailMessageBodyEmployer('reset_password', '2', $jsId, $email, $password, false);
                 }
 
                 $subjct = "Verify Your Account";  
