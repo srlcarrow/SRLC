@@ -67,7 +67,30 @@ class SiteController extends Controller {
     }
 
     public function actionSignInPopup() {
-        $this->renderPartial('ajaxLoad/popups/sign_in_form');
+        if (yii::app()->user->isGuest) {
+            $this->layout = 'login_layout';
+            $model = new User();
+            $url = '';
+
+            if (isset($_REQUEST['controllerAction'])) {
+                if (!empty($_REQUEST['request_arr'])) {
+                    $url_param = '';
+                    foreach ($_REQUEST['request_arr'] as $key => $val) {
+                        $url_param .= "$key/$val/";
+                    }
+                    $url = $_REQUEST['controllerAction'] . "/" . $url_param;
+                } else {
+                    $url = $_REQUEST['controllerAction'];
+                }
+            }
+
+
+            $this->renderPartial('ajaxLoad/popups/sign_in_form', array('model' => $model, 'url' => $url));
+        } else {
+            $this->render('index');
+        }
+
+        
     }
 
     public function actionPasswordResetFrom() {
@@ -133,7 +156,7 @@ class SiteController extends Controller {
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
+            if ($model->login())
                 $this->redirect(Yii::app()->user->returnUrl);
         }
         // display the login form

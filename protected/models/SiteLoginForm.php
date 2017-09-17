@@ -5,7 +5,7 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
-class LoginForm extends CFormModel {
+class SiteLoginForm extends CFormModel {
 
     public $username;
     public $password;
@@ -43,8 +43,8 @@ class LoginForm extends CFormModel {
      * @param string $attribute the name of the attribute to be validated.
      * @param array $params additional parameters passed with rule when being executed.
      */
-    public function authenticate($attribute, $params) {
-        if (!$this->hasErrors()) {
+    public function authenticate($attribute, $params) {  //echo 'ssds'; exit(); 
+        if (!$this->hasErrors()) { 
             $this->_identity = new UserIdentity($this->username, $this->password);
             if (!$this->_identity->authenticate())
                 $this->addError('password', 'Incorrect username or password.');
@@ -55,10 +55,10 @@ class LoginForm extends CFormModel {
      * Logs in the user using the given username and password in the model.
      * @return boolean whether login is successful
      */
-    public function login() {
+    public function login() {  
         if ($this->_identity === null) {
-            $this->_identity = new UserIdentity($this->username, $this->password);
-            $this->_identity->authenticate();
+            $this->_identity = new UserIdentity($this->username, $this->password); 
+            $this->_identity->authenticate(); 
         }
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
             $duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days

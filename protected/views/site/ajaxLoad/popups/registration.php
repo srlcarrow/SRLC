@@ -111,8 +111,8 @@
             return false;
         }
         if (isExistingEmail(emailField) == false) {
-            alert('Existing Email');
-            return false;
+            //alert('Existing Email');
+            //return false;
         }
         return true;
     }
