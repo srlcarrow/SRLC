@@ -37,9 +37,14 @@ $model = new EmpAdvertisement();
                                     <div class="text-nowrap pr-20"><h5>Upload CV</h5></div>
                                 </div>
                                 <div class="d-table-cell width-100">
+<!--                                    <div class="file-uploader width-100">-->
+<!--                                        <div class="button width-100 text-center">Brows...</div>-->
+<!--                                        <input type="file">-->
+<!--                                    </div>-->
                                     <div class="file-uploader width-100">
+                                        <div class="button width-100 text-center">Brows...</div>
                                         <?php
-                                        echo $form->labelEx($model, 'image');
+//                                        echo $form->labelEx($model, 'image');
                                         echo CHtml::activeFileField($model, 'image');
                                         echo $form->error($model, 'image');
                                         ?>
@@ -113,6 +118,13 @@ $model = new EmpAdvertisement();
             }
             ?>
 
+            <div class="row">
+                <div class="col-md-12 float-block mt-20">
+                    <button id="Register" type="submit" onclick=""
+                            class="cm-btn large text-uppercase light-blue right">Register
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
