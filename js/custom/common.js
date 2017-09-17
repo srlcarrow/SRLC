@@ -483,7 +483,6 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
 (function () {
 
     $('.profile-link').on('click', function (e) {
-        e.preventDefault();
 
         var $this = $(this);
 

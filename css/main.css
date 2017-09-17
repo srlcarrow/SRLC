@@ -1692,28 +1692,16 @@ input[type="checkbox"] {
   color: rgba(44, 43, 63, 0.3); }
 
 .text-orange {
-  color: #f26922; }
+  color: #fbab18; }
 
 .text-orange.text-light-1 {
-  color: rgba(242, 105, 34, 0.86); }
+  color: rgba(251, 171, 24, 0.86); }
 
 .text-orange.text-light-2 {
-  color: rgba(242, 105, 34, 0.56); }
+  color: rgba(251, 171, 24, 0.56); }
 
 .text-orange.text-light-3 {
-  color: rgba(242, 105, 34, 0.3); }
-
-.text-orange {
-  color: #f26922; }
-
-.text-orange.text-light-1 {
-  color: rgba(242, 105, 34, 0.86); }
-
-.text-orange.text-light-2 {
-  color: rgba(242, 105, 34, 0.56); }
-
-.text-orange.text-light-3 {
-  color: rgba(242, 105, 34, 0.3); }
+  color: rgba(251, 171, 24, 0.3); }
 
 .f-light {
   font-weight: 300; }
