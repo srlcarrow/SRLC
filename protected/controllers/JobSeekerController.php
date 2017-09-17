@@ -26,7 +26,7 @@ class JobSeekerController extends Controller {
         $jsBasicId = 0;
         $status = 0;
 
-        if ($jsTempId != 0) {
+        if ($jsTempId > 0) {
             $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
             if ($jsBasicTempData->jsbt_type == 1) {
                 if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
@@ -41,7 +41,12 @@ class JobSeekerController extends Controller {
                         $jsBasic->js_contact_no2 = '';
                         $jsBasic->js_address = '';
                         $jsBasic->js_gender = 0;
-                        $jsBasic->js_dob = '';
+//                        $jsBasic->js_dob = '';
+                        $jsBasic->js_experience = '';
+                        $jsBasic->js_highest_academic_quali = '';
+                        $jsBasic->js_nameof_academic_quali = '';
+                        $jsBasic->js_created_time = date('Y-m-d H:i:s');
+                        $jsBasic->js_updated_time = date('Y-m-d H:i:s');
                         $jsBasic->js_cv_path = '';
                         if ($jsBasic->save(false)) {
                             $status = 1; // Verified But Not Finished
@@ -55,6 +60,8 @@ class JobSeekerController extends Controller {
         }
 
         $jsBasicData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
+//        var_dump($jsTempId);
+//        exit;
         $jsProfQualifications = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 1));
         $jsMemberships = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 2));
         $jsBasicKey = Controller::encodePrimaryKeys($jsBasicData->js_id);
@@ -191,56 +198,59 @@ class JobSeekerController extends Controller {
     }
 
     public function actionSaveStepThree() {
-        try {
-
-            $skills = explode(',', $_POST['skills']);
-            $skillsString = '';
-            $skillsArray = array();
-            foreach ($skills as $skill) {
-                if (is_numeric($skill)) {
-                    array_push($skillsArray, $skill);
-                } else {
-                    $modelSkills = new AdmSkills();
-                    $modelSkills->skill_name = $skill;
-                    if ($modelSkills->save(false)) {
-                        array_push($skillsArray, $modelSkills->skill_id);
-                    }
+//        try {
+        $skills = explode(',', $_POST['skills']);
+        $skillsString = '';
+        $skillsArray = array();
+        foreach ($skills as $skill) {
+            if (is_numeric($skill)) {
+                array_push($skillsArray, $skill);
+            } else {
+                $modelSkills = new AdmSkills();
+                $modelSkills->skill_name = $skill;
+                if ($modelSkills->save(false)) {
+                    array_push($skillsArray, $modelSkills->skill_id);
                 }
             }
-
-            $skillsString = implode(',', $skillsArray);
-
-
-            $jsId = Controller::decodePrimaryKeys($_POST['jsBasicKey']);
-            $jsEmploymentData = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $jsId));
-            if (count($jsEmploymentData) > 0) {
-                $model = $jsEmploymentData;
-            } else {
-                $model = new JsEmploymentData();
-            }
-
-            $model->ref_js_id = $jsId;
-            $model->ref_industry_id = $_POST['ind_id'];
-            $model->ref_category_id = $_POST['cat_id'];
-            $model->ref_sub_category_id = $_POST['subCategories'];
-            $model->ref_designation_id = $_POST['designations'];
-            $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
-            $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
-            $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
-            $model->jsemp_expected_designation_id = $_POST['designations'];
-            $model->jsemp_expected_salary = $_POST['salary'];
-            $model->jsemp_no_of_experience_years = $_POST['experience'];
-            $model->jsemp_no_of_experience_months = 0;
-            $model->jsemp_expected_cities_to_work = $_POST['cities'];
-            $model->jsemp_skills = $skillsString;
-            $model->jsemp_create_time = date('Y-m-d H:i:s');
-            $model->jsemp_updated_time = date('Y-m-d H:i:s');
-            if ($model->save(false)) {
-                $this->msgHandler(200, "Successfully Saved...");
-            }
-        } catch (Exception $ex) {
-            $this->msgHandler(400, $exc->getTraceAsString());
         }
+
+        $skillsString = implode(',', $skillsArray);
+
+
+        $jsId = Controller::decodePrimaryKeys($_POST['jsBasicKey']);
+        $jsEmploymentData = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $jsId));
+        if (count($jsEmploymentData) > 0) {
+            $model = $jsEmploymentData;
+        } else {
+            $model = new JsEmploymentData();
+        }
+
+        $model->ref_js_id = $jsId;
+        $model->ref_industry_id = $_POST['ind_id'];
+        $model->ref_category_id = $_POST['cat_id'];
+        $model->ref_sub_category_id = $_POST['subCategories'];
+        $model->ref_designation_id = $_POST['designations'];
+        $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
+        $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
+        $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
+        $model->jsemp_expected_designation_id = $_POST['designations'];
+        $model->jsemp_expected_salary = $_POST['salary'];
+        $model->jsemp_no_of_experience_years = $_POST['experience'];
+        $model->jsemp_no_of_experience_months = 0;
+        $model->jsemp_expected_cities_to_work = $_POST['cities'];
+        $model->jsemp_skills = $skillsString;
+        $model->jsemp_create_time = date('Y-m-d H:i:s');
+        $model->jsemp_updated_time = date('Y-m-d H:i:s');
+        if ($model->save(false)) {
+            $jsBasic = JsBasic::model()->findByPk($jsId);
+            $jsBasicTempData = JsBasicTemp::model()->findByPk($jsBasic->ref_jsbt_id);
+            $jsBasicTempData->jsbt_is_finished = 1;
+            $jsBasicTempData->save(false);
+            $this->msgHandler(200, "Successfully Saved...");
+        }
+//        } catch (Exception $ex) {
+//            $this->msgHandler(400, $exc->getTraceAsString());
+//        }
     }
 
 }

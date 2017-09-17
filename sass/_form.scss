@@ -4,8 +4,8 @@ $black: #000;
 $white: #fff;
 $form-input-line-color: #fbab18;
 $form-radio-button-color: #fbab18;
-$error: #f26922;
-$error-background-color: rgba(#F26922, 0.86);
+$error: #f26b55;
+$error-background-color: rgba($error, 0.86);
 
 $animation-float-text: 0.2s all cubic-bezier(.26, .28, .42, .78);
 $animation-animate-line: 0.6s all cubic-bezier(.4, .19, .51, .98);
@@ -157,6 +157,7 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
       bottom: calc(100% - 15px);
       left: 0;
       font-size: 12px;
+      color: rgba($black, 0.56);
     }
   }
 
@@ -165,6 +166,7 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
       bottom: calc(100% - 15px);
       left: 0;
       font-size: 12px;
+      color: rgba($black, 0.56);
     }
   }
 

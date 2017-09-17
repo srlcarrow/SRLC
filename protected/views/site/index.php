@@ -1,8 +1,14 @@
-<style>
-    .navbar.light-blue {
-        background: none !important;
-    }
-</style>
+<?php
+//CSS
+//mScroll CSS
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/plugins/scrollbar/jquery.mCustomScrollbar.min.css', 'screen');
+
+// mScroll Bar
+Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js', CClientScript::POS_HEAD);
+
+?>
+
+
 
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
 <section class="main-block search-section gradient full-height">
