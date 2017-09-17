@@ -33,6 +33,33 @@ class DefaultController extends Controller {
         }
     }
 
+    public function actionResetPassword() {
+        $email = trim($_POST['email']);
+        $user = User::model()->findByAttributes(array('user_name' => $email));
+
+        if (count($user) > 0) {
+            $password = $this->randomPassword();
+            $userType = $user->user_type;
+            $jsId = $user->ref_emp_or_js_id;
+            $user->user_password = md5(md5('SRLC' . $password . $password));
+            if ($user->save(false)) {
+                if ($userType == 1) {
+                    $msg = EmailGenerator::setEmailMessageBodyJobSeeker('user_created', '1', $jsId, $email, $password, false);
+                } elseif ($userType == 2) {
+                    $msg = EmailGenerator::setEmailMessageBodyEmployer('user_created', '2', $jsId, $email, $password, false);
+                }
+
+                $subjct = "Verify Your Account";  
+                $to = $email;
+                EmailGenerator::SendEmail($msg, $to, $subjct);  
+            }
+
+            $this->msgHandler(200, "Login Successfull...");
+        } else {
+            $this->msgHandler(400, "Error In Login Details...");
+        }
+    }
+
     public function actionLogout() {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl . '/Site');
