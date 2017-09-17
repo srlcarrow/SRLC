@@ -59,14 +59,16 @@ class EmployerController extends Controller {
                     }
                 }
             }
-            $this->msgHandler(200, "Successfully Saved...");
+            $key = Controller::encodePrimaryKeys($empEmployers->employer_id);
+            $this->msgHandler(200, "Successfully Saved...", array('employerKey' => $key));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
 
-    public function actionProfile() {
-        $employerData = EmpEmployers::model()->findByPk(1);
+    public function actionProfile($id) {
+        $id = Controller::decodePrimaryKeys($id);
+        $employerData = EmpEmployers::model()->findByPk($id);
         $this->render('profile', array('employerData' => $employerData));
     }
 
@@ -90,7 +92,7 @@ class EmployerController extends Controller {
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
-            $fileName = "employerCompany_" . uniqid() . '.png';            
+            $fileName = "employerCompany_" . uniqid() . '.png';
             $widthArray = array('212');
             $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
             if ($success) {

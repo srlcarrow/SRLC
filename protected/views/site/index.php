@@ -177,8 +177,4 @@ Search Result Section
             }
         });
     }
-
-    function test() {
-        alert('rrrr');
-    }
 </script>
