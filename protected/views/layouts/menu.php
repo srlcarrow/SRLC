@@ -26,14 +26,38 @@
                             <a href="" class="logout">Logout</a>
                         </div>
                     </div>
+>>>>>>> 8a10cfe44543a65dd03cdb9e5bd136c14edc5260
 
-                </div>
-            </li>
             <?php if (yii::app()->user->isGuest) { ?>
                 <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
                 <li class="register-link"><a class="cm-btn btn-registration" href="">Register</a></li>
-            <?php } else { ?>
-                <li><a href="<?php echo Yii::app()->request->baseUrl . '/Default/Logout'; ?>">Sign Out</a></li>
+                <?php
+            } else {
+                echo $logUserId = Yii::app()->user->id;
+                //$logUserType = User::model()->findByAttributes(array('user_id' => $logUserId))->user_type;
+                
+//                if($logUserType==1){
+//                    //$logUserType = User::model()->findByAttributes(array('user_id' => $userId))->user_type;
+//                }
+                
+                ?>                
+                <li class="profile-link">
+                    <a class="" href="#">
+                        <span class="text-hi">Hi,</span>
+                        <span class="text-name">Lanka</span>
+                        <span class="arrow-down"></span>
+                    </a>
+                    <div class="drop-box">
+                        <div class="row">
+                            <h5 class="col-md-12 text-black text-light-2">Darshaka Lanka</h5>
+                            <h6 class="col-md-12 text-black text-light-3">darshaka4mail@hmail.com</h6>
+                            <div class="col-md-12 mt-10">
+                                <a href="<?php echo Yii::app()->request->baseUrl . '/Default/Logout'; ?>" class="logout">Logout</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
             <?php }
             ?>
         </ul>
