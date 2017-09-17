@@ -1,4 +1,4 @@
-<?php
+<?php 
 //--------------------------------------------
 //Javascript
 //--------------------------------------------
@@ -35,20 +35,20 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                             </div>
 
                             <div class="col-md-9 pl-0 pt-30 pb-20 bottom-line">
-                                <h2 class="text-black mb-5">Thamara Dilmini</h2>
+                                <h2 class="text-black mb-5"><?php echo $model->js_fname .''. $model->js_fname;  ?></h2>
                                 <h5 class="text-dark-blue text-light-2 text-uppercase">Project Manager</h5>
 
                                 <div class="d-table width-auto mt-20">
                                     <div class="d-table-cell pr-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
-                                            <span>076 8969354 / 0116598752</span>
+                                            <span><?php echo $model->js_contact_no1;  ?>/ <?php echo $model->js_contact_no2;  ?></span>
                                         </h5>
                                     </div>
                                     <div class="d-table-cell pl-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 email mr-10 v-middle"></i>
-                                            <span>info@gmail.com</span>
+                                            <span><?php echo $model->js_email;  ?></span>
                                         </h5>
                                     </div>
                                 </div>
