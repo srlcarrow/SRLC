@@ -19,11 +19,15 @@ class DefaultController extends Controller {
 
 
         if ($model->login()) {
-            if (isset($url)) {
-//                Yii::app()->user->isGuest = 0;
-                $this->redirect(array($url));
+            $url = '';
+            $userId = Yii::app()->user->id;
+            $userType = User::model()->findByAttributes(array('user_id' => $userId))->user_type;
+
+            if ($userType == 2) {
+                $url = 'Employer/Profile';
             }
-            $this->msgHandler(200, "Login Successfull...");
+
+            $this->msgHandler(200, "Login Successfull...", array('url' => $url));
         } else {
             $this->msgHandler(400, "Error In Login Details...");
         }

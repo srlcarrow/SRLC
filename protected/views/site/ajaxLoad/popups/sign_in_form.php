@@ -18,11 +18,17 @@
                         <div class="float-text">Password</div>
                     </div>
                 </div>
+
                 <div class="col-md-12 text-right mt-10">
                     <a class="forget_password" href="#">Forget Password</a>
                 </div>
+
+                <div class="col-md-12  mt-10">
+                    <div class="message cm-message"></div> 
+                </div>
+
                 <div class="col-md-12 mt-20">  
-                    <button type="button" onclick="login()" class="cm-btn large text-uppercase light-blue right">Login</button>
+                    <button type="submit" class="cm-btn large text-uppercase light-blue right">Login</button>
                 </div>
             </div>
         </form>
@@ -33,6 +39,13 @@
 <?php $this->endWidget(); ?>
 
 <script>
+
+    $("#login").validate({
+        submitHandler: function () {
+            login();
+        }
+    });
+
     $(function () {
         $('#pword').keypress(function (e) {
             if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
@@ -57,13 +70,9 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-//                Message.success('Login Success..');
-<?php if ($url != '') { ?> window.location = http_path + "<?php echo $url; ?>";
-<?php } else { ?> window.location = http_path + "Admin/Default/Index";
-<?php } ?>
-                }
-                else {
-//                Message.danger('Ops!, Something went wrong.');
+                    window.location = http_path + responce.data.url;
+                } else {
+                    $('.message').Error('Username or Password is incorrect!');
                 }
             }
         });
