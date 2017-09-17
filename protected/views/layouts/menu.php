@@ -10,23 +10,8 @@
             <li class="active"><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration'; ?>">Job
                     Seeker</a></li>
             <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration'; ?>">Employer</a></li>
-            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration'; ?>">Contact Us</a>
-            </li>
-            <li class="profile-link">
-                <a class="" href="#">
-                    <span class="text-hi">Hi,</span>
-                    <span class="text-name">Lanka</span>
-                    <span class="arrow-down"></span>
-                </a>
-                <div class="drop-box">
-                    <div class="row">
-                        <h5 class="col-md-12 text-black text-light-2">Darshaka Lanka</h5>
-                        <h6 class="col-md-12 text-black text-light-3">darshaka4mail@hmail.com</h6>
-                        <div class="col-md-12 mt-10">
-                            <a href="" class="logout">Logout</a>
-                        </div>
-                    </div>
->>>>>>> 8a10cfe44543a65dd03cdb9e5bd136c14edc5260
+            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration'; ?>">Contact Us</a></li>
+
 
             <?php if (yii::app()->user->isGuest) { ?>
                 <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
