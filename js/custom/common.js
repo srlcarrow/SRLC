@@ -480,7 +480,7 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
 });
 
 
-(function () {
+(function () { 
     var isShow = false;
 
     $('.profile-link').on('click', function (e) {
