@@ -155,7 +155,7 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    window.location =  http_path + '/Site/Index'  ;
+                    window.location =  http_path + 'Employer/Profile/id/' + responce.data.employerKey  ;
                 }
             }
         });

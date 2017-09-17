@@ -398,7 +398,7 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
-            data: '',
+            data: {jsBasicKey: '<?php echo $jsBasicKey; ?>'},
             success: function (responce) {
                 $("#step").html(responce);
             }
@@ -458,11 +458,7 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    Message.success(responce.msg);
-                    $("#formAddCategory")[0].reset();
-                    $('.pr-20').attr('value', '');
-                    $('.row-input > .input-no-label').not(':first').remove();
-                    loadCategoryData();
+                   window.location =  http_path + 'Site/Index'  ;
                 }
             }
         });

@@ -19,9 +19,17 @@ class JobSeekerController extends Controller {
     }
 
     public function actionFormStepOne() {
-        $keyId = $_POST['accessId'];
-        $key = Controller::decodeMailAction($keyId);
-        $jsTempId = $key[2];
+        if (isset($_POST['jsBasicKey'])) {
+            $keyId = $_POST['jsBasicKey'];
+            $key = Controller::decodeMailAction($keyId);
+            $jsBasicTempData = JsBasic::model()->findByPk($key[2]);
+            $jsTempId = $jsBasicTempData->ref_jsbt_id;
+        } else {
+            $keyId = $_POST['accessId'];
+            $key = Controller::decodeMailAction($keyId);
+            $jsTempId = $key[2];
+        }
+
 
         $jsBasicId = 0;
         $status = 0;
@@ -59,7 +67,7 @@ class JobSeekerController extends Controller {
         }
 
         $jsBasicData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
-//        var_dump($jsTempId);
+//        var_dump($jsBasicData);
 //        exit;
         $jsProfQualifications = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 1));
         $jsMemberships = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 2));
@@ -74,6 +82,7 @@ class JobSeekerController extends Controller {
     public function actionSaveStepOne() {
         try {
             $jsId = Controller::decodePrimaryKeys($_POST['jsBasicKey']);
+
             $model = JsBasic::model()->findByPk($jsId);
             $model->js_address = $_POST['address'];
             $model->js_contact_no2 = $_POST['contactNo'];
@@ -117,7 +126,6 @@ class JobSeekerController extends Controller {
                     }
                 }
 
-
                 $this->msgHandler(200, "Successfully Saved...", array('jsBasicKey' => $_POST['jsBasicKey']));
             }
         } catch (Exception $exc) {
@@ -140,8 +148,11 @@ class JobSeekerController extends Controller {
         $jsBasicKey = $_POST['jsBasicKey'];
         $jsId = Controller::decodePrimaryKeys($jsBasicKey);
         $jsEmploymentData = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $jsId));
-
         $categories = AdmCategory::model()->findAll();
+        if (count($jsEmploymentData) == 0) {
+            $jsEmploymentData = new JsEmploymentData();
+        }
+
         $this->renderPartial('ajaxLoad/form_step2', array('categories' => $categories, 'jsBasicKey' => $jsBasicKey, 'jsEmploymentData' => $jsEmploymentData));
     }
 
@@ -175,7 +186,7 @@ class JobSeekerController extends Controller {
             } else {
                 $model = new JsEmploymentData();
             }
-
+       
             $model->ref_js_id = $jsId;
             $model->ref_industry_id = $_POST['ind_id'];
             $model->ref_category_id = $_POST['cat_id'];
@@ -188,11 +199,12 @@ class JobSeekerController extends Controller {
             $model->jsemp_expected_salary = 0;
             $model->jsemp_no_of_experience_years = 0;
             $model->jsemp_no_of_experience_months = 0;
+            $model->jsemp_is_fresher = isset($_POST['isFresher']) && $_POST['isFresher'] == "on" ? 1 : 0;
             if ($model->save(false)) {
                 $this->msgHandler(200, "Successfully Saved...", array('jsBasicKey' => $_POST['jsBasicKey']));
             }
         } catch (Exception $ex) {
-            $this->msgHandler(400, $exc->getTraceAsString());
+            $this->msgHandler(400, $ex->getTraceAsString());
         }
     }
 
