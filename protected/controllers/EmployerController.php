@@ -81,28 +81,31 @@ class EmployerController extends Controller {
         $this->render('profile', array('employerData' => $employerData));
     }
 
+    
+    
     public function actionProfileDetails() {
         //$id = Controller::decodePrimaryKeys($id);
         //$employerData = EmpEmployers::model()->findByPk($id);
-
-
+        
+        
         $userId = Yii::app()->user->id;
         $user = User::model()->findByAttributes(array('user_id' => $userId));
-        $userType = $user->user_type;
-
-
-        if ($userType == 2) {
+        $userType = $user->user_type; 
+        
+        
+        if($userType==2){
             $employerData = EmpEmployers::model()->findByAttributes(array('ref_ind_id' => $user->ref_emp_or_js_id));
             //$employment = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $user->ref_emp_or_js_id));
-        } else {
-            $employerData = new EmpEmployers();
+        }else{
+            $employerData = new EmpEmployers();  
             //$employment = new JsEmploymentData();  
-        }
-
-
-
+        }  
+        
+        
+        
         $this->render('profile', array('employerData' => $employerData));
     }
+    
 
     public function actionPackage() {
         $this->renderPartial('ajaxLoad/package');
