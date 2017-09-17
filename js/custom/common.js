@@ -481,16 +481,13 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
 
 
 (function () {
-    var isShow = false;
 
     $('.profile-link').on('click', function (e) {
         e.preventDefault();
 
         var $this = $(this);
 
-        isShow = !isShow;
-
-        if (isShow) {
+        if (!$this.hasClass('is-active')) {
             $this.addClass('is-active');
             $this.find('.drop-box').fadeIn('fast');
         } else {
@@ -501,8 +498,6 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
     });
 
     $('.drop-box').on('click', function (e) {
-        // isShow = true;
-        isShow == true ? false : true;
-        // alert('as')
+
     });
 })();
