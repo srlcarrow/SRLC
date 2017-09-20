@@ -3,18 +3,18 @@ $mainLinks = AdmLinks::model()->findAllByAttributes(array('lnk_parent_id' => 0, 
 ?>
 
 <div class="navbar-fixed">
-    <nav class="light-blue accent-3">
+    <nav class="nav-yellow">
         <div class="container">
             <div class="nav-wrapper">
                 <a class="brand-logo logo-link" href="<?php echo Yii::app()->request->baseUrl . "/Admin/Default/Index"; ?>">
-                   <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
+                    <img src="<?php echo Yii::app()->baseUrl . '/images/system/logo/logo.png'; ?>" alt="">
                 </a>
                 <ul class="hide-on-med-and-down right menu">
                     <?php
                     foreach ($mainLinks as $mainLink) {
                         ?>
                         <li>
-                            <a><?php echo strtoupper($mainLink->lnk_name); ?>   </a>                    
+                            <a><?php echo strtoupper($mainLink->lnk_name); ?>   </a>
                             <ul>
                                 <?php
                                 $subLinks = AdmLinks::model()->findAllByAttributes(array('lnk_parent_id' => $mainLink->lnk_id), array('order' => 'lnk_order ASC'));
@@ -33,7 +33,7 @@ $mainLinks = AdmLinks::model()->findAllByAttributes(array('lnk_parent_id' => 0, 
                     }
                     ?>
 
-                    <li><a href="<?php echo Yii::app()->request->baseUrl . '/Admin/Default/Logout' ?>">Sign Out</a> <li> 
+                    <li><a href="<?php echo Yii::app()->request->baseUrl . '/Admin/Default/Logout' ?>">Sign Out</a> <li>
                 </ul>
 
             </div>
