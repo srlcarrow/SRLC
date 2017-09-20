@@ -4,16 +4,8 @@ class EmployerController extends Controller {
 
     public function actionEmployerRegister($id) {
         try {
-//            $key = Controller::decodeMailAction($id);
-//            $jsTempId = $key[2];
-//            $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
-
             $key = $id;
-//            $key = Controller::decodeMailAction($id);
-//            $jsTempId = $key[2];
             $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
-
-
 
             if ($id == $jsBasicTempData->jsbt_encrypted_id) {
                 $id = Controller::encodePrimaryKeys($jsBasicTempData->jsbt_id);
@@ -81,31 +73,27 @@ class EmployerController extends Controller {
         $this->render('profile', array('employerData' => $employerData));
     }
 
-    
-    
     public function actionProfileDetails() {
         //$id = Controller::decodePrimaryKeys($id);
         //$employerData = EmpEmployers::model()->findByPk($id);
-        
-        
+
         $userId = Yii::app()->user->id;
         $user = User::model()->findByAttributes(array('user_id' => $userId));
-        $userType = $user->user_type; 
-        
-        
-        if($userType==2){
+        $userType = $user->user_type;
+
+
+        if ($userType == 2) {
             $employerData = EmpEmployers::model()->findByAttributes(array('ref_ind_id' => $user->ref_emp_or_js_id));
             //$employment = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $user->ref_emp_or_js_id));
-        }else{
-            $employerData = new EmpEmployers();  
+        } else {
+            $employerData = new EmpEmployers();
             //$employment = new JsEmploymentData();  
-        }  
-        
-        
-        
+        }
+
+
+
         $this->render('profile', array('employerData' => $employerData));
     }
-    
 
     public function actionPackage() {
         $this->renderPartial('ajaxLoad/package');

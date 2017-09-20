@@ -105,14 +105,11 @@
             },
             success: function (responce) {
                 if (responce.code == 200) {
-                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                    //$("#formRegister").reset();
+                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');                    
                 }
-
             }
         });
     }
-
 
     function validateEmail(emailField) {
         if (isValidEmail(emailField) == false) {
