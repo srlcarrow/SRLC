@@ -1,0 +1,71 @@
+//Selector
+.selector {
+  position: relative;
+  float: left;
+  width: 100%;
+
+  select {
+    display: none;
+  }
+
+  .selected-option {
+    float: left;
+    font-size: $font-small;
+    color: $white;
+    font-weight: $font-w-medium;
+    width: inherit;
+    background: url("../images/system/icon/site/16/ic_16-arrow-down-white.png") no-repeat right 10px;
+    cursor: pointer;
+  }
+
+  .option-list {
+    display: none;
+    top: 30px;
+    left: 0;
+    float: left;
+    width: inherit;
+    position: absolute;
+    min-width: 165px;
+    z-index: 2;
+    background: $white;
+    @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.30));
+
+    &.is-scroll {
+      overflow-y: scroll;
+      max-height: 260px;
+    }
+
+    li {
+      padding: 8px 10px;
+      color: rgba($blue-dark, $opt-2);
+      font-size: $base-font-size;
+      cursor: pointer;
+
+      &.selected,
+      &:hover {
+        color: rgba($blue-dark, $opt-1);
+        background: rgba($blue-dark, 0.15);
+      }
+
+      &.disabled {
+        display: none;
+      }
+    }
+  }
+
+  &.dark {
+    margin-top: 20px;
+
+    .selected-option {
+      color: rgba($black, $opt-2);
+      font-size: $font-smallest;
+      font-weight: $font-w-regular;
+      border-bottom: 1px solid rgba($black, 0.2);
+      background: url("../images/system/icon/site/16/ic_16-arrow-down.png") no-repeat right 5px;
+    }
+
+    .option-list {
+      top: 20px;
+    }
+  }
+}
