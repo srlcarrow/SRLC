@@ -33,13 +33,16 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category')); ?>           
+                    <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'onChange' => 'loadSubCategories()')); ?>           
                     <label>Job Category</label>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_subcat_id', "", CHtml::listData(AdmSubcategory::model()->findAll(), 'scat_id', 'scat_name'), array('empty' => 'Select City')); ?>           
+                    <ul class="option-list"></ul>
+
+                    <select class="type" name="subCategories" id="subCategories">
+                    </select>
                     <label>Sub Category</label>
                 </div>
             </div>
@@ -177,6 +180,37 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         });
         e.preventDefault();
     });
+
+    function loadSubCategories(id) {
+        $("#subCategories").empty();
+
+        var id = $('#ref_cat_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetSubCategories'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var subCats = responce.data.subCategoryData;
+                    for (var i = 0, max = subCats.length; i < max; i++) {
+                        $('#subCategories').append(
+                                $("<option>" + subCats[i]['scat_name'] + "</option>")
+                                .attr("value", subCats[i]['scat_id'])
+                                .text(subCats[i]['scat_name'])
+                                );
+                    }
+
+                    setTimeout(function () {
+                        Select.init();
+                    }, 200);
+
+//                    loadDesignations();
+
+                }
+            }
+        });
+    }
 
     $('#clearAddAdvertisement').click(function (e) {
         $("#formAddAdvertisement")[0].reset();

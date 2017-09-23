@@ -11,8 +11,27 @@ class AdvertisementController extends Controller {
         $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('model' => $model));
     }
 
-    public function actionViewAdvertisementData() {     
-        $this->renderPartial('ajaxLoad/viewAdvertisementData');
+    public function actionViewAdvertisementData() {
+        $sql = Yii::app()->db->createCommand()
+                ->select('ad.ad_id,ad.ref_designation_id,ad.ad_reference,ad.ad_reference,ad.ad_expected_experience,ad.ad_salary,ad.ad_is_negotiable,ad.ad_title,ad.ad_is_use_desig_as_title,ad.ad_expire_date,desig.desig_name,emp.employer_name,awt.wt_name,acity.city_name')
+                ->from('emp_advertisement ad')
+                ->getText();
+
+        $limit = 10;
+//        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
+        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', 1, $limit);
+
+        $result = $data['result'];
+        $pageCount = $data['count'];
+        $currentPage = Yii::app()->request->getPost('page');
+
+//        var_dump($sql);exit;
+        $this->renderPartial('ajaxLoad/viewAdvertisementData', array('data' => $result, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
+    }
+
+    public function actionEditAdvertisement() {
+        $adData = EmpAdvertisement::model()->findByPk($_POST['id']);
+        $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('adData' => $adData));
     }
 
     public function actionSaveAdvertisement() {

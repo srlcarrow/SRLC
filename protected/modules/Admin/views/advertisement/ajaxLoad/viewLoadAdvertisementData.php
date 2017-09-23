@@ -13,8 +13,6 @@
                 <h6 class="f-12 grey-text text-darken-1">Industry</h6>
                 <h5 class="f-14 grey-text text-darken-3">Lorem.</h5>
             </div>
-
-
         </div>
 
         <div class="row">

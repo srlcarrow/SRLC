@@ -10,7 +10,6 @@
 <link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_style.min.css" rel="stylesheet"
       type="text/css"/>
 
-
 <div class="ajaxLoadAdd"></div>
 <div class="row">
 

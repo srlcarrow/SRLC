@@ -16,11 +16,29 @@
                     You may get the email with verification link.
                     Once you verify your email you can Log in to the system
                 </p>
-                
-                <p class="f-18 text-black text-light-2">Still didn’t get email <a href="#" class="text-orange f-18 hover">Resend</a></p>
+
+                <p class="f-18 text-black text-light-2">Still didn’t get email <a href="javascript:resend()" class="text-orange f-18 hover">Resend</a></p>
+
             </div>
         </div>
 
     </div>
 
 </div>
+
+
+<script>
+
+    function resend() {
+        $.ajax({
+            type: 'GET',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/ResendPopup'; ?>",
+            success: function (res) {
+                Popup.loadNewLayout(res);
+                Popup.addClass('size-50');
+            }
+        });
+    }
+
+</script>
+>>>>>>> 4c17c39b32a5fb7fb7532bb3bf756838bf91d887

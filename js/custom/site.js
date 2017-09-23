@@ -48,21 +48,21 @@ var SelectedCategory = (function () {
 
 })();
 
-function hideTitle($isTitleHide) {
-    var $title = $('.main-title');
-    var searchSection = $('.search-section');
-
-    if ($isTitleHide) {
-        $title.addClass('hide-title');
-        $('.full-height').css('height', '');
-        searchSection.removeClass('full-height').addClass('is-search-fixed');
-        var $searchSectionHeight = searchSection.height();
-        $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
-        $(window).scrollTop(0);
-    } else {
-        $title.removeClass('hide-title');
-    }
-}
+// function hideTitle($isTitleHide) {
+//     var $title = $('.main-title');
+//     var searchSection = $('.search-section');
+//
+//     if ($isTitleHide) {
+//         $title.addClass('hide-title');
+//         $('.full-height').css('height', '');
+//         searchSection.removeClass('full-height').addClass('is-search-fixed');
+//         var $searchSectionHeight = searchSection.height();
+//         $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
+//         $(window).scrollTop(0);
+//     } else {
+//         $title.removeClass('hide-title');
+//     }
+// }
 
 
 //Job Search
@@ -77,7 +77,7 @@ var JobSearch = (function () {
         var $title = $('.main-title');
         var searchSection = $('.search-section');
 
-        hideTitle($isTitleHide);
+        //hideTitle($isTitleHide);
 
     };
 
@@ -128,42 +128,65 @@ function loadJobsByCategory() {
 (function () {
 
 
-    $(window).on('load resize', function () {
-        var pageHeight = $(window)[0].innerHeight;
-        $('.full-height').css('height', pageHeight + 'px')
-    });
+    // $(window).on('load resize', function () {
+    //     var pageHeight = $(window)[0].innerHeight;
+    //     $('.full-height').css('height', pageHeight + 'px')
+    // });
 
-    $('.navbar').removeClass('light-blue').css('backgroundColor','transparent');
+    $('.navbar').removeClass('light-blue').css('backgroundColor', 'transparent');
 })();
 
 
 (function () {
 
-    var controller = new ScrollMagic.Controller();
-
+    var controller = new ScrollMagic.Controller(
+        {
+            addIndicators: false
+        }
+    );
+    var progress = 1;
     var jobTitle = 'title';
 
+    //Get job title position in the top.
+    var $titleTopSpace = $('#searchWrapper').offset().top;
 
     var jobScene = new ScrollMagic.Scene({
-        triggerElement: '#' + jobTitle,
-        duration: '70%',
-        offset: 226,
+        triggerElement: '.search-section',
+        duration: '300%',
+        triggerHook: 0,
+        offset: $titleTopSpace,
     });
 
-    jobScene.setClassToggle('#' + jobTitle, 'active');
     jobScene.addTo(controller);
-    jobScene.reverse(false);
+    jobScene.setPin('.search-section', {pushFollowers: false});
 
-    jobScene.on('enter', function () {
-        $isTitleHide = true;
-        hideTitle($isTitleHide);
+    //S 2
+    var Scene = new ScrollMagic.Scene({
+        triggerElement: '#title',
+        duration: '30%',
+        triggerHook: 0.3,
     });
 
-    jobScene.on('leave', function () {
-
+    Scene.addTo(controller);
+    Scene.on('progress', function (e) {
+        var opt = 1 - (e.progress);
+        $('#title').css({'opacity': opt});
     });
 
-})();
+    Scene.on('start', function (e) {
+        if (e.scrollDirection == "REVERSE") {
+            $('.filters').css({'opacity': 0});
+        }
+    });
+
+    Scene.on('shift', function (e) {
+        $('.filters').animate({'opacity': 1}, 10);
+    });
+
+    $('#searchText').on('focus click', function () {
+        $("html, body").animate({scrollTop: $titleTopSpace + 5}, 10);
+    })
+})($);
 
 
 
