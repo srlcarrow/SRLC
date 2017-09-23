@@ -440,6 +440,9 @@ input[type="checkbox"] {
 .advertisement-block {
   padding-top: 68px; }
 
+.error-page {
+  margin-top: calc(25% - 50px); }
+
 .m-auto {
   margin: 0 auto; }
 
