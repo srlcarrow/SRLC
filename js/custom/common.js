@@ -18,6 +18,7 @@ var Popup = (function () {
     };
 
     function hide(callback) {
+        document.querySelector('body').style.overflow = "";
         var allClass = popupContainer.attr('class').split(' ');
 
         allClass.map(function (className) {
@@ -42,7 +43,7 @@ var Popup = (function () {
 
     $(document).on('keypress', function (e) {
         if (e.keyCode === 27) {
-            hide();
+            //hide();
         }
     });
 
@@ -52,7 +53,7 @@ var Popup = (function () {
         popupContainer.addClass('isShow');
 
         if (ajaxLoad !== undefined) {
-
+            document.querySelector('body').style.overflow = "hidden";
             popupContainer.find('.content')
                 .html('')
                 .html(ajaxLoad);
@@ -370,7 +371,8 @@ $.fn.SearchBox = function (opt) {
 
 function msg(_this, _msg, _typeClass, _opt) {
     var defOpt = {
-        delay: 3000
+        delay: 3000,
+        stay: false
     };
     var opt = $.extend(defOpt, _opt);
 
@@ -380,14 +382,17 @@ function msg(_this, _msg, _typeClass, _opt) {
         .html(_msg)
         .addClass(_typeClass)
         .slideDown('slow', function () {
-            setTimeout(function () {
+            if (!opt.stay) {
+                setTimeout(function () {
 
-                $this.fadeOut(500, function () {
-                    $this.html('')
-                        .removeClass(_typeClass);
-                })
+                    $this.fadeOut(500, function () {
+                        $this.html('')
+                            .removeClass(_typeClass);
+                    })
 
-            }, opt.delay)
+                }, opt.delay)
+            }
+
         });
 }
 
@@ -481,22 +486,48 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
 
 
 (function () {
-
+    var isShow = false;
     $('.profile-link').on('click', function (e) {
-
         var $this = $(this);
 
         if (!$this.hasClass('is-active')) {
             $this.addClass('is-active');
             $this.find('.drop-box').fadeIn('fast');
-        } else {
-            $this.find('.drop-box').fadeOut('fast');
-            $this.removeClass('is-active');
+
         }
-
     });
 
-    $('.drop-box').on('click', function (e) {
+    $(document).on('click', function (e) {
 
+        var $this = $(e.target);
+        var $profileLink = $('.profile-link');
+
+        if ($this.hasClass('is-active') ||
+            $this.parents('.profile-link').hasClass('is-active')) return;
+
+        $profileLink.find('.drop-box').fadeOut('fast');
+        $profileLink.removeClass('is-active');
     });
+})();
+
+var Animation = (function () {
+    var ele = null;
+    return {
+        load: function (_ele) {
+            ele = _ele !== undefined ? _ele : '.popup';
+            var html = '';
+            html += '<div class="animation-outer">';
+            html += '<img src="./images/system/loader/frontLoader.gif" alt="">';
+            html += '</div>';
+
+            $('.popup').css('overflow', 'hidden');
+            $(ele).append(html);
+        },
+        hide: function () {
+            if (ele) {
+                $('.popup').attr('style','');
+                $(ele).find('.animation-outer').remove();
+            }
+        }
+    }
 })();

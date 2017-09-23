@@ -1,0 +1,8 @@
+//Dot
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  @include border-radius(50%);
+  background: rgba($blue-dark, $opt-4);
+}

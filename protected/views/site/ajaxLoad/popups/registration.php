@@ -36,7 +36,7 @@
             <div class="col-md-12 ">
                 <div class="input-wrapper">
                     <input id="email" name="email" type="text" required>
-<!--                        <input id="email" name="email" type="text" onblur="validateEmail(this.value)" required>-->
+                    <!--                        <input id="email" name="email" type="text" onblur="validateEmail(this.value)" required>-->
                     <div class="float-text">Email</div>
                 </div>
 
@@ -88,9 +88,20 @@
         }
     });
 
+    function loadVerifyPage() {
+        $.ajax({
+            type: 'GET',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>",
+            success: function (res) {
+                Popup.loadNewLayout(res);
+                Popup.addClass('size-50');
+            }
+        });
+    }
+
     function userRegistration() {
 
-        $('.message').Info('Processing...', {stay: true});
+        loadVerifyPage();
 
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
@@ -105,7 +116,7 @@
             },
             success: function (responce) {
                 if (responce.code == 200) {
-                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');                    
+                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                 }
             }
         });
@@ -128,13 +139,13 @@
             }
             return true;
         }
+
         return true;
     }
 
     function isValidEmail(emailField) {
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(emailField) == false)
-        {
+        if (reg.test(emailField) == false) {
             return false;
         }
 

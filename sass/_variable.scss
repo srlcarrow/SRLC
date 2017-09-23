@@ -98,7 +98,7 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
           'r':'right'
   );
 
-  @for $i from 0 through 50 {
+  @for $i from 0 through 60 {
     @each $ctg in $class-margin-cag {
       .m#{$ctg}-#{$i} {
         margin-#{map-get($margin-map, $ctg)}: 0px + $i !important;
@@ -132,6 +132,10 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
 
   &.text-#{$className} {
     color: $color;
+  }
+
+  &.hover:hover {
+    color: rgba($color, 0.56);
   }
 
   &.text-#{$className} {

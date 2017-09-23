@@ -76,12 +76,12 @@ header {
       margin-left: 10px;
       border-width: 6px 6px 0;
       border-style: solid;
-      border-color: rgba($white,$opt-2) transparent transparent;
+      border-color: rgba($white, $opt-2) transparent transparent;
     }
 
     &.is-active {
       span.arrow-down {
-        border-color: rgba($white,1) transparent transparent;
+        border-color: rgba($white, 1) transparent transparent;
       }
     }
     .text-hi {
@@ -101,6 +101,11 @@ header {
       top: 35px;
       min-width: 120px;
       display: none;
+      @include box-shadow(0, 2px, 5px, 0px, rgba(0, 0, 0, 0.15));
+
+      h5 {
+        white-space: nowrap;
+      }
 
       .logout {
         color: $primary;
@@ -137,6 +142,155 @@ header {
   float: left;
   width: 100%;
   margin-top: 66px;
+}
+
+//Search Box
+.search-box {
+  background: $white;
+  min-height: 60px;
+  -webkit-box-shadow: 0 2px 2px rgba($black, 0.20);
+  -moz-box-shadow: 0 2px 2px rgba($black, 0.20);
+  box-shadow: 0 2px 2px rgba($black, 0.20);
+  @include border-radius(6px);
+
+  .job-drop-down {
+    position: relative;
+    padding: 15px 30px;
+    cursor: pointer;
+
+    .selected-item {
+      font-size: $font-large;
+      color: $blue-dark;
+      font-weight: $font-w-regular;
+
+      //Media
+      @include breakpoint($small) {
+        font-size: $font-small;
+      }
+    }
+
+    &::before {
+      position: absolute;
+      display: inline-block;
+      content: '';
+      width: 1px;
+      height: 100%;
+      background: $black;
+      top: 0;
+      right: 0;
+
+      //Media Query
+      @include breakpoint($small) {
+        display: none;
+      }
+    }
+
+  }
+
+  .job-input {
+    padding: 15px 30px;
+    position: relative;
+
+    input[type="text"] {
+      outline: none;
+      border: none;
+      width: calc(100% - 60px);
+      height: 30px;
+      left: 30px;
+      top: 15px;
+      color: $black;
+      font-size: $font-large;
+
+      //Media
+      @include breakpoint($small) {
+        font-size: $font-small;
+      }
+    }
+  }
+}
+
+//------------------------------------------------------------------
+//Search result style
+//------------------------------------------------------------------
+
+.total-jobs {
+  h4 {
+    color: $p-dark;
+    font-weight: 500;
+    span {
+      margin: 0 3px;
+    }
+  }
+}
+
+.job-list-wrap {
+
+  .job-list {
+
+    > li {
+
+      a {
+        color: rgba($blue-dark, $opt-3);
+        border-bottom: 1px solid $gray-light;
+        padding: 30px 24px 20px 24px;
+        @include float-block;
+        @include transition($animation-1);
+
+        &:hover {
+          background: #fafafa;
+          @include box-shadow(0px, 10px, 15px, 2px, rgba($black, 0.30));
+        }
+
+        h3 {
+          color: $blue-dark;
+          margin-bottom: 10px;
+          font-weight: $font-w-medium;
+        }
+
+        h6 {
+          color: rgba($blue-dark, $opt-3);
+          display: inline-block;
+          width: 100%;
+          font-weight: $font-w-light;
+
+          span {
+
+            vertical-align: middle;
+
+            &.time-left {
+              float: right;
+            }
+          }
+        }
+
+        ul.more-details-list {
+          margin-top: 10px;
+          @include float-block;
+
+          li {
+            display: inline-block;
+            font-size: $base-font-size;
+            min-width: 100px;
+
+            &:not(:last-child) {
+              margin-right: 15px;
+            }
+
+            @include breakpoint($small) {
+              @include float-block;
+              width: 45%;
+              -ms-text-overflow: ellipsis;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              margin-right: 5%;
+            }
+          }
+        }
+      }
+
+    }
+  }
 }
 
 //Search area
@@ -311,6 +465,13 @@ ul.more-details-list {
     }
   }
 
+  &.size-50 {
+    .popup {
+      width: 50%;
+      left: calc(50% - 25%);
+      padding: 30px 100px;
+    }
+  }
 }
 
 //-------------------------------------
@@ -509,5 +670,15 @@ input[type="radio"] {
       width: 10px;
       @include border-radius(0);
     }
+  }
+}
+
+//verify-icon-mail
+.verify-icon-mail {
+
+  .tick {
+    position: absolute;
+    right: -12px;
+    top: -12px;
   }
 }
