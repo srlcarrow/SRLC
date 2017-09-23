@@ -18,7 +18,7 @@ class DefaultController extends Controller {
         $model->password = $_POST['password'];
 
 
-        if ($model->login()) {
+        if ($model->login()) { 
             $url = '';
             $userId = Yii::app()->user->id;
             $userData = User::model()->findByAttributes(array('user_id' => $userId));
@@ -31,6 +31,7 @@ class DefaultController extends Controller {
                 }
                 $this->msgHandler(200, "Login Successfull!", array('url' => $url));
             }else{
+                Yii::app()->user->logout();
                 $this->msgHandler(400, "Please verify your email first!");
             }
         } else {
