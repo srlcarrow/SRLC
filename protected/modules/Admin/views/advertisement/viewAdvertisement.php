@@ -80,7 +80,7 @@
     function loadAdvertisementData() {
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/ViewAddAdvertisementData'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/ViewAdvertisementData'; ?>",
             data: '',
             success: function (responce) {
                 $(".ajaxLoad").html(responce);

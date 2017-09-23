@@ -54,7 +54,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <div class="row">
             <div class="col s12 m4">  
                 <div class="input-field">
-                    <input id="experience" name="experience" type="text" class="salary-input">
+                    <input id="experience" name="experience" type="text" class="salary-input" required>
                     <label>Expected Experience (Yrs)</label>
                 </div>
             </div>
@@ -68,7 +68,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 <div class="col m4">
                     <div class="input-field">
                         <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable"/>
-                        <label for="negotiable">Negotiable</label>
+                        <label for="isNegotiable">Negotiable</label>
                     </div>
                 </div>
                 <div class="col m4">
@@ -93,7 +93,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             <div class="col s12 m4">
                 <div class="input-field">
                     <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"/>
-                    <label for="designation">Use designation as title</label>
+                    <label for="isDesigAsTitle">Use designation as title</label>
                 </div>
             </div>
 
@@ -126,10 +126,13 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <div class="file-field input-field">
                         <div class="btn">
                             <span>Upload</span>
-                            <?php echo $form->fileField($model, 'image'); ?>    
+                            <?php
+                            echo CHtml::activeFileField($model, 'AdverImage');
+                            echo $form->error($model, 'AdverImage');
+                            ?>
                         </div>
                         <div class="file-path-wrapper">
-                            <input id="imagePath" name="imagePath" class="file-path validate" type="text">
+                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" required>
                         </div>
                     </div>
                 </div>
@@ -157,26 +160,23 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
 <!--Back End-->
 <script>
-    $("#formAddAdvertisement").validate({
-        submitHandler: function () {
-            saveAdvertisement();
-        }
-    });
-
-    function saveAdvertisement() {
+    $('#formAddAdvertisement').submit(function (e) {
         $.ajax({
-            type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/SaveAdvertisement'; ?>",
-            data: $('#formAddAdvertisement').serialize(),
+            type: 'POST',
+            data: new FormData(this),
             dataType: 'json',
+            processData: false,
+            contentType: false,
             success: function (responce) {
                 if (responce.code == 200) {
                     Message.success(responce.msg);
-                    $("#formAddAdvertisement")[0].reset();
+                    document.getElementById("formAddAdvertisement").reset();
                 }
             }
         });
-    }
+        e.preventDefault();
+    });
 
     $('#clearAddAdvertisement').click(function (e) {
         $("#formAddAdvertisement")[0].reset();
@@ -190,9 +190,6 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         })
     });
 </script>
-
-
-
 
 <script>
     $(document).ready(function () {
@@ -256,4 +253,5 @@ src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/froala_editor.pkgd
             heightMin: 380
         })
     });
+
 </script>
