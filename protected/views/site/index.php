@@ -20,9 +20,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                 <h3>Simply dummy text of the printing and typesetting industry</h3>
             </div>
 
-            <div class="col-sm-12 col-md-10 col-md-offset-1 search-area">
+            <div id="searchWrapper" class="col-sm-12 col-md-10 col-md-offset-1">
 
-                <div class="col-sm-12 search-box">
+                <div class="col-sm-12 search-area search-box">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 job-drop-down show-category">
                             <div class="selected-item">
@@ -88,20 +88,21 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 <!------------------------------------
 Search Result Section
 ------------------------------------->
-<div id="ajaxLoadAdvertisements">
+<div id="ajaxLoadAdvertisements" style="background: rgba(200,33,255,0.33);height: 800px">
 
 </div>
 
-<div id='loadingmessage'>
-    <img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/>
-</div>
+<!--<div id='loadingmessage'>-->
+<!--    <img src='--><?php //echo Yii::app()->baseUrl; ?><!--/images/system/loader/frontLoader.gif'/>-->
+<!--</div>-->
 
 <!--JS | Server js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
-<!--JS | Main js-->
-<script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
 <!--JS | Scroll js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+<!--JS | Main js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
 
 <script>
     $(document).ready(function (e) {

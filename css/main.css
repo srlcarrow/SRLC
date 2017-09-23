@@ -2204,6 +2204,12 @@ a.cm-btn {
     height: 10px; }
     .icon.icon-10.icon-cross {
       background: url("../images/system/icon/site/10/ic_10-cross.png"); }
+  .icon.icon-35 {
+    width: 35px;
+    height: 35px; }
+    .icon.icon-35.ic-resend {
+      height: 31px;
+      background: url("../images/system/icon/site/35/ic_35-re_send.png"); }
   .icon.icon-70 {
     width: 70px;
     height: 70px; }
@@ -2744,3 +2750,8 @@ input[type="radio"] + label {
   position: absolute;
   right: -12px;
   top: -12px; }
+
+.verify-icon-mail .ic-resend {
+  position: absolute;
+  right: -5px;
+  top: -27px; }

@@ -64,7 +64,15 @@
       background: url("../images/system/icon/site/10/ic_10-cross.png");
     }
   }
+  &.icon-35 {
+    width: 35px;
+    height: 35px;
 
+    &.ic-resend {
+      height: 31px;
+      background: url("../images/system/icon/site/35/ic_35-re_send.png");
+    }
+  }
   &.icon-70 {
     width: 70px;
     height: 70px;
