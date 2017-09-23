@@ -88,11 +88,20 @@
         }
     });
 
+    function loadVerifyPage() {
+        $.ajax({
+            type: 'GET',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>",
+            success: function (res) {
+                Popup.loadNewLayout(res);
+                Popup.addClass('size-50');
+            }
+        });
+    }
+
     function userRegistration() {
 
-        // $('.message').Info('Processing...', {stay: true});
-
-        Animation.load('.popup');
+        loadVerifyPage();
 
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
@@ -107,7 +116,6 @@
             },
             success: function (responce) {
                 if (responce.code == 200) {
-                    Animation.hide('.popup');
                     Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                 }
             }

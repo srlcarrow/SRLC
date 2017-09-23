@@ -34,8 +34,6 @@
 
     <!--JS | Jquery Lib-->
     <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
-    <!--JS | Scroll magic-->
-    <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
     <!--JS | Admin Validation-->
     <script src="<?php echo Yii::app()->baseUrl . '/js/validate/jquery.validate.js'; ?>"></script>
 

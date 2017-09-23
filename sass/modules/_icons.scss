@@ -1,6 +1,7 @@
 //Icon
 .icon {
   display: inline-block;
+  position: relative;
 
   &.v-middle {
     vertical-align: middle;
@@ -64,6 +65,17 @@
     }
   }
 
+  &.icon-70 {
+    width: 70px;
+    height: 70px;
+
+    &.icon-mail {
+      width: 69px;
+      height: 57px;
+      background: url("../images/system/icon/site/70/ic-70_mail.png") no-repeat;
+
+    }
+  }
   &.pointer {
     cursor: pointer;
   }

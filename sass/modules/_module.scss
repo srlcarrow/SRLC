@@ -1,6 +1,5 @@
 @import "variable";
 
-
 //Margin
 .m-auto {
   margin: 0 auto;
@@ -20,6 +19,18 @@
 
 //Text Orange
 @include text-color($primary, orange);
+
+.f-18 {
+  font-size: 18px !important;
+}
+
+.ps-relative {
+  position: relative;
+}
+
+.ps-absolute {
+  position: absolute;
+}
 
 //Font Weight
 .f-light {
@@ -243,6 +254,23 @@
       display: block;
     }
 
+  }
+
+}
+
+//Tick
+.tick {
+  display: inline-block;
+  vertical-align: middle;
+  @include border-radius(50%);
+
+  &.s-28 {
+    width: 28px;
+    height: 28px;
+  }
+
+  &.green {
+    background: rgba($p-light, 1) url("../images/system/icon/site/16/ic_16-tick.png") no-repeat center center;
   }
 
 }

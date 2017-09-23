@@ -465,6 +465,13 @@ ul.more-details-list {
     }
   }
 
+  &.size-50 {
+    .popup {
+      width: 50%;
+      left: calc(50% - 25%);
+      padding: 30px 100px;
+    }
+  }
 }
 
 //-------------------------------------
@@ -663,5 +670,15 @@ input[type="radio"] {
       width: 10px;
       @include border-radius(0);
     }
+  }
+}
+
+//verify-icon-mail
+.verify-icon-mail {
+
+  .tick {
+    position: absolute;
+    right: -12px;
+    top: -12px;
   }
 }

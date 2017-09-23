@@ -18,6 +18,7 @@ var Popup = (function () {
     };
 
     function hide(callback) {
+        document.querySelector('body').style.overflow = "";
         var allClass = popupContainer.attr('class').split(' ');
 
         allClass.map(function (className) {
@@ -42,7 +43,7 @@ var Popup = (function () {
 
     $(document).on('keypress', function (e) {
         if (e.keyCode === 27) {
-            hide();
+            //hide();
         }
     });
 
@@ -52,7 +53,7 @@ var Popup = (function () {
         popupContainer.addClass('isShow');
 
         if (ajaxLoad !== undefined) {
-
+            document.querySelector('body').style.overflow = "hidden";
             popupContainer.find('.content')
                 .html('')
                 .html(ajaxLoad);
