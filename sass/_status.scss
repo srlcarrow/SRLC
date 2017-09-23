@@ -343,9 +343,7 @@ header {
 
 .filters {
   margin-top: 15px;
-  height: 0;
   opacity: 0;
-  overflow: hidden;
   @include transition($animation-1);
 
   .subCategory {

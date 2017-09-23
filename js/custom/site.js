@@ -77,7 +77,7 @@ var JobSearch = (function () {
         var $title = $('.main-title');
         var searchSection = $('.search-section');
 
-        hideTitle($isTitleHide);
+        //hideTitle($isTitleHide);
 
     };
 
@@ -128,10 +128,10 @@ function loadJobsByCategory() {
 (function () {
 
 
-    $(window).on('load resize', function () {
-        var pageHeight = $(window)[0].innerHeight;
-        $('.full-height').css('height', pageHeight + 'px')
-    });
+    // $(window).on('load resize', function () {
+    //     var pageHeight = $(window)[0].innerHeight;
+    //     $('.full-height').css('height', pageHeight + 'px')
+    // });
 
     $('.navbar').removeClass('light-blue').css('backgroundColor', 'transparent');
 })();
@@ -139,7 +139,11 @@ function loadJobsByCategory() {
 
 (function () {
 
-    var controller = new ScrollMagic.Controller({addIndicators: true});
+    var controller = new ScrollMagic.Controller(
+        {
+            addIndicators: false
+        }
+    );
     var progress = 1;
     var jobTitle = 'title';
 
@@ -150,44 +154,38 @@ function loadJobsByCategory() {
         triggerElement: '.search-section',
         duration: '300%',
         triggerHook: 0,
-        offset: 0,
+        offset: $titleTopSpace,
     });
-
-    // var searchScene = new ScrollMagic.Scene({
-    //     triggerElement: '.search-section',
-    //     duration: '300%',
-    //     triggerHook: 0,
-    //     offset: 0,
-    // });
 
     jobScene.addTo(controller);
-    // jobScene.setPin('.search-section', {pushFollowers: false})
+    jobScene.setPin('.search-section', {pushFollowers: false});
 
+    //S 2
+    var Scene = new ScrollMagic.Scene({
+        triggerElement: '#title',
+        duration: '30%',
+        triggerHook: 0.3,
+    });
 
-    jobScene.on("progress", function (e) {
-        console.log(e.scrollDirection)
-        if (e.scrollDirection === "FORWARD") {
-            if(progress > 0.0 ) {
-                progress = Math.abs(progress - 0.0255);
-                console.log(progress)
-            }
+    Scene.addTo(controller);
+    Scene.on('progress', function (e) {
+        var opt = 1 - (e.progress);
+        $('#title').css({'opacity': opt});
+    });
 
-        } else {
-            //progress = progress + 0.008;
+    Scene.on('start', function (e) {
+        if (e.scrollDirection == "REVERSE") {
+            $('.filters').css({'opacity': 0});
         }
-        $('#title').css('opacity', progress)
-    });
-    jobScene.on("start", function (event) {
-        console.log("Hit start point of scene.");
-    });
-    jobScene.on('enter', function () {
-
     });
 
-    jobScene.on('leave', function () {
-
+    Scene.on('shift', function (e) {
+        $('.filters').animate({'opacity': 1}, 10);
     });
 
+    $('#searchText').on('focus click', function () {
+        $("html, body").animate({scrollTop: $titleTopSpace + 5}, 10);
+    })
 })($);
 
 

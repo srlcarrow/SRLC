@@ -349,10 +349,10 @@ input[type="checkbox"] {
 
 .main-title {
   margin-top: 230px;
-  -moz-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
-  -o-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
-  -webkit-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
-  transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
+  -moz-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
+  -o-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
+  -webkit-transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
+  transition: all 0.5s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   opacity: 1; }
   @media (max-width: 767px) {
     .main-title {
@@ -2557,9 +2557,7 @@ header {
 
 .filters {
   margin-top: 15px;
-  height: 0;
   opacity: 0;
-  overflow: hidden;
   -moz-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   -o-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
   -webkit-transition: all 0.8s cubic-bezier(0.01, 0.87, 0.29, 0.97);
