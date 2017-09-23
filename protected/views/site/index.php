@@ -88,13 +88,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 <!------------------------------------
 Search Result Section
 ------------------------------------->
-<div id="ajaxLoadAdvertisements" style="background: rgba(200,33,255,0.33);height: 800px">
+<div id="ajaxLoadAdvertisements">
 
 </div>
 
-<!--<div id='loadingmessage'>-->
-<!--    <img src='--><?php //echo Yii::app()->baseUrl; ?><!--/images/system/loader/frontLoader.gif'/>-->
-<!--</div>-->
+<div id='loadingmessage'>
+    <img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/>
+</div>
 
 <!--JS | Server js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
