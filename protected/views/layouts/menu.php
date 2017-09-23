@@ -18,11 +18,10 @@
                 <?php
             } else {
 
-                $logUserId = Yii::app()->user->id;                
+                $logUserId = Yii::app()->user->id;
                 $logUserDetails = User::model()->findByAttributes(array('user_id' => $logUserId));
                 
-                if($logUserDetails->user_is_verified==1){
-                    if ($logUserDetails->user_type == 1) {
+                if ($logUserDetails->user_type == 1) {
                     $JsBasic = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $logUserDetails->ref_emp_or_js_id));
 
                     if (count($JsBasic) > 0) {
@@ -40,13 +39,7 @@
                         $email = $EmpEmployers->employer_email;
                         ?> <li class="profile-link"><a href="<?php echo Yii::app()->request->baseUrl . '/Employer/ProfileDetails'; ?>">My Account</a></li><?php
                     }
-                }else{
-                    ?>
-                <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
-                <li class="register-link"><a class="cm-btn btn-registration" href="">Register</a></li>
-                <?php
-                }
-                ?>                
+                    ?>                
 
                 <li class="profile-link">
                     <a class="" href="#">
