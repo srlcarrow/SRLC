@@ -10,6 +10,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
 
+
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
 <section class="main-block search-section gradient full-height">
     <div class="container">
