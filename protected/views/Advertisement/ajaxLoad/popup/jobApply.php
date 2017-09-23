@@ -37,10 +37,10 @@ $model = new EmpAdvertisement();
                                     <div class="text-nowrap pr-20"><h5>Upload CV</h5></div>
                                 </div>
                                 <div class="d-table-cell width-100">
-<!--                                    <div class="file-uploader width-100">-->
-<!--                                        <div class="button width-100 text-center">Brows...</div>-->
-<!--                                        <input type="file">-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="file-uploader width-100">-->
+                                    <!--                                        <div class="button width-100 text-center">Brows...</div>-->
+                                    <!--                                        <input type="file">-->
+                                    <!--                                    </div>-->
                                     <div class="file-uploader width-100">
                                         <div class="button width-100 text-center">Brows...</div>
                                         <?php

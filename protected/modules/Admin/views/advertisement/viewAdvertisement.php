@@ -10,7 +10,6 @@
 <link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_style.min.css" rel="stylesheet"
       type="text/css"/>
 
-
 <div class="ajaxLoadAdd"></div>
 <div class="row">
 
@@ -80,7 +79,7 @@
     function loadAdvertisementData() {
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/ViewAddAdvertisementData'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/ViewAdvertisementData'; ?>",
             data: '',
             success: function (responce) {
                 $(".ajaxLoad").html(responce);

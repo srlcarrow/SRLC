@@ -13,6 +13,9 @@ $employerAddress = count($employerData) > 0 ? $employerData->employer_address : 
 
 $workType = AdmWorkType::model()->findByPk($adData->ref_work_type_id);
 $workType = count($workType) > 0 ? $workType->wt_name : 'Not Mentioned';
+
+$jobPostUrl = $adData->ad_is_image == 1 ? $adData->ad_image_url : "";
+$jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
 ?>
 <div class="nav-bar-space"></div>
 
@@ -22,20 +25,40 @@ $workType = count($workType) > 0 ? $workType->wt_name : 'Not Mentioned';
 
             <div class="col-sm-12 col-md-10 col-md-offset-1">
                 <div class="row">
-                    <div class="col-md-12 mb-25">
-                        <img src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $companyLogo; ?>" alt="">
-                    </div>
+                    <?php
+                    if ($adData->ad_is_image == 0) {
+                        ?>
+                        <div class="col-md-12 mb-25">
+                            <img src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $companyLogo; ?>" alt="">
+                        </div>
+                        <?php
+                    }
+                    ?>
 
                     <div class="col-sm-12 col-md-8">
                         <div class="row">
-                            <div class="col-md-12">
-                                <h2 class="text-dark-blue mb-25"><?php echo $adData->ad_title; ?></h2>
+                            <!-- Image -->
+                            <?php
+                            if ($adData->ad_is_image == 1) {
+                                ?>
+                                <div class="col-md-12">                                                           
+                                    <img class="img-responsive" src="<?php echo Yii::app()->baseUrl . "/" . $jobPostUrl; ?>" alt=""/>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if ($adData->ad_is_image == 0) {
+                                ?>
+                                <!-- text -->
+                                <div class="col-md-12">
+                                    <h2 class="text-dark-blue mb-25"><?php echo $adData->ad_title; ?></h2>
 
-                                <p class="text-dark-blue">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                    since the 1500s, when an unknown printer took a galley of type and scrambled it to
-                                    make a type</p>
-                            </div>
+                                    <?php echo $jobPostText; ?>
+                                </div>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
 

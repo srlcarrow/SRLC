@@ -18,20 +18,24 @@ class DefaultController extends Controller {
         $model->password = $_POST['password'];
 
 
-        if ($model->login()) {
+        if ($model->login()) {  
             $url = '';
             $userId = Yii::app()->user->id;
-            $userType = User::model()->findByAttributes(array('user_id' => $userId))->user_type;
+            $userData = User::model()->findByAttributes(array('user_id' => $userId));
 
-            if ($userType == 1) {
-                $url = 'User/Profile';
-            }elseif ($userType == 2) {
-                $url = 'Employer/ProfileDetails';
+            if ($userData->user_is_verified == 1) {
+                if ($userData->user_type == 1) {
+                    $url = 'User/Profile';
+                } elseif ($userData == 2) {
+                    $url = 'Employer/ProfileDetails';
+                }
+                $this->msgHandler(200, "Login Successfull!", array('url' => $url));
+            }else{
+                Yii::app()->user->logout();
+                $this->msgHandler(400, "Please verify your email first!");
             }
-
-            $this->msgHandler(200, "Login Successfull...", array('url' => $url));
         } else {
-            $this->msgHandler(400, "Error In Login Details...");
+            $this->msgHandler(400, "Incorrect Username or Password!");
         }
     }
 

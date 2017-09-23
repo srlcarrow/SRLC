@@ -71,8 +71,8 @@
             success: function (responce) {
                 if (responce.code == 200) {
                     window.location = http_path + responce.data.url;
-                } else {
-                    $('.message').Error('Username or Password is incorrect!');
+                } else { 
+                    $('.message').Error(responce.msg);
                 }
             }
         });
