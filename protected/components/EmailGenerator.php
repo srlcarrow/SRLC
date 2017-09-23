@@ -94,7 +94,7 @@ class EmailGenerator {
             '[name]' => $basicTemp->jsbt_fname,
             '[user_name]' => $basicTemp->jsbt_email,
             '[user_password]' => $pwd,
-        );
+        );        
         $new_msg = self::str_replace_assoc($replacearrBody, $msg);
 
         $replacearrFull = array(

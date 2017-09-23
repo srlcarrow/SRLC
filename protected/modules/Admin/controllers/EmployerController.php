@@ -19,6 +19,10 @@ class EmployerController extends Controller {
         $this->renderPartial('ajaxLoad/addEmployer');
     }
 
+    public function actionLogoUploadPopup() {
+        $this->renderPartial('ajaxLoad/logoUpload');
+    }
+
     public function actionSaveEmployer() {
         try {
             $model = new EmpEmployers();

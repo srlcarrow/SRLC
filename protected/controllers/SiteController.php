@@ -66,6 +66,14 @@ class SiteController extends Controller {
         $this->renderPartial('ajaxLoad/popups/registration');
     }
 
+    public function actionVerifyPopup() {
+        $this->renderPartial('ajaxLoad/popups/verify');
+    }
+
+    public function actionResendPopup() {
+        $this->renderPartial('ajaxLoad/popups/resend');
+    }
+
     public function actionSignInPopup() {
         if (yii::app()->user->isGuest) {
             $this->layout = 'login_layout';

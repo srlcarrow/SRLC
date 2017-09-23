@@ -10,6 +10,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
 
+
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmSearch')); ?>
 <section class="main-block search-section gradient full-height">
     <div class="container">
@@ -20,9 +21,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                 <h3>Simply dummy text of the printing and typesetting industry</h3>
             </div>
 
-            <div class="col-sm-12 col-md-10 col-md-offset-1 search-area">
+            <div id="searchWrapper" class="col-sm-12 col-md-10 col-md-offset-1">
 
-                <div class="col-sm-12 search-box">
+                <div class="col-sm-12 search-area search-box">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 job-drop-down show-category">
                             <div class="selected-item">
@@ -98,10 +99,11 @@ Search Result Section
 
 <!--JS | Server js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
-<!--JS | Main js-->
-<script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
 <!--JS | Scroll js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/scrollmagic/minified/ScrollMagic.min.js'; ?>"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+<!--JS | Main js-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
 
 <script>
     $(document).ready(function (e) {

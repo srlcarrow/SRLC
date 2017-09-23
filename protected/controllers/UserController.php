@@ -18,7 +18,9 @@ class UserController extends Controller {
             $model = new JsBasic();  
             $employment = new JsEmploymentData();  
         }       
+
         $this->render('profile',array('model' => $model, 'employment' => $employment));  
+
     }
 
     public function actionPersonalInfo() {

@@ -36,7 +36,7 @@
             <div class="col-md-12 ">
                 <div class="input-wrapper">
                     <input id="email" name="email" type="text" required>
-<!--                        <input id="email" name="email" type="text" onblur="validateEmail(this.value)" required>-->
+                    <!--                        <input id="email" name="email" type="text" onblur="validateEmail(this.value)" required>-->
                     <div class="float-text">Email</div>
                 </div>
 
@@ -46,6 +46,11 @@
                 </div>
 
                 <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="cm-message message"></div>
+                    </div>
+
                     <div class="col-md-12 mt-20">
                         <button id="Register" type="submit"
                                 class="cm-btn large text-uppercase light-blue right">Register
@@ -83,7 +88,21 @@
         }
     });
 
+    function loadVerifyPage() {
+        $.ajax({
+            type: 'GET',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>",
+            success: function (res) {
+                Popup.loadNewLayout(res);
+                Popup.addClass('size-50');
+            }
+        });
+    }
+
     function userRegistration() {
+
+        loadVerifyPage();
+
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
             type: 'POST',
@@ -98,13 +117,10 @@
             success: function (responce) {
                 if (responce.code == 200) {
                     Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
-                    //$("#formRegister").reset();
                 }
-
             }
         });
     }
-
 
     function validateEmail(emailField) {
         if (isValidEmail(emailField) == false) {
@@ -123,13 +139,13 @@
             }
             return true;
         }
+
         return true;
     }
 
     function isValidEmail(emailField) {
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(emailField) == false)
-        {
+        if (reg.test(emailField) == false) {
             return false;
         }
 

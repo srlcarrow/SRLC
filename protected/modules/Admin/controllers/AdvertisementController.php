@@ -17,10 +17,7 @@ class AdvertisementController extends Controller {
 
     public function actionSaveAdvertisement() {
         try {
-            $model=new EmpAdvertisement();
-            var_dump($model);exit;
-            var_dump(CUploadedFile::getInstance($model,'image'));exit;
-            exit;
+            $model=new EmpAdvertisement();;
             $model = new EmpAdvertisement();
             $model->ref_district_id = $_POST['ref_district_id'];
             $model->ref_city_id = $_POST['ref_city_id'];

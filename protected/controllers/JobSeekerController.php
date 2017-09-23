@@ -4,10 +4,12 @@ class JobSeekerController extends Controller {
 
     public function actionViewRegistration($id) {
         try {
-            $key = Controller::decodeMailAction($id);
-            $jsTempId = $key[2];
-            $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
-            if ($id == $jsBasicTempData->jsbt_encrypted_id) {
+            $key = $id;
+//            $key = Controller::decodeMailAction($id);
+//            $jsTempId = $key[2];
+            $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
+            if (count($jsBasicTempData) > 0) {
+                $id = Controller::encodePrimaryKeys($jsBasicTempData->jsbt_id);
                 $this->render('jobSeekerRegistration', array('accessId' => $id));
             } else {
                 echo "Invalid URL";
@@ -186,16 +188,16 @@ class JobSeekerController extends Controller {
             } else {
                 $model = new JsEmploymentData();
             }
-       
+
             $model->ref_js_id = $jsId;
             $model->ref_industry_id = $_POST['ind_id'];
             $model->ref_category_id = $_POST['cat_id'];
             $model->ref_sub_category_id = $_POST['subCategories'];
             $model->ref_designation_id = $_POST['designations'];
-            $model->jsemp_expected_ref_industry_id = $_POST['ind_id'];
-            $model->jsemp_expected_ref_category_id = $_POST['cat_id'];
-            $model->jsemp_expected_sub_category_id = $_POST['subCategories'];
-            $model->jsemp_expected_designation_id = $_POST['designations'];
+            $model->jsemp_expected_ref_industry_id = isset($_POST['ind_id']) == true ? $_POST['ind_id'] : 0;
+            $model->jsemp_expected_ref_category_id = isset($_POST['cat_id']) == true ? $_POST['cat_id'] : 0;
+            $model->jsemp_expected_sub_category_id = isset($_POST['subCategories']) == true ? $_POST['subCategories'] : 0;
+            $model->jsemp_expected_designation_id = isset($_POST['designations']) == true ? $_POST['designations'] : 0;
             $model->jsemp_expected_salary = 0;
             $model->jsemp_no_of_experience_years = 0;
             $model->jsemp_no_of_experience_months = 0;

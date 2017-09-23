@@ -1,4 +1,5 @@
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddEmployer')); ?>
+
 <div class="row">
     <div class="col s12 company-form">
         <div class="card ">
@@ -14,17 +15,11 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 mt-30">
+                            <div class="col s12 center-align mt-30">
 
-                                <div class="file-field input-field">
-                                    <div class="btn">
-                                        <span>Upload Logo</span>
-                                        <input type="file">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text">
-                                    </div>
-                                </div>
+                                <button type="button" class="btn waves-effect waves-light blue lighten-1 btnUpload">
+                                    Upload
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -140,4 +135,20 @@
     $(document).ready(function () {
         $('select').material_select();
     });
+
+    $('.btnUpload').on('click', function () {
+        $('#modal1').modal('open', {
+            ready: function (modal, trigger) {
+                $.ajax({
+                    type: 'GET',
+                    url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LogoUploadPopup'; ?>",
+                    success: function (responce) {
+                        $(modal).html(responce);
+                    }
+                });
+            }
+        });
+    });
+
+
 </script>

@@ -72,7 +72,8 @@ $animation-1: all 0.8s cubic-bezier(.01, .87, .29, .97);
 $animation-2: all 0.5s cubic-bezier(.01, .87, .29, .97);
 $animation-popup: all 0.4s cubic-bezier(.64, .1, .27, 1.44);
 $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
-;
+$animation-ease-in-out: all 0.2s ease-in-out;
+
 //$animation-popup: all 0.8s cubic-bezier(.83,.07,.1,1.4);
 
 //---------------------------------------------------
@@ -98,7 +99,7 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
           'r':'right'
   );
 
-  @for $i from 0 through 50 {
+  @for $i from 0 through 60 {
     @each $ctg in $class-margin-cag {
       .m#{$ctg}-#{$i} {
         margin-#{map-get($margin-map, $ctg)}: 0px + $i !important;
@@ -132,6 +133,10 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
 
   &.text-#{$className} {
     color: $color;
+  }
+
+  &.hover:hover {
+    color: rgba($color, 0.56);
   }
 
   &.text-#{$className} {

@@ -1,0 +1,24 @@
+.cm-message {
+  float: left;
+  font-size: $base-font-size;
+  font-weight: $font-w-regular;
+  color: $white;
+  padding: 8px 20px;
+  width: 100%;
+  margin: 5px 0;
+  @include border-radius(2px);
+  display: none;
+
+  &.info {
+    background: $info;
+  }
+
+  &.error {
+    background: $error;
+  }
+
+  &.success {
+    background: $success;
+  }
+
+}

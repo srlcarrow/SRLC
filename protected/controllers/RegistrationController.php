@@ -15,7 +15,7 @@ class RegistrationController extends Controller {
             $model->jsbt_encrypted_id = '';
             if ($model->save(false)) {
                 $jsId = $model->jsbt_id;
-                $model->jsbt_encrypted_id = Controller::encodeMailAction($jsId);
+                $model->jsbt_encrypted_id = md5($jsId);
                 $model->save(false);
 
                 $jsBasicTemp = JsBasicTemp::model()->findByPk($jsId);

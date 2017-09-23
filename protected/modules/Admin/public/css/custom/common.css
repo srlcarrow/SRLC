@@ -12,6 +12,9 @@
 /*=======================
     Margin
 =========================*/
+.m-auto {
+    margin: 0 auto !important;
+}
 
 /*Margin Top and bottom*/
 .mtb-0 {
@@ -537,11 +540,21 @@
     2.Typography
 ==================================*/
 
-
-
 /*================================
     3.Icon
 ==================================*/
 .material-icons {
     cursor: pointer;
+}
+
+/*================================
+    4. Menu
+==================================*/
+
+.nav-yellow {
+    background: #FCB51D;
+}
+
+.blue.lighten-1 {
+    background: #445a64 !important;
 }

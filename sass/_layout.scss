@@ -7,7 +7,7 @@
 
 .main-title {
   margin-top: 230px;
-  @include transition($animation-1);
+  @include transition($animation-2);
   opacity: 1;
 
   @include breakpoint($small) {
