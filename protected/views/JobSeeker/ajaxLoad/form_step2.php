@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-md-6">
-            <div class="selector dark">
+            <div class="selector dark subCategories-select">
                 <div class="selected-option">
                     <span>Sub Category</span>
                 </div>
@@ -55,7 +55,7 @@
     <div class="row mb-15">
 
         <div class="col-md-6">
-            <div class="selector dark">
+            <div class="selector dark designations-select">
                 <div class="selected-option">
                     <span>Current Job title</span>
                 </div>
@@ -109,7 +109,7 @@
                     }
 
                     setTimeout(function () {
-                        Select.init();
+                        Select.init(".subCategories-select");
                     }, 200);
 
                     loadDesignations();
@@ -140,7 +140,7 @@
                     }
 
                     setTimeout(function () {
-                        Select.init();
+                        Select.init(".designations-select");
                     }, 200);
                 }
             }
