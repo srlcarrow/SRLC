@@ -94,10 +94,6 @@ class SiteController extends Controller {
         $this->render('advertisement');
     }
 
-    public function actionCreateAdvertisement() {
-        $this->render('createAdd');
-    }
-
     /**
      * This is the action to handle external exceptions.
      */
