@@ -8,7 +8,8 @@ class AdvertisementController extends Controller {
 
     public function actionViewAddAdvertisement() {
         $model = new EmpAdvertisement();
-        $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('model' => $model));
+        $adId = 0;
+        $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('model' => $model, 'adId' => $adId));
     }
 
     public function actionViewAdvertisementData() {
@@ -17,21 +18,20 @@ class AdvertisementController extends Controller {
                 ->from('emp_advertisement ad')
                 ->getText();
 
-        $limit = 10;
-//        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
-        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', 1, $limit);
+        $limit = 15;
+        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
 
         $result = $data['result'];
         $pageCount = $data['count'];
         $currentPage = Yii::app()->request->getPost('page');
 
-//        var_dump($sql);exit;
         $this->renderPartial('ajaxLoad/viewAdvertisementData', array('data' => $result, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
     }
 
     public function actionEditAdvertisement() {
-        $adData = EmpAdvertisement::model()->findByPk($_POST['id']);
-        $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('adData' => $adData));
+        $model = EmpAdvertisement::model()->findByPk($_POST['id']);
+        $adId = $model->ad_id;
+        $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('model' => $model, 'adId' => $adId));
     }
 
     public function actionSaveAdvertisement() {
@@ -44,20 +44,23 @@ class AdvertisementController extends Controller {
 
             if ($status == 1) {
                 $model = new EmpAdvertisement();
+                if ($_POST['adId'] > 0) {
+                    $model = EmpAdvertisement::model()->findByPk($_POST['adId']);
+                }
                 $model->ad_reference = 0;
                 $model->ref_employer_id = 2;
-                $model->ref_district_id = $_POST['ref_district_id'];
-                $model->ref_city_id = $_POST['ref_city_id'];
+                $model->ref_district_id = $_POST['district_id'];
+                $model->ref_city_id = $_POST['city'];
                 $model->ref_industry_id = $_POST['ref_industry_id'];
                 $model->ref_cat_id = $_POST['ref_cat_id'];
-                $model->ref_subcat_id = $_POST['ref_subcat_id'];
-                $model->ref_designation_id = $_POST['ref_designation_id'];
+                $model->ref_subcat_id = $_POST['subCategories'];
+                $model->ref_designation_id = $_POST['designations'];
                 $model->ad_expected_experience = $_POST['experience'];
                 $model->ad_salary = $_POST['salary'];
-                $model->ad_is_negotiable = 0;
+                $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
                 $model->ref_work_type_id = $_POST['ref_work_type_id'];
                 $model->ad_title = $_POST['title'];
-                $model->ad_is_use_desig_as_title = 0;
+                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
                 $model->ad_image_url = "";

@@ -21,15 +21,14 @@
                                 <h6 class="grey-text text-darken-1"><?php echo $value->ad_is_use_desig_as_title == 1 ? $designation->desig_name : $value->ad_title; ?></h6>
                             </div>
                             <div class="col s4">
-                                <h6 class="grey-text text-darken-1">Lorem ipsum.</h6>
+                                <h6 class="grey-text text-darken-1"><?php echo $value->ad_expire_date ?></h6>
                             </div>
                         </div>
                     </div>
                     <div class="col s1 mt-5">
                         <button id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)">Edit</button>
-    <!--                        <i id="<?php // echo $value->ad_id;   ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
-                    </div>
-                    <div class="ajaxLoadAdData"></div>
+    <!--                        <i id="<?php // echo $value->ad_id;            ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
+                    </div>                   
                 </div>
             </div>
 
@@ -38,11 +37,20 @@
         ?>
     </div>
 </div>
+<!--<ul class="pagination right">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+</ul>-->
 
 <div class="col-xs-12 col-md-10 col-md-offset-1">
     <div class="site-pagination">
         <?php
-        Paginations::setLimit(10);
+        Paginations::setLimit(2);
         Paginations::setPage($currentPage);
         Paginations::setJSCallback("loadAdvertisementData");
         Paginations::setTotalPages($pageCount);
@@ -52,6 +60,7 @@
     </div>
 </div>
 
+
 <script>
     function edit(id) {
         $.ajax({
@@ -59,8 +68,26 @@
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/EditAdvertisement'; ?>",
             data: {id: id},
             success: function (responce) {
-                $(".ajaxLoadAdData").html(responce);
+                $('.addNew,.search-area,.details-cards').slideUp('fast', function () {
+                    $(".ajaxLoadAdd").html(responce);
+                    $('.company-form').slideDown('slow');
+
+                })
             }
         });
     }
+    
+    //Order edit
+    $('.btn-editAndSave').on('click', function () {
+        var $this = $(this);
+        var input = $this.prev('input');
+        if (input.is(':disabled')) {
+            input.prop('disabled', false);
+            $this.find('i').html('save');
+        } else {
+            input.prop('disabled', true);
+            $this.find('i').html('edit');
+        }
+    });
+
 </script>

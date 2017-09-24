@@ -23,64 +23,67 @@
 
     </div>
 </div>
-
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'searchAdvertisement'));
+?>
 <div class="row search-area">
     <div class="col s12">
         <div class="card-panel">
             <div class="search-input-wrp grey lighten-3">
                 <div class="search-input">
                     <i class="material-icons search-icon blue-text text-lighten-3">search</i>
-                    <input class="input-search" type="text" placeholder="Search">
+                    <input id="searchText" name="searchAddText" class="input-search" type="text" placeholder="Search" onkeyup="loadAdvertisementData(1)">
                 </div>
                 <div class="search-action">
-                    <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange">Search</button>
+
+                    <button type="button" class="border-r-0 btn waves-effect waves-light btn-search deep-orange" onclick="loadAdvertisementData(1)">Search</button>
                 </div>
                 <div class="search-action">
-                    <button class="waves-effect waves-teal btn-flat btnAdvance">Advance</button>
+                    <span class="waves-effect waves-teal btn-flat btnAdvance" >Advance</span>
+
                 </div>
             </div>
 
             <div class="row hide-block more-panel">
                 <div class="col s4">
                     <div class="input-field">
-                        <input type="text">
-                        <label>Label</label>
+                        <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category')); ?>                 
+                        <label>Category</label>
                     </div>
                 </div>
                 <div class="col s4">
-                    <div class="input-field">
-                        <input type="text">
-                        <label>Label</label>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="input-field">
-                        <input type="text">
-                        <label>Label</label>
+                    <div class="input-field">                   
+                        <?php
+                        $Status = Controller::getActiveFilter();
+                        echo Chtml::label('Active Filter', "", array('class' => 'control-label'));
+                        ?>    
+                        <?php echo Chtml::dropdownlist('Status', '', $Status, array('empty' => 'Select Status')); ?>
+                        <label>Status</label>
                     </div>
                 </div>
 
                 <!--Action Area-->
                 <div class="col s12 right-align">
                     <button type="button" class=" btn waves-effect waves-light btnAdvance red">Close</button>
-                    <button type="button" class=" btn waves-effect waves-light deep-orange">Search</button>
+                    <button type="button" class=" btn waves-effect waves-light deep-orange" onclick="loadAdvertisementData(1)">Search</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<?php $this->endWidget(); ?>
 <div class="ajaxLoad"></div>
 
 <script>
     $(document).ready(function (e) {
-        loadAdvertisementData();
+        loadAdvertisementData(1);
     });
 
-    function loadAdvertisementData() {
+    function loadAdvertisementData(page) {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/ViewAdvertisementData'; ?>",
-            data: '',
+            data: $('#searchAdvertisement').serialize() + "&page=" + page,
             success: function (responce) {
                 $(".ajaxLoad").html(responce);
             }
@@ -133,18 +136,7 @@
         });
     });
 
-    //Order edit
-    $('.btn-editAndSave').on('click', function () {
-        var $this = $(this);
-        var input = $this.prev('input');
-        if (input.is(':disabled')) {
-            input.prop('disabled', false);
-            $this.find('i').html('save');
-        } else {
-            input.prop('disabled', true);
-            $this.find('i').html('edit');
-        }
-    });
+
 
     $(document).ready(function () {
         $('select').material_select();

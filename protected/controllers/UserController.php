@@ -7,7 +7,7 @@ class UserController extends Controller {
 
     public function actionProfile() {
         $userId = Yii::app()->user->id;
-        $user = User::model()->findByAttributes(array('user_id' => $userId));
+        $user = User::model()->findByPk($userId);  
         $userType = $user->user_type; 
         
         if($userType==1){

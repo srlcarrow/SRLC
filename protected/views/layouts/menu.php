@@ -32,8 +32,8 @@
                         } else {
                             Yii::app()->user->logout();
                         }
-                    } else {
-                        $EmpEmployers = EmpEmployers::model()->findByAttributes(array('ref_ind_id' => $logUserDetails->ref_emp_or_js_id));
+                    } else { 
+                        $EmpEmployers = EmpEmployers::model()->findByAttributes(array('ref_jsbt_id' => $logUserDetails->ref_emp_or_js_id));
                         $firstName = substr($EmpEmployers->employer_name, 0, 10);
                         $fullName = $EmpEmployers->employer_name;
                         $email = $EmpEmployers->employer_email;

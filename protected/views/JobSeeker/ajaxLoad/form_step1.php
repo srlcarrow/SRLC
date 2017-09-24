@@ -29,7 +29,9 @@
     <div class="row mb-15">
 
         <div class="col-md-6">
+
             <h6 class="text-black text-light-2 f-12 mb-2">Total No of years experience</h6>
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-wrapper mb-0">
