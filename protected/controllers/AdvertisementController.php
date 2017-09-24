@@ -45,7 +45,7 @@ class AdvertisementController extends Controller {
         }
         exit;
     }
-
-}
+    
+  }
 ?>
 
