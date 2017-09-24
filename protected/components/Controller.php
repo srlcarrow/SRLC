@@ -31,7 +31,13 @@ class Controller extends CController {
             echo json_encode(array("code" => $code, "msg" => $msg, "data" => $data));
         }
     }
-
+    
+    public static function getRefEmpOrJsId($id) {
+        $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id; 
+        return $refEEmpOrJsId; 
+    }
+    
+    
     public static function getEmployeeReferenceNo($id) {
         $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);
         return $reference;
