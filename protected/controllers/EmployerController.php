@@ -88,9 +88,17 @@ class EmployerController extends Controller {
     }
 
     public function actionPackage() {
-        $this->renderPartial('ajaxLoad/package');
+        $packages = AdmPackage::model()->findAll();
+        $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
     }
-
+    
+    public function actionViewPurchasedPackages() { 
+        $userId = Yii::app()->user->id;
+        $purchaseedpackages = EmpPurchasePackage::model()->findAllByAttributes(array('ref_user_id' => $userId));
+        
+        $this->renderPartial('ajaxLoad/viewPurchasePackages', array('purchaseedpackages' => $purchaseedpackages));
+    }
+    
     public function actionPackageEdit() {
         $this->renderPartial('ajaxLoad/package_form');
     }
@@ -130,23 +138,51 @@ class EmployerController extends Controller {
         $oldPassword = $_POST['oldPassword'];
         $newPassword = $_POST['newPassword'];
         $rePassword = $_POST['rePassword'];
-       
+
         $oldPasswordEncryp = md5(md5('SRLC' . $oldPassword . $oldPassword));
         $newPasswordEncryp = md5(md5('SRLC' . $newPassword . $newPassword));
-        
+
         $userId = Yii::app()->user->id;
         $userData = User::model()->findByPk($userId);
-        
+
         try {
             if ($oldPasswordEncryp != $userData->user_password) {
                 $this->msgHandler(400, "Old Password is inccorect!");
-            }elseif ($newPassword != $rePassword) {
+            } elseif ($newPassword != $rePassword) {
                 $this->msgHandler(400, "New Passwords are not matching!");
             } else {
                 $userData->user_password = $newPasswordEncryp;
                 if ($userData->save(false)) {
-                     $this->msgHandler(200, "Your password has been changed!"); 
+                    $this->msgHandler(200, "Your password has been changed!");
                 }
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function actionPurchasePackage() {
+
+        try {
+            $userId = Yii::app()->user->id;
+            $packageId = $_POST['id'];
+            $packageData = AdmPackage::model()->findByPk($packageId);
+            $effectiveDate = date('Y-m-d H:i:s');
+            $expireDate = date('Y-m-d', strtotime("+" . floor($packageData->pack_validity_period) . " months", strtotime($effectiveDate)));
+
+            $model = new EmpPurchasePackage();
+            $model->ref_user_id = $userId;
+            $model->ref_pack_id = $packageId;
+            $model->epp_pack_name = $packageData->pack_name;
+            $model->epp_pack_amount = $packageData->pack_amount;
+            $model->epp_pack_num_of_ads = $packageData->pack_num_of_ads;
+            $model->epp_pack_is_unlimited = $packageData->pack_is_unlimited;
+            $model->epp_pack_validity_period = $packageData->pack_validity_period;
+            $model->epp_effective_date = $effectiveDate;
+            $model->epp_expire_date = $expireDate;
+
+            if ($model->save(false)) {
+                $this->msgHandler(200, "Successfully Saved!");
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
