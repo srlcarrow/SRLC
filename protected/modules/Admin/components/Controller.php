@@ -88,6 +88,7 @@ class Controller extends CController {
         return $reference;
     }
 
+// Advertisement Search
     public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
         $sqlLimit = '';
         if ($limit == NULL) {
@@ -137,8 +138,8 @@ class Controller extends CController {
 
     public static function searchWhereCriterias() {
         $str = "ad.ad_id !=0 ";
-        if (!empty($_REQUEST['catId']) && $_REQUEST['catId'] != 'undefined' && $_REQUEST['catId'] != 0) {
-            $str .= " AND ad.ref_cat_id = " . $_REQUEST['catId'];
+        if (!empty($_REQUEST['ref_cat_id']) && $_REQUEST['ref_cat_id'] != 'undefined' && $_REQUEST['ref_cat_id'] != 0) {
+            $str .= " AND ad.ref_cat_id = " . $_REQUEST['ref_cat_id'];
         }
         if (!empty($_REQUEST['subCatId']) && $_REQUEST['subCatId'] != 'undefined' && $_REQUEST['subCatId'] != 0) {
             $str .= " AND ad.ref_subcat_id = " . $_REQUEST['subCatId'];
@@ -152,7 +153,86 @@ class Controller extends CController {
         if (!empty($_REQUEST['wt_id']) && $_REQUEST['wt_id'] != 'undefined' && $_REQUEST['wt_id'] != 0) {
             $str .= " AND ad.ref_work_type_id =" . $_REQUEST['wt_id'] . " ";
         }
+        if (!empty($_REQUEST['Status']) && $_REQUEST['Status'] != 'undefined') {
+            $currentDate = date('Y-m-d');
+            if ($_REQUEST['Status'] == "expired") {
+                $str .= " AND ad.ad_expire_date < '" . $currentDate . "' ";
+            } else {
+                $str .= " AND ad.ad_expire_date >= '" . $currentDate . "' ";
+            }
+        }
+        if (!empty($_REQUEST['searchAddText']) && $_REQUEST['searchAddText'] != 'undefined') {
+            $str .= " AND  ( ad.ad_reference Like '%" . $_REQUEST['searchAddText'] . "%' OR emp.employer_name Like '%" . $_REQUEST['searchAddText'] . "%' OR ad.ad_title Like '%" . $_REQUEST['searchAddText'] . "%')";
+        }
+
         return $str;
+    }
+
+// Advertisement Search
+//    Employer Search
+    public static function createSearchCriteriaForEmployer($query, $joinUsing, $page, $limit = NULL) {
+        $sqlLimit = '';
+        if ($limit == NULL) {
+            $limit = 10;
+            $offset = ($page - 1) * $limit;
+            $sqlLimit = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } elseif ($limit > 0 && $limit != NULL) {
+            $limit = $limit;
+            $offset = ($page - 1) * $limit;
+            $sqlLimit = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        }
+
+        $askedQuery = explode("WHERE", $query, 2);
+        $askedJoin = explode("LEFT JOIN", $query, 2);
+        $requestedJoin = '';
+
+        $join = Controller::searchEmployerJoinCriterias();
+        $where = Controller::searchEmployerWhereCriterias();
+
+        $askedWhere = '';
+        if (count($askedQuery) > 1) {
+            $askedWhere = $askedQuery[1] == NULL ? '' : ' AND ' . $askedQuery[1];
+        }
+
+        $returnQuery = $askedQuery[0] . $join . ' WHERE ' . $where . $askedWhere . ' ' . $sqlLimit;
+        $returnQueryCount = $askedQuery[0] . $join . ' WHERE ' . $where . $askedWhere . ' ';
+        $result = yii::app()->db->createCommand($returnQuery)->setFetchMode(PDO::FETCH_OBJ)->queryAll();
+        $count = count(yii::app()->db->createCommand($returnQueryCount)->setFetchMode(PDO::FETCH_OBJ)->queryAll());
+
+        return array('result' => $result, 'count' => $count);
+    }
+
+    public static function searchEmployerJoinCriterias() {
+        $joinCriteria = Yii::app()->db->createCommand()
+                ->leftJoin('adm_district dis', 'emp.ref_district_id=dis.district_id')
+                ->leftJoin('adm_city acity', 'emp.ref_city_id=acity.city_id')
+                ->getText();
+
+        $joinCriteria = explode("SELECT *", $joinCriteria, 2);
+        return $joinCriteria[1];
+    }
+
+    public static function searchEmployerWhereCriterias() {
+        $str = "emp.employer_id !=0 ";
+
+        if (!empty($_REQUEST['searchEmployerText']) && $_REQUEST['searchEmployerText'] != 'undefined') {
+            $str .= " AND  ( emp.employer_name Like '%" . $_REQUEST['searchEmployerText'] . "%' OR emp.employer_tel Like '%" . $_REQUEST['searchEmployerText'] . "%' OR emp.employer_mobi Like '%" . $_REQUEST['searchEmployerText'] . "%')";
+        }
+
+        return $str;
+    }
+
+//    Employer Search
+
+
+
+
+
+
+
+
+    public function getActiveFilter() {
+        return array('active' => 'Active', 'expired' => 'expired');
     }
 
 }

@@ -91,14 +91,14 @@ class EmployerController extends Controller {
         $packages = AdmPackage::model()->findAll();
         $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
     }
-    
-    public function actionViewPurchasedPackages() { 
+
+    public function actionViewPurchasedPackages() {
         $userId = Yii::app()->user->id;
         $purchaseedpackages = EmpPurchasePackage::model()->findAllByAttributes(array('ref_user_id' => $userId));
-        
+
         $this->renderPartial('ajaxLoad/viewPurchasePackages', array('purchaseedpackages' => $purchaseedpackages));
     }
-    
+
     public function actionPackageEdit() {
         $this->renderPartial('ajaxLoad/package_form');
     }
@@ -149,10 +149,12 @@ class EmployerController extends Controller {
             if ($oldPasswordEncryp != $userData->user_password) {
                 $this->msgHandler(400, "Old Password is inccorect!");
             } elseif ($newPassword != $rePassword) {
+
                 $this->msgHandler(400, "New Passwords are not matching!");
             } else {
                 $userData->user_password = $newPasswordEncryp;
                 if ($userData->save(false)) {
+
                     $this->msgHandler(200, "Your password has been changed!");
                 }
             }

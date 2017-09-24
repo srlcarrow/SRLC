@@ -27,7 +27,7 @@
                     </div>
                     <div class="col s1 mt-5">
                         <button id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)">Edit</button>
-    <!--                        <i id="<?php // echo $value->ad_id;         ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
+    <!--                        <i id="<?php // echo $value->ad_id;            ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
                     </div>                   
                 </div>
             </div>
@@ -37,11 +37,20 @@
         ?>
     </div>
 </div>
+<!--<ul class="pagination right">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+</ul>-->
 
 <div class="col-xs-12 col-md-10 col-md-offset-1">
     <div class="site-pagination">
         <?php
-        Paginations::setLimit(10);
+        Paginations::setLimit(2);
         Paginations::setPage($currentPage);
         Paginations::setJSCallback("loadAdvertisementData");
         Paginations::setTotalPages($pageCount);
@@ -50,6 +59,7 @@
         ?>
     </div>
 </div>
+
 
 <script>
     function edit(id) {
@@ -66,4 +76,18 @@
             }
         });
     }
+    
+    //Order edit
+    $('.btn-editAndSave').on('click', function () {
+        var $this = $(this);
+        var input = $this.prev('input');
+        if (input.is(':disabled')) {
+            input.prop('disabled', false);
+            $this.find('i').html('save');
+        } else {
+            input.prop('disabled', true);
+            $this.find('i').html('edit');
+        }
+    });
+
 </script>

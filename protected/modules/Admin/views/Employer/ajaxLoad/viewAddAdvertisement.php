@@ -9,7 +9,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
     <div class="card-content">
         <h5 class="grey-text text-darken-1">Add Advertisement</h5>
         <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>" >
-        
+        <input type="hidden" id="empId" name="empId" value="<?php echo $empId; ?>" >
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
@@ -194,7 +194,7 @@ if ($adId > 0) {
 
     $('#formAddAdvertisement').submit(function (e) {
         $.ajax({
-            url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/SaveAdvertisement'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/SaveAdvertisement'; ?>",
             type: 'POST',
             data: new FormData(this),
             dataType: 'json',
@@ -312,7 +312,7 @@ if ($adId > 0) {
     });
 
     $('#closeAddAdvertisement').click(function (e) {
-        window.location.href = '<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/Index'; ?>';
+        window.location.href = '<?php echo Yii::app()->baseUrl . '/Admin/Employer/ViewEmployer'; ?>';
     });
 </script>
 

@@ -18,9 +18,8 @@ class AdvertisementController extends Controller {
                 ->from('emp_advertisement ad')
                 ->getText();
 
-        $limit = 10;
-//        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
-        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', 1, $limit);
+        $limit = 15;
+        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
 
         $result = $data['result'];
         $pageCount = $data['count'];
