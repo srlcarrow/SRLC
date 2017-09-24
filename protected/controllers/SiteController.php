@@ -32,6 +32,9 @@ class SiteController extends Controller {
     public function actionCandidate() {
         $this->render('candidate');
     }
+    public function actionEmployer() {
+        $this->render('employer');
+    }
     public function actionCategoryPopup() {
         $categories = AdmCategory::model()->findAll(array('order' => 'cat_order'));
         $this->renderPartial('ajaxLoad/popups/category', array('categories' => $categories));

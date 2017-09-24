@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <img src="<?php echo Yii::app()->baseUrl ?>/images/system/other/candidate/add.png" alt="">
+                    <img src="<?php echo Yii::app()->baseUrl ?>/images/system/other/employer/img-1.png" alt="">
                 </div>
 
             </div>
@@ -27,7 +27,7 @@
             <div class="row">
 
                 <div class="col-md-5">
-                    <img src="<?php echo Yii::app()->baseUrl ?>/images/system/other/candidate/profile.png" alt="">
+                    <img src="<?php echo Yii::app()->baseUrl ?>/images/system/other/employer/img-2.png" alt="">
                 </div>
 
                 <div class="col-md-7">
@@ -55,33 +55,6 @@
                 <div class="col-md-12 pt-60 pb-60"></div>
             </div>
 
-            <div class="row">
-
-                <div class="col-md-8">
-
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2 class="f-30 text-black">Right jobs come to you</h2>
-
-                            <p class=" mt-30 text-light-2 text-black">Lorem Ipsum is simply dummy text of the printing
-                                and typesetting industry.
-                                Lorem Ipsum has been the industry's standard Lorem Ipsum is simply
-                                dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                the industry's standard</p>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <img src="<?php echo Yii::app()->baseUrl ?>/images/system/other/candidate/mail.png" alt="">
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 pt-60 pb-20"></div>
-            </div>
 
             <div class="row">
 
@@ -95,38 +68,38 @@
 
                 <div class="col-md-12 mt-50">
                     <div class="row circle-wrapper">
-                        <div class="col-md-10 line-wrp">
+                        <div class="col-md-9 line-wrp">
                             <div class="line"></div>
                         </div>
                         <div class="col-md-2">
                             <div class="circle">
                                 1
                             </div>
-                            <h5 class="w-60">Register as a Employer</h5>
+                            <h5 class="w-80">Register as a Employer</h5>
                         </div>
                         <div class="col-md-2">
                             <div class="circle">
                                 2
                             </div>
-                            <h5 class="w-60">Verify Email Account</h5>
+                            <h5 class="w-80">Verify Email Account</h5>
                         </div>
                         <div class="col-md-2">
                             <div class="circle">
                                 3
                             </div>
-                            <h5 class="w-60">Create Profile</h5>
+                            <h5 class="w-80">Create Profile</h5>
                         </div>
                         <div class="col-md-2">
                             <div class="circle">
                                 4
                             </div>
-                            <h5 class="w-60">Purchace a package</h5>
+                            <h5 class="w-80">Purchase a package</h5>
                         </div>
                         <div class="col-md-2">
                             <div class="circle">
                                 4
                             </div>
-                            <h5 class="w-60">Purchace a package</h5>
+                            <h5 class="w-80">Publish Advertisement</h5>
                         </div>
                     </div>
                 </div>
