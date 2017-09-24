@@ -37,16 +37,11 @@ class Controller extends CController {
         return $refEEmpOrJsId; 
     }
     
-    
     public static function getEmployeeReferenceNo($id) {
         $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);
         return $reference;
     }
 
-    public static function getEmployeeReferenceNo($id) {
-        $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);
-        return $reference;
-    }
 
     public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
         $sqlLimit = '';
