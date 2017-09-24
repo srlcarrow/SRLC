@@ -53,6 +53,14 @@ foreach ($employers as $employer) {
 
 
 <script>
+    function loadTab() {
+        $('.company-cards').each(function () {
+            $(this).find('ul.tabs').tabs();
+        });
+    }
+
+
+
     $(function () {
         $('.btn_expand').on('click', function () {
             var $this = $(this);
@@ -68,7 +76,8 @@ foreach ($employers as $employer) {
             }
         });
     });
-
+    
+    
     function loadEmployerData(id) {
         $.ajax({
             type: 'POST',
