@@ -118,7 +118,7 @@ $animation-ease-in-out: all 0.2s ease-in-out;
           'r':'right'
   );
 
-  @for $i from 0 through 50 {
+  @for $i from 0 through 60 {
     @each $ctg in $class-margin-cag {
       .p#{$ctg}-#{$i} {
         padding-#{map-get($margin-map, $ctg)}: 0px + $i !important;
