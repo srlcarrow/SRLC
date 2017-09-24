@@ -19,7 +19,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             <div class="col s12 m4">
                 <div class="input-field">
                     <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>           
-                    <ul class="option-list"></ul>
+                    <!--<ul class="option-list"></ul>-->
                     <select id="city" name="city" class="city"></select>
                     <label>City</label>
                 </div>
@@ -73,7 +73,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 </div>
                 <div class="col m4">
                     <div class="input-field">
-                        <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable"/>
+                        <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable" checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
                         <label for="isNegotiable">Negotiable</label>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <div class="col s12 m4">
                 <div class="input-field">
-                    <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"/>
+                    <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
                     <label for="isDesigAsTitle">Use designation as title</label>
                 </div>
             </div>
@@ -141,10 +141,19 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                             echo $form->error($model, 'AdverImage');
                             ?>
                         </div>
+
                         <div class="file-path-wrapper">
-                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" required>
+                            <?php
+                            if ($adId > 0) {
+                                $image = end(split('/', $model->ad_image_url));
+                            } else {
+                                $image = $model->ad_image_url;
+                            }
+                            ?>
+                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" value="<?php echo $image; ?>" required>
                         </div>
                     </div>
+                    <a href="<?php echo Yii::app()->baseUrl . '/' . $model->ad_image_url; ?>">Download Advertisement</a>                 
                 </div>
             </div>
 
@@ -157,11 +166,11 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         </div>
     </div>
     <div class="card-action right-align">
-        <button type="button"
+        <button id="closeAddAdvertisement" type="button" onclick="close()"
                 class=" btn_close btn waves-effect waves-light red lighten-1">Close
         </button>
         <button id="clearAddAdvertisement" type="button" class=" btn waves-effect waves-light red lighten-1">Clear</button>
-        <button id="" type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+        <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
     </div>
 </div>
 <?php $this->endWidget(); ?>
@@ -170,7 +179,16 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 <!--Back End-->
 <script>
     $(document).ready(function () {
-        alert($("#district_id").val());
+<?php
+if ($adId > 0) {
+    ?>
+            loadCities();
+            loadSubCategories('<?php echo $model->ref_subcat_id; ?>');
+
+    <?php
+}
+?>
+
     });
 
     $('#formAddAdvertisement').submit(function (e) {
@@ -213,6 +231,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
                     setTimeout(function () {
                         $('select').material_select();
+                        $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                     }, 200);
 
                     loadDesignations();
@@ -244,6 +263,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
                     setTimeout(function () {
                         $('select').material_select();
+                        $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
                     }, 200);
                 }
             }
@@ -271,6 +291,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
                     setTimeout(function () {
                         $('select').material_select();
+                        $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
                     }, 200)
                 }
             }
@@ -287,6 +308,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             $('.search-area,.company-cards').slideDown('slow');
             loadEmployerData();
         })
+    });
+
+   $('#closeAddAdvertisement').click(function (e) {
+        window.location.href = '<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/Index'; ?>'; 
     });
 </script>
 

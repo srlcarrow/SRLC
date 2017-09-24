@@ -21,13 +21,13 @@
                                 <h6 class="grey-text text-darken-1"><?php echo $value->ad_is_use_desig_as_title == 1 ? $designation->desig_name : $value->ad_title; ?></h6>
                             </div>
                             <div class="col s4">
-                                <h6 class="grey-text text-darken-1">Lorem ipsum.</h6>
+                                <h6 class="grey-text text-darken-1"><?php echo $value->ad_expire_date ?></h6>
                             </div>
                         </div>
                     </div>
                     <div class="col s1 mt-5">
                         <button id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)">Edit</button>
-    <!--                        <i id="<?php // echo $value->ad_id;       ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
+    <!--                        <i id="<?php // echo $value->ad_id;         ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
                     </div>                   
                 </div>
             </div>
