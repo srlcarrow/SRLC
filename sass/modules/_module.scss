@@ -20,6 +20,10 @@
 //Text Orange
 @include text-color($primary, orange);
 
+.f-10 {
+  font-size: 10px !important;
+}
+
 .f-18 {
   font-size: 18px !important;
 }

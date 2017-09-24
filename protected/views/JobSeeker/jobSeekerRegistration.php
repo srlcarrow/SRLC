@@ -1,3 +1,13 @@
+<?php
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/plugins/datepicker/datepicker.min.css', 'screen');
+//--------------------------------------------
+//Javascript
+//--------------------------------------------
+Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/datepicker/datepicker.min.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/datepicker/i18n/datepicker.en.js', CClientScript::POS_HEAD);
+?>
+
+
 <section class="main-block jobSeeker-block">
     <div class="container">
         <div class="row mb-30">
