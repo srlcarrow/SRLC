@@ -53,6 +53,14 @@ foreach ($employers as $employer) {
 
 
 <script>
+    function loadTab() {
+        $('.company-cards').each(function () {
+            $(this).find('ul.tabs').tabs();
+        });
+    }
+
+
+
     $(function () {
         $('.btn_expand').on('click', function () {
             var $this = $(this);
@@ -68,9 +76,10 @@ foreach ($employers as $employer) {
              }
         });
     });
-
+    
+    
     function loadEmployerData(id) {
-        alert(id);
+        //alert(id);
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LoadEmployerData'; ?>",
