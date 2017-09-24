@@ -81,13 +81,23 @@
         submitHandler: function () {
 
             var emailAdd = $("#email").val();
-            var stat = validateEmail(emailAdd);
+            var stat = isValidEmail(emailAdd);
 
-            if (stat == true) {
-                userRegistration();
+            if (stat) {
+                checkEmail(emailAdd, function (valid) {
+                    console.log('is Valid ', valid)
+                    if (!valid) {
+                        userRegistration();
+                    } else {
+                        $('.message').Error('This email already taken');
+                    }
+                });
+            } else {
+                $('.message').Error('Invalid Email Address');
             }
         }
     });
+
     function loadVerifyPage() {
         $.ajax({
             type: 'GET',
@@ -99,9 +109,9 @@
         });
     }
 
-    function userRegistration() { 
+    function userRegistration() {
 
-        Animation.load();   
+        Animation.load();
 
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
@@ -115,8 +125,8 @@
                 }
             },
             success: function (responce) {
-                if (responce.code == 200) {   
-                    Animation.load(); 
+                if (responce.code == 200) {
+                    Animation.hide();
                     loadVerifyPage();
 //                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                 }
@@ -124,40 +134,28 @@
         });
     }
 
-    function validateEmail(emailField) {
-        if (isValidEmail(emailField) == false) {
-            alert('Invalid Email Address');
-            return false;
-        }
-
-        if (isExistingEmail(emailField) == false) {
-            alert('Existing Email');
-            return false;
-        }
-        return true;
-    }
-
-    function isValidEmail(emailField) {
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(emailField) == false) {
-            return false;
-        }
-
-        return true;
-    }
-
-    function isExistingEmail(emailField) {
+    function checkEmail(emailField, callback) {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
             data: {email: emailField},
             dataType: 'json',
             success: function (responce) {
-                if (responce.code == 200 && responce.data.isExistingEmail == 1) {
-                    return false;
+                //console.log(emailField, ' -- ', responce)
+                if (responce.code == 200) {
+                    callback(responce.data.isExistingEmail);
                 }
             }
         });
     }
+
+    function isValidEmail(emailField) {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (!reg.test(emailField)) {
+            return false;
+        }
+        return true;
+    }
+
 </script>
 
