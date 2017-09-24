@@ -18,19 +18,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 //Include Editor JS files.
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/editor/xml.min.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/editor/froala_editor.pkgd.min.js', CClientScript::POS_HEAD);
+
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/plugins/datepicker/datepicker.min.css', 'screen');
+//--------------------------------------------
+//Javascript
+//--------------------------------------------
+Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/datepicker/datepicker.min.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/datepicker/i18n/datepicker.en.js', CClientScript::POS_HEAD);
+
 ?>
 
 
 <div class="nav-bar-space"></div>
 
 
-<section class="main-block top-space-block">  
+<section class="main-block top-space-block">
     <?php
     $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         'stateful' => true,
         'htmlOptions' => array(
             'enctype' => 'multipart/form-data',
-    )));
+        )));
     ?>
     <div class="container">
         <div class="row mb-30">
@@ -75,7 +83,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>Industry</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>           
+                                            <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -84,7 +92,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>Job Category</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>           
+                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -117,13 +125,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>Type</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>           
+                                            <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-wrapper">
-                                            <input id="experience" name="experience" type="text" class="salary-input" value="<?php echo $model->ad_expected_experience ?>" required>
-                                            <div class="float-text">Expected Experience (Yrs)</div>                                            
+                                            <input id="experience" name="experience" type="text" class="salary-input"
+                                                   value="<?php echo $model->ad_expected_experience ?>" required>
+                                            <div class="float-text">Expected Experience (Yrs)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -131,23 +140,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 <div class="row mb-15">
                                     <div class="col-md-6">
                                         <div class="input-wrapper">
-                                            <input id="salary" name="salary" type="text" class="salary-input" value="<?php echo $model->ad_salary; ?>" required>
-                                            <div class="float-text">Salary</div>                                      
+                                            <input id="salary" name="salary" type="text" class="salary-input"
+                                                   value="<?php echo $model->ad_salary; ?>" required>
+                                            <div class="float-text">Salary</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
-                                            <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable" checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
-                                            <label for="isNegotiable">Negotiable</label>                                                              
+                                            <input id="isNegotiable" name="isNegotiable" class="filled-in"
+                                                   type="checkbox" id="negotiable"
+                                                   checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
+                                            <label for="isNegotiable">Negotiable</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-15">
                                     <div class="col-md-6">
-                                        <div class="input-wrapper">                                     
-                                            <input id="title" name="title" type="text" class="designation"  value="<?php echo $model->ad_title; ?>" required>
-                                            <div class="float-text">Advertisement title</div> 
+                                        <div class="input-wrapper">
+                                            <input id="title" name="title" type="text" class="designation"
+                                                   value="<?php echo $model->ad_title; ?>" required>
+                                            <div class="float-text">Advertisement title</div>
                                         </div>
                                     </div>
                                     <!--                                    <div class="col-md-6">
@@ -161,9 +174,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
                                 <div class="row mb-15">
                                     <div class="col-md-6">
-                                        <div class="input-wrapper">                                     
-                                            <input id="expireDate" name="expireDate" type="text" class="datepicker" value="<?php echo $model->ad_expire_date; ?>" required>
-                                            <div class="float-text">Expire Date</div> 
+                                        <div class="input-wrapper">
+                                            <input id="expireDate" name="expireDate" type="text" class="datePicker"
+                                                   value="<?php echo $model->ad_expire_date; ?>" required>
+                                            <div class="float-text">Expire Date</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -222,24 +236,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                         echo $form->error($model, 'AdverImage');
                                                         ?>
                                                     </div>
-                                                    <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">File size Should
-                                                        be less than 2 MB and JPG/PNG fomat . Image width should not be than
+                                                    <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">File size
+                                                        Should
+                                                        be less than 2 MB and JPG/PNG fomat . Image width should not be
+                                                        than
                                                         950 pixels.</p>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 hide-block text-editor-area">
-                                            <textarea name="advertisementText" id="advertisementText" cols="30" rows="10"></textarea>
+                                            <textarea name="advertisementText" id="advertisementText" cols="30"
+                                                      rows="10"></textarea>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12  mt-10">
-                                    <div class="message cm-message"></div> 
+                                    <div class="message cm-message"></div>
                                 </div>
                                 <div class="col-md-12 mt-20">
-                                    <button type="submit"  
+                                    <button type="submit"
                                             class="cm-btn large text-uppercase light-blue right">Save
                                     </button>
                                 </div>
@@ -256,18 +273,18 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 </section>
 
 
-
 <script>
 
+    var nowDate = new Date();
+    var expDate = nowDate.setDate(nowDate.getDate() + 14);
 
-//    $('.datepicker').pickadate({
-//        selectMonths: true,
-//        selectYears: 15,
-//        today: 'Today',
-//        clear: 'Clear',
-//        close: 'Ok',
-//        closeOnSelect: false
-//    });
+    $('.datePicker').datepicker({
+        language: 'en',
+        minDate: new Date(),
+        maxDate: new Date(expDate),
+        autoClose: true
+    });
+
 
     $(document).ready(function () {
         Select.init();
@@ -289,10 +306,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                 if (responce.code == 200) {
                     $('.message').Success(responce.msg);
                     document.getElementById("formAddAdvertisement").reset();
-                     setTimeout(function () {
+                    setTimeout(function () {
                         window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
                     }, 800)
-                    
+
                 } else {
                     $('.message').Error(responce.msg);
                 }
@@ -341,10 +358,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     var subCats = responce.data.subCategoryData;
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
-                                $("<option>" + subCats[i]['scat_name'] + "</option>")
+                            $("<option>" + subCats[i]['scat_name'] + "</option>")
                                 .attr("value", subCats[i]['scat_id'])
                                 .text(subCats[i]['scat_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {
@@ -373,10 +390,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     var designations = responce.data.designationData;
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
-                                $("<option>" + designations[i]['desig_name'] + "</option>")
+                            $("<option>" + designations[i]['desig_name'] + "</option>")
                                 .attr("value", designations[i]['desig_id'])
                                 .text(designations[i]['desig_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {
@@ -401,10 +418,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     var cities = responce.data.cityData;
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                                $("<option>" + cities[i]['city_name'] + "</option>")
+                            $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {
