@@ -35,10 +35,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'search'));
                     <input class="input-search" type="text" placeholder="Search">
                 </div>
                 <div class="search-action">
-                    <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange" button="button">Search</button>
+                    <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange" button="submit">Search</button>
                 </div>
                 <div class="search-action">
-                    <button  button="button" class="waves-effect waves-teal btn-flat btnAdvance" >Advance</button>
+                    <span  class="waves-effect waves-teal btn-flat btnAdvance" >Advanced</span>
                 </div>
             </div>
 
