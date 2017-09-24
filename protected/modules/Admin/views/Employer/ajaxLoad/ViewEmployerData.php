@@ -65,7 +65,7 @@ foreach ($employers as $employer) {
             } else {
                 $this.removeClass('expand').html('expand_more');
                 card.find('.expand-card-content').slideUp('fast');
-            }
+             }
         });
     });
 

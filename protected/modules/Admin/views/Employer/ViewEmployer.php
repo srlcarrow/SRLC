@@ -1,20 +1,27 @@
-<div id="ajaxLoadAdd"></div>
-<?php
-$form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
-?>
-<div class="row search-area ">
+<div class="row">
     <div class="col s12">
         <button class="cm-btn add right addNewCompany" type="button" onclick="addEmployer()">
             <i class="material-icons left">&#xE148;</i>Add New
         </button>
     </div>
+</div>
+
+<div id="ajaxLoadAdd"></div>
+
+
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
+?>
+<div class="row search-area ">
+
 
     <div class="col s12">
         <div class="card-panel">
             <div class="search-input-wrp grey lighten-3">
                 <div class="search-input">
                     <i class="material-icons search-icon blue-text text-lighten-3">search</i>
-                    <input name="searchEmployerText" class="input-search" type="text" placeholder="Search" onkeyup="viewEmployerData(1)">
+                    <input name="searchEmployerText" class="input-search" type="text" placeholder="Search"
+                           onkeyup="viewEmployerData(1)">
                 </div>
                 <div class="search-action">
                     <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange">Search</button>
@@ -79,9 +86,8 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
             data: '',
             success: function (responce) {
                 $('.search-area,.company-cards').slideUp('fast', function () {
-                    $("#ajaxLoadAdd").html(responce);
+                    $("#ajaxLoadAdd").html(responce).slideDown('fast');
                     $('.company-form').slideDown('slow');
-
                 })
             }
         });
