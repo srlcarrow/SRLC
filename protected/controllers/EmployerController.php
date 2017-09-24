@@ -53,8 +53,9 @@ class EmployerController extends Controller {
                         if ($empEmployers->save(false)) {
                             $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
                             $user->ref_emp_or_js_id = $empEmployers->employer_id;
+                            $user->user_is_verified = 1;
                             $user->save(false);
-                            
+
                             $jsBasicTempData->jsbt_is_finished = 1;
                             $jsBasicTempData->save(false);
                         }
