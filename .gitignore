@@ -12,3 +12,5 @@ nbproject
 Thumbs.db
 /demos/
 /node_modules/
+/uploads/company/logo/
+!/uploads/company/logo/
