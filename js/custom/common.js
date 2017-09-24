@@ -186,8 +186,8 @@ var Select = (function () {
     var select = {};
 
     select.init = function (ele) {
-       var ele = (ele !== undefined && ele !== "") ? ele : '.selector';
-console.log(ele)
+        var ele = (ele !== undefined && ele !== "") ? ele : '.selector';
+        console.log(ele)
         $(ele).each(function () {
             var $this = $(this);
 
@@ -526,7 +526,7 @@ var Animation = (function () {
             var html = '';
             html += '<div class="animation-outer">';
             html += '<div class="animation">';
-            html += '<img src="../images/system/loader/frontLoader.gif" alt="">';
+            html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
             html += '<h5 class="text-orange">Please wait...</h5>';
             html += '</div>';
             html += '</div>';

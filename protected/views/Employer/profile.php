@@ -42,9 +42,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="d-table-cell pr-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
-                                            <span><?php echo $employerData->employer_tel; ?> 
-                                                <?php if ($employerData->employer_tel != '') { 
-                                                    echo '/ '.$employerData->employer_mobi;                     
+                                            <span><?php echo $employerData->employer_tel; ?>
+                                                <?php if ($employerData->employer_tel != '') {
+                                                    echo '/ ' . $employerData->employer_mobi;
                                                 } ?>     
                                             </span>
                                         </h5>
@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 </div>
 
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,4 +90,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 </section>
 
 
-
+<script>
+    function updateImage(imageName) {
+        $('.employer-logo').attr('src', BASE_URL + '/uploads/company/logo/' + imageName);
+    }
+</script>
