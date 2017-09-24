@@ -17,7 +17,7 @@
                 <div class="col s12">
                     <div class="logo-wrp ">
                         <img
-                            src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/logo23.png"
+                            src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $employerData->employer_image; ?>"
                             alt="">
                     </div>
                 </div>
@@ -165,5 +165,5 @@
             }
         });
     });
- 
+
 </script>

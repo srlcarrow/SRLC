@@ -24,52 +24,55 @@ class EmployerController extends Controller {
     }
 
     public function actionSaveEmployer() {
-//        try {
-        $key = Controller::decodeMailAction($_POST['accessId']);
-        $jsTempId = $key[2];
-        $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
-
-        if ($jsTempId > 0) {
+        try {
+            $key = Controller::decodeMailAction($_POST['accessId']);
+            $jsTempId = $key[2];
             $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
-            if ($jsBasicTempData->jsbt_type == 2) {
-                if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
-                    $jsBasicTempData->jsbt_is_verified = 1;
-                    if ($jsBasicTempData->save(false)) {
-                        $empEmployers = new EmpEmployers();
-                        $empEmployers->ref_jsbt_id = $jsBasicTempData->jsbt_id;
-                        $empEmployers->ref_ind_id = $_POST['ind_id'];
-                        $empEmployers->ref_district_id = $_POST['district_id'];
-                        $empEmployers->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
-                        $empEmployers->employer_name = $jsBasicTempData->jsbt_fname;
-                        $empEmployers->employer_reference_no = 'SSS';
-                        $empEmployers->employer_address = $_POST['address'];
-                        $empEmployers->employer_tel = $jsBasicTempData->jsbt_contact_no;
-                        $empEmployers->employer_mobi = $_POST['contactNo'];
-                        $empEmployers->employer_email = $jsBasicTempData->jsbt_email;
-                        $empEmployers->employer_contact_person = $_POST['contactPerson'];
-                        $empEmployers->employer_image = $_POST['image'];
-                        $empEmployers->employer_created_time = date('Y-m-d H:i:s');
-                        $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
-                        if ($empEmployers->save(false)) {
-                            $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
-                            $user->ref_emp_or_js_id = $empEmployers->employer_id;
-                            $user->user_is_verified = 1;
-                            $user->save(false);
 
-                            $jsBasicTempData->jsbt_is_finished = 1;
-                            $jsBasicTempData->save(false);
+            if ($jsTempId > 0) {
+                $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
+                if ($jsBasicTempData->jsbt_type == 2) {
+                    if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
+                        $jsBasicTempData->jsbt_is_verified = 1;
+                        if ($jsBasicTempData->save(false)) {
+                            $empEmployers = new EmpEmployers();
+                            $empEmployers->ref_jsbt_id = $jsBasicTempData->jsbt_id;
+                            $empEmployers->ref_ind_id = $_POST['ind_id'];
+                            $empEmployers->ref_district_id = $_POST['district_id'];
+                            $empEmployers->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
+                            $empEmployers->employer_name = $jsBasicTempData->jsbt_fname;
+                            $empEmployers->employer_reference_no = 0;
+                            $empEmployers->employer_address = $_POST['address'];
+                            $empEmployers->employer_tel = $jsBasicTempData->jsbt_contact_no;
+                            $empEmployers->employer_mobi = $_POST['contactNo'];
+                            $empEmployers->employer_email = $jsBasicTempData->jsbt_email;
+                            $empEmployers->employer_contact_person = $_POST['contactPerson'];
+                            $empEmployers->employer_image = $_POST['image'];
+                            $empEmployers->employer_created_time = date('Y-m-d H:i:s');
+                            $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
+                            if ($empEmployers->save(false)) {
+                                $empEmployers->employer_reference_no = Controller::getEmployeeReferenceNo($empEmployers->employer_id);
+                                $empEmployers->save(false);
+
+                                $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
+                                $user->ref_emp_or_js_id = $empEmployers->employer_id;
+                                $user->user_is_verified = 1;
+                                $user->save(false);
+
+                                $jsBasicTempData->jsbt_is_finished = 1;
+                                $jsBasicTempData->save(false);
+                            }
                         }
+                    } else {
+                        //render U Have already done
                     }
-                } else {
-                    //render U Have already done
                 }
             }
+            $key = Controller::encodePrimaryKeys($empEmployers->employer_id);
+            $this->msgHandler(200, "Successfully Saved...", array('employerKey' => $key));
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
-        $key = Controller::encodePrimaryKeys($empEmployers->employer_id);
-        $this->msgHandler(200, "Successfully Saved...", array('employerKey' => $key));
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//        }
     }
 
     public function actionProfile($id) {
@@ -128,7 +131,13 @@ class EmployerController extends Controller {
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
-            $fileName = "employerCompany_" . uniqid() . '.png';
+            if (isset(Yii::app()->user->id) || Yii::app()->user->id > 0) {
+                $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+                $imageName = EmpEmployers::model()->findByPk($employerId)->employer_image;
+                $fileName = $imageName;
+            } else {
+                $fileName = "employerCompany_" . uniqid() . '.png';
+            }
             $widthArray = array('212');
             $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
             if ($success) {

@@ -65,12 +65,11 @@ foreach ($employers as $employer) {
             } else {
                 $this.removeClass('expand').html('expand_more');
                 card.find('.expand-card-content').slideUp('fast');
-             }
+            }
         });
     });
 
     function loadEmployerData(id) {
-        alert(id);
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LoadEmployerData'; ?>",
@@ -83,12 +82,12 @@ foreach ($employers as $employer) {
 
 
     function publishAdvertisement(id) {
-    
+
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/ViewAddAdvertisement'; ?>",
             data: {id: id},
-            success: function (responce) {             
+            success: function (responce) {
                 $('.search-area,.company-cards').slideUp('fast', function () {
                     $("#ajaxLoadAdd").html(responce);
                     $('.company-form').slideDown('slow');
