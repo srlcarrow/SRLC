@@ -15,8 +15,26 @@
                         <ul class="float-block job-list">
                             <?php
                             foreach ($data as $value) {
-                                var_dump($value->ad_created_time);
-                                exit;
+                                if (date('Y-m-d', strtotime($value->ad_created_time)) == date('Y-m-d') && (strtotime(date('Y-m-d H:i:s')) - strtotime($value->ad_created_time)) > 3600) {
+                                    $datetime1 = new DateTime($value->ad_created_time);
+                                    $datetime2 = new DateTime(date('Y-m-d H:i:s'));
+
+                                    $interval = $datetime1->diff($datetime2);
+                                    $adPublishedTime = $interval->format('%h') . " Hours ago";
+                                } elseif (date('Y-m-d', strtotime($value->ad_created_time)) == date('Y-m-d') && (strtotime(date('Y-m-d H:i:s')) - strtotime($value->ad_created_time)) < 3600) {
+                                    $datetime1 = strtotime(date('H:i:s'));
+                                    $datetime2 = strtotime(date('H:i:s', strtotime($value->ad_created_time)));
+                                    $adPublishedTime = (($datetime1 - $datetime2) - (($datetime1 - $datetime2) % 60)) / (60);
+
+                                    $adPublishedTime = $adPublishedTime . " Mins ago";
+                                } elseif (date('Y-m-d', strtotime($value->ad_created_time)) < date('Y-m-d')) {
+                                    $datetime1 = strtotime(date('Y-m-d'));
+                                    $datetime2 = strtotime(date('Y-m-d', strtotime($value->ad_created_time)));
+                                    $adPublishedTime = ($datetime1 - $datetime2) / (24 * 3600);
+
+                                    $adPublishedTime = $adPublishedTime . " Days ago";
+                                }
+
                                 $title = $value->ad_is_use_desig_as_title == 1 ? $value->desig_name : $value->ad_title;
                                 $encryptedAdId = $value->ad_id;
                                 ?>
@@ -25,7 +43,7 @@
                                         <h3><?php echo $title; ?></h3>
                                         <h6>
                                             <span><?php echo $value->employer_name; ?></span>
-                                            <span class="time-left">Yesterday</span>
+                                            <span class="time-left"><?php echo $adPublishedTime; ?></span>
                                         </h6>
                                         <ul class="more-details-list">
                                             <li>

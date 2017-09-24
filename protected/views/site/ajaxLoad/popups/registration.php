@@ -81,13 +81,13 @@
         submitHandler: function () {
 
             var emailAdd = $("#email").val();
-            //            var stat = validateEmail(emailAdd);
-            //            if (stat == true) {
-            userRegistration();
+            var stat = validateEmail(emailAdd);
 
+            if (stat == true) {
+                userRegistration();
+            }
         }
     });
-
     function loadVerifyPage() {
         $.ajax({
             type: 'GET',
@@ -99,8 +99,10 @@
         });
     }
 
-    function userRegistration() {
+    function userRegistration() { 
+
         Animation.load();   
+
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
             type: 'POST',
@@ -128,18 +130,10 @@
             return false;
         }
 
-        function validateEmail(emailField) {
-            if (isValidEmail(emailField) == false) {
-                alert('Invalid Email Address');
-                return false;
-            }
-            if (isExistingEmail(emailField) == false) {
-                alert('Existing Email');
-                return false;
-            }
-            return true;
+        if (isExistingEmail(emailField) == false) {
+            alert('Existing Email');
+            return false;
         }
-
         return true;
     }
 
@@ -153,26 +147,17 @@
     }
 
     function isExistingEmail(emailField) {
-        currentRequest = jQuery.ajax({
+        $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
             data: {email: emailField},
             dataType: 'json',
-            beforeSend: function () {
-                if (currentRequest != null) {
-                    currentRequest.abort();
-                }
-            },
             success: function (responce) {
-                if (responce.code == 200 && responce.data['isExistingEmail'] === 0) {
-                    return true;
-                } else {
+                if (responce.code == 200 && responce.data.isExistingEmail == 1) {
                     return false;
                 }
             }
-
         });
-        return false;
     }
 </script>
 

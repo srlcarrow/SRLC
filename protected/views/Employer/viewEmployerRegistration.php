@@ -22,7 +22,7 @@
                                 <div class="row mb-15">
                                     <div class="col-md-12">
                                         <div class="input-wrapper">
-                                            <input id="address" name="address" type="text">
+                                            <input id="address" name="address" type="text" required>
                                             <div class="float-text">Address</div>
                                         </div>
                                     </div>
@@ -46,7 +46,9 @@
                                             </div>
                                             <ul class="option-list"></ul>
 
-                                            <select id="city" name="city" class="city"></select>
+                                            <select id="city" name="city" class="city">
+                                                <option value="0">Select City</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +62,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-wrapper">
-                                            <input id="contactPerson" name="contactPerson" type="text">
+                                            <input id="contactPerson" name="contactPerson" type="text" required>
                                             <div class="float-text">Name of Contact Person</div>
                                         </div>
                                     </div>
@@ -73,8 +75,7 @@
                                                 <span>Industry</span>
                                             </div>
                                             <ul class="option-list"></ul>
-
-                                            <?php echo Chtml::dropDownList('ind_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry')); ?>
+                                            <?php echo Chtml::dropDownList('ind_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'required' => 'required')); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -147,15 +148,15 @@
 
     function saveEmployer() {
         var image = imageCropData.get();
-       
+
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveEmployer'; ?>",        
+            url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveEmployer'; ?>",
             data: $('#employerRegistration').serialize() + '&image=' + image + '&accessId=<?php echo $accessId; ?>',
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    window.location =  http_path + 'Employer/Profile/id/' + responce.data.employerKey  ;
+                    window.location = http_path + 'Employer/Profile/id/' + responce.data.employerKey;
                 }
             }
         });

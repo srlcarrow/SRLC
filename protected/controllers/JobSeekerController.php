@@ -58,6 +58,10 @@ class JobSeekerController extends Controller {
                         $jsBasic->js_updated_time = date('Y-m-d H:i:s');
                         $jsBasic->js_cv_path = '';
                         if ($jsBasic->save(false)) {
+                            $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
+                            $user->ref_emp_or_js_id = $jsBasic->js_id;
+                            $user->user_is_verified = 1;
+                            $user->save(false);
                             $status = 1; // Verified But Not Finished
                         }
                     }
