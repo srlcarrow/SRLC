@@ -24,8 +24,16 @@
   font-size: 10px !important;
 }
 
+.f-12 {
+  font-size: 12px !important;
+}
+
 .f-18 {
   font-size: 18px !important;
+}
+
+.f-30 {
+  font-size: 30px !important;
 }
 
 .ps-relative {
@@ -34,6 +42,10 @@
 
 .ps-absolute {
   position: absolute;
+}
+
+.w-60 {
+  width: 60%;
 }
 
 //Font Weight
@@ -298,6 +310,35 @@
 .employer-logo {
   display: block;
   border: 6px solid rgba($black, .10);
+}
+
+.circle-wrapper {
+  position: relative;
+
+  .circle {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 3px solid $p-light;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    @include border-radius(50%);
+    padding: 18px 0;
+    margin-bottom: 20px;
+    background: $white;
+  }
+  .line-wrp {
+    position: absolute;
+    top: calc(30% - 3px);
+    left: 0;
+  }
+  .line {
+    width: 100%;
+    height: 3px;
+    background: $p-light;
+  }
 }
 
 //------------------------------------------------------------------

@@ -23,7 +23,9 @@
 
     </div>
 </div>
-
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'search'));
+?>
 <div class="row search-area">
     <div class="col s12">
         <div class="card-panel">
@@ -33,18 +35,18 @@
                     <input class="input-search" type="text" placeholder="Search">
                 </div>
                 <div class="search-action">
-                    <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange">Search</button>
+                    <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange" button="button">Search</button>
                 </div>
                 <div class="search-action">
-                    <button class="waves-effect waves-teal btn-flat btnAdvance">Advance</button>
+                    <button  button="button" class="waves-effect waves-teal btn-flat btnAdvance" >Advance</button>
                 </div>
             </div>
 
             <div class="row hide-block more-panel">
                 <div class="col s4">
                     <div class="input-field">
-                        <input type="text">
-                        <label>Label</label>
+                        <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category')); ?>                 
+                        <label>Category</label>
                     </div>
                 </div>
                 <div class="col s4">
@@ -56,7 +58,7 @@
                 <div class="col s4">
                     <div class="input-field">
                         <input type="text">
-                        <label>Label</label>
+                        <label>Status</label>
                     </div>
                 </div>
 
@@ -69,6 +71,7 @@
         </div>
     </div>
 </div>
+<?php $this->endWidget(); ?>
 <div class="ajaxLoad"></div>
 
 <script>

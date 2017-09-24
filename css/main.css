@@ -443,6 +443,10 @@ input[type="checkbox"] {
 .error-page {
   margin-top: calc(25% - 50px); }
 
+.yellow-script {
+  padding: 60px 0;
+  background: #ffca28; }
+
 .m-auto {
   margin: 0 auto; }
 
@@ -1790,6 +1794,126 @@ input[type="checkbox"] {
 .pl-50 {
   padding-left: 50px !important; }
 
+.pt-51 {
+  padding-top: 51px !important; }
+
+.pb-51 {
+  padding-bottom: 51px !important; }
+
+.pr-51 {
+  padding-right: 51px !important; }
+
+.pl-51 {
+  padding-left: 51px !important; }
+
+.pt-52 {
+  padding-top: 52px !important; }
+
+.pb-52 {
+  padding-bottom: 52px !important; }
+
+.pr-52 {
+  padding-right: 52px !important; }
+
+.pl-52 {
+  padding-left: 52px !important; }
+
+.pt-53 {
+  padding-top: 53px !important; }
+
+.pb-53 {
+  padding-bottom: 53px !important; }
+
+.pr-53 {
+  padding-right: 53px !important; }
+
+.pl-53 {
+  padding-left: 53px !important; }
+
+.pt-54 {
+  padding-top: 54px !important; }
+
+.pb-54 {
+  padding-bottom: 54px !important; }
+
+.pr-54 {
+  padding-right: 54px !important; }
+
+.pl-54 {
+  padding-left: 54px !important; }
+
+.pt-55 {
+  padding-top: 55px !important; }
+
+.pb-55 {
+  padding-bottom: 55px !important; }
+
+.pr-55 {
+  padding-right: 55px !important; }
+
+.pl-55 {
+  padding-left: 55px !important; }
+
+.pt-56 {
+  padding-top: 56px !important; }
+
+.pb-56 {
+  padding-bottom: 56px !important; }
+
+.pr-56 {
+  padding-right: 56px !important; }
+
+.pl-56 {
+  padding-left: 56px !important; }
+
+.pt-57 {
+  padding-top: 57px !important; }
+
+.pb-57 {
+  padding-bottom: 57px !important; }
+
+.pr-57 {
+  padding-right: 57px !important; }
+
+.pl-57 {
+  padding-left: 57px !important; }
+
+.pt-58 {
+  padding-top: 58px !important; }
+
+.pb-58 {
+  padding-bottom: 58px !important; }
+
+.pr-58 {
+  padding-right: 58px !important; }
+
+.pl-58 {
+  padding-left: 58px !important; }
+
+.pt-59 {
+  padding-top: 59px !important; }
+
+.pb-59 {
+  padding-bottom: 59px !important; }
+
+.pr-59 {
+  padding-right: 59px !important; }
+
+.pl-59 {
+  padding-left: 59px !important; }
+
+.pt-60 {
+  padding-top: 60px !important; }
+
+.pb-60 {
+  padding-bottom: 60px !important; }
+
+.pr-60 {
+  padding-right: 60px !important; }
+
+.pl-60 {
+  padding-left: 60px !important; }
+
 .text-black {
   color: #000; }
 
@@ -1838,14 +1962,26 @@ input[type="checkbox"] {
 .f-10 {
   font-size: 10px !important; }
 
+<<<<<<< HEAD
+=======
+.f-12 {
+  font-size: 12px !important; }
+
+>>>>>>> ee91678e80af2af527609e6034e12bc1857aabe9
 .f-18 {
   font-size: 18px !important; }
+
+.f-30 {
+  font-size: 30px !important; }
 
 .ps-relative {
   position: relative; }
 
 .ps-absolute {
   position: absolute; }
+
+.w-60 {
+  width: 60%; }
 
 .f-light {
   font-weight: 300; }
@@ -2018,6 +2154,32 @@ input[type="checkbox"] {
 .employer-logo {
   display: block;
   border: 6px solid rgba(0, 0, 0, 0.1); }
+
+.circle-wrapper {
+  position: relative; }
+  .circle-wrapper .circle {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 3px solid #ffca28;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    padding: 18px 0;
+    margin-bottom: 20px;
+    background: #fff; }
+  .circle-wrapper .line-wrp {
+    position: absolute;
+    top: calc(30% - 3px);
+    left: 0; }
+  .circle-wrapper .line {
+    width: 100%;
+    height: 3px;
+    background: #ffca28; }
 
 button.cm-btn,
 a.cm-btn {
@@ -2210,15 +2372,12 @@ a.cm-btn {
     height: 10px; }
     .icon.icon-10.icon-cross {
       background: url("../images/system/icon/site/10/ic_10-cross.png"); }
-<<<<<<< HEAD
-=======
   .icon.icon-35 {
     width: 35px;
     height: 35px; }
     .icon.icon-35.ic-resend {
       height: 31px;
       background: url("../images/system/icon/site/35/ic_35-re_send.png"); }
->>>>>>> 4c17c39b32a5fb7fb7532bb3bf756838bf91d887
   .icon.icon-70 {
     width: 70px;
     height: 70px; }
@@ -2431,7 +2590,7 @@ header {
 .nav-bar-space {
   float: left;
   width: 100%;
-  margin-top: 66px; }
+  margin-top: 90px; }
 
 .search-box {
   background: #fff;
@@ -2757,11 +2916,8 @@ input[type="radio"] + label {
   position: absolute;
   right: -12px;
   top: -12px; }
-<<<<<<< HEAD
-=======
 
 .verify-icon-mail .ic-resend {
   position: absolute;
   right: -5px;
   top: -27px; }
->>>>>>> 4c17c39b32a5fb7fb7532bb3bf756838bf91d887

@@ -8,23 +8,25 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 <div class="card ">
     <div class="card-content">
         <h5 class="grey-text text-darken-1">Add Advertisement</h5>
-
+        <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>" >
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District')); ?>           
+                    <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
                     <label>District</label>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City')); ?>           
+                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>           
+                    <!--<ul class="option-list"></ul>-->
+                    <select id="city" name="city" class="city"></select>
                     <label>City</label>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry')); ?>           
+                    <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>           
                     <label>Industry</label>
                 </div>
             </div>
@@ -33,13 +35,12 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'onChange' => 'loadSubCategories()')); ?>           
+                    <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>           
                     <label>Job Category</label>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <ul class="option-list"></ul>
 
                     <select class="type" name="subCategories" id="subCategories">
                     </select>
@@ -48,7 +49,9 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation')); ?>           
+                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>           
+                    <select class="type" name="designations" id="designations">
+                    </select>
                     <label>Designation</label>
                 </div>
             </div>
@@ -57,52 +60,50 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <div class="row">
             <div class="col s12 m4">  
                 <div class="input-field">
-                    <input id="experience" name="experience" type="text" class="salary-input" required>
+                    <input id="experience" name="experience" type="text" class="salary-input" value="<?php echo $model->ad_expected_experience ?>" required>
                     <label>Expected Experience (Yrs)</label>
                 </div>
             </div>
             <div class="col s12 m8">                
                 <div class="col m4">
                     <div class="input-field">
-                        <input id="salary" name="salary" type="text" class="salary-input">
+                        <input id="salary" name="salary" type="text" class="salary-input" value="<?php echo $model->ad_salary; ?>">
                         <label>Salary</label>
                     </div>
                 </div>
                 <div class="col m4">
                     <div class="input-field">
-                        <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable"/>
+                        <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable" checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
                         <label for="isNegotiable">Negotiable</label>
                     </div>
                 </div>
                 <div class="col m4">
                     <div class="input-field">
-                        <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type')); ?>           
+                        <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>           
                         <label>Type</label>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <input id="title" name="title" type="text" class="designation">
+                    <input id="title" name="title" type="text" class="designation"  value="<?php echo $model->ad_title; ?>">
                     <label>Advertisement title</label>
                 </div>
             </div>
 
             <div class="col s12 m4">
                 <div class="input-field">
-                    <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"/>
+                    <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
                     <label for="isDesigAsTitle">Use designation as title</label>
                 </div>
             </div>
 
             <div class="col m4">
                 <div class="input-field">
-                    <input id="expireDate" name="expireDate" type="text" class="datepicker">
+                    <input id="expireDate" name="expireDate" type="text" class="datepicker" value="<?php echo $model->ad_expire_date; ?>">
                     <label for="designation">Expire Date</label>
                 </div>
             </div>
@@ -130,14 +131,29 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                         <div class="btn">
                             <span>Upload</span>
                             <?php
+                            if ($adId == 0) {
+                                $model = new EmpAdvertisement();
+                            } else {
+                                $model = EmpAdvertisement::model()->findByPk($adId);
+                            }
+
                             echo CHtml::activeFileField($model, 'AdverImage');
                             echo $form->error($model, 'AdverImage');
                             ?>
                         </div>
+
                         <div class="file-path-wrapper">
-                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" required>
+                            <?php
+                            if ($adId > 0) {
+                                $image = end(split('/', $model->ad_image_url));
+                            } else {
+                                $image = $model->ad_image_url;
+                            }
+                            ?>
+                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" value="<?php echo $image; ?>" required>
                         </div>
                     </div>
+                    <a href="<?php echo Yii::app()->baseUrl . '/' . $model->ad_image_url; ?>">Download Advertisement</a>                 
                 </div>
             </div>
 
@@ -148,21 +164,33 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="card-action right-align">
-        <button type="button"
+        <button id="closeAddAdvertisement" type="button" onclick="close()"
                 class=" btn_close btn waves-effect waves-light red lighten-1">Close
         </button>
         <button id="clearAddAdvertisement" type="button" class=" btn waves-effect waves-light red lighten-1">Clear</button>
-        <button id="" type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+        <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
     </div>
 </div>
 <?php $this->endWidget(); ?>
 
+
 <!--Back End-->
 <script>
+    $(document).ready(function () {
+<?php
+if ($adId > 0) {
+    ?>
+            loadCities();
+            loadSubCategories('<?php echo $model->ref_subcat_id; ?>');
+
+    <?php
+}
+?>
+
+    });
+
     $('#formAddAdvertisement').submit(function (e) {
         $.ajax({
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/SaveAdvertisement'; ?>",
@@ -202,11 +230,69 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     }
 
                     setTimeout(function () {
-                        Select.init();
+                        $('select').material_select();
+                        $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                     }, 200);
 
-//                    loadDesignations();
+                    loadDesignations();
 
+                }
+            }
+        });
+    }
+
+    function loadDesignations() {
+        $("#designations").empty();
+
+        var id = $('#ref_cat_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var designations = responce.data.designationData;
+                    for (var i = 0, max = designations.length; i < max; i++) {
+                        $('#designations').append(
+                                $("<option>" + designations[i]['desig_name'] + "</option>")
+                                .attr("value", designations[i]['desig_id'])
+                                .text(designations[i]['desig_name'])
+                                );
+                    }
+
+                    setTimeout(function () {
+                        $('select').material_select();
+                        $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
+                    }, 200);
+                }
+            }
+        });
+    }
+
+    function loadCities() {
+        $("#city").empty();
+        var id = $('#district_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var cities = responce.data.cityData;
+                    for (var i = 0, max = cities.length; i < max; i++) {
+                        $('#city').append(
+                                $("<option>" + cities[i]['city_name'] + "</option>")
+                                .attr("value", cities[i]['city_id'])
+                                .text(cities[i]['city_name'])
+                                );
+                    }
+
+                    setTimeout(function () {
+                        $('select').material_select();
+                        $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
+                    }, 200)
                 }
             }
         });
@@ -222,6 +308,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             $('.search-area,.company-cards').slideDown('slow');
             loadEmployerData();
         })
+    });
+
+   $('#closeAddAdvertisement').click(function (e) {
+        window.location.href = '<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/Index'; ?>'; 
     });
 </script>
 
