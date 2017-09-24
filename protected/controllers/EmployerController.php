@@ -43,7 +43,7 @@ class EmployerController extends Controller {
                             $empEmployers->employer_name = $jsBasicTempData->jsbt_fname;
                             $empEmployers->employer_reference_no = 'SSS';
                             $empEmployers->employer_address = $_POST['address'];
-                            $empEmployers->employer_tel = $jsBasicTempData->jsbt_fname;
+                            $empEmployers->employer_tel = $jsBasicTempData->jsbt_contact_no;
                             $empEmployers->employer_mobi = $_POST['contactNo'];
                             $empEmployers->employer_email = $jsBasicTempData->jsbt_email;
                             $empEmployers->employer_contact_person = $_POST['contactPerson'];
@@ -74,23 +74,15 @@ class EmployerController extends Controller {
     }
 
     public function actionProfileDetails() {
-        //$id = Controller::decodePrimaryKeys($id);
-        //$employerData = EmpEmployers::model()->findByPk($id);
-
         $userId = Yii::app()->user->id;
         $user = User::model()->findByAttributes(array('user_id' => $userId));
         $userType = $user->user_type;
 
-
         if ($userType == 2) {
-            $employerData = EmpEmployers::model()->findByAttributes(array('ref_ind_id' => $user->ref_emp_or_js_id));
-            //$employment = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $user->ref_emp_or_js_id));
+            $employerData = EmpEmployers::model()->findByAttributes(array('ref_jsbt_id' => $user->ref_emp_or_js_id));
         } else {
             $employerData = new EmpEmployers();
-            //$employment = new JsEmploymentData();  
         }
-
-
 
         $this->render('profile', array('employerData' => $employerData));
     }
@@ -128,6 +120,33 @@ class EmployerController extends Controller {
             $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
             if ($success) {
                 $this->msgHandler(200, "Data Transfer", array('fileName' => $fileName));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public function actionChangeEmployerPassword() {
+        $oldPassword = $_POST['oldPassword'];
+        $newPassword = $_POST['newPassword'];
+        $rePassword = $_POST['rePassword'];
+       
+        $oldPasswordEncryp = md5(md5('SRLC' . $oldPassword . $oldPassword));
+        $newPasswordEncryp = md5(md5('SRLC' . $newPassword . $newPassword));
+        
+        $userId = Yii::app()->user->id;
+        $userData = User::model()->findByPk($userId);
+        
+        try {
+            if ($oldPasswordEncryp != $userData->user_password) {
+                $this->msgHandler(400, "Old Password is inccorect!");
+            }elseif ($newPassword != $rePassword) {
+                $this->msgHandler(400, "New Passwords are not matching!");
+            } else {
+                $userData->user_password = $newPasswordEncryp;
+                if ($userData->save(false)) {
+                     $this->msgHandler(200, "Your password has been changed!"); 
+                }
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -24,9 +24,9 @@ class DefaultController extends Controller {
             $userData = User::model()->findByAttributes(array('user_id' => $userId));
 
             if ($userData->user_is_verified == 1) {
-                if ($userData->user_type == 1) {
+                if ($userData->user_type == 1) { 
                     $url = '';
-                } elseif ($userData == 2) {
+                } elseif ($userData->user_type == 2) {
                     $url = 'Employer/ProfileDetails';
                 }
                 $this->msgHandler(200, "Login Successfull!", array('url' => $url));
