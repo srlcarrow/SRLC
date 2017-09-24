@@ -4,7 +4,7 @@
     <div class="col-md-9">
         <div class="col-md-7">
             <h3 class="f-medium"><?php echo $package->pack_name; ?></h3>
-            <h2 class="text-orange"><?php echo $package->pack_amount; ?> LKR</h2>
+            <h2 class="text-orange"><?php echo $package->pack_amount; ?> LKR</h2>  
         </div>
 
         <div class="col-md-5">
@@ -33,7 +33,7 @@
 <script type="text/javascript">
     
     $(document).ready(function (e) {
-        loadPurchPackagesData();
+        //loadPurchPackagesData();
     });
 
     function loadPurchPackagesData() {
@@ -55,7 +55,7 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                       loadPurchPackagesData();   
+                       //loadPurchPackagesData();   
                 }
             }
         });
