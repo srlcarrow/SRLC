@@ -525,7 +525,8 @@ var Animation = (function () {
             ele = _ele !== undefined ? _ele : '.popup';
             var html = '';
             html += '<div class="animation-outer">';
-            html += '<img src="./images/system/loader/frontLoader.gif" alt="">';
+            html += '<img style="width: 80px" src="./images/system/loader/frontLoader.gif" alt="">';
+            html += '<h6 class="text-black text-light-2 mt-15">Please wait...</h6>';
             html += '</div>';
 
             $('.popup').css('overflow', 'hidden');
