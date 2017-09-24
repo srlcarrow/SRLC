@@ -25,7 +25,7 @@ class DefaultController extends Controller {
 
             if ($userData->user_is_verified == 1) {
                 if ($userData->user_type == 1) {
-                    $url = 'User/Profile';
+                    $url = '';
                 } elseif ($userData == 2) {
                     $url = 'Employer/ProfileDetails';
                 }
