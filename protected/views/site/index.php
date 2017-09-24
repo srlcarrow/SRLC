@@ -83,7 +83,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
             </div>
 
         </div>
-        fhfhf
+        
     </div>
 </section>
 <?php $this->endWidget(); ?>

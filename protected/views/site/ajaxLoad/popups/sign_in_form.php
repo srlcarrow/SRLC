@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <div class="input-wrapper">
                         <input type="text" id="username"  name="username" required>
-                        <div class="float-text">Username</div>
+                        <div class="float-text">Email</div>
                     </div>
 
                     <div class="input-wrapper">
