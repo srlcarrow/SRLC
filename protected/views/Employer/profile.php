@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-12">
                                         <figure>
                                             <img class="m-auto employer-logo img-155"
-                                                 src="<?php echo Yii::app()->baseUrl . '/uploads/company/logo/wso2.logo.png'; ?>"
+                                                 src="<?php echo Yii::app()->baseUrl . '/uploads/company/logo/' . $employerData->employer_image; ?>"
                                                  alt="">
                                         </figure>
                                     </div>
@@ -42,7 +42,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="d-table-cell pr-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
-                                            <span><?php echo $employerData->employer_tel; ?> / <?php echo $employerData->employer_mobi; ?></span>
+                                            <span><?php echo $employerData->employer_tel; ?> 
+                                                <?php if ($employerData->employer_tel != '') { 
+                                                    echo '/ '.$employerData->employer_mobi;                     
+                                                } ?>     
+                                            </span>
                                         </h5>
                                     </div>
                                     <div class="d-table-cell pl-25">
