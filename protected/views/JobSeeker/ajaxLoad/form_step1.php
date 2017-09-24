@@ -8,12 +8,11 @@
             </div>
         </div>
     </div>
-
     <div class="row mb-15">
 
         <div class="col-md-6">
             <div class="input-wrapper">
-                <input id="dob" name="dob" type="text" value="<?php echo $jsBasicData->js_dob; ?>">
+                <input id="dob" name="dob" class="datePicker" type="text" value="<?php echo $jsBasicData->js_dob; ?>">
                 <div class="float-text">Date of birth</div>
             </div>
         </div>
@@ -30,15 +29,26 @@
     <div class="row mb-15">
 
         <div class="col-md-6">
-            <div class="input-wrapper">
-                <input id="experience" name="experience" type="text" value="<?php echo $jsBasicData->js_experience; ?>">
-                <div class="float-text">Total No of years experience</div>
+            <h6 class="text-black text-light-2 f-10 mb-4">Total No of years experience</h6>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-wrapper mb-0">
+                        <input class="mt-0" id="experience" placeholder="Year" name="experience" type="text"
+                               value="<?php echo $jsBasicData->js_experience; ?>">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-wrapper  mb-0">
+                        <input class="mt-0" name="experience" type="text" placeholder="Month">
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="input-wrapper">
-                <input id="highestAcaQuali" name="highestAcaQuali" type="text" value="<?php echo $jsBasicData->js_highest_academic_quali; ?>">
+                <input id="highestAcaQuali" name="highestAcaQuali" type="text"
+                       value="<?php echo $jsBasicData->js_highest_academic_quali; ?>">
                 <div class="float-text">Highest Acadamic Qualification</div>
             </div>
         </div>
@@ -50,13 +60,15 @@
 
         <div class="col-md-6">
             <div class="input-wrapper">
-                <input id="nameOfAcaQuali" name="nameOfAcaQuali" type="text" value="<?php echo $jsBasicData->js_nameof_academic_quali; ?>">
+                <input id="nameOfAcaQuali" name="nameOfAcaQuali" type="text"
+                       value="<?php echo $jsBasicData->js_nameof_academic_quali; ?>">
                 <div class="float-text">Name of the Academic Qualification</div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="input-wrapper">
-                <input id="nameOfAcaQuali" name="nameOfAcaQuali" type="text" value="<?php echo $jsBasicData->js_nameof_academic_quali; ?>">
+                <input id="nameOfAcaQuali" name="nameOfAcaQuali" type="text"
+                       value="<?php echo $jsBasicData->js_nameof_academic_quali; ?>">
                 <div class="float-text">Name of the Academic Qualification</div>
             </div>
         </div>
@@ -69,7 +81,8 @@
         <div class="col-md-6">
             <div class="row input-collection">
                 <div class="col-md-12 mb-15">
-                    <button data-btn="profQuali" type="button" class="cm-btn text-uppercase right addInput">Add New</button>
+                    <button data-btn="profQuali" type="button" class="cm-btn text-uppercase right addInput">Add New
+                    </button>
                 </div>
 
                 <div class="col-md-12 input-container">
@@ -77,16 +90,22 @@
                     foreach ($jsProfQualifications as $jsProfQualification) {
                         ?>
                         <div class="input-wrapper">
-                            <input id="profQualiHiddenId[]" name="profQualiHiddenName[]" value="<?php echo $jsProfQualification->jsquali_id ?>" placeholder="' + placeholder + '" type="hidden">
-                            <input id="profQualiId[]" name="profQualiName[]" placeholder="Professional Qualification" value="<?php echo $jsProfQualification->jsquali_qualification ?>" type="text" autofocus>   
+                            <input id="profQualiHiddenId[]" name="profQualiHiddenName[]"
+                                   value="<?php echo $jsProfQualification->jsquali_id ?>"
+                                   placeholder="' + placeholder + '" type="hidden">
+                            <input id="profQualiId[]" name="profQualiName[]" placeholder="Professional Qualification"
+                                   value="<?php echo $jsProfQualification->jsquali_qualification ?>" type="text"
+                                   autofocus>
                             <span class="icon icon-16 ic-cross btn-remove-input"></span>
                         </div>
                         <?php
                     }
                     ?>
                     <div class="input-wrapper">
-                        <input id="profQualiHiddenId[]" name="profQualiHiddenName[]" value="0" placeholder="' + placeholder + '" type="hidden">
-                        <input id="profQualiId[]" name="profQualiName[]" placeholder="Professional Qualification" type="text" autofocus>                        
+                        <input id="profQualiHiddenId[]" name="profQualiHiddenName[]" value="0"
+                               placeholder="' + placeholder + '" type="hidden">
+                        <input id="profQualiId[]" name="profQualiName[]" placeholder="Professional Qualification"
+                               type="text" autofocus>
                         <span class="icon icon-16 ic-cross btn-remove-input"></span>
                     </div>
                 </div>
@@ -98,7 +117,9 @@
         <div class="col-md-6">
             <div class="row input-collection">
                 <div class="col-md-12 mb-15">
-                    <button data-btn="membership" type="button" class="cm-btn text-uppercase right membership addInput">Add New</button>
+                    <button data-btn="membership" type="button" class="cm-btn text-uppercase right membership addInput">
+                        Add New
+                    </button>
                 </div>
 
                 <div class="col-md-12 input-container">
@@ -107,16 +128,22 @@
                     foreach ($jsMemberships as $jsMembership) {
                         ?>
                         <div class="input-wrapper">
-                            <input id="membershipHiddenId[]" name="membershipHiddenName[]" value="<?php echo $jsMembership->jsquali_id; ?>" placeholder="' + placeholder + '" type="hidden">                        
-                            <input id="membershipId[]" name="membershipName[]" type="text" value="<?php echo $jsMembership->jsquali_qualification; ?>" placeholder="Membership" autofocus>    
+                            <input id="membershipHiddenId[]" name="membershipHiddenName[]"
+                                   value="<?php echo $jsMembership->jsquali_id; ?>" placeholder="' + placeholder + '"
+                                   type="hidden">
+                            <input id="membershipId[]" name="membershipName[]" type="text"
+                                   value="<?php echo $jsMembership->jsquali_qualification; ?>" placeholder="Membership"
+                                   autofocus>
                             <span class="icon icon-16 ic-cross btn-remove-input"></span>
                         </div>
                         <?php
                     }
                     ?>
                     <div class="input-wrapper">
-                        <input id="membershipHiddenId[]" name="membershipHiddenName[]" value="0" placeholder="' + placeholder + '" type="hidden">                        
-                        <input id="membershipId[]" name="membershipName[]" type="text" placeholder="Membership" autofocus>                      
+                        <input id="membershipHiddenId[]" name="membershipHiddenName[]" value="0"
+                               placeholder="' + placeholder + '" type="hidden">
+                        <input id="membershipId[]" name="membershipName[]" type="text" placeholder="Membership"
+                               autofocus>
                         <span class="icon icon-16 ic-cross btn-remove-input"></span>
                     </div>
                     <!--</div>-->
@@ -137,8 +164,16 @@
     <script>
         Input.init();
 
+
+        //Date piker
+        $('.datePicker').datepicker({
+            language: 'en',
+            autoClose: true
+        });
+
         $(function () {
             var i = 0;
+
             function htmlInput(placeholder, membership) {
                 var id = membership + 'Id_' + i;
                 var nameArray = membership + 'Name[]';
@@ -159,9 +194,9 @@
 
             $('.addInput').on('click', function () {
                 var $this = $(this),
-                        $inputCollection = $this.parents('.input-collection'),
-                        $inputContainer = $inputCollection.find('.input-container'),
-                        $dataButton = $this.attr('data-btn');
+                    $inputCollection = $this.parents('.input-collection'),
+                    $inputContainer = $inputCollection.find('.input-container'),
+                    $dataButton = $this.attr('data-btn');
 
                 if ($this.hasClass('membership')) {
                     $inputContainer.append(htmlInput('Membership', $dataButton));
@@ -221,7 +256,6 @@
                 }
             });
         }
-
 
 
     </script>
