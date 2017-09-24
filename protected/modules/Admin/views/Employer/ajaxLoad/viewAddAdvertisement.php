@@ -99,13 +99,13 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 </div>
             </div>
 
-            <div class="col s12 m4">
+<!--            <div class="col s12 m4">
                 <div class="input-field">
                     <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
-                           checked="<?php echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
+                           checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
                     <label for="isDesigAsTitle">Use designation as title</label>
                 </div>
-            </div>
+            </div>-->
 
             <div class="col m4">
                 <div class="input-field">

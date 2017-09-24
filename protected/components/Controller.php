@@ -31,17 +31,21 @@ class Controller extends CController {
             echo json_encode(array("code" => $code, "msg" => $msg, "data" => $data));
         }
     }
-    
+
     public static function getRefEmpOrJsId($id) {
-        $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id; 
-        return $refEEmpOrJsId; 
+        $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id;
+        return $refEEmpOrJsId;
     }
-    
-    public static function getEmployeeReferenceNo($id) {
+
+    public static function getAdvertisementReferenceNo($id) {
         $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);
         return $reference;
     }
 
+    public static function getEmployeeReferenceNo($id) {
+        $reference = "E1" . str_pad($id, 5, '0', STR_PAD_LEFT);
+        return $reference;
+    }
 
     public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
         $sqlLimit = '';
