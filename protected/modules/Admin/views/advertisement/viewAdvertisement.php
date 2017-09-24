@@ -14,9 +14,9 @@
 <div class="row">
 
     <div class="col s12">
-        <button class="cm-btn add right addNew">
+<!--        <button class="cm-btn add right addNew">
             <i class="material-icons left">&#xE148;</i>Add New
-        </button>
+        </button>-->
     </div>
 
     <div class="col s12 addForm hide-block">

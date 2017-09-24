@@ -7,15 +7,16 @@
                 <div class="row">
 
                     <div class="total-jobs col-xs-12">
-                        <h4><?php echo $currentPage * $limit; ?><span>of</span><?php echo $pageCount; ?></h4>
+                        <h4><?php echo count($data) + (($currentPage - 1) * $limit); ?><span>of</span><?php echo $pageCount; ?></h4>
                     </div>
-
 
                     <div id="jobs" class="job-list-wrap col-xs-12">
 
                         <ul class="float-block job-list">
                             <?php
                             foreach ($data as $value) {
+                                var_dump($value->ad_created_time);
+                                exit;
                                 $title = $value->ad_is_use_desig_as_title == 1 ? $value->desig_name : $value->ad_title;
                                 $encryptedAdId = $value->ad_id;
                                 ?>

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col s12">
-        <button class="cm-btn add right addNewCompany">
+        <button class="cm-btn add right addNewCompany" type="button" onclick="addEmployer()">
             <i class="material-icons left">&#xE148;</i>Add New
         </button>
     </div>
@@ -79,7 +79,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
         });
     }
 
-    $('.addNewCompany').on('click', function () {
+    function addEmployer() {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/EmployerAdd'; ?>",
@@ -91,6 +91,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
                 })
             }
         });
+    }
 
-    });
+
 </script>
