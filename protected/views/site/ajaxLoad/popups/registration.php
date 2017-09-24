@@ -100,9 +100,7 @@
     }
 
     function userRegistration() {
-
-        loadVerifyPage();
-
+        Animation.load();   
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
         currentRequest = jQuery.ajax({
             type: 'POST',
@@ -115,8 +113,10 @@
                 }
             },
             success: function (responce) {
-                if (responce.code == 200) {
-                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
+                if (responce.code == 200) {   
+                    Animation.load(); 
+                    loadVerifyPage();
+//                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                 }
             }
         });
