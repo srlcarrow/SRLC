@@ -150,7 +150,7 @@
        
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveEmployer'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveEmployer'; ?>",        
             data: $('#employerRegistration').serialize() + '&image=' + image + '&accessId=<?php echo $accessId; ?>',
             dataType: 'json',
             success: function (responce) {
