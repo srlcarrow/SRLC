@@ -27,9 +27,8 @@
                     </div>
                     <div class="col s1 mt-5">
                         <button id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)">Edit</button>
-    <!--                        <i id="<?php // echo $value->ad_id;   ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
-                    </div>
-                    <div class="ajaxLoadAdData"></div>
+    <!--                        <i id="<?php // echo $value->ad_id;       ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
+                    </div>                   
                 </div>
             </div>
 
@@ -59,7 +58,11 @@
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/EditAdvertisement'; ?>",
             data: {id: id},
             success: function (responce) {
-                $(".ajaxLoadAdData").html(responce);
+                $('.addNew,.search-area,.details-cards').slideUp('fast', function () {
+                    $(".ajaxLoadAdd").html(responce);
+                    $('.company-form').slideDown('slow');
+
+                })
             }
         });
     }
