@@ -166,6 +166,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 </div>
 <?php $this->endWidget(); ?>
 
+
 <!--Back End-->
 <script>
     $(document).ready(function () {
