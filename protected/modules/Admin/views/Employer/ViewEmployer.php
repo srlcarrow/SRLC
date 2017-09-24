@@ -1,5 +1,7 @@
-<div class="ajaxLoadAdd"></div>
-
+<div id="ajaxLoadAdd"></div>
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
+?>
 <div class="row search-area ">
     <div class="col s12">
         <button class="cm-btn add right addNewCompany">
@@ -12,13 +14,14 @@
             <div class="search-input-wrp grey lighten-3">
                 <div class="search-input">
                     <i class="material-icons search-icon blue-text text-lighten-3">search</i>
-                    <input class="input-search" type="text" placeholder="Search">
+                    <input name="searchEmployerText" class="input-search" type="text" placeholder="Search" onkeyup="viewEmployerData(1)">
                 </div>
                 <div class="search-action">
                     <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange">Search</button>
                 </div>
                 <div class="search-action">
-                    <button class="waves-effect waves-teal btn-flat btnAdvance">Advance</button>
+                    <button class="waves-effect waves-teal btn-flat">Advance</button>
+                    <!--<button class="waves-effect waves-teal btn-flat btnAdvance">Advance</button>-->
                 </div>
             </div>
             <div class="row hide-block more-panel">
@@ -51,18 +54,18 @@
     </div>
     <div class="col s12 ajaxLoad"></div>
 </div>
-
+<?php $this->endWidget(); ?>
 
 <script>
     $(document).ready(function (e) {
-        loadEmployerData();
+        viewEmployerData(1);
     });
 
-    function loadEmployerData() {
+    function viewEmployerData(page) {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/ViewEmployerData'; ?>",
-            data: '',
+            data: $('#searchEmployer').serialize() + "&page=" + page,
             success: function (responce) {
                 $(".ajaxLoad").html(responce);
             }
