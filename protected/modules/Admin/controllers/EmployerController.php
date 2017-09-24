@@ -43,6 +43,10 @@ class EmployerController extends Controller {
         $this->renderPartial('ajaxLoad/logoUpload');
     }
 
+    public function actionEmployerAdd() {
+        $this->renderPartial('ajaxLoad/addEmployer');
+    }
+
     public function actionSaveEmployer() {
         try {
             $model = new EmpEmployers();
@@ -61,10 +65,6 @@ class EmployerController extends Controller {
         }
     }
 
-    public function actionEmployerAdd() {
-        $this->renderPartial('ajaxLoad/addEmployer');
-    }
-
     public function actionSaveAdvertisement() {
         try {
             $target_dir = "uploads/jobAdvertisement/";
@@ -78,6 +78,11 @@ class EmployerController extends Controller {
                 if ($_POST['adId'] > 0) {
                     $model = EmpAdvertisement::model()->findByPk($_POST['adId']);
                 }
+                if (isset($_POST['designations'])) {
+                    $designationData = AdmDesignation::model()->findByPk($_POST['designations']);
+                }
+
+
                 $model->ad_reference = 0;
                 $model->ref_employer_id = $_POST['empId'];
                 $model->ref_district_id = $_POST['district_id'];
@@ -90,7 +95,7 @@ class EmployerController extends Controller {
                 $model->ad_salary = $_POST['salary'];
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
                 $model->ref_work_type_id = $_POST['ref_work_type_id'];
-                $model->ad_title = $_POST['title'];
+                $model->ad_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? $designationData->desig_name : $_POST['title'];
                 $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;

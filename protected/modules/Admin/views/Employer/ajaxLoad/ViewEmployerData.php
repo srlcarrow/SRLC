@@ -70,6 +70,7 @@ foreach ($employers as $employer) {
     });
 
     function loadEmployerData(id) {
+        alert(id);
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LoadEmployerData'; ?>",
@@ -82,6 +83,7 @@ foreach ($employers as $employer) {
 
 
     function publishAdvertisement(id) {
+    
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/ViewAddAdvertisement'; ?>",

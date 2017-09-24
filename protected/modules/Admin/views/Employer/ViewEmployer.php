@@ -4,7 +4,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
 ?>
 <div class="row search-area ">
     <div class="col s12">
-        <button class="cm-btn add right addNewCompany">
+        <button class="cm-btn add right addNewCompany" type="button" onclick="addEmployer()">
             <i class="material-icons left">&#xE148;</i>Add New
         </button>
     </div>
@@ -72,19 +72,20 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
         });
     }
 
-    $('.addNewCompany').on('click', function () {
+    function addEmployer() {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/EmployerAdd'; ?>",
             data: '',
             success: function (responce) {
                 $('.search-area,.company-cards').slideUp('fast', function () {
-                    $(".ajaxLoadAdd").html(responce);
+                    $("#ajaxLoadAdd").html(responce);
                     $('.company-form').slideDown('slow');
 
                 })
             }
         });
+    }
 
-    });
+
 </script>
