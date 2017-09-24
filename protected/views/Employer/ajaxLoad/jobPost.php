@@ -1,32 +1,15 @@
-
 <div class="col-md-12">
     <div class="col-md-12">
-        <button class="cm-btn large right light-blue-4">Post a Job</button>
+        <button class="cm-btn large right light-blue-4" onclick="goToPostJob()">Post a Job</button>
     </div>
 
     <div class="col-md-12">
-
-<!--        <table>-->
-<!--            <colgroup>-->
-<!--                <col>-->
-<!--                <col>-->
-<!--                <col>-->
-<!--            </colgroup>-->
-<!---->
-<!--            <thead>-->
-<!--                <tr>-->
-<!--                    <td></td>-->
-<!--                    <td></td>-->
-<!--                </tr>-->
-<!--            </thead>-->
-<!---->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <td></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-
     </div>
 </div>
 
+<!--Back End-->
+<script>
+    function goToPostJob() {
+        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/CreateAdvertisement'; ?>';
+    }
+</script>    
