@@ -185,8 +185,10 @@ var Select = (function () {
 
     var select = {};
 
-    select.init = function () {
-        $('.selector').each(function () {
+    select.init = function (ele) {
+       var ele = (ele !== undefined && ele !== "") ? ele : '.selector';
+console.log(ele)
+        $(ele).each(function () {
             var $this = $(this);
 
             var selectedOption = $this.find('.selected-option');
@@ -252,7 +254,7 @@ var Select = (function () {
             //Set options to list
             function setOptions() {
                 optionList.html('');
-
+                var count = 0;
                 var optionLength = HTMLSelect.options().length;
 
                 if (optionLength > 9) {
@@ -273,6 +275,7 @@ var Select = (function () {
                     li.html(option.text);
                     li.attr('data-val', option.val);
                     optionList.append(li);
+                    count++;
                 });
 
             }
@@ -287,15 +290,19 @@ var Select = (function () {
             });
 
             //option click
-            optionList.find('li').on('click', function () {
+            optionList.on('click', 'li', function () {
                 optionList.css('display', 'none');
                 var $this = $(this);
                 var val = $this.attr('data-val');
 
                 HTMLSelect.update(val);
                 setSelected(false);
+                setOptions();
             });
 
+            htmlSelect.on('domChanged', function () {
+
+            });
 
             $(document).on('click', function (evt) {
                 var target = $(evt.target);
@@ -304,6 +311,7 @@ var Select = (function () {
                     optionList.css('display', 'none');
                 }
             });
+
 
         })
     };
@@ -525,7 +533,7 @@ var Animation = (function () {
         },
         hide: function () {
             if (ele) {
-                $('.popup').attr('style','');
+                $('.popup').attr('style', '');
                 $(ele).find('.animation-outer').remove();
             }
         }

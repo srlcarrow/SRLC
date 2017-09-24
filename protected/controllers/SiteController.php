@@ -29,7 +29,9 @@ class SiteController extends Controller {
         // using the default layout 'protected/views/layouts/main.php'
         $this->render('index', array('isMain' => 1));
     }
-
+    public function actionCandidate() {
+        $this->render('candidate');
+    }
     public function actionCategoryPopup() {
         $categories = AdmCategory::model()->findAll(array('order' => 'cat_order'));
         $this->renderPartial('ajaxLoad/popups/category', array('categories' => $categories));
