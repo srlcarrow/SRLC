@@ -114,7 +114,7 @@
         Animation.load();
 
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
-        currentRequest = jQuery.ajax({
+        var currentRequest = jQuery.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
             data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
