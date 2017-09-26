@@ -1,5 +1,7 @@
+<div class="nav-bar-space"></div>
+
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'employerRegistration')); ?>
-<section class="main-block top-space-block">
+<section class="main-block ">
     <div class="container">
         <div class="row mb-30">
 
