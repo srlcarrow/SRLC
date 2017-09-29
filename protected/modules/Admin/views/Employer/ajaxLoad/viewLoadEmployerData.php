@@ -127,8 +127,7 @@
 <!--    </div>
 </div>-->
 
-<script>
-    
+<script>   
 
     function getPopupTemplate() {
         var html = null;

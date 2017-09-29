@@ -91,7 +91,6 @@ foreach ($employers as $employer) {
 
 
     function publishAdvertisement(id) {
-
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/ViewAddAdvertisement'; ?>",

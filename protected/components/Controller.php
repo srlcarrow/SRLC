@@ -96,8 +96,8 @@ class Controller extends CController {
 
     public static function searchWhereCriterias() {
         $str = "ad.ad_id !=0 ";
-        if (!empty($_REQUEST['catId']) && $_REQUEST['catId'] != 'undefined' && $_REQUEST['catId'] != 0) {
-            $str .= " AND ad.ref_cat_id = " . $_REQUEST['catId'];
+        if (!empty($_REQUEST['ref_cat_id']) && $_REQUEST['ref_cat_id'] != 'undefined' && $_REQUEST['ref_cat_id'] != 0) {
+            $str .= " AND ad.ref_cat_id = " . $_REQUEST['ref_cat_id'];
         }
         if (!empty($_REQUEST['subCatId']) && $_REQUEST['subCatId'] != 'undefined' && $_REQUEST['subCatId'] != 0) {
             $str .= " AND ad.ref_subcat_id = " . $_REQUEST['subCatId'];
@@ -111,6 +111,18 @@ class Controller extends CController {
         if (!empty($_REQUEST['wt_id']) && $_REQUEST['wt_id'] != 'undefined' && $_REQUEST['wt_id'] != 0) {
             $str .= " AND ad.ref_work_type_id =" . $_REQUEST['wt_id'] . " ";
         }
+        if (!empty($_REQUEST['Status']) && $_REQUEST['Status'] != 'undefined') {
+            $currentDate = date('Y-m-d');
+            if ($_REQUEST['Status'] == "expired") {
+                $str .= " AND ad.ad_expire_date < '" . $currentDate . "' ";
+            } else {
+                $str .= " AND ad.ad_expire_date >= '" . $currentDate . "' ";
+            }
+        }
+        if (!empty($_REQUEST['searchText']) && $_REQUEST['searchText'] != 'undefined') {
+            $str .= " AND  ( ad.ad_reference Like '%" . $_REQUEST['searchText'] . "%' OR emp.employer_name Like '%" . $_REQUEST['searchText'] . "%' OR ad.ad_title Like '%" . $_REQUEST['searchText'] . "%')";
+        }
+
         return $str;
     }
 
