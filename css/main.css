@@ -1980,6 +1980,9 @@ input[type="checkbox"] {
 .w-60 {
   width: 60%; }
 
+.w-80 {
+  width: 80%; }
+
 .f-light {
   font-weight: 300; }
 
@@ -2754,7 +2757,7 @@ ul.more-details-list {
 
 .popup-container.isShow {
   opacity: 1;
-  z-index: 1001; }
+  z-index: 99999; }
   .popup-container.isShow .popup {
     -moz-transform: scale(1);
     -o-transform: scale(1);

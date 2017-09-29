@@ -380,7 +380,7 @@ ul.more-details-list {
 .popup-container {
   &.isShow {
     opacity: 1;
-    z-index: 1001;
+    z-index: 99999;
 
     .popup {
       @include transform(scale(1));

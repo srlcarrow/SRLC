@@ -7,10 +7,13 @@
         </div>
         <ul class="navbar-nav navbar-right hidden-xs">
 
-            <li ><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate'; ?>">Job
+
+            <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate'; ?>">Job
                     Seeker</a></li>
-            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';               ?>">Employer</a></li>
-            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';               ?>">Contact Us</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/Employer'; ?>">Employer</a></li>
+            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';       ?>">Contact
+                    Us</a></li>
+
 
             <?php if (yii::app()->user->isGuest) { ?>
                 <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
@@ -43,7 +46,7 @@
                         $fullName = $logUserDetails->user_name;
                         $email = "";
                     }
-                    ?>                
+                    ?>
 
                 <li class="profile-link">
                     <a class="" href="#">
@@ -60,15 +63,16 @@
                             <h6 class="col-md-12 text-black text-light-3"><?php echo $email; ?></h6>
 
                             <div class="col-md-12 mt-10">
-                                <a href="<?php echo Yii::app()->request->baseUrl . '/Default/Logout'; ?>" class="logout">Logout</a>
+                                <a href="<?php echo Yii::app()->request->baseUrl . '/Default/Logout'; ?>"
+                                   class="logout">Logout</a>
                             </div>
                         </div>
 
                     </div>
                 </li>
 
-            <?php }
-            ?>
+<?php }
+?>
 
         </ul>
     </div>
