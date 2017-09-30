@@ -95,7 +95,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 showOnlyOther">
                                         <div class="input-wrapper">
                                             <input id="title" name="title" type="text" value="">
                                         </div>
@@ -351,10 +351,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
         if (isValid) {
             $('#salary').prop('disabled', true);
-            $('#salary').parent().css('opacity',0.5);
+            $('#salary').parent().css('opacity', 0.5);
         } else {
             $('#salary').prop('disabled', false);
-            $('#salary').parent().css('opacity','');
+            $('#salary').parent().css('opacity', '');
         }
     }
 
@@ -370,11 +370,26 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         }
     });
 
+    function showOtherText($thisVal) {
+        if ($thisVal === 'other') {
+            $('.showOnlyOther').show();
+        } else {
+            $('.showOnlyOther').hide();
+        }
+    }
+
+    $('#designations').on('change', function () {
+        showOtherText($(this).val())
+    });
+
     $(function () {
         showHideOnIntern($('#intern'));
 
         var isNegotiable = $('#isNegotiable').is(':checked') ? true : false;
         disabledSalary(isNegotiable);
+
+        var designationsVal = $('#designations').val();
+        showOtherText(designationsVal);
     });
 
     $(function () {
