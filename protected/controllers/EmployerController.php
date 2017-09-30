@@ -92,7 +92,7 @@ class EmployerController extends Controller {
         } else {
             $employerData = new EmpEmployers();
         }
-        
+
         $this->render('profile', array('employerData' => $employerData));
     }
 
@@ -100,7 +100,7 @@ class EmployerController extends Controller {
         $packages = AdmPackage::model()->findAll();
         $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
     }
-    
+
     public function actionBasicData() {
         $this->renderPartial('ajaxLoad/basic');
     }
@@ -131,21 +131,33 @@ class EmployerController extends Controller {
 
     public function actionUploadLogo() {
         try {
-            define('UPLOAD_DIR', 'uploads/company/logo/');
+            define('UPLOAD_DIR', 'uploads/Profile/Employer/');
             $img = $_POST['imageData'];
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
+
             if (isset(Yii::app()->user->id) || Yii::app()->user->id > 0) {
                 $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
                 $imageName = EmpEmployers::model()->findByPk($employerId)->employer_image;
-                $fileName = $imageName;
+
+                if ($imageName == "") {
+                    $fileName = "employer_" . uniqid() . '.png';
+                } else {
+                    unlink('uploads/Profile/Employer/' . $imageName);
+                    $fileName = "employer_" . uniqid() . '.png';
+                }
             } else {
                 $fileName = "employerCompany_" . uniqid() . '.png';
             }
             $widthArray = array('212');
             $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
             if ($success) {
+                if ($employerId != NULL) {
+                    $empData = EmpEmployers::model()->findByPk($employerId);
+                    $empData->employer_image = $fileName;
+                    $empData->save(false);
+                }
                 $this->msgHandler(200, "Data Transfer", array('fileName' => $fileName));
             }
         } catch (Exception $exc) {
