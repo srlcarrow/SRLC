@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 </div>
                             </div>
 
-                            <div class="col-md-9 pl-0 pb-20 bottom-line">
+                            <div class="col-md-9 pl-0 pr-0 pb-20 bottom-line">
                                 <h2 class="text-black mb-5"><?php echo $employerData->employer_name; ?></h2>
                                 <h5 class="text-dark-blue text-light-2 text-uppercase"><?php echo $employerData->employer_address; ?></h5>
 
@@ -43,9 +43,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
                                             <span><?php echo $employerData->employer_tel; ?>
-                                                <?php if ($employerData->employer_tel != '') {
+                                                <?php
+                                                if ($employerData->employer_tel != '') {
                                                     echo '/ ' . $employerData->employer_mobi;
-                                                } ?>     
+                                                }
+                                                ?>     
                                             </span>
                                         </h5>
                                     </div>
@@ -61,7 +63,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <i class="icon icon-20 linkedin mr-10 v-middle"></i>
                                     <span><?php echo $employerData->employer_contact_person; ?></span>
                                 </h5>
+
+                                <div class="col-md-12 text-right pr-0">
+                                    <button type="button" class="btn-img edit btnEditBasicData">Edit</button>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -94,4 +101,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
     function updateImage(imageName) {
         $('.employer-logo').attr('src', BASE_URL + '/uploads/company/logo/' + imageName);
     }
+
+
+    $('.btnEditBasicData').on('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Employer/BasicData'; ?>",
+            success: function (res) {
+                $('.tab-horizontal-content').html(res);
+            }
+        });
+    })
 </script>
