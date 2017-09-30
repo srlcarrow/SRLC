@@ -295,7 +295,7 @@ header {
 
 //Search area
 .search-area {
-  margin-top: 130px;
+  margin-top: 110px;
   margin-bottom: 15px;
 
   //Media Query
@@ -305,8 +305,8 @@ header {
 }
 
 .full-height {
-  height: 655px;
-  z-index:998;
+  //height: 655px;
+  z-index: 998;
 }
 
 //Icon
@@ -343,7 +343,7 @@ header {
 }
 
 .filters {
-  margin-top: 15px;
+  margin-bottom: 16px;
   opacity: 0;
   @include transition($animation-1);
 
@@ -355,6 +355,10 @@ header {
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     border-bottom: 1px dashed rgba($white, $opt-3);
+  }
+
+  .selector {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.56);
   }
 }
 
