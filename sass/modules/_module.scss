@@ -198,7 +198,20 @@
 
     &.active {
       a {
-        background: $white;
+        background: $p-dark;
+        color: $white;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-width: 8px 0 8px 10px;
+          border-color: transparent $p-dark;
+          border-style: solid;
+          display: inline-block;
+          left: 100%;
+        }
       }
     }
   }
@@ -297,6 +310,13 @@
     background: rgba($p-light, 1) url("../images/system/icon/site/16/ic_16-tick.png") no-repeat center center;
   }
 
+}
+
+.status-text {
+
+  &.green {
+    color: #2dd112;
+  }
 }
 
 //------------------------------------------------------------------

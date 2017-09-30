@@ -425,17 +425,30 @@ input[type="checkbox"] {
 .top-space-block {
   padding-top: 68px; }
 
+.data-table thead tr th {
+  background: #445a64;
+  color: #fff;
+  padding: 18px 15px;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase; }
+
 .data-table tr {
   padding: 0; }
   .data-table tr td {
     padding: 0; }
     .data-table tr td .data {
-      padding: 10px 12px;
+      padding: 10px 15px;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis; }
+      text-overflow: ellipsis;
+      color: #000;
+      font-size: 14px; }
       .data-table tr td .data:last-child {
         padding-right: 0; }
+
+.data-table.td-border-bottom td {
+  border-bottom: 1px solid #eaeaec; }
 
 .add-block {
   padding-top: 68px; }
@@ -2088,7 +2101,18 @@ input[type="checkbox"] {
     .tab-horizontal li:not(:last-child) {
       margin-bottom: 1px; }
     .tab-horizontal li.active a {
-      background: #fff; }
+      background: #f5820c;
+      color: #fff; }
+      .tab-horizontal li.active a::before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 8px 0 8px 10px;
+        border-color: transparent #f5820c;
+        border-style: solid;
+        display: inline-block;
+        left: 100%; }
 
 .step-list {
   margin: 0;
@@ -2152,6 +2176,9 @@ input[type="checkbox"] {
     height: 28px; }
   .tick.green {
     background: #ffca28 url("../images/system/icon/site/16/ic_16-tick.png") no-repeat center center; }
+
+.status-text.green {
+  color: #2dd112; }
 
 .profile-img {
   display: block;
