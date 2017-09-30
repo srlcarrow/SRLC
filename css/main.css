@@ -2448,7 +2448,21 @@ a.cm-btn {
   float: left;
   width: 100%; }
   .selector select {
-    display: none; }
+    opacity: 0;
+    height: 0;
+    width: 0;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0; }
+    .selector select + .error-val {
+      color: #f26b55;
+      font-size: 12px;
+      left: 0;
+      padding: 2px 0;
+      position: absolute;
+      top: 23px;
+      width: 100%; }
   .selector .selected-option {
     float: left;
     font-size: 18px;

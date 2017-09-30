@@ -38,7 +38,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         'htmlOptions' => array(
             'enctype' => 'multipart/form-data',
             'novalidate' => 'novalidate',
-    )));
+        )));
     ?>
     <div class="container">
         <div class="row mb-30">
@@ -56,7 +56,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 <div class="row mb-5">
                                     <div class="col-md-12">
                                         <div class="input-wrapper">
-                                            <input id="title" name="title" type="text" 
+                                            <input id="title" name="title" type="text"
                                                    value="<?php echo $model->ad_title; ?>" required>
                                             <div class="float-text">Advertisement title</div>
                                         </div>
@@ -70,7 +70,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>Job Category</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'onChange' => 'loadSubCats()')); ?>
+                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'required' => 'required', 'onChange' => 'loadSubCats()')); ?>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -232,9 +232,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                    type="radio">
                                             <label for="editor">Use Text Editor</label>
                                         </div>
-                                    </div><!--
-
-                                </div>-->
+                                    </div>
 
                                     <div class="col-md-12 mt-15 mb-15">
                                         <div class="row">
@@ -309,6 +307,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 //        loadSubCats('<?php // echo $model->ref_subcat_id;          ?>')
     });
     $("#formAddAdvertisement").validate({
+
         submitHandler: function () {
             $.ajax({
                 url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
@@ -335,7 +334,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
     function showHideOnIntern($this) {
         var $elements = $('#experience,#isNegotiable,#salary'),
-                $disabledOnIntern = $('.disabled-on-intern');
+            $disabledOnIntern = $('.disabled-on-intern');
 
         if ($this.is(':checked')) {
             $elements.prop('disabled', true);
@@ -434,10 +433,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     addEmptyToAjaxDropDowns("subCategories");
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
-                                $("<option>" + subCats[i]['scat_name'] + "</option>")
+                            $("<option>" + subCats[i]['scat_name'] + "</option>")
                                 .attr("value", subCats[i]['scat_id'])
                                 .text(subCats[i]['scat_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {
@@ -467,16 +466,16 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     addEmptyToAjaxDropDowns('designations');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
-                                $("<option>" + designations[i]['desig_name'] + "</option>")
+                            $("<option>" + designations[i]['desig_name'] + "</option>")
                                 .attr("value", designations[i]['desig_id'])
                                 .text(designations[i]['desig_name'])
-                                );
+                        );
                     }
                     $('#designations').append(
-                            $("<option>Other</option>")
+                        $("<option>Other</option>")
                             .attr("value", "other")
                             .text("Other")
-                            );
+                    );
 
                     setTimeout(function () {
                         Select.init('.designationsSelector');
@@ -501,10 +500,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     addEmptyToAjaxDropDowns('city');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                                $("<option>" + cities[i]['city_name'] + "</option>")
+                            $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {
@@ -518,10 +517,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
     function addEmptyToAjaxDropDowns(id) {
         $('#' + id).append(
-                $("<option>Select</option>")
+            $("<option>Select</option>")
                 .attr("value", 0)
                 .text("Select")
-                );
+        );
     }
 
 </script>
