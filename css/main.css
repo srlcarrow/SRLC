@@ -2709,7 +2709,8 @@ header {
       margin-top: 80px; } }
 
 .full-height {
-  height: 655px; }
+  height: 655px;
+  z-index: 998; }
 
 .icon-arrow-down.right {
   position: absolute;

@@ -53,7 +53,127 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
                             <div class="col-md-12 mt-10">
 
+                                <div class="row mb-5">
+                                    <div class="col-md-12">
+                                        <div class="input-wrapper">
+                                            <input id="title" name="title" type="text" class="designation"
+                                                   value="<?php echo $model->ad_title; ?>" required>
+                                            <div class="float-text">Advertisement title</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row mb-15">
+                                    <div class="col-md-6">
+                                        <div class="selector dark">
+                                            <div class="selected-option">
+                                                <span>Job Category</span>
+                                            </div>
+                                            <ul class="option-list"></ul>
+                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="selector dark">
+                                            <div class="selected-option">
+                                                <span>Sub Category</span>
+                                            </div>
+                                            <ul class="option-list"></ul>
+                                            <select class="type" name="subCategories" id="subCategories"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+                                    <div class="col-md-6">
+                                        <div class="selector dark">
+                                            <div class="selected-option">
+                                                <span>Designation</span>
+                                            </div>
+                                            <ul class="option-list"></ul>
+                                            <select class="type" name="designations" id="designations"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="input-wrapper">
+                                            <input id="title" name="title" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="selector dark">
+                                                    <div class="selected-option">
+                                                        <span>Type</span>
+                                                    </div>
+                                                    <ul class="option-list"></ul>
+                                                    <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="state-wrapper">
+                                                    <input id="intern" type="checkbox">
+                                                    <label for="intern">Intern Opportunity</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 disabled-on-intern">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="input-wrapper">
+                                                    <input id="experience" name="experience" type="text"
+                                                           class="salary-input"
+                                                           value="<?php echo $model->ad_expected_experience ?>"
+                                                           required>
+                                                    <div class="float-text">Expected Experience</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 mt-20">
+                                                <h6>Year(s)</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+                                    <div class="col-md-6 disabled-on-intern">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="state-wrapper">
+                                                    <input id="isNegotiable" name="isNegotiable" class="filled-in"
+                                                           type="checkbox" id="negotiable"
+                                                           checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
+                                                    <label for="isNegotiable">Negotiable</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="input-wrapper">
+                                                    <input id="salary" name="salary" type="text" class="salary-input"
+                                                           value="<?php echo $model->ad_salary; ?>" required>
+                                                    <div class="float-text">Salary</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-wrapper">
+                                            <input id="expireDate" name="expireDate" type="text" class="datePicker"
+                                                   value="<?php echo $model->ad_expire_date; ?>" required>
+                                            <div class="float-text">Expire Date</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-15">
+
                                     <div class="col-md-6">
                                         <div class="selector dark">
                                             <div class="selected-option">
@@ -62,8 +182,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <ul class="option-list"></ul>
                                             <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
                                         </div>
-
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="selector dark">
                                             <div class="selected-option">
@@ -76,117 +196,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                 </div>
 
-                                <div class="row mb-15">
-                                    <div class="col-md-6">
-                                        <div class="selector dark">
-                                            <div class="selected-option">
-                                                <span>Industry</span>
-                                            </div>
-                                            <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="selector dark">
-                                            <div class="selected-option">
-                                                <span>Job Category</span>
-                                            </div>
-                                            <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-15">
-                                    <div class="col-md-6">
-                                        <div class="selector dark">
-                                            <div class="selected-option">
-                                                <span>Sub Category</span>
-                                            </div>
-                                            <ul class="option-list"></ul>
-                                            <select class="type" name="subCategories" id="subCategories"></select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="selector dark">
-                                            <div class="selected-option">
-                                                <span>Designation</span>
-                                            </div>
-                                            <ul class="option-list"></ul>
-                                            <select class="type" name="designations" id="designations"></select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-15">
-                                    <div class="col-md-6">
-                                        <div class="selector dark">
-                                            <div class="selected-option">
-                                                <span>Type</span>
-                                            </div>
-                                            <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-wrapper">
-                                            <input id="experience" name="experience" type="text" class="salary-input"
-                                                   value="<?php echo $model->ad_expected_experience ?>" required>
-                                            <div class="float-text">Expected Experience (Yrs)</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-15">
-                                    <div class="col-md-6">
-                                        <div class="input-wrapper">
-                                            <input id="salary" name="salary" type="text" class="salary-input"
-                                                   value="<?php echo $model->ad_salary; ?>" required>
-                                            <div class="float-text">Salary</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="state-wrapper">
-                                            <input id="isNegotiable" name="isNegotiable" class="filled-in"
-                                                   type="checkbox" id="negotiable"
-                                                   checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
-                                            <label for="isNegotiable">Negotiable</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-15">
-                                    <div class="col-md-6">
-                                        <div class="input-wrapper">
-                                            <input id="title" name="title" type="text" class="designation"
-                                                   value="<?php echo $model->ad_title; ?>" required>
-                                            <div class="float-text">Advertisement title</div>
-                                        </div>
-                                    </div>
-                                    <!--                                    <div class="col-md-6">
-                                                                            <div class="state-wrapper">
-                                                                                <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable" checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
-                                                                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
-                                                                                <label for="isNegotiable">Use designation as title</label>   
-                                                                            </div>
-                                                                        </div>-->
-                                </div>
-
-                                <div class="row mb-15">
-                                    <div class="col-md-6">
-                                        <div class="input-wrapper">
-                                            <input id="expireDate" name="expireDate" type="text" class="datePicker"
-                                                   value="<?php echo $model->ad_expire_date; ?>" required>
-                                            <div class="float-text">Expire Date</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="state-wrapper">
-                                            <input id="intern" type="checkbox">
-                                            <label for="intern">Intern Opportunity</label>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="row mb-15">
                                     <!--                                    <div class="col-md-6">
@@ -224,52 +233,56 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
                                 </div>-->
 
-                                    <div class="row mt-15 mb-15">
-                                        <div class="col-md-12 upload-area">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="pl-25 file-uploader">
-                                                        <div class="button">Brows...</div>
-                                                        <?php
-                                                        $model = new EmpAdvertisement();
-                                                        echo CHtml::activeFileField($model, 'AdverImage');
-                                                        echo $form->error($model, 'AdverImage');
-                                                        ?>
+                                    <div class="col-md-12 mt-15 mb-15">
+                                        <div class="row">
+                                            <div class="col-md-12 upload-area">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="pl-25 file-uploader">
+                                                            <div class="button">Brows...</div>
+                                                            <?php
+                                                            $model = new EmpAdvertisement();
+                                                            echo CHtml::activeFileField($model, 'AdverImage');
+                                                            echo $form->error($model, 'AdverImage');
+                                                            ?>
+                                                        </div>
+                                                        <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">File size
+                                                            Should
+                                                            be less than 2 MB and JPG/PNG fomat . Image width should not
+                                                            be
+                                                            than
+                                                            950 pixels.</p>
                                                     </div>
-                                                    <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">File size
-                                                        Should
-                                                        be less than 2 MB and JPG/PNG fomat . Image width should not be
-                                                        than
-                                                        950 pixels.</p>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-12 hide-block text-editor-area">
+                                            <div class="col-md-12 pl-40 hide-block text-editor-area">
                                             <textarea name="advertisementText" id="advertisementText" cols="30"
                                                       rows="10"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-12  mt-10">
-                                    <div class="message cm-message"></div>
-                                </div>
-                                <div class="col-md-12 mt-20">
-                                    <button type="submit"
-                                            class="cm-btn large text-uppercase light-blue right">Save
-                                    </button>
+                                <div class="row">
+                                    <div class="col-md-12  mt-10">
+                                        <div class="message cm-message"></div>
+                                    </div>
+                                    <div class="col-md-12 mt-20">
+                                        <button type="submit"
+                                                class="cm-btn large text-uppercase light-blue right">Save
+                                        </button>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
-        <?php $this->endWidget(); ?>
+    </div>
+    <?php $this->endWidget(); ?>
 </section>
 
 
@@ -318,6 +331,50 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
     });
 
+    function showHideOnIntern($this) {
+        var $elements = $('#experience,#isNegotiable,#salary'),
+            $disabledOnIntern = $('.disabled-on-intern');
+
+        if ($this.is(':checked')) {
+            $elements.prop('disabled', true);
+            $('#isNegotiable').prop('checked', false);
+            $disabledOnIntern.css('opacity', 0.5);
+        } else {
+            $elements.prop('disabled', false);
+            $disabledOnIntern.css('opacity', '');
+        }
+
+    }
+
+    function disabledSalary(isValid) {
+
+        if (isValid) {
+            $('#salary').prop('disabled', true);
+            $('#salary').parent().css('opacity',0.5);
+        } else {
+            $('#salary').prop('disabled', false);
+            $('#salary').parent().css('opacity','');
+        }
+    }
+
+    $('#intern').on('change', function () {
+        showHideOnIntern($(this));
+    });
+
+    $('#isNegotiable').on('change', function () {
+        if ($(this).is(':checked')) {
+            disabledSalary(true);
+        } else {
+            disabledSalary(false);
+        }
+    });
+
+    $(function () {
+        showHideOnIntern($('#intern'));
+
+        var isNegotiable = $('#isNegotiable').is(':checked') ? true : false;
+        disabledSalary(isNegotiable);
+    });
 
     $(function () {
 
