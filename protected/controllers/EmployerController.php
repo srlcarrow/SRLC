@@ -229,13 +229,11 @@ class EmployerController extends Controller {
     }
 
     public function actionSaveAdvertisement() {
-        try {
-         
-            if ($_POST['group1'] == "on") {               
+        try {            
+            if ($_POST['group1'] == 1) {
                 $target_dir = "uploads/JobAdvertisements/";
                 $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
                 $validateData = Controller::validateImage($_FILES, $target_dir);
-//                var_dump();exit;
                 $status = $validateData["status"];
                 $reason = $validateData["reason"];
             } else {
@@ -266,10 +264,11 @@ class EmployerController extends Controller {
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
                 $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
-                $model->ad_is_intern = $_POST['advertisementText'];
+                $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
+                $model->ad_created_time = date('Y-m-d H:i:s');
 
                 if ($model->save(false)) {
-                    if ($_POST['group1'] == "on") {
+                    if ($_POST['group1'] == 1) {
                         $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                         $model->ad_image_url = $path;

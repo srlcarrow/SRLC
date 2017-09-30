@@ -220,7 +220,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group upload" name="group1" checked="checked"
-                                                   id="upload" type="radio">
+                                                   id="upload" type="radio" value="1">
                                             <label for="upload">Upload Image</label>
                                         </div>
 
@@ -229,7 +229,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group editor" name="group1" id="editor"
-                                                   type="radio">
+                                                   type="radio" value="2">
                                             <label for="editor">Use Text Editor</label>
                                         </div>
                                     </div><!--
@@ -306,31 +306,41 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
     $(document).ready(function () {
 //        Select.init();
 //        loadCities();
-//        loadSubCats('<?php // echo $model->ref_subcat_id;          ?>')
+//        loadSubCats('<?php // echo $model->ref_subcat_id;         ?>')
     });
-    $("#formAddAdvertisement").validate({
-        submitHandler: function () {
-            $.ajax({
-                url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
-                type: 'POST',
-                data: new FormData(this),
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        $('.message').Success(responce.msg);
-                        document.getElementById("formAddAdvertisement").reset();
-                        setTimeout(function () {
-                            window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
-                        }, 800)
 
-                    } else {
-                        $('.message').Error(responce.msg);
-                    }
+
+
+    $('#formAddAdvertisement').submit(function (e) {
+
+        e.preventDefault();
+
+        var $form = $(this);
+
+        if (!$form.valid())
+            return;
+
+        $.ajax({
+            url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
+            type: 'POST',
+            data: new FormData(this),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (responce) {
+                if (responce.code == 200) {
+                    $('.message').Success(responce.msg);
+                    document.getElementById("formAddAdvertisement").reset();
+                    setTimeout(function () {
+                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
+                    }, 800)
+
+                } else {
+                    $('.message').Error(responce.msg);
                 }
-            });
-        }
+            }
+        });
+
     });
 
     function showHideOnIntern($this) {

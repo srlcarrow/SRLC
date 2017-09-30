@@ -71,7 +71,7 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
 
                             <div class="side-panel-row">
                                 <h6 class="title">Experience</h6>
-                                <h6 class="info"><?php echo $adData->ad_expected_experience; ?></h6>
+                                <h6 class="info"><?php echo $adData->ad_expected_experience . ' Year(s)'; ?></h6>
                             </div>
 
                             <div class="side-panel-row">
@@ -81,7 +81,7 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
 
                             <div class="side-panel-row">
                                 <h6 class="title">Salary</h6>
-                                <h6 class="info"><?php echo $employerAddress; ?></h6>
+                                <h6 class="info"><?php echo $adData->ad_is_negotiable == 1 ? "Negotiable" : $adData->ad_salary; ?></h6>
                             </div>
 
                             <div class="side-panel-row">
