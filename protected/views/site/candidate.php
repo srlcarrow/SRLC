@@ -74,8 +74,7 @@
             <div class="row">
 
                 <div class="col-md-11">
-                    <h2 class="f-30 text-black">How it works</h2>
-                    <p class="mt-30 text-light-2 text-black">Easy 4 Steps to start you next career opportunity</p>
+                    <h2 class="f-30 text-black">Easy 4 Steps to start you next career opportunity</h2>                    
                 </div>
 
                 <div class="col-md-12 mt-50">

@@ -31,10 +31,14 @@
 
                 <div class="col-md-7">
                     <div class="row">
-                        <h2 class="col-md-8 f-30 text-black">Choose a category that suits you</h2>
-                        <div class="col-md-11">
-                            <p class="mt-30 text-light-2 text-black">We as 4you.lk, let our prestigious partners to decide on 3 tailor made package to suit your requirements.</p>
-                            
+                        
+                        <div class="col-md-12">
+                            <h2 class="f-30 text-black">Choose a category that suits you</h2>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p class="mt-30 text-light-2 text-black">We as 4you.lk, let our prestigious partners to decide on 3 tailor made package to suit your requirements.</p>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -51,8 +55,7 @@
             <div class="row">
 
                 <div class="col-md-11">
-                    <h2 class="f-30 text-black">How it works</h2>
-                    <p class="mt-30 text-light-2 text-black">Easy 4 Steps to start you next career opportunity</p>
+                    <h2 class="f-30 text-black">Easy 5 Steps to published you next job post</h2>
                 </div>
 
                 <div class="col-md-12 mt-50">

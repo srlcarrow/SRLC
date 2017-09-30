@@ -27,7 +27,7 @@
                     </div>
                     <div class="col s1 mt-5">
                         <button id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)">Edit</button>
-    <!--                        <i id="<?php // echo $value->ad_id;            ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
+    <!--                        <i id="<?php // echo $value->ad_id;             ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
                     </div>                   
                 </div>
             </div>
@@ -36,6 +36,20 @@
         }
         ?>
     </div>
+    
+    <div class="col s12">
+        <div class="site-pagination">
+            <?php
+            Paginations::setLimit(2);
+            Paginations::setPage($currentPage);
+            Paginations::setJSCallback("loadAdvertisementData");
+            Paginations::setTotalPages($pageCount);
+            Paginations::makePagination();
+            Paginations::drawPagination();
+            ?>
+        </div>
+    </div>
+    
 </div>
 <!--<ul class="pagination right">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -47,18 +61,7 @@
     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 </ul>-->
 
-<div class="col-xs-12 col-md-10 col-md-offset-1">
-    <div class="site-pagination">
-        <?php
-        Paginations::setLimit(2);
-        Paginations::setPage($currentPage);
-        Paginations::setJSCallback("loadAdvertisementData");
-        Paginations::setTotalPages($pageCount);
-        Paginations::makePagination();
-        Paginations::drawPagination();
-        ?>
-    </div>
-</div>
+
 
 
 <script>
@@ -76,7 +79,7 @@
             }
         });
     }
-    
+
     //Order edit
     $('.btn-editAndSave').on('click', function () {
         var $this = $(this);

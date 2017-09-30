@@ -80,6 +80,8 @@ class AdvertisementController extends Controller {
                     if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                         $model->ad_image_url = $path;
+                    } else {
+                        $model->ad_image_url = "";
                     }
                     $model->save(false);
 
