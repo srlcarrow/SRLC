@@ -73,8 +73,6 @@ class JobSeekerController extends Controller {
         }
 
         $jsBasicData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
-//        var_dump($jsBasicData);
-//        exit;
         $jsProfQualifications = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 1));
         $jsMemberships = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 2));
         $jsBasicKey = Controller::encodePrimaryKeys($jsBasicData->js_id);

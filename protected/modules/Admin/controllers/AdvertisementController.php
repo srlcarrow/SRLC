@@ -36,19 +36,29 @@ class AdvertisementController extends Controller {
 
     public function actionSaveAdvertisement() {
         try {
-            $target_dir = "uploads/jobAdvertisement/";
-            $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
-            $validateData = Controller::validateImage($_FILES, $target_dir);
-            $status = $validateData["status"];
-            $reason = $validateData["reason"];
+            if ($_POST['adId'] > 0) {
+                $model = EmpAdvertisement::model()->findByPk($_POST['adId']);
+            }
+
+            $status = 1;
+            $reason = "";
+            if ($_POST['group1'] == 1) {
+                if ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                    $status = 1;
+                    $reason = "";
+                } elseif ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 0) {
+                    $status = 0;
+                    $reason = "Please Select an Advertisement";
+                } else {
+                    $target_dir = "uploads/jobAdvertisement/";
+                    $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
+                    $validateData = Controller::validateImage($_FILES, $target_dir);
+                    $status = $validateData["status"];
+                    $reason = $validateData["reason"];
+                }
+            }
 
             if ($status == 1) {
-                $model = new EmpAdvertisement();
-                if ($_POST['adId'] > 0) {
-                    $model = EmpAdvertisement::model()->findByPk($_POST['adId']);
-                }
-                $model->ad_reference = 0;
-                $model->ref_employer_id = 2;
                 $model->ref_district_id = $_POST['district_id'];
                 $model->ref_city_id = $_POST['city'];
                 $model->ref_industry_id = $_POST['ref_industry_id'];
@@ -63,12 +73,14 @@ class AdvertisementController extends Controller {
                 $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
-                $model->ad_image_url = "";
+//                $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
-                    $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
-                    $model->ad_image_url = $path;
+                    if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
+                        $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
+                        $model->ad_image_url = $path;
+                    }
                     $model->save(false);
 
                     $this->msgHandler(200, "Successfully Saved...");

@@ -36,6 +36,11 @@ class Controller extends CController {
         $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id;
         return $refEEmpOrJsId;
     }
+    
+    public static function getUserType($id) {
+        $userType = User::model()->findByPk($id)->user_type;
+        return $userType;
+    }
 
     public static function getAdvertisementReferenceNo($id) {
         $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);

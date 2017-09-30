@@ -106,11 +106,15 @@ class EmployerController extends Controller {
 
     public function actionSaveAdvertisement() {
         try {
-            $target_dir = "uploads/jobAdvertisement/";
-            $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
-            $validateData = Controller::validateImage($_FILES, $target_dir);
-            $status = $validateData["status"];
-            $reason = $validateData["reason"];
+            $status = 1;
+            $reason = "";
+            if ($_POST['group1'] == 1) {
+                $target_dir = "uploads/jobAdvertisement/";
+                $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
+                $validateData = Controller::validateImage($_FILES, $target_dir);
+                $status = $validateData["status"];
+                $reason = $validateData["reason"];
+            }
 
             if ($status == 1) {
                 $model = new EmpAdvertisement();
@@ -142,8 +146,11 @@ class EmployerController extends Controller {
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
-                    $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
-                    $model->ad_image_url = $path;
+                    if ($_POST['group1'] == 1) {
+                        $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
+                        $model->ad_image_url = $path;
+                    }
+
                     $model->save(false);
 
                     $this->msgHandler(200, "Successfully Saved...");

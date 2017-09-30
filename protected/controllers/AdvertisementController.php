@@ -33,7 +33,8 @@ class AdvertisementController extends Controller {
     //Popup
     public function actionApplyJob() {
         $userId = Yii::app()->user->getId();
-        $this->renderPartial('ajaxLoad/popup/jobApply', array('user' => $userId));
+        $userType = Controller::getUserType($userId);
+        $this->renderPartial('ajaxLoad/popup/jobApply', array('user' => $userId, 'userType' => $userType));
     }
 
     public function actionUploadCV() {

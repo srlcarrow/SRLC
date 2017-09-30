@@ -87,17 +87,22 @@ class EmployerController extends Controller {
         $userType = $user->user_type;
 
         if ($userType == 2) {
-            $employerData = EmpEmployers::model()->findByAttributes(array('ref_jsbt_id' => $user->ref_emp_or_js_id));
+            $employerData = EmpEmployers::model()->findByAttributes(array('employer_id' => $user->ref_emp_or_js_id));
+//            var_dump($employerData);exit;
         } else {
             $employerData = new EmpEmployers();
         }
-
+        
         $this->render('profile', array('employerData' => $employerData));
     }
 
     public function actionPackage() {
         $packages = AdmPackage::model()->findAll();
         $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
+    }
+    
+    public function actionBasicData() {
+        $this->renderPartial('ajaxLoad/basic');
     }
 
     public function actionViewPurchasedPackages() {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 //--------------------------------------------
 //Javascript
 //--------------------------------------------
@@ -36,21 +36,25 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
                             <div class="col-md-9 pl-0 pt-30 pb-20 bottom-line">  
-                                <h2 class="text-black mb-5"><?php echo $model->js_fname .' '. $model->js_lname;  ?></h2>
-                                <h5 class="text-dark-blue text-light-2 text-uppercase"><?php echo AdmDesignation::model()->findByPk($employment->ref_designation_id)->desig_name;  ?></h5>
+                                <h2 class="text-black mb-5"><?php echo $model->js_fname . ' ' . $model->js_lname; ?></h2>
+                                <h5 class="text-dark-blue text-light-2 text-uppercase"><?php
+                                    if ($employment->ref_designation_id != NULL) {
+                                        echo AdmDesignation::model()->findByPk($employment->ref_designation_id)->desig_name;
+                                    }
+                                    ?></h5>
 
 
                                 <div class="d-table width-auto mt-20">
                                     <div class="d-table-cell pr-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
-                                            <span><?php echo $model->js_contact_no1;  ?>/ <?php echo $model->js_contact_no2;  ?></span>
+                                            <span><?php echo $model->js_contact_no1; ?>/ <?php echo $model->js_contact_no2; ?></span>
                                         </h5>
                                     </div>
                                     <div class="d-table-cell pl-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 email mr-10 v-middle"></i>
-                                            <span><?php echo $model->js_email;  ?></span>
+                                            <span><?php echo $model->js_email; ?></span>
                                         </h5>
                                     </div>
                                 </div>
