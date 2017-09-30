@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 </div>
                             </div>
 
-                            <div class="col-md-9 pl-0 pr-0 pb-20 bottom-line">
+                            <div class="col-md-9 pl-30 pr-0 pb-20 bottom-line">
                                 <h2 class="text-black mb-5"><?php echo $employerData->employer_name; ?></h2>
                                 <h5 class="text-dark-blue text-light-2 text-uppercase"><?php echo $employerData->employer_address; ?></h5>
 
@@ -104,6 +104,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
     $('.btnEditBasicData').on('click', function () {
+        $('.tab-horizontal li').removeClass('active');
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Employer/BasicData'; ?>",
