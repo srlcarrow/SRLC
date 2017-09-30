@@ -195,7 +195,6 @@ class EmployerController extends Controller {
     }
 
     public function actionPurchasePackage() {
-
         try {
             $userId = Yii::app()->user->id;
             $packageId = $_POST['id'];
@@ -222,25 +221,36 @@ class EmployerController extends Controller {
         }
     }
 
-    public function actionCreateAdvertisement() {
-        $empId = Yii::app()->user->id;
-        $model = new EmpAdvertisement();
-        $this->render('createAdd', array('model' => $model, 'empId' => $empId));
+    public function actionCreateAdvertisement($id = NULL) {
+        $adId = 0;
+        if ($id == NULL) {
+            $model = new EmpAdvertisement();
+        } else {
+            $model = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $id));
+            $adId = $id;
+        }
+        $empId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+
+        $this->render('createAdd', array('model' => $model, 'empId' => $empId, 'adId' => $adId));
     }
 
     public function actionSaveAdvertisement() {
         try {
-         
-            if ($_POST['group1'] == "on") {               
-                $target_dir = "uploads/JobAdvertisements/";
-                $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
-                $validateData = Controller::validateImage($_FILES, $target_dir);
-//                var_dump();exit;
-                $status = $validateData["status"];
-                $reason = $validateData["reason"];
-            } else {
-                $status = 1;
-                $reason = '';
+
+            if ($_POST['group1'] == 1) {
+                if ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                    $status = 1;
+                    $reason = "";
+                } elseif ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 0) {
+                    $status = 0;
+                    $reason = "Please Select an Advertisement";
+                } else {
+                    $target_dir = "uploads/JobAdvertisements/";
+                    $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
+                    $validateData = Controller::validateImage($_FILES, $target_dir);
+                    $status = $validateData["status"];
+                    $reason = $validateData["reason"];
+                }
             }
 
             $employerId = $this->getRefEmpOrJsId(Yii::app()->user->id);
@@ -248,6 +258,14 @@ class EmployerController extends Controller {
 
             if ($status == 1) {
                 $model = new EmpAdvertisement();
+
+                if ($_POST['adId'] != 0) {
+                    $model = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $_POST['adId']));
+                    if (count($model) == 0) {
+                        $this->msgHandler(400, "Invalid Access Code...");
+                    }
+                }
+
                 $model->ad_reference = "";
                 $model->ref_employer_id = $employerId;
                 $model->ref_district_id = isset($_POST['district_id']) ? $_POST['district_id'] : 0;
@@ -255,7 +273,8 @@ class EmployerController extends Controller {
                 $model->ref_industry_id = $employerData->ref_ind_id;
                 $model->ref_cat_id = $_POST['ref_cat_id'];
                 $model->ref_subcat_id = $_POST['subCategories'];
-                $model->ref_designation_id = isset($_POST['designations']) ? $_POST['designations'] : 0;
+                $model->ref_designation_id = isset($_POST['designations']) && !isset($_POST['otherDesignation']) ? $_POST['designations'] : 0;
+                $model->ad_other_desig = isset($_POST['otherDesignation']) ? $_POST['designations'] : '';
                 $model->ad_expected_experience = isset($_POST['experience']) ? $_POST['experience'] : 0;
                 $model->ad_salary = isset($_POST['salary']) ? $_POST['salary'] : 0;
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
@@ -266,22 +285,45 @@ class EmployerController extends Controller {
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
                 $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
-                $model->ad_is_intern = $_POST['advertisementText'];
+                $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
+                $model->ad_created_time = date('Y-m-d H:i:s');
+                $model->ad_token = "";
+                $model->ad_published_time = "0000-00-00 00:00:00";
 
                 if ($model->save(false)) {
-                    if ($_POST['group1'] == "on") {
+                    if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
                         $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                         $model->ad_image_url = $path;
+                        $model->ad_token = md5('adId-' . $model->ad_id);
                         $model->save(false);
                     }
-                    $this->msgHandler(200, "Successfully Saved...");
+                    $this->msgHandler(200, "Successfully Saved...", array('adId' => $model->ad_token));
                 }
             } else {
                 $this->msgHandler(400, $reason);
             }
         } catch (Exception $exc) {
             $this->msgHandler(400, $exc->getTraceAsString());
+        }
+    }
+
+    public function actionViewPreviewJobAdvertisement($id) {
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $id));
+        $this->render('viewPreviewJobAdvertisement', array('adData' => $adData, 'id' => $id));
+    }
+
+    public function actionPublishAdvertisement() {
+        $adToken = $_POST['id'];
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $adToken));
+        if (count($adData) > 0) {
+            $adData->ad_token = "";
+            $adData->ad_is_published = 1;
+            $adData->ad_published_time = date('Y-m-d H:i:s');
+            $adData->save(false);
+            $this->msgHandler(200, "Successfully Published...");
+        } else {
+            $this->msgHandler(400, "Invalid Publish...");
         }
     }
 

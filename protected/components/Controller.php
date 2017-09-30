@@ -36,7 +36,7 @@ class Controller extends CController {
         $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id;
         return $refEEmpOrJsId;
     }
-    
+
     public static function getUserType($id) {
         $userType = User::model()->findByPk($id)->user_type;
         return $userType;
@@ -101,6 +101,8 @@ class Controller extends CController {
 
     public static function searchWhereCriterias() {
         $str = "ad.ad_id !=0 ";
+        $str .= " AND ad.ad_is_published = 1";
+
         if (!empty($_REQUEST['ref_cat_id']) && $_REQUEST['ref_cat_id'] != 'undefined' && $_REQUEST['ref_cat_id'] != 0) {
             $str .= " AND ad.ref_cat_id = " . $_REQUEST['ref_cat_id'];
         }

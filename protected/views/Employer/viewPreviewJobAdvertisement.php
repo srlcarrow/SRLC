@@ -7,7 +7,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 ?>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmAdver')); ?>
 <?php
-$employerData = EmpEmployers::model()->findByPk($adData->ref_employer_id);
+$empId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+
+$employerData = EmpEmployers::model()->findByPk($empId);
 $companyLogo = count($employerData) > 0 ? $employerData->employer_image : '';
 $employerAddress = count($employerData) > 0 ? $employerData->employer_address : '';
 
@@ -85,7 +87,8 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
                             </div>
 
                             <div class="side-panel-row">
-                                <button type="button" class="cm-btn large light-blue-4 up-case btn-apply-job">Apply</button>
+                                <button type="button" onclick="publish('<?php echo $id; ?>')" class="cm-btn large light-blue-4 up-case">Publish</button>
+                                <button type="button" onclick="edit('<?php echo $id; ?>')" class="cm-btn large light-blue-4 up-case">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -95,3 +98,29 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
     </div>
 </section>
 <?php $this->endWidget(); ?>
+
+<script>
+    function edit(id) {
+        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/CreateAdvertisement/id/'; ?>' + id;
+    }
+
+    function publish(id) {
+        $.ajax({
+            url: "<?php echo Yii::app()->baseUrl . '/Employer/PublishAdvertisement'; ?>",
+            type: 'POST',
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    $('.message').Success(responce.msg);
+                    setTimeout(function () {
+                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
+                    }, 800)
+
+                } else {
+                    $('.message').Error(responce.msg);
+                }
+            }
+        });
+    }
+</script>

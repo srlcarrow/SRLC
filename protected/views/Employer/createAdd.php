@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                             <h2 class="col-md-12 f-light mb-50">Create Advertisement</h2>
 
                             <div class="col-md-12 mt-10">
-
+                                <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>">
                                 <div class="row mb-5">
                                     <div class="col-md-12">
                                         <div class="input-wrapper">
@@ -119,7 +119,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
-                                                    <input id="intern" name="intern" type="checkbox">
+                                                    <input id="intern" name="intern" type="checkbox"  <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
                                                     <label for="intern">Intern Opportunity</label>
                                                 </div>
                                             </div>
@@ -146,12 +146,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 <div class="row mb-15">
                                     <div class="col-md-6 disabled-on-intern">
                                         <div class="row">
-
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
                                                     <input id="isNegotiable" name="isNegotiable" class="filled-in"
-                                                           type="checkbox" id="negotiable"
-                                                           checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
+                                                           type="checkbox" id="negotiable" 
+                                                           <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
                                                     <label for="isNegotiable">Negotiable</label>
                                                 </div>
                                             </div>
@@ -220,7 +219,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group upload" name="group1" checked="checked"
-                                                   id="upload" type="radio">
+                                                   id="upload" type="radio" value="1">
                                             <label for="upload">Upload Image</label>
                                         </div>
 
@@ -229,7 +228,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group editor" name="group1" id="editor"
-                                                   type="radio">
+                                                   type="radio" value="2">
                                             <label for="editor">Use Text Editor</label>
                                         </div>
                                     </div>
@@ -276,7 +275,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
                     </div>
@@ -302,34 +300,49 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
     $(document).ready(function () {
-//        Select.init();
-//        loadCities();
-//        loadSubCats('<?php // echo $model->ref_subcat_id;          ?>')
+        //Select.init();
+<?php
+if ($adId != 0) {
+    ?>
+            loadCities();
+            loadSubCats('<?php echo $model->ref_subcat_id; ?>');
+
+    <?php
+}
+?>
     });
-    $("#formAddAdvertisement").validate({
 
-        submitHandler: function () {
-            $.ajax({
-                url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
-                type: 'POST',
-                data: new FormData(this),
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function (responce) {
-                    if (responce.code == 200) {
-                        $('.message').Success(responce.msg);
-                        document.getElementById("formAddAdvertisement").reset();
-                        setTimeout(function () {
-                            window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
-                        }, 800)
+    $('#formAddAdvertisement').submit(function (e) {
+        e.preventDefault();
 
-                    } else {
-                        $('.message').Error(responce.msg);
-                    }
+        var $form = $(this);
+
+        if (!$form.valid())
+            return;
+
+        $.ajax({
+            url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
+            type: 'POST',
+            data: new FormData(this),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var adId = responce.data.adId;
+                    $('.message').Success(responce.msg);
+                    document.getElementById("formAddAdvertisement").reset();
+                    setTimeout(function () {
+                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ViewPreviewJobAdvertisement/id/'; ?>' + adId;
+                    }, 800)
+
+                } else {
+                    $('.message').Error(responce.msg);
+
                 }
-            });
-        }
+            }
+        });
+
     });
 
     function showHideOnIntern($this) {
