@@ -7,7 +7,13 @@ class DefaultController extends Controller {
             $this->actionViewLogin();
         } else {
             $userId = Yii::app()->user->id;
-            $this->render('index');
+            $userType = $this->getUserType($userId);
+            if ($userType == 3) {
+                $this->render('index');
+            } else {
+                $this->actionLogout();
+                $this->actionViewLogin();
+            }
         }
     }
 
@@ -52,10 +58,10 @@ class DefaultController extends Controller {
             $this->msgHandler(400, "Error In Login Details...");
         }
     }
-    
-    public function actionLogout() {  
+
+    public function actionLogout() {
         Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl.'/Admin');
+        $this->redirect(Yii::app()->homeUrl . '/Admin');
     }
 
 }

@@ -259,4 +259,9 @@ class Controller extends CController {
         return $password;
     }
 
+    public static function getUserType($id) {
+        $userType = User::model()->findByPk($id)->user_type;
+        return $userType;
+    }
+
 }

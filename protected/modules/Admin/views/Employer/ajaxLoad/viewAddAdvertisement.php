@@ -3,7 +3,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
     'stateful' => true,
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data',
-    )));
+        )));
 ?>
 <div class="card ">
     <div class="card-content">
@@ -99,13 +99,13 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 </div>
             </div>
 
-<!--            <div class="col s12 m4">
-                <div class="input-field">
-                    <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
-                           checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
-                    <label for="isDesigAsTitle">Use designation as title</label>
-                </div>
-            </div>-->
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
+                                       checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";    ?>"/>
+                                <label for="isDesigAsTitle">Use designation as title</label>
+                            </div>
+                        </div>-->
 
             <div class="col m4">
                 <div class="input-field">
@@ -158,10 +158,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                             }
                             ?>
                             <input id="imagePath" name="imagePath" class="file-path validate" type="text"
-                                   value="<?php echo $image; ?>" required>
+                                   value="<?php echo $image; ?>">
                         </div>
                     </div>
-                    <a href="<?php echo Yii::app()->baseUrl . '/' . $model->ad_image_url; ?>">Download Advertisement</a>
+                    <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;   ?>">Download Advertisement</a>-->
                 </div>
             </div>
 
@@ -188,15 +188,15 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 <!--Back End-->
 <script>
     $(document).ready(function () {
-        <?php
-        if ($adId > 0) {
-        ?>
-        loadCities();
-        loadSubCategories('<?php echo $model->ref_subcat_id; ?>');
+<?php
+if ($adId > 0) {
+    ?>
+            loadCities();
+            loadSubCategories('<?php echo $model->ref_subcat_id; ?>');
 
-        <?php
-        }
-        ?>
+    <?php
+}
+?>
 
     });
 
@@ -217,7 +217,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         });
         e.preventDefault();
     });
-
+   
     function loadSubCategories(id) {
         $("#subCategories").empty();
 
@@ -232,10 +232,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     var subCats = responce.data.subCategoryData;
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
-                            $("<option>" + subCats[i]['scat_name'] + "</option>")
+                                $("<option>" + subCats[i]['scat_name'] + "</option>")
                                 .attr("value", subCats[i]['scat_id'])
                                 .text(subCats[i]['scat_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -264,10 +264,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     var designations = responce.data.designationData;
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
-                            $("<option>" + designations[i]['desig_name'] + "</option>")
+                                $("<option>" + designations[i]['desig_name'] + "</option>")
                                 .attr("value", designations[i]['desig_id'])
                                 .text(designations[i]['desig_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -292,10 +292,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     var cities = responce.data.cityData;
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                            $("<option>" + cities[i]['city_name'] + "</option>")
+                                $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -376,13 +376,13 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
 <!-- Include external JS libs. -->
 <script type="text/javascript"
-        src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/codemirror.min.js"></script>
+src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/codemirror.min.js"></script>
 <script type="text/javascript"
-        src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/xml.min.js"></script>
+src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/xml.min.js"></script>
 
 <!-- Include Editor JS files. -->
 <script type="text/javascript"
-        src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/froala_editor.pkgd.min.js"></script>
+src="<?php echo $this->module->assetsUrl ?>/js/plugins/editor/froala_editor.pkgd.min.js"></script>
 
 <!-- Initialize the editor. -->
 <script>

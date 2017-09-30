@@ -11,7 +11,7 @@
             <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate'; ?>">Job
                     Seeker</a></li>
             <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/Employer'; ?>">Employer</a></li>
-            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';       ?>">Contact
+            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';        ?>">Contact
                     Us</a></li>
 
 
@@ -25,7 +25,7 @@
                 $logUserDetails = User::model()->findByAttributes(array('user_id' => $logUserId));
 
                 if ($logUserDetails->user_type == 1) {
-                    $JsBasic = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $logUserDetails->ref_emp_or_js_id));
+                    $JsBasic = JsBasic::model()->findByAttributes(array('js_id' => $logUserDetails->ref_emp_or_js_id));
 
                     if (count($JsBasic) > 0) {
                         $firstName = substr($JsBasic->js_fname, 0, 10);
@@ -71,8 +71,8 @@
                     </div>
                 </li>
 
-<?php }
-?>
+            <?php }
+            ?>
 
         </ul>
     </div>
