@@ -222,17 +222,20 @@ var Select = (function () {
             var selectedOption = $this.find('.selected-option');
             var optionList = $this.find('.option-list');
             var htmlSelect = $this.find('select');
-console.log($this.attr('required'))
+// console.log('Selected ',htmlSelect.val())
             var HTMLSelect = {
                 isRequired: false,
                 selected: function (selectedDisabled) {
 
-                    var selected = htmlSelect.find('option:disabled');
+                    var selectedVal = this.getSelectVal();
 
-                    if (selectedDisabled) {
-                        selected = htmlSelect.find('option:disabled');
-                    } else {
-                        selected = htmlSelect.find('option:selected');
+                    if(selectedVal == "Select" ||
+                        selectedVal == null ||
+                        selectedVal == undefined ||
+                        selectedVal == ""){
+                        var selected = htmlSelect.find('option:disabled')
+                    }else {
+                        var selected = htmlSelect.find('option:selected');
                     }
 
                     return [
