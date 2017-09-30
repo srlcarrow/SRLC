@@ -52,11 +52,36 @@ var Popup = (function () {
 
         popupContainer.addClass('isShow');
 
+        Animation.load();
+
+        if (ajaxLoad !== undefined) {
+
+            document.querySelector('body').style.overflow = "hidden";
+            var container = popupContainer.find('.content');
+            container.html('');
+            container.html(ajaxLoad);
+            Animation.hide();
+            container.fadeTo('slow', 1)
+        }
+
+    };
+
+    _Popup.beforeShow = function (ajaxLoad) {
+
+        popupContainer.addClass('isShow');
+        var container = popupContainer.find('.content');
+
+        container.html('')
+            .fadeTo('fast', 0);
+
+        Animation.load();
+
         if (ajaxLoad !== undefined) {
             document.querySelector('body').style.overflow = "hidden";
-            popupContainer.find('.content')
+            container
                 .html('')
                 .html(ajaxLoad);
+            Animation.hide();
         }
 
     };
@@ -65,6 +90,9 @@ var Popup = (function () {
         popupContainer.find('.content')
             .css('opacity', 0);
         if (popupContainer.hasClass('isShow')) {
+
+            Animation.hide();
+
             popupContainer.find('.content')
                 .animate({'opacity': 1}, 800)
                 .html('')
@@ -187,15 +215,16 @@ var Select = (function () {
 
     select.init = function (ele) {
         var ele = (ele !== undefined && ele !== "") ? ele : '.selector';
-        console.log(ele)
+
         $(ele).each(function () {
             var $this = $(this);
 
             var selectedOption = $this.find('.selected-option');
             var optionList = $this.find('.option-list');
             var htmlSelect = $this.find('select');
-
+console.log($this.attr('required'))
             var HTMLSelect = {
+                isRequired: false,
                 selected: function (selectedDisabled) {
 
                     var selected = htmlSelect.find('option:disabled');
@@ -460,6 +489,8 @@ var imageCropData = (function () {
 $('.btn-registration').on('click', function (evt) {
     evt.preventDefault();
 
+    Popup.beforeShow();
+
     loadLayoutByAjax('/Site/RegistrationPopup', function (html) {
         Popup.addClass('registration-popup');
         Popup.show(html);
@@ -474,6 +505,8 @@ $('.btn-sign-in').on('click', function (evt) {
 
     evt.preventDefault();
 
+    Popup.beforeShow();
+
     loadLayoutByAjax('/Site/SignInPopup', function (html) {
         Popup.addClass('sign-in-popup');
         Popup.addClass('small');
@@ -485,6 +518,8 @@ $('.btn-sign-in').on('click', function (evt) {
 
 $('.popup-container').on('click', '.forget_password', function (evt) {
     evt.preventDefault();
+
+    Popup.beforeShow();
 
     loadLayoutByAjax('/Site/PasswordResetFrom', function (html) {
         Popup.loadNewLayout(html);

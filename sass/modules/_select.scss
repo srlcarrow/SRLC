@@ -5,7 +5,24 @@
   width: 100%;
 
   select {
-    display: none;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+
+    & + .error-val {
+      color: #f26b55;
+      font-size: 12px;
+      left: 0;
+      padding: 2px 0;
+      position: absolute;
+      top: 23px;
+      width: 100%;
+    }
+
   }
 
   .selected-option {
