@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                             <h2 class="col-md-12 f-light mb-50">Create Advertisement</h2>
 
                             <div class="col-md-12 mt-10">
-
+                                <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>">
                                 <div class="row mb-5">
                                     <div class="col-md-12">
                                         <div class="input-wrapper">
@@ -119,7 +119,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
-                                                    <input id="intern" name="intern" type="checkbox">
+                                                    <input id="intern" name="intern" type="checkbox"  <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
                                                     <label for="intern">Intern Opportunity</label>
                                                 </div>
                                             </div>
@@ -146,12 +146,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 <div class="row mb-15">
                                     <div class="col-md-6 disabled-on-intern">
                                         <div class="row">
-
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
                                                     <input id="isNegotiable" name="isNegotiable" class="filled-in"
-                                                           type="checkbox" id="negotiable"
-                                                           checked="<?php echo $model->ad_is_negotiable == 1 ? "on" : ""; ?>"/>
+                                                           type="checkbox" id="negotiable" 
+                                                           <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
                                                     <label for="isNegotiable">Negotiable</label>
                                                 </div>
                                             </div>
@@ -278,7 +277,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
                     </div>
@@ -304,15 +302,21 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
     $(document).ready(function () {
-//        Select.init();
-//        loadCities();
-//        loadSubCats('<?php // echo $model->ref_subcat_id;         ?>')
+        //Select.init();
+<?php
+if ($adId != 0) {
+    ?>
+            loadCities();
+            loadSubCats('<?php echo $model->ref_subcat_id; ?>');
+
+    <?php
+}
+?>
     });
 
 
 
     $('#formAddAdvertisement').submit(function (e) {
-
         e.preventDefault();
 
         var $form = $(this);
@@ -329,10 +333,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
             contentType: false,
             success: function (responce) {
                 if (responce.code == 200) {
+                    var adId = responce.data.adId;
                     $('.message').Success(responce.msg);
                     document.getElementById("formAddAdvertisement").reset();
                     setTimeout(function () {
-                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
+                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ViewPreviewJobAdvertisement/id/'; ?>' + adId;
                     }, 800)
 
                 } else {
