@@ -65,6 +65,7 @@
     </div>
 </div>
 
+<!--Temporally hide-->
 <?php /*foreach ($packages as $package) { */?><!--
     <div class="col-md-12 pl-30 pr-0">
         <div class="col-md-12 pl-0 pr-30 package-block">
