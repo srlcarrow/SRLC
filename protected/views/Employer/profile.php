@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-12">
                                         <figure>
                                             <img class="m-auto employer-logo img-155"
-                                                 src="<?php echo Yii::app()->baseUrl . '/uploads/company/logo/' . $employerData->employer_image; ?>"
+                                                 src="<?php echo Yii::app()->baseUrl . '/uploads/Profile/Employer/' . $employerData->employer_image; ?>"
                                                  alt="">
                                         </figure>
                                     </div>
@@ -99,7 +99,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 <script>
     function updateImage(imageName) {
-        $('.employer-logo').attr('src', BASE_URL + '/uploads/company/logo/' + imageName);
+        $('.employer-logo').attr('src', BASE_URL + '/uploads/Profile/Employer/' + imageName);
     }
 
 

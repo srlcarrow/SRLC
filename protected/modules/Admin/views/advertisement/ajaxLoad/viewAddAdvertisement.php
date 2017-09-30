@@ -204,6 +204,8 @@ if ($adId > 0) {
                 if (responce.code == 200) {
                     Message.success(responce.msg);
                     document.getElementById("formAddAdvertisement").reset();
+                } else {
+                    Message.success(responce.msg);
                 }
             }
         });

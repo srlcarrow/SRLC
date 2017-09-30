@@ -92,7 +92,7 @@ class EmployerController extends Controller {
         } else {
             $employerData = new EmpEmployers();
         }
-        
+
         $this->render('profile', array('employerData' => $employerData));
     }
 
@@ -100,7 +100,7 @@ class EmployerController extends Controller {
         $packages = AdmPackage::model()->findAll();
         $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
     }
-    
+
     public function actionBasicData() {
         $this->renderPartial('ajaxLoad/basic');
     }
@@ -131,21 +131,33 @@ class EmployerController extends Controller {
 
     public function actionUploadLogo() {
         try {
-            define('UPLOAD_DIR', 'uploads/company/logo/');
+            define('UPLOAD_DIR', 'uploads/Profile/Employer/');
             $img = $_POST['imageData'];
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
+
             if (isset(Yii::app()->user->id) || Yii::app()->user->id > 0) {
                 $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
                 $imageName = EmpEmployers::model()->findByPk($employerId)->employer_image;
-                $fileName = $imageName;
+
+                if ($imageName == "") {
+                    $fileName = "employer_" . uniqid() . '.png';
+                } else {
+                    unlink('uploads/Profile/Employer/' . $imageName);
+                    $fileName = "employer_" . uniqid() . '.png';
+                }
             } else {
                 $fileName = "employerCompany_" . uniqid() . '.png';
             }
             $widthArray = array('212');
             $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
             if ($success) {
+                if ($employerId != NULL) {
+                    $empData = EmpEmployers::model()->findByPk($employerId);
+                    $empData->employer_image = $fileName;
+                    $empData->save(false);
+                }
                 $this->msgHandler(200, "Data Transfer", array('fileName' => $fileName));
             }
         } catch (Exception $exc) {
@@ -218,10 +230,12 @@ class EmployerController extends Controller {
 
     public function actionSaveAdvertisement() {
         try {
-            if ($_POST['group1'] == 1) {
-                $target_dir = "uploads/jobAdvertisement/";
+         
+            if ($_POST['group1'] == "on") {               
+                $target_dir = "uploads/JobAdvertisements/";
                 $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
                 $validateData = Controller::validateImage($_FILES, $target_dir);
+//                var_dump();exit;
                 $status = $validateData["status"];
                 $reason = $validateData["reason"];
             } else {
@@ -229,18 +243,21 @@ class EmployerController extends Controller {
                 $reason = '';
             }
 
+            $employerId = $this->getRefEmpOrJsId(Yii::app()->user->id);
+            $employerData = EmpEmployers::model()->findByPk($employerId);
+
             if ($status == 1) {
                 $model = new EmpAdvertisement();
-                $model->ad_reference = 0;
-                $model->ref_employer_id = Yii::app()->user->id;
-                $model->ref_district_id = $_POST['district_id'];
-                $model->ref_city_id = $_POST['city'];
-                $model->ref_industry_id = $_POST['ref_industry_id'];
+                $model->ad_reference = "";
+                $model->ref_employer_id = $employerId;
+                $model->ref_district_id = isset($_POST['district_id']) ? $_POST['district_id'] : 0;
+                $model->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
+                $model->ref_industry_id = $employerData->ref_ind_id;
                 $model->ref_cat_id = $_POST['ref_cat_id'];
                 $model->ref_subcat_id = $_POST['subCategories'];
-                $model->ref_designation_id = $_POST['designations'];
-                $model->ad_expected_experience = $_POST['experience'];
-                $model->ad_salary = $_POST['salary'];
+                $model->ref_designation_id = isset($_POST['designations']) ? $_POST['designations'] : 0;
+                $model->ad_expected_experience = isset($_POST['experience']) ? $_POST['experience'] : 0;
+                $model->ad_salary = isset($_POST['salary']) ? $_POST['salary'] : 0;
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
                 $model->ref_work_type_id = $_POST['ref_work_type_id'];
                 $model->ad_title = $_POST['title'];
@@ -249,9 +266,11 @@ class EmployerController extends Controller {
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
                 $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
+                $model->ad_is_intern = $_POST['advertisementText'];
+
                 if ($model->save(false)) {
-                    if ($_POST['group1'] == 1) {
-                        $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
+                    if ($_POST['group1'] == "on") {
+                        $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                         $model->ad_image_url = $path;
                         $model->save(false);
