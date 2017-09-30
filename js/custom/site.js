@@ -147,8 +147,15 @@ function loadJobsByCategory() {
     var progress = 1;
     var jobTitle = 'title';
 
+    function preventDefault(e) {
+        e = e || window.event;
+        if (e.preventDefault)
+            e.preventDefault();
+        e.returnValue = false;
+    }
+
     //Get job title position in the top.
-    var $titleTopSpace = $('#searchWrapper').offset().top;
+    var $titleTopSpace = ($('#searchWrapper').offset().top + 85);
 
     var jobScene = new ScrollMagic.Scene({
         triggerElement: '.search-section',
@@ -159,6 +166,13 @@ function loadJobsByCategory() {
 
     jobScene.addTo(controller);
     jobScene.setPin('.search-section', {pushFollowers: false});
+    jobScene.on('start', function () {
+        // window.onwheel = preventDefault;
+        //
+        // setTimeout(function () {
+        //     window.onwheel = null;
+        // }, 1000)
+    });
 
     //S 2
     var Scene = new ScrollMagic.Scene({
@@ -171,6 +185,7 @@ function loadJobsByCategory() {
     Scene.on('progress', function (e) {
         var opt = 1 - (e.progress);
         $('#title').css({'opacity': opt});
+        $('header').css({'opacity': opt});
     });
 
     Scene.on('start', function (e) {
@@ -185,7 +200,8 @@ function loadJobsByCategory() {
 
     $('#searchText').on('focus click', function () {
         $("html, body").animate({scrollTop: $titleTopSpace + 5}, 10);
-    })
+    });
+
 })($);
 
 
