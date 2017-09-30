@@ -85,13 +85,18 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
     min-height: 60px;
     resize: none;
   }
-
+  textarea:active,
+  input[type="text"]:active,
+  input[type="password"]:active,
+  input[type="email"]:active,
+  input[type="number"]:active ,
   textarea:focus,
   input[type="text"]:focus,
   input[type="password"]:focus,
   input[type="email"]:focus,
   input[type="number"]:focus {
     outline: none;
+    border: none;
   }
 
   span.error-val {
@@ -253,7 +258,7 @@ input[type="checkbox"] {
   }
 
   &:checked + label::after {
-    background: $form-radio-button-color url("../images/system/icon/site/12/ic_12-tick-white.png") no-repeat center 3px;
+    background: $form-radio-button-color url("../images/system/icon/site/12/ic_12-tick-white.png") no-repeat 2px 3px;
   }
 }
 
