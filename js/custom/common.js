@@ -243,6 +243,7 @@ var Select = (function () {
                         selected.val(),
                         selected.html()
                     ];
+
                 },
                 options: function () {
                     var list = [];
