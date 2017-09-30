@@ -349,9 +349,11 @@ class EmployerController extends Controller {
             $empEmployers->employer_mobi = $_POST['contactNoOp'];
             $empEmployers->employer_contact_person = $_POST['contactPer'];
             $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
-            $empEmployers->save(false);
+            if ($empEmployers->save(false)) {
+                $this->msgHandler(200, "Successfully Saved...");
+            }
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            $this->msgHandler(400, $exc);
         }
     }
 
