@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <span>Type</span>
                                         </div>
                                         <ul class="option-list"></ul>
-                                        <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'onchange' => 'loadAdvertisementData(1)')); ?>
+                                        <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Type', 'onchange' => 'loadAdvertisementData(1)')); ?>
                                     </div>
                                 </div>
                                 <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <span>District</span>
                                         </div>
                                         <ul class="option-list"></ul>
-                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
+                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'District', 'onChange' => 'loadCities()')); ?>
                                     </div>
                                 </div>
                                 <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
@@ -106,76 +106,76 @@ Search Result Section
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/site.js'; ?>"></script>
 
 <script>
-                                            $(document).ready(function (e) {
-                                                loadAdvertisementData(1);
-                                            });
+    $(document).ready(function (e) {
+        loadAdvertisementData(1);
+    });
 
-                                            $('#searchText').keyup(function () {
-                                                loadAdvertisementData(1);
-                                            });
+    $('#searchText').keyup(function () {
+        loadAdvertisementData(1);
+    });
 
-                                            var currentRequest = null;
+    var currentRequest = null;
 
-                                            function loadAdvertisementData(page) {
-                                                $('#loadingmessage').show();
-                                                var catId = null;
-                                                var subCatId = null;
-                                                catId = MAIN_ID !== undefined ? MAIN_ID.split("_")[1] : 0;
-                                                subCatId = SUB_ID !== undefined ? SUB_ID.split("_")[1] : 0;
+    function loadAdvertisementData(page) {
+        $('#loadingmessage').show();
+        var catId = null;
+        var subCatId = null;
+        catId = MAIN_ID !== undefined ? MAIN_ID.split("_")[1] : 0;
+        subCatId = SUB_ID !== undefined ? SUB_ID.split("_")[1] : 0;
 
-                                                currentRequest = jQuery.ajax({
-                                                    type: 'POST',
-                                                    url: "<?php echo Yii::app()->baseUrl . '/Advertisement/ViewAdvertisementsData'; ?>",
-                                                    data: $('#frmSearch').serialize() + "&catId=" + catId + "&subCatId=" + subCatId + "&page=" + page + "&Status='active'",
-                                                    beforeSend: function () {
-                                                        if (currentRequest != null) {
-                                                            currentRequest.abort();
-                                                        }
-                                                    },
-                                                    success: function (responce) {
-                                                        $('#loadingmessage').hide();
-                                                        $("#ajaxLoadAdvertisements").html(responce);
-                                                    }
-                                                });
-                                            }
+        currentRequest = jQuery.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Advertisement/ViewAdvertisementsData'; ?>",
+            data: $('#frmSearch').serialize() + "&catId=" + catId + "&subCatId=" + subCatId + "&page=" + page + "&Status='active'",
+            beforeSend: function () {
+                if (currentRequest != null) {
+                    currentRequest.abort();
+                }
+            },
+            success: function (responce) {
+                $('#loadingmessage').hide();
+                $("#ajaxLoadAdvertisements").html(responce);
+            }
+        });
+    }
 
 
-                                            $('#district_id').on('change', function () {
-                                                $('#cities').parents('.selector').find('.selected-option span').html('City')
-                                            });
+    $('#district_id').on('change', function () {
+       //$('#cities').parents('.selector').find('.selected-option span').html('City')
+    });
 
-                                            function loadCities() {
-                                                $("#cities").empty();
+    function loadCities() {
+        $("#cities").empty();
 
-                                                var id = $('#district_id').val();
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
-                                                    data: {id: id},
-                                                    dataType: 'json',
-                                                    success: function (responce) {
-                                                        if (responce.code == 200) {
-                                                            var cities = responce.data.cityData;
-                                                            $('#cities').append(
-                                                                    $("<option>aaaa</option>")
-                                                                    .attr("value", 0)
-                                                                    .text("Select City")
-                                                                    );
-                                                            for (var i = 0, max = cities.length; i < max; i++) {
-                                                                $('#cities').append(
-                                                                        $("<option>aaaa</option>")
-                                                                        .attr("value", cities[i]['city_id'])
-                                                                        .text(cities[i]['city_name'])
-                                                                        );
-                                                            }
+        var id = $('#district_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var cities = responce.data.cityData;
+                    $('#cities').append(
+                        $("<option></option>")
+                            .attr("value", 0)
+                            .text("City")
+                    );
+                    for (var i = 0, max = cities.length; i < max; i++) {
+                        $('#cities').append(
+                            $("<option>aaaa</option>")
+                                .attr("value", cities[i]['city_id'])
+                                .text(cities[i]['city_name'])
+                        );
+                    }
 
-                                                            setTimeout(function () {
-                                                                Select.init();
-                                                            }, 200)
+                    setTimeout(function () {
+                        Select.init();
+                    }, 200)
 
-                                                            loadAdvertisementData(1);
-                                                        }
-                                                    }
-                                                });
-                                            }
+                    loadAdvertisementData(1);
+                }
+            }
+        });
+    }
 </script>

@@ -119,7 +119,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
-                                                    <input id="intern" name="intern" type="checkbox"  <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
+                                                    <input id="intern" name="intern"
+                                                           type="checkbox" <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
                                                     <label for="intern">Intern Opportunity</label>
                                                 </div>
                                             </div>
@@ -149,8 +150,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
                                                     <input id="isNegotiable" name="isNegotiable" class="filled-in"
-                                                           type="checkbox" id="negotiable" 
-                                                           <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
+                                                           type="checkbox" id="negotiable"
+                                                        <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
                                                     <label for="isNegotiable">Negotiable</label>
                                                 </div>
                                             </div>
@@ -301,15 +302,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
     $(document).ready(function () {
         //Select.init();
-<?php
-if ($adId != 0) {
-    ?>
-            loadCities();
-            loadSubCats('<?php echo $model->ref_subcat_id; ?>');
+        <?php
+        if ($adId != 0) {
+        ?>
+        loadCities();
+        loadSubCats('<?php echo $model->ref_subcat_id; ?>');
 
-    <?php
-}
-?>
+        <?php
+        }
+        ?>
     });
 
     $('#formAddAdvertisement').submit(function (e) {
@@ -443,7 +444,7 @@ if ($adId != 0) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
 
-                    addEmptyToAjaxDropDowns("subCategories",'Sub Categories');
+                    addEmptyToAjaxDropDowns("subCategories", 'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                             $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -476,7 +477,7 @@ if ($adId != 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var designations = responce.data.designationData;
-                    addEmptyToAjaxDropDowns('designations','Designations');
+                    addEmptyToAjaxDropDowns('designations', 'Designations');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
                             $("<option>" + designations[i]['desig_name'] + "</option>")
@@ -490,9 +491,9 @@ if ($adId != 0) {
                             .text("Other")
                     );
 
+                    $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
                     setTimeout(function () {
                         Select.init('.designationsSelector');
-                        $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
                     }, 200);
                 }
             }
@@ -510,7 +511,7 @@ if ($adId != 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
-                    addEmptyToAjaxDropDowns('city','City');
+                    addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                             $("<option>" + cities[i]['city_name'] + "</option>")
@@ -519,16 +520,16 @@ if ($adId != 0) {
                         );
                     }
 
+                    $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
                     setTimeout(function () {
                         Select.init('.citySelector');
-                        $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
                     }, 200)
                 }
             }
         });
     }
 
-    function addEmptyToAjaxDropDowns(id,defaultText) {
+    function addEmptyToAjaxDropDowns(id, defaultText) {
         var text = defaultText != undefined ? defaultText : "Select";
 
         $('#' + id).append(

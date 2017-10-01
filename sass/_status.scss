@@ -230,9 +230,9 @@ header {
     > li {
 
       a {
-        color: rgba($blue-dark, $opt-3);
+        color: rgba($blue-dark, 1);
         border-bottom: 1px solid $gray-light;
-        padding: 30px 24px 20px 24px;
+        padding: 20px 24px;
         @include float-block;
         @include transition($animation-1);
 
@@ -243,28 +243,27 @@ header {
 
         h3 {
           color: $blue-dark;
-          margin-bottom: 10px;
           font-weight: $font-w-medium;
         }
 
         h6 {
-          color: rgba($blue-dark, $opt-3);
+          color: rgba($blue-dark, $opt-2);
           display: inline-block;
           width: 100%;
           font-weight: $font-w-light;
+        }
+        span {
 
-          span {
+          vertical-align: middle;
 
-            vertical-align: middle;
-
-            &.time-left {
-              float: right;
-            }
+          &.time-left {
+            float: right;
+            color: $primary;
           }
         }
 
+
         ul.more-details-list {
-          margin-top: 10px;
           @include float-block;
 
           li {
@@ -296,7 +295,6 @@ header {
 //Search area
 .search-area {
   margin-top: 110px;
-  margin-bottom: 15px;
 
   //Media Query
   @include breakpoint($small) {
@@ -343,7 +341,7 @@ header {
 }
 
 .filters {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   opacity: 0;
   @include transition($animation-1);
 
@@ -372,7 +370,6 @@ header {
 //Search result style
 //------------------------------------------------------------------
 ul.more-details-list {
-  margin-top: 10px;
 
   li {
     .dot {
