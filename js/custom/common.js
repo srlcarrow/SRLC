@@ -212,7 +212,6 @@ var Input = (function () {
 var Select = (function () {
 
 
-
     var select = {};
 
     select.init = function (ele) {
@@ -296,7 +295,7 @@ var Select = (function () {
                 }
 
                 if (optionLength === 1 || optionLength === 0) {
-console.log('EEE ',HTMLSelect.getSelectVal())
+                    console.log('EEE ', HTMLSelect.getSelectVal())
                     if (HTMLSelect.getSelectVal() == "" ||
                         HTMLSelect.getSelectVal() == 0 ||
                         HTMLSelect.getSelectVal() == null ||
@@ -425,6 +424,13 @@ $.fn.SearchBox = function (opt) {
 };
 
 function msg(_this, _msg, _typeClass, _opt) {
+
+    // var $outerLayer = $('<div class="cm-message-outer"></div>'),
+    //     $message = $('<div class="message"></div>'),
+    //     $body = $('body');
+    //
+    // $body.find('.cm-message-outer').remove();
+
     var defOpt = {
         delay: 3000,
         stay: false
@@ -435,6 +441,7 @@ function msg(_this, _msg, _typeClass, _opt) {
 
     $this
         .html(_msg)
+        .addClass('is-fixed')
         .addClass(_typeClass)
         .slideDown('slow', function () {
             if (!opt.stay) {
@@ -449,6 +456,14 @@ function msg(_this, _msg, _typeClass, _opt) {
             }
 
         });
+
+    // $message
+    //     .html(_msg)
+    //     .addClass(_typeClass);
+    // $outerLayer.append($message);
+    // console.log($($message))
+    // // alert($message.get(0).innerWidth)
+    // $body.append($outerLayer);
 }
 
 $.fn.Success = function (_msg, _opt) {
@@ -592,6 +607,29 @@ var Animation = (function () {
                 $('.popup').attr('style', '');
                 $(ele).find('.animation-outer').remove();
             }
+        },
+        loader: function () {
+            var html = '';
+            html += '<div class="animation-outer fixed">';
+            html += '<div class="animation">';
+            html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
+            html += '</div>';
+            html += '</div>';
+            return html;
         }
     }
 })();
+
+var Button = function (ele) {
+
+    var ele = ele !== undefined ? ele : ".disabled";
+
+    return {
+        disabled: function () {
+            $(document).find(ele).prop('disabled', true);
+        },
+        active: function () {
+            $(document).find(ele).prop('disabled', false);
+        }
+    };
+};

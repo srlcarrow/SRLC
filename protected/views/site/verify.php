@@ -27,20 +27,19 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                     <div class="input-wrapper">
                         <input id="password" name="password" type="password" onkeyup="validatePassword()"  pattern="(?=.*\d)(?=.*[A-Z]).{8,}" required>
                         <div class="float-text">Password</div>
-                        <span id="statusPassword" class="status valid"></span>
+                        <span id="statusPassword" class="status invalid"></span>
                     </div>
                     <div class="input-wrapper">
                         <input id="repassword" name="repassword" type="password" required onkeyup="validatePassword()">
                         <div class="float-text">Re-enter Password</div>
-                        <span id="statusMatchPassword" class="status valid"></span>
+                        <span id="statusMatchPassword" class="status invalid"></span>
                     </div>
                     <div class="float-block mt-15">
-                        <button  type="submit" class="cm-btn large text-uppercase light-blue right">Sumbit
+                        <button  type="submit" class="cm-btn large text-uppercase light-blue right formBtn">Save
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -86,7 +85,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
         if (!$form.valid())
             return;
 
-        if (validatePassword() == true) {
+        if (validatePassword() === true) {
+
+            Button('.formBtn').disabled();
+
             $.ajax({
                 url: "<?php echo Yii::app()->baseUrl . '/site/PasswordSave'; ?>",
                 type: 'POST',

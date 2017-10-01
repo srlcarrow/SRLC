@@ -38,7 +38,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         'htmlOptions' => array(
             'enctype' => 'multipart/form-data',
             'novalidate' => 'novalidate',
-    )));
+        )));
     ?>
 
     <div class="container">
@@ -152,7 +152,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <div class="state-wrapper">
                                                     <input id="isNegotiable" name="isNegotiable" class="filled-in"
                                                            type="checkbox" id="negotiable"
-                                                           <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
+                                                        <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
                                                     <label for="isNegotiable">Negotiable</label>
                                                 </div>
                                             </div>
@@ -169,7 +169,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-wrapper">
-                                            <input id="expireDate" name="expireDate" type="text" class="datePicker"
+                                            <input readonly="readonly" id="expireDate" name="expireDate" type="text"
+                                                   class="datePicker"
                                                    value="<?php echo $model->ad_expire_date; ?>" required>
                                             <div class="float-text">Expire Date</div>
                                         </div>
@@ -221,7 +222,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group upload" name="group1"
-                                                   id="upload" type="radio" value="1" <?php echo $model->ad_is_image == 1 ? "checked=checked" : "" ?>>
+                                                   id="upload" type="radio"
+                                                   value="1" <?php echo $model->ad_is_image == 1 ? "checked=checked" : "" ?>>
                                             <label for="upload">Upload Image</label>
                                         </div>
 
@@ -230,7 +232,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group editor" name="group1" id="editor"
-                                                   type="radio" value="2" <?php echo $model->ad_is_image == 0 ? "checked=checked" : "" ?>>
+                                                   type="radio"
+                                                   value="2" <?php echo $model->ad_is_image == 0 ? "checked=checked" : "" ?>>
                                             <label for="editor">Use Text Editor</label>
                                         </div>
                                     </div>
@@ -299,14 +302,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         autoClose: true
     });
     $(document).ready(function () {
-<?php
-if ($adId != 0) {
-    ?>
-            loadCities();
-            loadSubCats('<?php echo $model->ref_subcat_id; ?>');
-    <?php
-}
-?>
+        <?php
+        if ($adId != 0) {
+        ?>
+        loadCities();
+        loadSubCats('<?php echo $model->ref_subcat_id; ?>');
+        <?php
+        }
+        ?>
     });
     $('#formAddAdvertisement').submit(function (e) {
         e.preventDefault();
@@ -335,9 +338,10 @@ if ($adId != 0) {
             }
         });
     });
+
     function showHideOnIntern($this) {
         var $elements = $('#experience,#isNegotiable,#salary'),
-                $disabledOnIntern = $('.disabled-on-intern');
+            $disabledOnIntern = $('.disabled-on-intern');
         if ($this.is(':checked')) {
             $elements.prop('disabled', true);
             $('#isNegotiable').prop('checked', false);
@@ -369,6 +373,7 @@ if ($adId != 0) {
             disabledSalary(false);
         }
     });
+
     function showOtherText($thisVal) {
         if ($thisVal === 'other') {
             $('.showOnlyOther').show();
@@ -387,6 +392,7 @@ if ($adId != 0) {
         var designationsVal = $('#designations').val();
         showOtherText(designationsVal);
     });
+
     function addContentStatus($this) {
         console.log($this);
         if ($this.hasClass('upload')) {
@@ -415,6 +421,7 @@ if ($adId != 0) {
             toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertLink', 'insertFile', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
         })
     });
+
     function loadSubCats(id) {
         $("#subCategories").empty();
         var id = $('#ref_cat_id').val();
@@ -429,10 +436,10 @@ if ($adId != 0) {
                     addEmptyToAjaxDropDowns("subCategories", 'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
-                                $("<option>" + subCats[i]['scat_name'] + "</option>")
+                            $("<option>" + subCats[i]['scat_name'] + "</option>")
                                 .attr("value", subCats[i]['scat_id'])
                                 .text(subCats[i]['scat_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {
@@ -459,16 +466,16 @@ if ($adId != 0) {
                     addEmptyToAjaxDropDowns('designations', 'Designations');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
-                                $("<option>" + designations[i]['desig_name'] + "</option>")
+                            $("<option>" + designations[i]['desig_name'] + "</option>")
                                 .attr("value", designations[i]['desig_id'])
                                 .text(designations[i]['desig_name'])
-                                );
+                        );
                     }
                     $('#designations').append(
-                            $("<option>Other</option>")
+                        $("<option>Other</option>")
                             .attr("value", "other")
                             .text("Other")
-                            );
+                    );
                     $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
                     setTimeout(function () {
                         $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
@@ -494,10 +501,10 @@ if ($adId != 0) {
                     addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                                $("<option>" + cities[i]['city_name'] + "</option>")
+                            $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                                );
+                        );
                     }
 
                     $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
@@ -512,10 +519,10 @@ if ($adId != 0) {
     function addEmptyToAjaxDropDowns(id, defaultText) {
         var text = defaultText != undefined ? defaultText : "Select";
         $('#' + id).append(
-                $("<option>Select</option>")
+            $("<option>Select</option>")
                 .attr("value", 0)
                 .text("Select")
-                );
+        );
     }
 
 

@@ -23,6 +23,9 @@ $(function () {
     var $tabContainer = $('.tab-horizontal-content');
 
     function loadTab(tab, type, appendTo) {
+
+        appendTo.html(Animation.loader());
+
         _ajax(
             {
                 url: route[tab][type]
@@ -74,6 +77,8 @@ $(function () {
 
     //Show popup
     $('.uploadImage').on('click', function () {
+        Popup.beforeShow();
+
         _ajax(
             {
                 url: '/employer/ImageCrop'

@@ -22,11 +22,11 @@
         </thead>
         <tbody>
         <tr>
-            <td><div class="data limit l-150">Package</div></td>
-            <td><div class="data">20 Jan 2017</div></td>
-            <td><div class="data">28 Jan 2017</div></td>
-            <td><div class="data">0</div></td>
-            <td><div class="data">4</div></td>
+            <td><div class="data limit l-150">Free</div></td>
+            <td><div class="data">1 Oct 2017</div></td>
+            <td><div class="data">30 Oct 2017</div></td>
+            <td><div class="data">-</div></td>
+            <td><div class="data">-</div></td>
             <td>
                 <div class="data">
                     <span class="status-text green">Active</span>
@@ -48,19 +48,19 @@
             <div class="col-md-5">
                 <h6 class="text-dark-blue mb-15">
                     <i class="dot mr-5"></i>
-                    <span>10 Advertisement(s)</span>
+                    <span>20 Advertisement(s)</span>
                 </h6>
 
                 <h6 class="text-dark-blue">
                     <i class="dot mr-5"></i>
-                    <span>Valid 12 Month(s)</span>
+                    <span>Valid 1 Month</span>
                 </h6>
 
             </div>
         </div>
 
         <div class="col-md-3 mt-30 pr-0">
-            <button type="button" class="cm-btn small light-blue right" onclick="">Add Package</button>
+<!--            <button type="button" class="cm-btn small light-blue right" onclick="">Add Package</button>-->
         </div>
     </div>
 </div>

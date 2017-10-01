@@ -52,6 +52,11 @@ a.cm-btn {
   &.up-case {
     text-transform: uppercase;
   }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.56;
+  }
 }
 
 //Image Button

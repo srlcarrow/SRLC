@@ -426,32 +426,32 @@ input[type="checkbox"] {
 .top-space-block {
   padding-top: 68px; }
 
-.data-table thead tr th {
-  background: #445a64;
-  color: #fff;
-  padding: 18px 15px;
-  font-weight: 400;
-  font-size: 12px;
-  text-transform: uppercase; }
-
-.data-table tr {
-  padding: 0; }
-  .data-table tr td {
+.data-table {
+  width: 100%; }
+  .data-table thead tr th {
+    background: #445a64;
+    color: #fff;
+    padding: 18px 15px;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase; }
+  .data-table tr {
     padding: 0; }
-    .data-table tr td .data {
-      padding: 10px 15px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: #000;
-      font-size: 14px; }
-      .data-table tr td .data:last-child {
-        padding-right: 0; }
-      .data-table tr td .data.limit.l-150 {
-        width: 150px; }
-
-.data-table.td-border-bottom td {
-  border-bottom: 1px solid #eaeaec; }
+    .data-table tr td {
+      padding: 0; }
+      .data-table tr td .data {
+        padding: 10px 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #000;
+        font-size: 14px; }
+        .data-table tr td .data:last-child {
+          padding-right: 0; }
+        .data-table tr td .data.limit.l-150 {
+          width: 150px; }
+  .data-table.td-border-bottom td {
+    border-bottom: 1px solid #eaeaec; }
 
 .add-block {
   padding-top: 68px; }
@@ -2115,7 +2115,8 @@ input[type="checkbox"] {
         border-color: transparent #fbab18;
         border-style: solid;
         display: inline-block;
-        left: 100%; }
+        left: 100%;
+        z-index: 9; }
 
 .step-list {
   margin: 0;
@@ -2220,6 +2221,18 @@ input[type="checkbox"] {
     height: 3px;
     background: #ffca28; }
 
+.status {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 20px; }
+  .status.valid {
+    background: url("../images/system/icon/site/16/ic_16-check.png") no-repeat; }
+  .status.invalid {
+    background: url("../images/system/icon/site/16/ic_16_reject-cross.png") no-repeat; }
+
 button.cm-btn,
 a.cm-btn {
   color: #fff;
@@ -2264,6 +2277,10 @@ a.cm-btn {
   button.cm-btn.up-case,
   a.cm-btn.up-case {
     text-transform: uppercase; }
+  button.cm-btn:disabled,
+  a.cm-btn:disabled {
+    pointer-events: none;
+    opacity: 0.56; }
 
 .btn-img {
   outline: none;
@@ -2435,6 +2452,33 @@ a.cm-btn {
   .icon.pointer {
     cursor: pointer; }
 
+.cm-message-outer {
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background: #000;
+  z-index: 99999;
+  height: 100%; }
+  .cm-message-outer .message {
+    position: absolute;
+    float: left;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    padding: 8px 20px;
+    top: 50%;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px; }
+    .cm-message-outer .message.info {
+      background: #3DB9E9; }
+    .cm-message-outer .message.error {
+      background: #FF8A65; }
+    .cm-message-outer .message.success {
+      background: #00BFA5; }
+
 .cm-message {
   float: left;
   font-size: 14px;
@@ -2478,7 +2522,8 @@ a.cm-btn {
 .selector {
   position: relative;
   float: left;
-  width: 100%; }
+  width: 100%;
+  z-index: 99; }
   .selector.is-disabled {
     cursor: auto;
     opacity: 0.4; }
@@ -2574,6 +2619,13 @@ a.cm-btn {
       margin: 0 auto; }
     .animation-outer .animation h5 {
       width: 200px; }
+  .animation-outer.fixed {
+    position: relative;
+    z-index: 1; }
+    .animation-outer.fixed .animation {
+      position: relative;
+      top: 0;
+      left: 0; }
 
 .shadow-card {
   z-index: 9;
@@ -3005,3 +3057,17 @@ input[type="radio"] + label {
   padding-bottom: 30px;
   background: #f7f7f7;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+
+.datepicker .datepicker--day-name {
+  color: #445a64; }
+
+.datepicker .datepicker--cell.-current- {
+  color: #fbab18; }
+  .datepicker .datepicker--cell.-current-.-focus- {
+    color: #fff;
+    background: #fbab18; }
+
+.datepicker .datepicker--cell.-selected-,
+.datepicker .datepicker--cell.-selected-.-current- {
+  color: #fff;
+  background: #ffca28; }

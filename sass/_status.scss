@@ -262,7 +262,6 @@ header {
           }
         }
 
-
         ul.more-details-list {
           @include float-block;
 
@@ -695,4 +694,27 @@ input[type="radio"] {
   padding-bottom: 30px;
   background: $white-light;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.datepicker {
+
+  .datepicker--day-name {
+    color: #445a64;
+  }
+
+  .datepicker--cell.-current- {
+    color: $primary;
+
+    &.-focus- {
+      color: $white;
+      background: $primary;
+    }
+
+  }
+
+  .datepicker--cell.-selected-,
+  .datepicker--cell.-selected-.-current- {
+    color: $white;
+    background: $p-light;
+  }
 }

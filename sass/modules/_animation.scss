@@ -25,6 +25,16 @@
     h5 {
       width: 200px;
     }
+
   }
 
+  &.fixed {
+    position: relative;
+    z-index:1;
+    .animation {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+  }
 }
