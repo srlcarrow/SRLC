@@ -30,7 +30,6 @@
             <td>
                 <div class="data">
                     <span class="status-text green">Active</span>
-                    <span class="icon icon-16 ic-view v-middle pointer ml-10"></span>
                 </div>
             </td>
         </tr>

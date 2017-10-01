@@ -2095,7 +2095,7 @@ input[type="checkbox"] {
   .tab-horizontal li {
     list-style: none;
     display: block;
-    background: #ffca28; }
+    background: rgba(255, 202, 40, 0.56); }
     .tab-horizontal li a {
       padding: 15px 30px;
       color: rgba(0, 0, 0, 0.86);
@@ -2104,7 +2104,7 @@ input[type="checkbox"] {
     .tab-horizontal li:not(:last-child) {
       margin-bottom: 1px; }
     .tab-horizontal li.active a {
-      background: #f5820c;
+      background: #fbab18;
       color: #fff; }
       .tab-horizontal li.active a::before {
         content: '';
@@ -2112,7 +2112,7 @@ input[type="checkbox"] {
         width: 0;
         height: 0;
         border-width: 8px 0 8px 10px;
-        border-color: transparent #f5820c;
+        border-color: transparent #fbab18;
         border-style: solid;
         display: inline-block;
         left: 100%; }
@@ -2250,10 +2250,10 @@ a.cm-btn {
   button.cm-btn.light-blue-4,
   a.cm-btn.light-blue-4 {
     color: #000;
-    background: #f5820c; }
+    background: #fbab18; }
     button.cm-btn.light-blue-4:hover,
     a.cm-btn.light-blue-4:hover {
-      background: rgba(245, 130, 12, 0.86); }
+      background: rgba(251, 171, 24, 0.86); }
   button.cm-btn.light-blue,
   a.cm-btn.light-blue {
     color: #fff;

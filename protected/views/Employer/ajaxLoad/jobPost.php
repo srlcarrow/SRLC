@@ -1,5 +1,5 @@
 
-<div class="col-md-12 pr-0 mb-30">
+<div class="col-md-12 pr-0 mb-15">
     <div class="col-md-12 pr-0">
         <button class="cm-btn large right light-blue-4" onclick="goToPostJob()">Post a Job</button>
     </div>
