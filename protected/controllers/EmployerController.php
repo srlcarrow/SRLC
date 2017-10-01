@@ -122,7 +122,9 @@ class EmployerController extends Controller {
     public function actionJobPost() {
         $this->renderPartial('ajaxLoad/jobPost');
     }
-
+    public function actionViewCompanyDetails() {
+        $this->renderPartial('ajaxLoad/viewCompanyDetails');
+    }
     public function actionPasswordReset() {
         $this->renderPartial('ajaxLoad/passwordResetForm');
     }

@@ -71,7 +71,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>Job Category</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'required' => 'required', 'onChange' => 'loadSubCats()')); ?>
+                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'required' => 'required', 'onChange' => 'loadSubCats()')); ?>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             </div>
                                             <ul class="option-list"></ul>
                                             <select class="type" name="subCategories" id="subCategories">
-                                                <option id="0">Select</option>
+                                                <option id="0">Sub Category</option>
                                             </select>
                                         </div>
                                     </div>
@@ -115,12 +115,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                         <span>Type</span>
                                                     </div>
                                                     <ul class="option-list"></ul>
-                                                    <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
+                                                    <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
-                                                    <input id="intern" name="intern" type="checkbox"  <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
+                                                    <input id="intern" name="intern"
+                                                           type="checkbox" <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
                                                     <label for="intern">Intern Opportunity</label>
                                                 </div>
                                             </div>
@@ -150,7 +151,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <div class="col-md-6">
                                                 <div class="state-wrapper">
                                                     <input id="isNegotiable" name="isNegotiable" class="filled-in"
-                                                           type="checkbox" id="negotiable" 
+                                                           type="checkbox" id="negotiable"
                                                            <?php echo $model->ad_is_negotiable == 1 ? "checked=checked" : ""; ?>/>
                                                     <label for="isNegotiable">Negotiable</label>
                                                 </div>
@@ -183,7 +184,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>District</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
+                                            <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
                                         </div>
                                     </div>
 
@@ -291,36 +292,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 <script>
     var nowDate = new Date();
     var expDate = nowDate.setDate(nowDate.getDate() + 14);
-
     $('.datePicker').datepicker({
         language: 'en',
         minDate: new Date(),
         maxDate: new Date(expDate),
         autoClose: true
     });
-
-
     $(document).ready(function () {
-//        Select.init();
 <?php
-if ($adId != "") {
+if ($adId != 0) {
     ?>
             loadCities();
             loadSubCats('<?php echo $model->ref_subcat_id; ?>');
-
     <?php
 }
 ?>
     });
-
     $('#formAddAdvertisement').submit(function (e) {
         e.preventDefault();
-
         var $form = $(this);
-
         if (!$form.valid())
             return;
-
         $.ajax({
             url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
             type: 'POST',
@@ -339,17 +331,13 @@ if ($adId != "") {
 
                 } else {
                     $('.message').Error(responce.msg);
-
                 }
             }
         });
-
     });
-
     function showHideOnIntern($this) {
         var $elements = $('#experience,#isNegotiable,#salary'),
                 $disabledOnIntern = $('.disabled-on-intern');
-
         if ($this.is(':checked')) {
             $elements.prop('disabled', true);
             $('#isNegotiable').prop('checked', false);
@@ -374,7 +362,6 @@ if ($adId != "") {
     $('#intern').on('change', function () {
         showHideOnIntern($(this));
     });
-
     $('#isNegotiable').on('change', function () {
         if ($(this).is(':checked')) {
             disabledSalary(true);
@@ -382,7 +369,6 @@ if ($adId != "") {
             disabledSalary(false);
         }
     });
-
     function showOtherText($thisVal) {
         if ($thisVal === 'other') {
             $('.showOnlyOther').show();
@@ -394,17 +380,13 @@ if ($adId != "") {
     $('#designations').on('change', function () {
         showOtherText($(this).val())
     });
-
     $(function () {
         showHideOnIntern($('#intern'));
-
         var isNegotiable = $('#isNegotiable').is(':checked') ? true : false;
         disabledSalary(isNegotiable);
-
         var designationsVal = $('#designations').val();
         showOtherText(designationsVal);
     });
-
     function addContentStatus($this) {
         console.log($this);
         if ($this.hasClass('upload')) {
@@ -427,17 +409,14 @@ if ($adId != "") {
     $(function () {
         addContentStatus($('input[name="group1"]:checked'));
     });
-
     $(function () {
         $('textarea').froalaEditor({
             heightMin: 380,
             toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertLink', 'insertFile', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
         })
     });
-
     function loadSubCats(id) {
         $("#subCategories").empty();
-
         var id = $('#ref_cat_id').val();
         $.ajax({
             type: 'POST',
@@ -447,8 +426,7 @@ if ($adId != "") {
             success: function (responce) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
-
-                    addEmptyToAjaxDropDowns("subCategories");
+                    addEmptyToAjaxDropDowns("subCategories", 'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                                 $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -461,9 +439,7 @@ if ($adId != "") {
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                         Select.init('.subSelector');
                     }, 200);
-
                     loadDesignations();
-
                 }
             }
         });
@@ -471,7 +447,6 @@ if ($adId != "") {
 
     function loadDesignations() {
         $("#designations").empty();
-
         var id = $('#ref_cat_id').val();
         $.ajax({
             type: 'POST',
@@ -481,7 +456,7 @@ if ($adId != "") {
             success: function (responce) {
                 if (responce.code == 200) {
                     var designations = responce.data.designationData;
-                    addEmptyToAjaxDropDowns('designations');
+                    addEmptyToAjaxDropDowns('designations', 'Designations');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
                                 $("<option>" + designations[i]['desig_name'] + "</option>")
@@ -494,9 +469,10 @@ if ($adId != "") {
                             .attr("value", "other")
                             .text("Other")
                             );
-
+                    $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
                     setTimeout(function () {
                         $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
+
                         Select.init('.designationsSelector');
                     }, 200);
                 }
@@ -515,7 +491,7 @@ if ($adId != "") {
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
-                    addEmptyToAjaxDropDowns('city');
+                    addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                                 $("<option>" + cities[i]['city_name'] + "</option>")
@@ -524,16 +500,17 @@ if ($adId != "") {
                                 );
                     }
 
+                    $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
                     setTimeout(function () {
                         Select.init('.citySelector');
-                        $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
                     }, 200)
                 }
             }
         });
     }
 
-    function addEmptyToAjaxDropDowns(id) {
+    function addEmptyToAjaxDropDowns(id, defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
         $('#' + id).append(
                 $("<option>Select</option>")
                 .attr("value", 0)

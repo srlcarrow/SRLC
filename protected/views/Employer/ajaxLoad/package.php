@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <tr>
-            <td><div class="data">Package</div></td>
+            <td><div class="data limit l-150">Package</div></td>
             <td><div class="data">20 Jan 2017</div></td>
             <td><div class="data">28 Jan 2017</div></td>
             <td><div class="data">0</div></td>

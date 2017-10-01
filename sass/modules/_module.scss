@@ -184,7 +184,7 @@
   li {
     list-style: none;
     display: block;
-    background: $primary;
+    background: rgba($p-light,0.56);
     a {
       padding: 15px 30px;
       color: rgba($black, 0.86);
@@ -198,7 +198,7 @@
 
     &.active {
       a {
-        background: $p-dark;
+        background: $primary;
         color: $white;
 
         &::before {
@@ -207,7 +207,7 @@
           width: 0;
           height: 0;
           border-width: 8px 0 8px 10px;
-          border-color: transparent $p-dark;
+          border-color: transparent $primary;
           border-style: solid;
           display: inline-block;
           left: 100%;

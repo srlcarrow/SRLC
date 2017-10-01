@@ -32,10 +32,10 @@ a.cm-btn {
   //Background Colors
   &.light-blue-4 {
     color: $black;
-    background: $p-dark;
+    background: $primary;
 
     &:hover {
-      background: rgba($p-dark, $opt-2);
+      background: rgba($primary, $opt-2);
     }
   }
 

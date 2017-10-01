@@ -4,6 +4,16 @@
   float: left;
   width: 100%;
 
+  &.is-disabled {
+    cursor: auto;
+    opacity: 0.4;
+
+    .selected-option {
+      cursor: auto;
+      pointer-events: none;
+    }
+  }
+
   select {
     opacity: 0;
     height: 0;
