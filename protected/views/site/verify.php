@@ -1,3 +1,11 @@
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
+    'stateful' => true,
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+        'novalidate' => 'novalidate',
+        )));
+?>
 <div class="nav-bar-space"></div>
 <div class="col-md-12 text-center mt-50">
     <div class="row">
@@ -9,7 +17,7 @@
             </h2>
 
             <h4 class="text-black text-light-2">User Name</h4>
-            <h3 class="text-orange">leapdoor@gmail.com</h3>
+            <h3 class="text-orange"><?php echo $userName; ?></h3>
 
         </div>
         <div class="mt-35 col-md-4 pl-60 pr-60 pt-50 pb-50 col-md-offset-4 shadow-card">
@@ -17,15 +25,17 @@
                 <h4 class="text-black text-light-2 f-20 col-md-12">Enter your Password to Continue...</h4>
                 <div class="col-md-10 col-md-offset-1 mt-5">
                     <div class="input-wrapper">
-                        <input id="" name="" type="password">
+                        <input id="password" name="password" type="password" onkeyup="validatePassword()"  pattern="(?=.*\d)(?=.*[A-Z]).{8,}" required>
                         <div class="float-text">Password</div>
+                        <span id="statusPassword" class="status valid"></span>
                     </div>
                     <div class="input-wrapper">
-                        <input id="" name="" type="password">
+                        <input id="repassword" name="repassword" type="password" required onkeyup="validatePassword()">
                         <div class="float-text">Re-enter Password</div>
+                        <span id="statusMatchPassword" class="status valid"></span>
                     </div>
                     <div class="float-block mt-15">
-                        <button  type="button" class="cm-btn large text-uppercase light-blue right">Sumbit
+                        <button  type="submit" class="cm-btn large text-uppercase light-blue right">Sumbit
                         </button>
                     </div>
                 </div>
@@ -34,3 +44,71 @@
         </div>
     </div>
 </div>
+<?php $this->endWidget(); ?>
+
+<script>
+    $('#repassword').bind("cut copy paste", function (e) {
+        e.preventDefault();
+    });
+
+    function validatePassword() {
+        var passwordInput = $("#password");
+        var rePasswordInput = $("#repassword");
+        var result = false;
+        // Validate length
+        if (passwordInput.val().length >= 6) {
+            $('#statusPassword').removeClass("invalid");
+            $('#statusPassword').addClass("valid");
+
+            if (passwordInput.val() === rePasswordInput.val()) {
+                $('#statusMatchPassword').removeClass("invalid").addClass("valid");
+                result = true;
+            } else {
+                $('#statusMatchPassword').removeClass("valid").addClass("invalid");
+                result = false;
+            }
+
+        } else {
+            $('#statusPassword').removeClass("valid");
+            $('#statusPassword').addClass("invalid");
+            result = false;
+        }
+
+        return result;
+
+    }
+
+    $('#formVerify').submit(function (e) {
+        e.preventDefault();
+
+        var $form = $(this);
+
+        if (!$form.valid())
+            return;
+
+        if (validatePassword() == true) {
+            $.ajax({
+                url: "<?php echo Yii::app()->baseUrl . '/site/PasswordSave'; ?>",
+                type: 'POST',
+                data: $('#formVerify').serialize() + '&accessId=<?php echo $accessId; ?>',
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        $('.message').Success(responce.msg);
+                        setTimeout(function () {
+                            var url = '<?php echo Yii::app()->baseUrl; ?>' + responce.data.url + '/id/' + '<?php echo $accessId; ?> ';
+                            alert(responce.data.url);
+                            window.location.href = url;
+                        }, 800)
+
+                    } else {
+                        $('.message').Error(responce.msg);
+                    }
+                }
+            });
+        } else {
+            alert('rajith');
+        }
+
+    });
+</script>

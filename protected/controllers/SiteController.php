@@ -29,12 +29,15 @@ class SiteController extends Controller {
         // using the default layout 'protected/views/layouts/main.php'
         $this->render('index', array('isMain' => 1));
     }
+
     public function actionCandidate() {
         $this->render('candidate');
     }
+
     public function actionEmployer() {
         $this->render('employer');
     }
+
     public function actionCategoryPopup() {
         $categories = AdmCategory::model()->findAll(array('order' => 'cat_order'));
         $this->renderPartial('ajaxLoad/popups/category', array('categories' => $categories));
@@ -106,7 +109,7 @@ class SiteController extends Controller {
 //            if (Yii::app()->request->isAjaxRequest)
 //                echo $error['message'];
 //            else
-                $this->render('/Error/index', $error);
+        $this->render('/Error/index', $error);
 //        }
     }
 
@@ -164,7 +167,37 @@ class SiteController extends Controller {
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function actionVerify() {
-        $this->render('verify');
+    public function actionPasswordSave() {
+        try {
+            $password = $_POST['password'];
+            $rePassword = $_POST['repassword'];
+            if ($password != $rePassword) {
+                $this->msgHandler(400, "Mismatch Password");
+            } elseif (strlen($password) < 7) {
+                $this->msgHandler(400, "There should be greater than 6 characters");
+            } else {
+                $jsbtData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
+                if (count($jsbtData) > 0) {
+                    if ($jsbtData->jsbt_is_verified == 0) {
+                        $userData = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsbtData->jsbt_id));
+                        $userData->user_password = md5(md5('SRLC' . $password . $password));
+                        $userData->save(false);
+
+                        if ($jsbtData->jsbt_type == 2) {
+                            $url = "/Employer/ViewEmployerRegistration";
+                        } else {
+                            $url = "/Jobseeker/ViewEmployerRegistration";
+                        }
+
+                        $this->msgHandler(200, "Succefully Done...", array('url' => $url));
+                    }
+                } else {
+                    $this->msgHandler(400, "Invalid Access...");
+                }
+            }
+        } catch (Exception $exc) {
+            $this->msgHandler(400, "Error Occured");
+        }
     }
+
 }

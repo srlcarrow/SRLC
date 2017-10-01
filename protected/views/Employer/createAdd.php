@@ -38,8 +38,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         'htmlOptions' => array(
             'enctype' => 'multipart/form-data',
             'novalidate' => 'novalidate',
-        )));
+    )));
     ?>
+
     <div class="container">
         <div class="row mb-30">
 
@@ -218,8 +219,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
-                                            <input class="add_type_group upload" name="group1" checked="checked"
-                                                   id="upload" type="radio" value="1">
+                                            <input class="add_type_group upload" name="group1"
+                                                   id="upload" type="radio" value="1" <?php echo $model->ad_is_image == 1 ? "checked=checked" : "" ?>>
                                             <label for="upload">Upload Image</label>
                                         </div>
 
@@ -228,7 +229,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-6">
                                         <div class="state-wrapper">
                                             <input class="add_type_group editor" name="group1" id="editor"
-                                                   type="radio" value="2">
+                                                   type="radio" value="2" <?php echo $model->ad_is_image == 0 ? "checked=checked" : "" ?>>
                                             <label for="editor">Use Text Editor</label>
                                         </div>
                                     </div>
@@ -241,9 +242,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                         <div class="pl-25 file-uploader">
                                                             <div class="button">Brows...</div>
                                                             <?php
-                                                            $model = new EmpAdvertisement();
-                                                            echo CHtml::activeFileField($model, 'AdverImage');
-                                                            echo $form->error($model, 'AdverImage');
+                                                            $imageModel = new EmpAdvertisement();
+                                                            echo CHtml::activeFileField($imageModel, 'AdverImage');
+                                                            echo $form->error($imageModel, 'AdverImage');
                                                             ?>
                                                         </div>
                                                         <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">File size
@@ -256,9 +257,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 </div>
                                             </div>
 
+
                                             <div class="col-md-12 pl-40 hide-block text-editor-area">
                                                 <textarea name="advertisementText" id="advertisementText" cols="30"
-                                                          rows="10"></textarea>
+                                                          rows="10"><?php echo $model->ad_text; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -287,7 +289,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
 <script>
-
     var nowDate = new Date();
     var expDate = nowDate.setDate(nowDate.getDate() + 14);
 
@@ -300,9 +301,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
     $(document).ready(function () {
-        //Select.init();
+//        Select.init();
 <?php
-if ($adId != 0) {
+if ($adId != "") {
     ?>
             loadCities();
             loadSubCats('<?php echo $model->ref_subcat_id; ?>');
@@ -347,7 +348,7 @@ if ($adId != 0) {
 
     function showHideOnIntern($this) {
         var $elements = $('#experience,#isNegotiable,#salary'),
-            $disabledOnIntern = $('.disabled-on-intern');
+                $disabledOnIntern = $('.disabled-on-intern');
 
         if ($this.is(':checked')) {
             $elements.prop('disabled', true);
@@ -404,23 +405,27 @@ if ($adId != 0) {
         showOtherText(designationsVal);
     });
 
+    function addContentStatus($this) {
+        console.log($this);
+        if ($this.hasClass('upload')) {
+            $('.text-editor-area').slideUp('fast', function () {
+                $('.upload-area').slideDown('fast');
+            });
+        } else {
+            $('.upload-area').slideUp('fast', function () {
+                $('.text-editor-area').slideDown('fast', function () {
+                    //editor().setavl($('#ccc').val())
+                });
+            });
+        }
+    }
+
+    $('.add_type_group').on('change', function () {
+        var $this = $(this);
+        addContentStatus($this);
+    });
     $(function () {
-
-        $('.add_type_group').on('change', function () {
-
-            var $this = $(this);
-            if ($this.hasClass('upload')) {
-                $('.text-editor-area').slideUp('fast', function () {
-                    $('.upload-area').slideDown('fast');
-                });
-            } else {
-                $('.upload-area').slideUp('fast', function () {
-                    $('.text-editor-area').slideDown('fast');
-                });
-            }
-
-        });
-
+        addContentStatus($('input[name="group1"]:checked'));
     });
 
     $(function () {
@@ -446,15 +451,15 @@ if ($adId != 0) {
                     addEmptyToAjaxDropDowns("subCategories");
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
-                            $("<option>" + subCats[i]['scat_name'] + "</option>")
+                                $("<option>" + subCats[i]['scat_name'] + "</option>")
                                 .attr("value", subCats[i]['scat_id'])
                                 .text(subCats[i]['scat_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
-                        Select.init('.subSelector');
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
+                        Select.init('.subSelector');
                     }, 200);
 
                     loadDesignations();
@@ -479,20 +484,20 @@ if ($adId != 0) {
                     addEmptyToAjaxDropDowns('designations');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
-                            $("<option>" + designations[i]['desig_name'] + "</option>")
+                                $("<option>" + designations[i]['desig_name'] + "</option>")
                                 .attr("value", designations[i]['desig_id'])
                                 .text(designations[i]['desig_name'])
-                        );
+                                );
                     }
                     $('#designations').append(
-                        $("<option>Other</option>")
+                            $("<option>Other</option>")
                             .attr("value", "other")
                             .text("Other")
-                    );
+                            );
 
                     setTimeout(function () {
-                        Select.init('.designationsSelector');
                         $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
+                        Select.init('.designationsSelector');
                     }, 200);
                 }
             }
@@ -513,10 +518,10 @@ if ($adId != 0) {
                     addEmptyToAjaxDropDowns('city');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                            $("<option>" + cities[i]['city_name'] + "</option>")
+                                $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                        );
+                                );
                     }
 
                     setTimeout(function () {
@@ -530,10 +535,22 @@ if ($adId != 0) {
 
     function addEmptyToAjaxDropDowns(id) {
         $('#' + id).append(
-            $("<option>Select</option>")
+                $("<option>Select</option>")
                 .attr("value", 0)
                 .text("Select")
-        );
+                );
     }
 
+
+    function editor() {
+        var $text = $('#advertisementText');
+        return {
+            getVal: function () {
+                return $text.froalaEditor('html.get', true);
+            },
+            setavl: function (val) {
+                $text.froalaEditor('html.set', val);
+            }
+        };
+    }
 </script>
