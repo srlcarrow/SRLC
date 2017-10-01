@@ -222,7 +222,7 @@ var Select = (function () {
             var selectedOption = $this.find('.selected-option');
             var optionList = $this.find('.option-list');
             var htmlSelect = $this.find('select');
-// console.log('Selected ',htmlSelect.val())
+
             var HTMLSelect = {
                 isRequired: false,
                 selected: function (selectedDisabled) {
