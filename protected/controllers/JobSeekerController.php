@@ -5,33 +5,32 @@ class JobSeekerController extends Controller {
     public function actionViewRegistration($id) {
         try {
             $key = $id;
-//            $key = Controller::decodeMailAction($id);
-//            $jsTempId = $key[2];
             $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
             if (count($jsBasicTempData) > 0) {
-                $id = Controller::encodePrimaryKeys($jsBasicTempData->jsbt_id);
-                $this->render('jobSeekerRegistration', array('accessId' => $id));
+
+                if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
+                    $this->render('/Error/index', array('error' => "Already Verified Your Account"));
+                } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
+                    $this->render('/Error/index', array('error' => "Expired URL"));
+                } else {
+                    $this->render('/site/verify', array('accessId' => $id, 'userName' => $jsBasicTempData->jsbt_email));
+                }
             } else {
-                echo "Invalid URL";
-                exit;
+                $this->render('/Error/index', array('error' => "Invalid URL"));
             }
         } catch (Exception $exc) {
-            echo "Invalid Verification";
+            $this->render('/Error/index', array('error' => "Invalid Verification"));
         }
     }
 
-    public function actionFormStepOne() {
-        if (isset($_POST['jsBasicKey'])) {
-            $keyId = $_POST['jsBasicKey'];
-            $key = Controller::decodeMailAction($keyId);
-            $jsBasicTempData = JsBasic::model()->findByPk($key[2]);
-            $jsTempId = $jsBasicTempData->ref_jsbt_id;
-        } else {
-            $keyId = $_POST['accessId'];
-            $key = Controller::decodeMailAction($keyId);
-            $jsTempId = $key[2];
+    public function actionFormStepOne($id = NULL) {
+        if ($id != NULL) {
+            $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $id));
+        } elseif (isset($_POST['jsBasicKey'])) {
+            $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['jsBasicKey']));
         }
 
+        $jsTempId = $jsBasicTempData->jsbt_id;
 
         $jsBasicId = 0;
         $status = 0;
@@ -75,10 +74,11 @@ class JobSeekerController extends Controller {
         $jsBasicData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
         $jsProfQualifications = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 1));
         $jsMemberships = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 2));
-        $jsBasicKey = Controller::encodePrimaryKeys($jsBasicData->js_id);
+        $jsBasicKey = $id;
         if (count($jsBasicData) == 0) {
             $jsBasicData = new JsBasic();
         }
+
 
         $this->renderPartial('ajaxLoad/form_step1', array('jsBasicData' => $jsBasicData, 'jsProfQualifications' => $jsProfQualifications, 'jsMemberships' => $jsMemberships, 'jsBasicKey' => $jsBasicKey));
     }

@@ -8,7 +8,6 @@ class EmployerController extends Controller {
             $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
 
             if ($id == $jsBasicTempData->jsbt_encrypted_id) {
-
                 if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
                     $this->render('/Error/index', array('error' => "Already Verified Your Account"));
                 } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {

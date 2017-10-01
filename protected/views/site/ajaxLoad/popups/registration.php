@@ -98,10 +98,11 @@
         }
     });
 
-    function loadVerifyPage() {
+    function loadVerifyPage(accessKey) {
         $.ajax({
             type: 'GET',
-            url: "<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>",
+            url: '<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>',
+            data: {accessKey: accessKey},
             success: function (res) {
                 Popup.loadNewLayout(res);
                 Popup.addClass('size-50');
@@ -126,8 +127,8 @@
             },
             success: function (responce) {
                 if (responce.code == 200) {
+                    loadVerifyPage(responce.data.encryptedId);
                     Animation.hide();
-                    loadVerifyPage();
 //                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                 }
             }

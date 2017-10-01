@@ -75,11 +75,11 @@ class SiteController extends Controller {
     }
 
     public function actionVerifyPopup() {
-        $this->renderPartial('ajaxLoad/popups/verify');
+        $this->renderPartial('ajaxLoad/popups/verify', array('accessKey' => $_GET['accessKey']));
     }
 
     public function actionResendPopup() {
-        $this->renderPartial('ajaxLoad/popups/resend');
+        $this->renderPartial('ajaxLoad/popups/resend', array('accessKey' => $_GET['accessKey']));
     }
 
     public function actionSignInPopup() {
@@ -177,9 +177,11 @@ class SiteController extends Controller {
                 $this->msgHandler(400, "There should be greater than 6 characters");
             } else {
                 $jsbtData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
+
                 if (count($jsbtData) > 0) {
                     if ($jsbtData->jsbt_is_verified == 0) {
                         $userData = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsbtData->jsbt_id));
+//                          var_dump($userData);exit;
                         $userData->user_password = md5(md5('SRLC' . $password . $password));
                         $userData->user_is_verified = 1;
                         $userData->save(false);
@@ -187,7 +189,7 @@ class SiteController extends Controller {
                         if ($jsbtData->jsbt_type == 2) {
                             $url = "/Employer/ViewEmployerRegistration";
                         } else {
-                            $url = "/Jobseeker/ViewEmployerRegistration";
+                            $url = "/Jobseeker/FormStepOne";
                         }
 
                         $this->msgHandler(200, "Succefully Done...", array('url' => $url));

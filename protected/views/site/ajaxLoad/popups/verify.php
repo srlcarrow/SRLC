@@ -33,6 +33,7 @@
         $.ajax({
             type: 'GET',
             url: "<?php echo Yii::app()->baseUrl . '/Site/ResendPopup'; ?>",
+            data: {accessKey: '<?php echo $accessKey; ?>'},
             success: function (res) {
                 Popup.loadNewLayout(res);
                 Popup.addClass('size-50');
