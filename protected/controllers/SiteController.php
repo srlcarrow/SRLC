@@ -109,7 +109,7 @@ class SiteController extends Controller {
 //            if (Yii::app()->request->isAjaxRequest)
 //                echo $error['message'];
 //            else
-        $this->render('/Error/index', $error);
+        $this->render('/Error/index', array('error' => "This page is sleeping"));
 //        }
     }
 
@@ -181,6 +181,7 @@ class SiteController extends Controller {
                     if ($jsbtData->jsbt_is_verified == 0) {
                         $userData = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsbtData->jsbt_id));
                         $userData->user_password = md5(md5('SRLC' . $password . $password));
+                        $userData->user_is_verified = 1;
                         $userData->save(false);
 
                         if ($jsbtData->jsbt_type == 2) {

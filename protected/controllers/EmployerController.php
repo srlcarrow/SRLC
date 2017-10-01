@@ -8,78 +8,95 @@ class EmployerController extends Controller {
             $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
 
             if ($id == $jsBasicTempData->jsbt_encrypted_id) {
-                $this->render('/site/verify', array('accessId' => $id, 'userName' => $jsBasicTempData->jsbt_email));
+
+                if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
+                    $this->render('/Error/index', array('error' => "Already Verified Your Account"));
+                } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
+                    $this->render('/Error/index', array('error' => "Expired URL"));
+                } else {
+                    $this->render('/site/verify', array('accessId' => $id, 'userName' => $jsBasicTempData->jsbt_email));
+                }
             } else {
-                echo "Invalid URL";
-                exit;
+                $this->render('/Error/index', array('error' => "Invalid URL"));
             }
         } catch (Exception $exc) {
-            echo "Invalid Verification";
+            $this->render('/Error/index', array('error' => "Invalid Verification"));
         }
     }
 
     public function actionViewEmployerRegistration($id) {
-        $this->render('viewEmployerRegistration', array('accessId' => $id));
+        $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $id));
+        if (count($jsBasicTempData) > 0) {
+            if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
+                $this->render('/Error/index', array('error' => "Already Verified Your Account"));
+            } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
+                $this->render('/Error/index', array('error' => "Expired URL"));
+            } else {
+                $this->render('/Employer/viewEmployerRegistration', array('accessId' => $id));
+            }
+        } else {
+            $this->render('/Error/index', array('error' => "Invalid URL"));
+        }
     }
 
     public function actionCompanyLogoUploadPopup() {
-        $this->renderPartial('ajaxLoad/popup/imageCrop');
+        $this->renderPartial('/Employer/ajaxLoad/popup/imageCrop');
     }
 
     public function actionSaveEmployer() {
-        try {
-            $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
-            $jsTempId = $jsBasicTempData->jsbt_id;
+//        try {
+        $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
+        $jsTempId = $jsBasicTempData->jsbt_id;
 
-            if ($jsTempId > 0) {
-                $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
-                if ($jsBasicTempData->jsbt_type == 2) {
-                    if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
-                        $jsBasicTempData->jsbt_is_verified = 1;
-                        if ($jsBasicTempData->save(false)) {
-                            $empEmployers = new EmpEmployers();
-                            $empEmployers->ref_jsbt_id = $jsBasicTempData->jsbt_id;
-                            $empEmployers->ref_ind_id = $_POST['ind_id'];
-                            $empEmployers->ref_district_id = $_POST['district_id'];
-                            $empEmployers->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
-                            $empEmployers->employer_name = $jsBasicTempData->jsbt_fname;
-                            $empEmployers->employer_reference_no = 0;
-                            $empEmployers->employer_address = $_POST['address'];
-                            $empEmployers->employer_tel = $jsBasicTempData->jsbt_contact_no;
-                            $empEmployers->employer_mobi = $_POST['contactNo'];
-                            $empEmployers->employer_email = $jsBasicTempData->jsbt_email;
-                            $empEmployers->employer_contact_person = $_POST['contactPerson'];
-                            $empEmployers->employer_image = $_POST['image'];
-                            $empEmployers->employer_created_time = date('Y-m-d H:i:s');
-                            $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
-                            if ($empEmployers->save(false)) {
-                                $empEmployers->employer_reference_no = Controller::getEmployeeReferenceNo($empEmployers->employer_id);
-                                $empEmployers->save(false);
+        if ($jsTempId > 0) {
+            $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
+            if ($jsBasicTempData->jsbt_type == 2) {
+                if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
+                    $jsBasicTempData->jsbt_is_verified = 1;
+                    if ($jsBasicTempData->save(false)) {
+                        $empEmployers = new EmpEmployers();
+                        $empEmployers->ref_jsbt_id = $jsBasicTempData->jsbt_id;
+                        $empEmployers->ref_ind_id = $_POST['ind_id'];
+                        $empEmployers->ref_district_id = $_POST['district_id'];
+                        $empEmployers->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
+                        $empEmployers->employer_name = $jsBasicTempData->jsbt_fname;
+                        $empEmployers->employer_reference_no = 0;
+                        $empEmployers->employer_address = $_POST['address'];
+                        $empEmployers->employer_tel = $jsBasicTempData->jsbt_contact_no;
+                        $empEmployers->employer_mobi = $_POST['contactNo'];
+                        $empEmployers->employer_email = $jsBasicTempData->jsbt_email;
+                        $empEmployers->employer_contact_person = $_POST['contactPerson'];
+                        $empEmployers->employer_image = $_POST['image'];
+                        $empEmployers->employer_created_time = date('Y-m-d H:i:s');
+                        $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
+                        if ($empEmployers->save(false)) {
+                            $empEmployers->employer_reference_no = Controller::getEmployeeReferenceNo($empEmployers->employer_id);
+                            $empEmployers->save(false);
 
-                                $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
-                                $user->ref_emp_or_js_id = $empEmployers->employer_id;
-                                $user->user_is_verified = 1;
-                                $user->save(false);
+                            $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
+                            $user->ref_emp_or_js_id = $empEmployers->employer_id;
+                            $user->user_is_verified = 1;
+                            $user->save(false);
 
-                                $jsBasicTempData->jsbt_is_finished = 1;
-                                $jsBasicTempData->save(false);
+                            $jsBasicTempData->jsbt_is_finished = 1;
+                            $jsBasicTempData->save(false);
 
-                                // Auto-login//                       
-                                $identity = new UserIdentity($user->user_name, '');
-                                $identity->setUpUser($user->user_id); // id of user
-                                Yii::app()->user->login($identity); //                           
-                            }
+                            // Auto-login//                       
+                            $identity = new UserIdentity($user->user_name, '');
+                            $identity->setUpUser($user->user_id); // id of user
+                            Yii::app()->user->login($identity); //                           
                         }
-                    } else {
-                        //render U Have already done
                     }
+                } else {
+                    //render U Have already done
                 }
             }
-            $key = $_POST['accessId'];
-            $this->msgHandler(200, "Successfully Saved...", array('employerKey' => $key));
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
         }
+        $key = $_POST['accessId'];
+        $this->msgHandler(200, "Successfully Saved...", array('employerKey' => $key));
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
     }
 
     public function actionProfile($id) {
@@ -100,43 +117,49 @@ class EmployerController extends Controller {
             $employerData = new EmpEmployers();
         }
 
-        $this->render('profile', array('employerData' => $employerData));
+        $this->render('/Employer/profile', array('employerData' => $employerData));
     }
 
     public function actionPackage() {
         $packages = AdmPackage::model()->findAll();
-        $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
+        $this->renderPartial('/Employer/ajaxLoad/package', array('packages' => $packages));
     }
 
     public function actionViewPurchasedPackages() {
         $userId = Yii::app()->user->id;
         $purchaseedpackages = EmpPurchasePackage::model()->findAllByAttributes(array('ref_user_id' => $userId));
 
-        $this->renderPartial('ajaxLoad/viewPurchasePackages', array('purchaseedpackages' => $purchaseedpackages));
+        $this->renderPartial('/Employer/ajaxLoad/viewPurchasePackages', array('purchaseedpackages' => $purchaseedpackages));
     }
 
     public function actionPackageEdit() {
-        $this->renderPartial('ajaxLoad/package_form');
+        $this->renderPartial('/Employer/ajaxLoad/package_form');
     }
 
     public function actionJobPost() {
-        $this->renderPartial('ajaxLoad/jobPost');
+        $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+        $advertisements = EmpAdvertisement::model()->findAllByAttributes(array('ref_employer_id' => $employerId));
+        $this->renderPartial('/Employer/ajaxLoad/jobPost', array('advertisements' => $advertisements));
     }
+
     public function actionViewCompanyDetails() {
-        $this->renderPartial('ajaxLoad/viewCompanyDetails');
+        $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+        $employerData = EmpEmployers::model()->findByPk($employerId);
+        $this->renderPartial('/Employer/ajaxLoad/viewCompanyDetails', array('employerData' => $employerData));
     }
+
     public function actionPasswordReset() {
-        $this->renderPartial('ajaxLoad/passwordResetForm');
+        $this->renderPartial('/Employer/ajaxLoad/passwordResetForm');
     }
 
     //Popup
     public function actionImageCrop() {
-        $this->renderPartial('ajaxLoad/popup/imageCrop');
+        $this->renderPartial('/Employer/ajaxLoad/popup/imageCrop');
     }
 
     public function actionUploadLogo() {
         try {
-            define('UPLOAD_DIR', 'uploads/Profile/Employer/');
+            define('UPLOAD_DIR', 'uploads/Profile/Employer');
             $img = $_POST['imageData'];
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
@@ -239,7 +262,7 @@ class EmployerController extends Controller {
 
         $empId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
 
-        $this->render('createAdd', array('model' => $model, 'empId' => $empId, 'adId' => $adId));
+        $this->render('/Employer/createAdd', array('model' => $model, 'empId' => $empId, 'adId' => $adId));
     }
 
     public function actionSaveAdvertisement() {
@@ -338,7 +361,7 @@ class EmployerController extends Controller {
 
     public function actionViewPreviewJobAdvertisement($id) {
         $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $id));
-        $this->render('viewPreviewJobAdvertisement', array('adData' => $adData, 'id' => $id));
+        $this->render('/Employer/viewPreviewJobAdvertisement', array('adData' => $adData, 'id' => $id));
     }
 
     public function actionPublishAdvertisement() {
@@ -360,7 +383,7 @@ class EmployerController extends Controller {
         $employerId = $this->getRefEmpOrJsId(Yii::app()->user->id);
         $empEmployers = EmpEmployers::model()->findByPk($employerId);
 
-        $this->renderPartial('ajaxLoad/viewEditEmployer', array('empEmployers' => $empEmployers));
+        $this->renderPartial('/Employer/ajaxLoad/viewEditEmployer', array('empEmployers' => $empEmployers));
     }
 
     public function actionEditEmployer() {

@@ -27,7 +27,7 @@ class AdvertisementController extends Controller {
 
     public function actionViewAdvertisement($id) {
         $adData = EmpAdvertisement::model()->findByPk($id);
-        $this->render('viewAdvertisements', array('adData' => $adData));
+        $this->render('/Advertisement/viewAdvertisements', array('adData' => $adData));
     }
 
     //Popup

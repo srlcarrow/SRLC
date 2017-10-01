@@ -144,7 +144,7 @@
     });
 
     function updateImage(image) {
-        var url = '<?php echo Yii::app()->baseUrl . '/uploads/company/logo/' ?>' + image;
+        var url = '<?php echo Yii::app()->baseUrl . '/uploads/Profile/Employer/' ?>' + image;
         $('.company-logo-wrp img').attr('src', url);
     }
 

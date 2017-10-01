@@ -96,8 +96,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                     if (responce.code == 200) {
                         $('.message').Success(responce.msg);
                         setTimeout(function () {
-                            var url = '<?php echo Yii::app()->baseUrl; ?>' + responce.data.url + '/id/' + '<?php echo $accessId; ?> ';
-                            alert(responce.data.url);
+                            var url = '<?php echo Yii::app()->baseUrl; ?>' + responce.data.url + '/id/' + '<?php echo $accessId; ?> ';                          
                             window.location.href = url;
                         }, 800)
 
@@ -107,7 +106,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                 }
             });
         } else {
-            alert('rajith');
+            //Invalid password
         }
 
     });

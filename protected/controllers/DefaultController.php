@@ -17,7 +17,6 @@ class DefaultController extends Controller {
         $model->username = $_POST['username'];
         $model->password = $_POST['password'];
 
-
         if ($model->login()) {  
             $url = '';
             $userId = Yii::app()->user->id;

@@ -14,85 +14,111 @@
 
             <tbody>
 
-            <tr>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black text-light-2">Address</h6>
-                    </div>
-                </td>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black">Darmapala Mawaha, Colombo 12</h6>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">Address</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black"><?php echo $employerData->employer_address ?></h6>
+                        </div>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black text-light-2">Date of Birth</h6>
-                    </div>
-                </td>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black">15 June 1992</h6>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">Contact No</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black"><?php echo $employerData->employer_tel ?></h6>
+                        </div>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black text-light-2">Total No of years
-                            experience</h6>
-                    </div>
-                </td>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black">10 Year(s)</h6>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">Contact No(Optional)</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black"><?php echo $employerData->employer_mobi ?></h6>
+                        </div>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black text-light-2">Highest Acadamic
-                            Qualification</h6>
-                    </div>
-                </td>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black">BSC in IT</h6>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">Name of Contact Person</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black"><?php echo $employerData->employer_contact_person ?></h6>
+                        </div>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black text-light-2">Professional Qualification</h6>
-                    </div>
-                </td>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black">Cisco Certified Engineer</h6>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">Industry</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black">
+                                <?php
+                                $industry = AdmIndustry::model()->findByPk($employerData->ref_ind_id);
+                                echo $industry->ind_name;
+                                ?>
+                            </h6>
+                        </div>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black text-light-2">Membership</h6>
-                    </div>
-                </td>
-                <td>
-                    <div class="data">
-                        <h6 class="text-black">CIM</h6>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">District</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black">
+                                <?php
+                                $district = AdmDistrict::model()->findByPk($employerData->ref_district_id);
+                                echo $district->district_name;
+                                ?>
+                            </h6>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black text-light-2">City</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data">
+                            <h6 class="text-black">
+                                <?php
+                                $city = AdmCity::model()->findByPk($employerData->ref_city_id);
+                                echo $city->city_name;
+                                ?>
+                            </h6>
+                        </div>
+                    </td>
+                </tr>
 
             </tbody>
         </table>

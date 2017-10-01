@@ -93,9 +93,7 @@ Search Result Section
 
 </div>
 
-<div id='loadingmessage'>
-    <img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/>
-</div>
+
 
 <!--JS | Server js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
@@ -113,11 +111,15 @@ Search Result Section
     $('#searchText').keyup(function () {
         loadAdvertisementData(1);
     });
+    
+    var loaderHtml = "<div id='loadingmessage'><img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/></div>";
 
     var currentRequest = null;
 
     function loadAdvertisementData(page) {
-        $('#loadingmessage').show();
+        
+        $("#ajaxLoadAdvertisements").html(loaderHtml);
+        
         var catId = null;
         var subCatId = null;
         catId = MAIN_ID !== undefined ? MAIN_ID.split("_")[1] : 0;
@@ -133,7 +135,7 @@ Search Result Section
                 }
             },
             success: function (responce) {
-                $('#loadingmessage').hide();
+               
                 $("#ajaxLoadAdvertisements").html(responce);
             }
         });

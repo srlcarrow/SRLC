@@ -11,37 +11,29 @@
 <div class="col-md-12 pl-30 pr-0 mb-50">
     <table class="data-table td-border-bottom">
         <colgroup>
-            <col style="width: 15%">
-            <col style="width: 10%">
-            <col style="width: 10%">
-            <col style="width: 10%">
-            <col style="width: 10%">
-            <col style="width: 10%">
+            <col style="width: 35%">
+            <col style="width: 60%">
+            <col style="width: 60%">
         </colgroup>
         <thead>
-        <tr>
-            <th>Package</th>
-            <th>Start</th>
-            <th>Expire</th>
-            <th>Used</th>
-            <th>Balance</th>
-            <th>Status</th>
-        </tr>
+            <tr>
+                <th>Title</th>
+                <th>Published Date</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><div class="data">Package</div></td>
-            <td><div class="data">20 Jan 2017</div></td>
-            <td><div class="data">28 Jan 2017</div></td>
-            <td><div class="data">0</div></td>
-            <td><div class="data">4</div></td>
-            <td>
-                <div class="data">
-                    <span class="status-text green">Published</span>
-                    <span class="icon icon-16 ic-view v-middle pointer ml-10"></span>
-                </div>
-            </td>
-        </tr>
+            <?php
+            foreach ($advertisements as $advertisement) {
+                ?>
+                <tr>
+                    <td><div class="data"><?php echo $advertisement->ad_title ?></div></td>
+                    <td><div class="data"><?php echo $advertisement->ad_is_published == 1 ? date('Y-m-d', strtotime($advertisement->ad_published_time)) : "-" ?></div></td>
+                    <td><div class="data"><?php echo $advertisement->ad_is_published == 1 ? "Published" : "Pending"; ?></div></td>          
+                </tr>
+                <?php
+            }
+            ?>
         </tbody>
     </table>
 </div>
