@@ -443,7 +443,7 @@ if ($adId != 0) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
 
-                    addEmptyToAjaxDropDowns("subCategories");
+                    addEmptyToAjaxDropDowns("subCategories",'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                             $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -476,7 +476,7 @@ if ($adId != 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var designations = responce.data.designationData;
-                    addEmptyToAjaxDropDowns('designations');
+                    addEmptyToAjaxDropDowns('designations','Designations');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
                             $("<option>" + designations[i]['desig_name'] + "</option>")
@@ -510,7 +510,7 @@ if ($adId != 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
-                    addEmptyToAjaxDropDowns('city');
+                    addEmptyToAjaxDropDowns('city','City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                             $("<option>" + cities[i]['city_name'] + "</option>")
@@ -528,10 +528,12 @@ if ($adId != 0) {
         });
     }
 
-    function addEmptyToAjaxDropDowns(id) {
+    function addEmptyToAjaxDropDowns(id,defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
+
         $('#' + id).append(
-            $("<option>Select</option>")
-                .attr("value", 0)
+            $("<option>text</option>")
+                .attr("value", "")
                 .text("Select")
         );
     }
