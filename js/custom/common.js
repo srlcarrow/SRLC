@@ -229,12 +229,12 @@ var Select = (function () {
 
                     var selectedVal = this.getSelectVal();
 
-                    if(selectedVal == "Select" ||
+                    if (selectedVal == "Select" ||
                         selectedVal == null ||
                         selectedVal == undefined ||
-                        selectedVal == ""){
+                        selectedVal == "") {
                         var selected = htmlSelect.find('option:disabled')
-                    }else {
+                    } else {
                         var selected = htmlSelect.find('option:selected');
                     }
 
@@ -293,6 +293,19 @@ var Select = (function () {
                     optionList.addClass('is-scroll');
                 }
 
+                if (optionLength === 1 || optionLength === 0) {
+console.log('EEE ',HTMLSelect.getSelectVal())
+                    if (HTMLSelect.getSelectVal() == "" ||
+                        HTMLSelect.getSelectVal() == 0 ||
+                        HTMLSelect.getSelectVal() == null ||
+                        HTMLSelect.getSelectVal() == undefined) {
+                        $this.addClass('is-disabled');
+                    } else {
+                        $this.removeClass('is-disabled');
+                    }
+                } else {
+                    $this.removeClass('is-disabled');
+                }
                 HTMLSelect.options().map(function (option) {
 
                     var li = $('<li>');

@@ -2479,6 +2479,12 @@ a.cm-btn {
   position: relative;
   float: left;
   width: 100%; }
+  .selector.is-disabled {
+    cursor: auto;
+    opacity: 0.4; }
+    .selector.is-disabled .selected-option {
+      cursor: auto;
+      pointer-events: none; }
   .selector select {
     opacity: 0;
     height: 0;

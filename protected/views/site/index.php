@@ -64,7 +64,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                 </div>
                                 <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
-                                    <div class="selector">
+                                    <div class="selector citySelector">
                                         <div class="selected-option">
                                             <span>City</span>
                                         </div>
@@ -170,7 +170,7 @@ Search Result Section
                     }
 
                     setTimeout(function () {
-                        Select.init();
+                        Select.init('.citySelector');
                     }, 200)
 
                     loadAdvertisementData(1);
