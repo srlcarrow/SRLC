@@ -70,7 +70,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>Job Category</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'required' => 'required', 'onChange' => 'loadSubCats()')); ?>
+                                            <?php echo Chtml::dropDownList('ref_cat_id', "", CHtml::listData(AdmCategory::model()->findAll(), 'cat_id', 'cat_name'), array('empty' => 'Category', 'options' => array($model->ref_cat_id => array('selected' => true)), 'required' => 'required', 'onChange' => 'loadSubCats()')); ?>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -80,7 +80,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             </div>
                                             <ul class="option-list"></ul>
                                             <select class="type" name="subCategories" id="subCategories">
-                                                <option id="0">Select</option>
+                                                <option id="0">Sub Category</option>
                                             </select>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                         <span>Type</span>
                                                     </div>
                                                     <ul class="option-list"></ul>
-                                                    <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
+                                                    <?php echo Chtml::dropDownList('ref_work_type_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Type', 'options' => array($model->ref_work_type_id => array('selected' => true)))); ?>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -182,7 +182,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                 <span>District</span>
                                             </div>
                                             <ul class="option-list"></ul>
-                                            <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
+                                            <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
                                         </div>
                                     </div>
 

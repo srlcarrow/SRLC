@@ -64,9 +64,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <span><?php echo $employerData->employer_contact_person; ?></span>
                                 </h5>
 
-                                <div class="col-md-12 text-right pr-0">
-                                    <button type="button" class="btn-img edit btnEditBasicData">Edit</button>
-                                </div>
                             </div>
 
                         </div>
@@ -76,8 +73,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                         <div class="row">
                             <div class="col-md-3 pr-0">
                                 <ul class="tab-horizontal employer-tab">
-                                    <li class="active"><a href="#tab1">Package</a></li>
-                                    <li><a href="#tab2">Job Post</a></li>
+                                    <li class="active"><a href="#tab1">Job Post</a></li>
+                                    <li><a href="#tab2">Package</a></li>
+                                    <li><a href="#tab4">Company</a></li>
                                     <li><a href="#tab3">Password</a></li>
                                 </ul>
                             </div>
@@ -102,15 +100,4 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         $('.employer-logo').attr('src', BASE_URL + '/uploads/Profile/Employer/' + imageName);
     }
 
-
-    $('.btnEditBasicData').on('click', function () {
-        $('.tab-horizontal li').removeClass('active');
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/Employer/BasicData'; ?>",
-            success: function (res) {
-                $('.tab-horizontal-content').html(res);
-            }
-        });
-    })
 </script>
