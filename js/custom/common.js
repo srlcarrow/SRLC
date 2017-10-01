@@ -212,6 +212,7 @@ var Input = (function () {
 var Select = (function () {
 
 
+
     var select = {};
 
     select.init = function (ele) {
