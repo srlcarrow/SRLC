@@ -40,7 +40,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'editEmployer', 'htmlOpt
     </div>
     <div class="selector dark citySelect mb-15">
         <div class="selected-option">
-            <span>District</span>
+            <span>City</span>
         </div>
         <ul class="option-list"></ul>
         <select id="city" name="city" class="city"></select>
@@ -57,6 +57,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'editEmployer', 'htmlOpt
 </div>
 <?php $this->endWidget(); ?>
 <script>
+    $(document).ready(function () {
+        loadCities();
+    });
+
     Input.init();
     Select.init('.industrySelect');
     Select.init('.districtSelect');
@@ -77,7 +81,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'editEmployer', 'htmlOpt
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-
+                    $('.message').Success(responce.msg);
                 }
             }
         });
@@ -103,8 +107,8 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'editEmployer', 'htmlOpt
                     }
 
                     setTimeout(function () {
-                        Select.init('.citySelect');
                         $("#city > [value=" + '<?php echo $empEmployers->ref_city_id; ?>' + "]").attr("selected", "true");
+                        Select.init('.citySelect');
                     }, 200)
                 }
             }

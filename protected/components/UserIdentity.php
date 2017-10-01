@@ -34,4 +34,8 @@ class UserIdentity extends CUserIdentity {
         return $this->_id;
     }
 
+    public function setUpUser($userId) {
+        $this->_id = $userId;
+    }
+
 }
