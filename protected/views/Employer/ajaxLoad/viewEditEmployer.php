@@ -66,6 +66,17 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'editEmployer', 'htmlOpt
     Select.init('.districtSelect');
     Select.init('.citySelect');
 
+    function loadViewCompanyDetailsHtml() {
+        var $tabContainer = $('.tab-horizontal-content');
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/employer/ViewCompanyDetails'; ?>",
+            success: function (responce) {
+                $tabContainer.html(responce);
+            }
+        });
+    }
+
     $('#editEmployer').submit(function (e) {
         e.preventDefault();
 
@@ -82,6 +93,9 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'editEmployer', 'htmlOpt
             success: function (responce) {
                 if (responce.code == 200) {
                     $('.message').Success(responce.msg);
+                    setTimeout(function (){
+                        loadViewCompanyDetailsHtml();
+                    },1000);
                 }
             }
         });
