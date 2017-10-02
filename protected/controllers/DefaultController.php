@@ -60,9 +60,9 @@ class DefaultController extends Controller {
                 EmailGenerator::SendEmail($msg, $to, $subjct);
             }
 
-            $this->msgHandler(200, "Login Successfull...");
+            $this->msgHandler(200, "New Password has been sent to your email!");
         } else {
-            $this->msgHandler(400, "Error In Login Details...");
+            $this->msgHandler(400, "Incorrect email!"); 
         }
     }
 
