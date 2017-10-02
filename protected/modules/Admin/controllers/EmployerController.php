@@ -48,30 +48,73 @@ class EmployerController extends Controller {
     }
 
     public function actionSaveEmployer() {
+//        try {
+        $model = new EmpEmployers();
+        $model->ref_ind_id = $_POST['ref_ind_id'];
+        $model->ref_jsbt_id = 0;
+        $model->ref_district_id = $_POST['district_id'];
+        $model->ref_city_id = $_POST['city'];
+        $model->employer_name = $_POST['comName'];
+        $model->employer_address = $_POST['comAddress'];
+        $model->employer_tel = $_POST['comTel'];
+        $model->employer_mobi = $_POST['comMobi'];
+        $model->employer_email = strtolower(str_replace(' ', '', $_POST['comEmail']));
+        $model->employer_contact_person = $_POST['comConPerson'];
+        $model->employer_created_time = date('Y-m-d H:i:s');
+        if ($model->save(false)) {
+            $model->employer_reference_no = Controller::getEmployeeReferenceNo($model->employer_id);
+//                $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
+//                $model->ad_image_url = $path;
+            $model->employer_image = '';
+            $model->save(false);
+
+            $password = $this->randomPassword();
+            $user = new User();
+            $user->ref_emp_or_js_id = $model->employer_id;
+            $user->user_name = strtolower(str_replace(' ', '', $_POST['comEmail']));
+            $user->user_password = md5(md5('SRLC' . $password . $password));
+            $user->user_access_token = '';
+            $user->user_type = 2;
+            $user->user_is_verified = 1;
+            $user->user_created_date = date('Y-m-d H:i:s');
+            $user->save(false);
+
+            $this->msgHandler(200, "Successfully Saved...");
+        }
+//        } catch (Exception $exc) {
+//            $this->msgHandler(400, $exc->getTraceAsString());
+//        }
+    }
+
+    public function actionUploadLogo() {
         try {
-            $model = new EmpEmployers();
-            $model->ref_ind_id = $_POST['ref_ind_id'];
-            $model->employer_name = $_POST['comName'];
-            $model->employer_address = $_POST['comAddress'];
-            $model->employer_tel = $_POST['comTel'];
-            $model->employer_mobi = $_POST['comMobi'];
-            $model->employer_email = strtolower(str_replace(' ', '', $_POST['comEmail']));
-            $model->employer_contact_person = $_POST['comConPerson'];
-            if ($model->save(false)) {
-                $this->msgHandler(200, "Successfully Saved...");
+            define('UPLOAD_DIR', 'uploads/company/logo/');
+            $img = $_POST['imageData'];
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $fileName = "employerCompany_" . uniqid() . '.png';
+            $widthArray = array('212');
+            $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
+            if ($success) {
+                $this->msgHandler(200, "Data Transfer", array('fileName' => $fileName));
             }
         } catch (Exception $exc) {
-            $this->msgHandler(400, $exc->getTraceAsString());
+            echo $exc->getTraceAsString();
         }
     }
 
     public function actionSaveAdvertisement() {
         try {
-            $target_dir = "uploads/jobAdvertisement/";
-            $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
-            $validateData = Controller::validateImage($_FILES, $target_dir);
-            $status = $validateData["status"];
-            $reason = $validateData["reason"];
+            $status = 1;
+            $reason = "";
+            if ($_POST['group1'] == 1) {
+                $target_dir = "uploads/jobAdvertisements/";
+                $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
+                $validateData = Controller::validateImage($_FILES, $target_dir);
+                $status = $validateData["status"];
+                $reason = $validateData["reason"];
+            }
 
             if ($status == 1) {
                 $model = new EmpAdvertisement();
@@ -102,9 +145,12 @@ class EmployerController extends Controller {
                 $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
-                    $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
-                    $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
-                    $model->ad_image_url = $path;
+                    $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
+                    if ($_POST['group1'] == 1) {
+                        $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
+                        $model->ad_image_url = $path;
+                    }
+
                     $model->save(false);
 
                     $this->msgHandler(200, "Successfully Saved...");
@@ -116,7 +162,7 @@ class EmployerController extends Controller {
             $this->msgHandler(400, $exc->getTraceAsString());
         }
     }
-    
+
 }
 ?>
 

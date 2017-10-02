@@ -52,11 +52,36 @@ var Popup = (function () {
 
         popupContainer.addClass('isShow');
 
+        Animation.load();
+
+        if (ajaxLoad !== undefined) {
+
+            document.querySelector('body').style.overflow = "hidden";
+            var container = popupContainer.find('.content');
+            container.html('');
+            container.html(ajaxLoad);
+            Animation.hide();
+            container.fadeTo('slow', 1)
+        }
+
+    };
+
+    _Popup.beforeShow = function (ajaxLoad) {
+
+        popupContainer.addClass('isShow');
+        var container = popupContainer.find('.content');
+
+        container.html('')
+            .fadeTo('fast', 0);
+
+        Animation.load();
+
         if (ajaxLoad !== undefined) {
             document.querySelector('body').style.overflow = "hidden";
-            popupContainer.find('.content')
+            container
                 .html('')
                 .html(ajaxLoad);
+            Animation.hide();
         }
 
     };
@@ -65,6 +90,9 @@ var Popup = (function () {
         popupContainer.find('.content')
             .css('opacity', 0);
         if (popupContainer.hasClass('isShow')) {
+
+            Animation.hide();
+
             popupContainer.find('.content')
                 .animate({'opacity': 1}, 800)
                 .html('')
@@ -183,11 +211,12 @@ var Input = (function () {
 //Selector
 var Select = (function () {
 
+
     var select = {};
 
     select.init = function (ele) {
-       var ele = (ele !== undefined && ele !== "") ? ele : '.selector';
-console.log(ele)
+        var ele = (ele !== undefined && ele !== "") ? ele : '.selector';
+
         $(ele).each(function () {
             var $this = $(this);
 
@@ -196,14 +225,18 @@ console.log(ele)
             var htmlSelect = $this.find('select');
 
             var HTMLSelect = {
+                isRequired: false,
                 selected: function (selectedDisabled) {
 
-                    var selected = htmlSelect.find('option:disabled');
+                    var selectedVal = this.getSelectVal();
 
-                    if (selectedDisabled) {
-                        selected = htmlSelect.find('option:disabled');
+                    if (selectedVal == "Select" ||
+                        selectedVal == null ||
+                        selectedVal == undefined ||
+                        selectedVal == "") {
+                        var selected = htmlSelect.find('option:disabled')
                     } else {
-                        selected = htmlSelect.find('option:selected');
+                        var selected = htmlSelect.find('option:selected');
                     }
 
                     return [
@@ -261,6 +294,19 @@ console.log(ele)
                     optionList.addClass('is-scroll');
                 }
 
+                if (optionLength === 1 || optionLength === 0) {
+                    console.log('EEE ', HTMLSelect.getSelectVal())
+                    if (HTMLSelect.getSelectVal() == "" ||
+                        HTMLSelect.getSelectVal() == 0 ||
+                        HTMLSelect.getSelectVal() == null ||
+                        HTMLSelect.getSelectVal() == undefined) {
+                        $this.addClass('is-disabled');
+                    } else {
+                        $this.removeClass('is-disabled');
+                    }
+                } else {
+                    $this.removeClass('is-disabled');
+                }
                 HTMLSelect.options().map(function (option) {
 
                     var li = $('<li>');
@@ -378,6 +424,13 @@ $.fn.SearchBox = function (opt) {
 };
 
 function msg(_this, _msg, _typeClass, _opt) {
+
+    // var $outerLayer = $('<div class="cm-message-outer"></div>'),
+    //     $message = $('<div class="message"></div>'),
+    //     $body = $('body');
+    //
+    // $body.find('.cm-message-outer').remove();
+
     var defOpt = {
         delay: 3000,
         stay: false
@@ -388,6 +441,7 @@ function msg(_this, _msg, _typeClass, _opt) {
 
     $this
         .html(_msg)
+        .addClass('is-fixed')
         .addClass(_typeClass)
         .slideDown('slow', function () {
             if (!opt.stay) {
@@ -402,6 +456,14 @@ function msg(_this, _msg, _typeClass, _opt) {
             }
 
         });
+
+    // $message
+    //     .html(_msg)
+    //     .addClass(_typeClass);
+    // $outerLayer.append($message);
+    // console.log($($message))
+    // // alert($message.get(0).innerWidth)
+    // $body.append($outerLayer);
 }
 
 $.fn.Success = function (_msg, _opt) {
@@ -460,6 +522,8 @@ var imageCropData = (function () {
 $('.btn-registration').on('click', function (evt) {
     evt.preventDefault();
 
+    Popup.beforeShow();
+
     loadLayoutByAjax('/Site/RegistrationPopup', function (html) {
         Popup.addClass('registration-popup');
         Popup.show(html);
@@ -474,6 +538,8 @@ $('.btn-sign-in').on('click', function (evt) {
 
     evt.preventDefault();
 
+    Popup.beforeShow();
+
     loadLayoutByAjax('/Site/SignInPopup', function (html) {
         Popup.addClass('sign-in-popup');
         Popup.addClass('small');
@@ -485,6 +551,8 @@ $('.btn-sign-in').on('click', function (evt) {
 
 $('.popup-container').on('click', '.forget_password', function (evt) {
     evt.preventDefault();
+
+    Popup.beforeShow();
 
     loadLayoutByAjax('/Site/PasswordResetFrom', function (html) {
         Popup.loadNewLayout(html);
@@ -525,8 +593,10 @@ var Animation = (function () {
             ele = _ele !== undefined ? _ele : '.popup';
             var html = '';
             html += '<div class="animation-outer">';
-            html += '<img style="width: 80px" src="./images/system/loader/frontLoader.gif" alt="">';
-            html += '<h6 class="text-black text-light-2 mt-15">Please wait...</h6>';
+            html += '<div class="animation">';
+            html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
+            html += '<h5 class="text-orange">Please wait...</h5>';
+            html += '</div>';
             html += '</div>';
 
             $('.popup').css('overflow', 'hidden');
@@ -537,6 +607,29 @@ var Animation = (function () {
                 $('.popup').attr('style', '');
                 $(ele).find('.animation-outer').remove();
             }
+        },
+        loader: function () {
+            var html = '';
+            html += '<div class="animation-outer fixed">';
+            html += '<div class="animation">';
+            html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
+            html += '</div>';
+            html += '</div>';
+            return html;
         }
     }
 })();
+
+var Button = function (ele) {
+
+    var ele = ele !== undefined ? ele : ".disabled";
+
+    return {
+        disabled: function () {
+            $(document).find(ele).prop('disabled', true);
+        },
+        active: function () {
+            $(document).find(ele).prop('disabled', false);
+        }
+    };
+};

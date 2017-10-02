@@ -1,3 +1,38 @@
+.cm-message-outer {
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background: #000;
+  z-index: 99999;
+  height: 100%;
+
+  .message {
+    position: absolute;
+    float: left;
+    font-size: $base-font-size;
+    font-weight: $font-w-regular;
+    color: $white;
+    padding: 8px 20px;
+    top: 50%;
+    @include border-radius(2px);
+
+    &.info {
+      background: $info;
+    }
+
+    &.error {
+      background: $error;
+    }
+
+    &.success {
+      background: $success;
+    }
+  }
+
+}
+
 .cm-message {
   float: left;
   font-size: $base-font-size;

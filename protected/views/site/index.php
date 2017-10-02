@@ -5,7 +5,6 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/plugins/sc
 
 // mScroll Bar
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js', CClientScript::POS_HEAD);
-
 ?>
 
 
@@ -52,7 +51,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <span>Type</span>
                                         </div>
                                         <ul class="option-list"></ul>
-                                        <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Select Type', 'onchange' => 'loadAdvertisementData(1)')); ?>
+                                        <?php echo Chtml::dropDownList('wt_id', "", CHtml::listData(AdmWorkType::model()->findAll(), 'wt_id', 'wt_name'), array('empty' => 'Type', 'onchange' => 'loadAdvertisementData(1)')); ?>
                                     </div>
                                 </div>
                                 <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
@@ -61,11 +60,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <span>District</span>
                                         </div>
                                         <ul class="option-list"></ul>
-                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
+                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'District', 'onChange' => 'loadCities()')); ?>
                                     </div>
                                 </div>
                                 <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">
-                                    <div class="selector">
+                                    <div class="selector citySelector">
                                         <div class="selected-option">
                                             <span>City</span>
                                         </div>
@@ -83,7 +82,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
             </div>
 
         </div>
-        fhfhf
+
     </div>
 </section>
 <?php $this->endWidget(); ?>
@@ -94,9 +93,7 @@ Search Result Section
 
 </div>
 
-<div id='loadingmessage'>
-    <img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/>
-</div>
+
 
 <!--JS | Server js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/index.server.js'; ?>"></script>
@@ -114,11 +111,15 @@ Search Result Section
     $('#searchText').keyup(function () {
         loadAdvertisementData(1);
     });
+    
+    var loaderHtml = "<div id='loadingmessage'><img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/></div>";
 
     var currentRequest = null;
 
     function loadAdvertisementData(page) {
-        $('#loadingmessage').show();
+        
+        $("#ajaxLoadAdvertisements").html(loaderHtml);
+        
         var catId = null;
         var subCatId = null;
         catId = MAIN_ID !== undefined ? MAIN_ID.split("_")[1] : 0;
@@ -127,14 +128,14 @@ Search Result Section
         currentRequest = jQuery.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Advertisement/ViewAdvertisementsData'; ?>",
-            data: $('#frmSearch').serialize() + "&catId=" + catId + "&subCatId=" + subCatId + "&page=" + page,
+            data: $('#frmSearch').serialize() + "&catId=" + catId + "&subCatId=" + subCatId + "&page=" + page + "&Status='active'",
             beforeSend: function () {
                 if (currentRequest != null) {
                     currentRequest.abort();
                 }
             },
             success: function (responce) {
-                $('#loadingmessage').hide();
+               
                 $("#ajaxLoadAdvertisements").html(responce);
             }
         });
@@ -142,7 +143,7 @@ Search Result Section
 
 
     $('#district_id').on('change', function () {
-        $('#cities').parents('.selector').find('.selected-option span').html('City')
+       //$('#cities').parents('.selector').find('.selected-option span').html('City')
     });
 
     function loadCities() {
@@ -158,9 +159,9 @@ Search Result Section
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
                     $('#cities').append(
-                        $("<option>aaaa</option>")
+                        $("<option></option>")
                             .attr("value", 0)
-                            .text("Select City")
+                            .text("City")
                     );
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#cities').append(
@@ -171,7 +172,7 @@ Search Result Section
                     }
 
                     setTimeout(function () {
-                        Select.init();
+                        Select.init('.citySelector');
                     }, 200)
 
                     loadAdvertisementData(1);

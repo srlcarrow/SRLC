@@ -1,3 +1,15 @@
+<!--echo  $this->module->assetsUrl-->
+<!-- Include external CSS. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
+      type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/codemirror.css">
+
+<!-- Include Editor style. -->
+<link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_editor.pkgd.min.css" rel="stylesheet"
+      type="text/css"/>
+<link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_style.min.css" rel="stylesheet"
+      type="text/css"/>
+
 <div class="row">
     <div class="col s12">
         <button class="cm-btn add right addNewCompany" type="button" onclick="addEmployer()">

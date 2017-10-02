@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <div class="input-wrapper">
                         <input class="emil_username" type="text" name="email" id="email" autofocus required>
-                        <div class="float-text">Email or Username</div>
+                        <div class="float-text">Email</div>
                     </div>
                 </div>
                 <div class="col-md-12  mt-10">

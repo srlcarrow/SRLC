@@ -31,17 +31,26 @@ class Controller extends CController {
             echo json_encode(array("code" => $code, "msg" => $msg, "data" => $data));
         }
     }
-    
+
     public static function getRefEmpOrJsId($id) {
-        $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id; 
-        return $refEEmpOrJsId; 
+        $refEEmpOrJsId = User::model()->findByPk($id)->ref_emp_or_js_id;
+        return $refEEmpOrJsId;
     }
-    
-    public static function getEmployeeReferenceNo($id) {
+
+    public static function getUserType($id) {
+        $userType = User::model()->findByPk($id)->user_type;
+        return $userType;
+    }
+
+    public static function getAdvertisementReferenceNo($id) {
         $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);
         return $reference;
     }
 
+    public static function getEmployeeReferenceNo($id) {
+        $reference = "E1" . str_pad($id, 5, '0', STR_PAD_LEFT);
+        return $reference;
+    }
 
     public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
         $sqlLimit = '';
@@ -92,8 +101,10 @@ class Controller extends CController {
 
     public static function searchWhereCriterias() {
         $str = "ad.ad_id !=0 ";
-        if (!empty($_REQUEST['catId']) && $_REQUEST['catId'] != 'undefined' && $_REQUEST['catId'] != 0) {
-            $str .= " AND ad.ref_cat_id = " . $_REQUEST['catId'];
+        $str .= " AND ad.ad_is_published = 1";
+
+        if (!empty($_REQUEST['ref_cat_id']) && $_REQUEST['ref_cat_id'] != 'undefined' && $_REQUEST['ref_cat_id'] != 0) {
+            $str .= " AND ad.ref_cat_id = " . $_REQUEST['ref_cat_id'];
         }
         if (!empty($_REQUEST['subCatId']) && $_REQUEST['subCatId'] != 'undefined' && $_REQUEST['subCatId'] != 0) {
             $str .= " AND ad.ref_subcat_id = " . $_REQUEST['subCatId'];
@@ -107,6 +118,18 @@ class Controller extends CController {
         if (!empty($_REQUEST['wt_id']) && $_REQUEST['wt_id'] != 'undefined' && $_REQUEST['wt_id'] != 0) {
             $str .= " AND ad.ref_work_type_id =" . $_REQUEST['wt_id'] . " ";
         }
+        if (!empty($_REQUEST['Status']) && $_REQUEST['Status'] != 'undefined') {
+            $currentDate = date('Y-m-d');
+            if ($_REQUEST['Status'] == "expired") {
+                $str .= " AND ad.ad_expire_date < '" . $currentDate . "' ";
+            } else {
+                $str .= " AND ad.ad_expire_date >= '" . $currentDate . "' ";
+            }
+        }
+        if (!empty($_REQUEST['searchText']) && $_REQUEST['searchText'] != 'undefined') {
+            $str .= " AND  ( ad.ad_reference Like '%" . $_REQUEST['searchText'] . "%' OR emp.employer_name Like '%" . $_REQUEST['searchText'] . "%' OR ad.ad_title Like '%" . $_REQUEST['searchText'] . "%')";
+        }
+
         return $str;
     }
 

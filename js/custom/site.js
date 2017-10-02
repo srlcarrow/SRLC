@@ -1,5 +1,7 @@
 var $isTitleHide = false;
 //Job category Selection
+
+
 var SelectedCategory = (function () {
     var _category = {
         categoryID: {
@@ -124,14 +126,16 @@ function loadJobsByCategory() {
     Popup.hide();
 }
 
+function responsivePageHeight() {
+    var pageHeight = $(window)[0].innerHeight;
+    $('.full-height').css('height', pageHeight + 'px');
+}
 
 (function () {
 
-
-    // $(window).on('load resize', function () {
-    //     var pageHeight = $(window)[0].innerHeight;
-    //     $('.full-height').css('height', pageHeight + 'px')
-    // });
+    $(window).on('load resize', function () {
+        responsivePageHeight();
+    });
 
     $('.navbar').removeClass('light-blue').css('backgroundColor', 'transparent');
 })();
@@ -147,8 +151,15 @@ function loadJobsByCategory() {
     var progress = 1;
     var jobTitle = 'title';
 
+    function preventDefault(e) {
+        e = e || window.event;
+        if (e.preventDefault)
+            e.preventDefault();
+        e.returnValue = false;
+    }
+
     //Get job title position in the top.
-    var $titleTopSpace = $('#searchWrapper').offset().top;
+    var $titleTopSpace = ($('#searchWrapper').offset().top + 85);
 
     var jobScene = new ScrollMagic.Scene({
         triggerElement: '.search-section',
@@ -159,6 +170,13 @@ function loadJobsByCategory() {
 
     jobScene.addTo(controller);
     jobScene.setPin('.search-section', {pushFollowers: false});
+    jobScene.on('start', function () {
+        window.onwheel = preventDefault;
+        window.ontouch = preventDefault;
+        setTimeout(function () {
+            window.onwheel = null;
+        }, 1000)
+    });
 
     //S 2
     var Scene = new ScrollMagic.Scene({
@@ -171,21 +189,27 @@ function loadJobsByCategory() {
     Scene.on('progress', function (e) {
         var opt = 1 - (e.progress);
         $('#title').css({'opacity': opt});
+        $('header').css({'opacity': opt, 'z-index': ''});
+
+        $('.full-height').css('height', '');
     });
 
     Scene.on('start', function (e) {
         if (e.scrollDirection == "REVERSE") {
             $('.filters').css({'opacity': 0});
+            responsivePageHeight();
         }
     });
 
     Scene.on('shift', function (e) {
         $('.filters').animate({'opacity': 1}, 10);
+        $('header').css({'z-index': -1});
     });
 
     $('#searchText').on('focus click', function () {
         $("html, body").animate({scrollTop: $titleTopSpace + 5}, 10);
-    })
+    });
+
 })($);
 
 

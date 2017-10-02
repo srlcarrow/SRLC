@@ -8,26 +8,44 @@ class EmployerController extends Controller {
             $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
 
             if ($id == $jsBasicTempData->jsbt_encrypted_id) {
-                $id = Controller::encodePrimaryKeys($jsBasicTempData->jsbt_id);
-                $this->render('viewEmployerRegistration', array('accessId' => $id));
+                if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
+                    $this->render('/Error/index', array('error' => "Already Verified Your Account"));
+                } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
+                    $this->render('/Error/index', array('error' => "Expired URL"));
+                } else {
+                    $this->render('/site/verify', array('accessId' => $id, 'userName' => $jsBasicTempData->jsbt_email));
+                }
             } else {
-                echo "Invalid URL";
-                exit;
+                $this->render('/Error/index', array('error' => "Invalid URL"));
             }
         } catch (Exception $exc) {
-            echo "Invalid Verification";
+            $this->render('/Error/index', array('error' => "Invalid Verification"));
+        }
+    }
+
+    public function actionViewEmployerRegistration($id) {
+        $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $id));
+        if (count($jsBasicTempData) > 0) {
+            if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
+                $this->render('/Error/index', array('error' => "Already Verified Your Account"));
+            } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
+                $this->render('/Error/index', array('error' => "Expired URL"));
+            } else {
+                $this->render('/Employer/viewEmployerRegistration', array('accessId' => $id));
+            }
+        } else {
+            $this->render('/Error/index', array('error' => "Invalid URL"));
         }
     }
 
     public function actionCompanyLogoUploadPopup() {
-        $this->renderPartial('ajaxLoad/popup/imageCrop');
+        $this->renderPartial('/Employer/ajaxLoad/popup/imageCrop');
     }
 
     public function actionSaveEmployer() {
 //        try {
-        $key = Controller::decodeMailAction($_POST['accessId']);
-        $jsTempId = $key[2];
-        $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
+        $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
+        $jsTempId = $jsBasicTempData->jsbt_id;
 
         if ($jsTempId > 0) {
             $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
@@ -41,7 +59,7 @@ class EmployerController extends Controller {
                         $empEmployers->ref_district_id = $_POST['district_id'];
                         $empEmployers->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
                         $empEmployers->employer_name = $jsBasicTempData->jsbt_fname;
-                        $empEmployers->employer_reference_no = 'SSS';
+                        $empEmployers->employer_reference_no = 0;
                         $empEmployers->employer_address = $_POST['address'];
                         $empEmployers->employer_tel = $jsBasicTempData->jsbt_contact_no;
                         $empEmployers->employer_mobi = $_POST['contactNo'];
@@ -51,6 +69,9 @@ class EmployerController extends Controller {
                         $empEmployers->employer_created_time = date('Y-m-d H:i:s');
                         $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
                         if ($empEmployers->save(false)) {
+                            $empEmployers->employer_reference_no = Controller::getEmployeeReferenceNo($empEmployers->employer_id);
+                            $empEmployers->save(false);
+
                             $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
                             $user->ref_emp_or_js_id = $empEmployers->employer_id;
                             $user->user_is_verified = 1;
@@ -58,6 +79,11 @@ class EmployerController extends Controller {
 
                             $jsBasicTempData->jsbt_is_finished = 1;
                             $jsBasicTempData->save(false);
+
+                            // Auto-login//                       
+                            $identity = new UserIdentity($user->user_name, '');
+                            $identity->setUpUser($user->user_id); // id of user
+                            Yii::app()->user->login($identity); //                           
                         }
                     }
                 } else {
@@ -65,7 +91,7 @@ class EmployerController extends Controller {
                 }
             }
         }
-        $key = Controller::encodePrimaryKeys($empEmployers->employer_id);
+        $key = $_POST['accessId'];
         $this->msgHandler(200, "Successfully Saved...", array('employerKey' => $key));
 //        } catch (Exception $exc) {
 //            echo $exc->getTraceAsString();
@@ -84,54 +110,83 @@ class EmployerController extends Controller {
         $userType = $user->user_type;
 
         if ($userType == 2) {
-            $employerData = EmpEmployers::model()->findByAttributes(array('ref_jsbt_id' => $user->ref_emp_or_js_id));
+            $employerData = EmpEmployers::model()->findByAttributes(array('employer_id' => $user->ref_emp_or_js_id));
+//            var_dump($employerData);exit;
         } else {
             $employerData = new EmpEmployers();
         }
 
-        $this->render('profile', array('employerData' => $employerData));
+        $this->render('/Employer/profile', array('employerData' => $employerData));
     }
 
     public function actionPackage() {
         $packages = AdmPackage::model()->findAll();
-        $this->renderPartial('ajaxLoad/package', array('packages' => $packages));
+        $this->renderPartial('/Employer/ajaxLoad/package', array('packages' => $packages));
     }
 
     public function actionViewPurchasedPackages() {
         $userId = Yii::app()->user->id;
         $purchaseedpackages = EmpPurchasePackage::model()->findAllByAttributes(array('ref_user_id' => $userId));
 
-        $this->renderPartial('ajaxLoad/viewPurchasePackages', array('purchaseedpackages' => $purchaseedpackages));
+        $this->renderPartial('/Employer/ajaxLoad/viewPurchasePackages', array('purchaseedpackages' => $purchaseedpackages));
     }
 
     public function actionPackageEdit() {
-        $this->renderPartial('ajaxLoad/package_form');
+        $this->renderPartial('/Employer/ajaxLoad/package_form');
     }
 
     public function actionJobPost() {
-        $this->renderPartial('ajaxLoad/jobPost');
+        $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+        $advertisements = EmpAdvertisement::model()->findAllByAttributes(array('ref_employer_id' => $employerId));
+        $this->renderPartial('/Employer/ajaxLoad/jobPost', array('advertisements' => $advertisements));
+    }
+
+    public function actionViewCompanyDetails() {
+        $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+        $employerData = EmpEmployers::model()->findByPk($employerId);
+        $this->renderPartial('/Employer/ajaxLoad/viewCompanyDetails', array('employerData' => $employerData));
     }
 
     public function actionPasswordReset() {
-        $this->renderPartial('ajaxLoad/passwordResetForm');
+        $this->renderPartial('/Employer/ajaxLoad/passwordResetForm');
     }
 
     //Popup
     public function actionImageCrop() {
-        $this->renderPartial('ajaxLoad/popup/imageCrop');
+        $this->renderPartial('/Employer/ajaxLoad/popup/imageCrop');
     }
 
     public function actionUploadLogo() {
         try {
-            define('UPLOAD_DIR', 'uploads/company/logo/');
+            define('UPLOAD_DIR', 'uploads/Profile/Employer');
             $img = $_POST['imageData'];
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
-            $fileName = "employerCompany_" . uniqid() . '.png';
+
+            if (isset(Yii::app()->user->id) || Yii::app()->user->id > 0) {
+                $employerId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+
+                $imageName = EmpEmployers::model()->findByPk($employerId)->employer_image;
+
+                if ($imageName == "" || $imageName == "null" || $imageName == NULL) {
+                    $fileName = "employer_" . uniqid() . '.png';
+                } else {
+                    unlink('uploads/Profile/Employer/' . $imageName);
+                    $fileName = "employer_" . uniqid() . '.png';
+                }
+            } else {
+                $fileName = "employerCompany_" . uniqid() . '.png';
+            }
+
             $widthArray = array('212');
             $success = Controller::saveImageInMultipleSizes($widthArray, $fileName, UPLOAD_DIR, $data);
             if ($success) {
+                if ($employerId != NULL) {
+                    $empData = EmpEmployers::model()->findByPk($employerId);
+                    $empData->employer_image = $fileName;
+                    $empData->save(false);
+                }
                 $this->msgHandler(200, "Data Transfer", array('fileName' => $fileName));
             }
         } catch (Exception $exc) {
@@ -169,7 +224,6 @@ class EmployerController extends Controller {
     }
 
     public function actionPurchasePackage() {
-
         try {
             $userId = Yii::app()->user->id;
             $packageId = $_POST['id'];
@@ -196,59 +250,161 @@ class EmployerController extends Controller {
         }
     }
 
-    public function actionCreateAdvertisement() {
-        $empId = Yii::app()->user->id;
-        $model = new EmpAdvertisement();
-        $this->render('createAdd', array('model' => $model, 'empId' => $empId));
+    public function actionCreateAdvertisement($id = NULL) {
+        $adId = "";
+        if ($id == NULL) {
+            $model = new EmpAdvertisement();
+        } else {
+            $model = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $id));
+            $adId = $id;
+        }
+
+        $empId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+
+        $this->render('/Employer/createAdd', array('model' => $model, 'empId' => $empId, 'adId' => $adId));
     }
 
     public function actionSaveAdvertisement() {
-        try {
-            if ($_POST['group1'] == 1) {
-                $target_dir = "uploads/jobAdvertisement/";
+//        try {
+        if ($_POST['adId'] == "") {
+            $model = new EmpAdvertisement();
+        } else {
+            $model = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $_POST['adId']));
+            if (count($model) == 0) {
+                $this->msgHandler(400, "Invalid Access Code...");
+            }
+        }
+
+//            if ($_POST['adId'] != 0) {
+//                var_dump($_POST['adId']);
+//                exit;
+//                $model = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $_POST['adId']));
+//
+//                if (count($model) == 0) {
+//                    $this->msgHandler(400, "Invalid Access Code...");
+//                }
+//            }
+
+        $status = 1;
+        $reason = "";
+        if ($_POST['group1'] == 1) {
+            if ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                $status = 1;
+                $reason = "";
+            } elseif ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 0) {
+                $status = 0;
+                $reason = "Please Select an Advertisement";
+            } else {
+                $target_dir = "uploads/JobAdvertisements/";
                 $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
                 $validateData = Controller::validateImage($_FILES, $target_dir);
                 $status = $validateData["status"];
                 $reason = $validateData["reason"];
-            } else {
-                $status = 1;
-                $reason = '';
             }
+        }
 
-            if ($status == 1) {
-                $model = new EmpAdvertisement();
-                $model->ad_reference = 0;
-                $model->ref_employer_id = Yii::app()->user->id;
-                $model->ref_district_id = $_POST['district_id'];
-                $model->ref_city_id = $_POST['city'];
-                $model->ref_industry_id = $_POST['ref_industry_id'];
-                $model->ref_cat_id = $_POST['ref_cat_id'];
-                $model->ref_subcat_id = $_POST['subCategories'];
-                $model->ref_designation_id = $_POST['designations'];
-                $model->ad_expected_experience = $_POST['experience'];
-                $model->ad_salary = $_POST['salary'];
-                $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
-                $model->ref_work_type_id = $_POST['ref_work_type_id'];
-                $model->ad_title = $_POST['title'];
-                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
-                $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
-                $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
-                $model->ad_image_url = "";
-                $model->ad_text = $_POST['advertisementText'];
-                if ($model->save(false)) {
-                    if ($_POST['group1'] == 1) {
-                        $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
-                        $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
-                        $model->ad_image_url = $path;
-                        $model->save(false);
+        $employerId = $this->getRefEmpOrJsId(Yii::app()->user->id);
+        $employerData = EmpEmployers::model()->findByPk($employerId);
+
+        if ($status == 1) {
+            $model->ad_reference = "";
+            $model->ref_employer_id = $employerId;
+            $model->ref_district_id = isset($_POST['district_id']) ? $_POST['district_id'] : 0;
+            $model->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
+            $model->ref_industry_id = $employerData->ref_ind_id;
+            $model->ref_cat_id = $_POST['ref_cat_id'];
+            $model->ref_subcat_id = $_POST['subCategories'];
+            $model->ref_designation_id = isset($_POST['designations']) && $_POST['otherDesignation'] == "" ? $_POST['designations'] : 0;
+            $model->ad_other_desig = isset($_POST['otherDesignation']) ? $_POST['designations'] : '';
+            $model->ad_expected_experience = isset($_POST['experience']) ? $_POST['experience'] : 0;
+            $model->ad_salary = isset($_POST['salary']) ? $_POST['salary'] : 0;
+            $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
+            $model->ref_work_type_id = $_POST['ref_work_type_id'];
+            $model->ad_title = $_POST['title'];
+            $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
+            $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
+            $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
+            $model->ad_image_url = ($model->ad_image_url == NULL ? "" : $model->ad_image_url);
+            $model->ad_text = $_POST['advertisementText'];
+            $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
+            $model->ad_created_time = date('Y-m-d H:i:s');
+            $model->ad_token = $model->ad_token == NULL ? "" : $model->ad_token;
+            $model->ad_published_time = "0000-00-00 00:00:00";
+
+            if ($model->save(false)) {
+                $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
+                if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
+                    $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
+                    $model->ad_image_url = $path;
+                } elseif ($_POST['group1'] == 2) {
+                    if ($model->ad_image_url != "") {
+                        chmod($model->ad_image_url, 0777);
+                        unlink($model->ad_image_url);
                     }
-                    $this->msgHandler(200, "Successfully Saved...");
+                    $model->ad_is_image = 0;
+                    $model->ad_image_url = "";
+                } elseif ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                    $model->ad_image_url = $model->ad_image_url;
                 }
-            } else {
-                $this->msgHandler(400, $reason);
+                $model->ad_token = md5('adId-' . $model->ad_id);
+                $model->save(false);
+                $this->msgHandler(200, "Successfully Saved...", array('adId' => $model->ad_token));
+            }
+        } else {
+            $this->msgHandler(400, $reason);
+        }
+//        } catch (Exception $exc) {
+//            $this->msgHandler(400, $exc->getTraceAsString());
+//        }
+    }
+
+    public function actionViewPreviewJobAdvertisement($id) {
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $id));
+        $this->render('/Employer/viewPreviewJobAdvertisement', array('adData' => $adData, 'id' => $id));
+    }
+
+    public function actionPublishAdvertisement() {
+        $adToken = $_POST['id'];
+
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $adToken));
+        if (count($adData) > 0) {
+            $adData->ad_token = "";
+            $adData->ad_is_published = 1;
+            $adData->ad_published_time = date('Y-m-d H:i:s');
+            $adData->save(false);
+            $this->msgHandler(200, "Successfully Published...");
+        } else {
+            $this->msgHandler(400, "Invalid Publish...");
+        }
+    }
+
+    public function actionBasicData() {
+        $employerId = $this->getRefEmpOrJsId(Yii::app()->user->id);
+        $empEmployers = EmpEmployers::model()->findByPk($employerId);
+
+        $this->renderPartial('/Employer/ajaxLoad/viewEditEmployer', array('empEmployers' => $empEmployers));
+    }
+
+    public function actionEditEmployer() {
+        try {
+            $employerId = $this->getRefEmpOrJsId(Yii::app()->user->id);
+            $empEmployers = EmpEmployers::model()->findByPk($employerId);
+
+            $empEmployers->ref_ind_id = $_POST['ind_id'];
+            $empEmployers->ref_district_id = isset($_POST['district_id']) ? $_POST['district_id'] : 0;
+            $empEmployers->ref_city_id = isset($_POST['city']) ? $_POST['city'] : 0;
+
+            $empEmployers->employer_name = $_POST['comName'];
+            $empEmployers->employer_address = $_POST['address'];
+            $empEmployers->employer_tel = $_POST['contactNo'];
+            $empEmployers->employer_mobi = $_POST['contactNoOp'];
+            $empEmployers->employer_contact_person = $_POST['contactPer'];
+            $empEmployers->employer_updated_time = date('Y-m-d H:i:s');
+            if ($empEmployers->save(false)) {
+                $this->msgHandler(200, "Successfully Saved...");
             }
         } catch (Exception $exc) {
-            $this->msgHandler(400, $exc->getTraceAsString());
+            $this->msgHandler(400, $exc);
         }
     }
 

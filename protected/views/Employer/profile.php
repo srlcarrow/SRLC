@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="col-md-12">
                                         <figure>
                                             <img class="m-auto employer-logo img-155"
-                                                 src="<?php echo Yii::app()->baseUrl . '/uploads/company/logo/' . $employerData->employer_image; ?>"
+                                                 src="<?php echo Yii::app()->baseUrl . '/uploads/Profile/Employer/' . $employerData->employer_image; ?>"
                                                  alt="">
                                         </figure>
                                     </div>
@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 </div>
                             </div>
 
-                            <div class="col-md-9 pl-0 pb-20 bottom-line">
+                            <div class="col-md-9 pl-30 pr-0 pb-20 bottom-line">
                                 <h2 class="text-black mb-5"><?php echo $employerData->employer_name; ?></h2>
                                 <h5 class="text-dark-blue text-light-2 text-uppercase"><?php echo $employerData->employer_address; ?></h5>
 
@@ -42,10 +42,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="d-table-cell pr-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 call mr-10 v-middle"></i>
-                                            <span><?php echo $employerData->employer_tel; ?> 
-                                                <?php if ($employerData->employer_tel != '') { 
-                                                    echo '/ '.$employerData->employer_mobi;                     
-                                                } ?>     
+                                            <span><?php echo $employerData->employer_tel; ?>
+                                                <?php
+                                                if ($employerData->employer_tel != '') {
+                                                    echo '/ ' . $employerData->employer_mobi;
+                                                }
+                                                ?>     
                                             </span>
                                         </h5>
                                     </div>
@@ -61,7 +63,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <i class="icon icon-20 linkedin mr-10 v-middle"></i>
                                     <span><?php echo $employerData->employer_contact_person; ?></span>
                                 </h5>
+
                             </div>
+
                         </div>
                     </div>
 
@@ -69,8 +73,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                         <div class="row">
                             <div class="col-md-3 pr-0">
                                 <ul class="tab-horizontal employer-tab">
-                                    <li class="active"><a href="#tab1">Package</a></li>
-                                    <li><a href="#tab2">Job Post</a></li>
+                                    <li class="active"><a href="#tab1">Job Post</a></li>
+                                    <li><a href="#tab2">Package</a></li>
+                                    <li><a href="#tab4">Company</a></li>
                                     <li><a href="#tab3">Password</a></li>
                                 </ul>
                             </div>
@@ -81,7 +86,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                 </div>
 
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,4 +95,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 </section>
 
 
+<script>
+    function updateImage(imageName) {
+        $('.employer-logo').attr('src', BASE_URL + '/uploads/Profile/Employer/' + imageName);
+    }
 
+</script>

@@ -2,22 +2,30 @@ $(function () {
 
     var route = {
         tab1: {
-            view: '/employer/Package',
-            form: '/employer/PackageEdit'
-        },
-        tab2: {
             view: '/employer/JobPost',
             form: 't'
+
+        },
+        tab2: {
+            view: '/employer/Package',
+            form: '/employer/PackageEdit'
         },
         tab3: {
             view: '/employer/PasswordReset',
             form: 't'
+        },
+        tab4: {
+            view: '/employer/ViewCompanyDetails',
+            form: '/employer/BasicData'
         }
     };
 
     var $tabContainer = $('.tab-horizontal-content');
 
     function loadTab(tab, type, appendTo) {
+
+        appendTo.html(Animation.loader());
+
         _ajax(
             {
                 url: route[tab][type]
@@ -69,6 +77,8 @@ $(function () {
 
     //Show popup
     $('.uploadImage').on('click', function () {
+        Popup.beforeShow();
+
         _ajax(
             {
                 url: '/employer/ImageCrop'

@@ -32,6 +32,10 @@
   font-size: 18px !important;
 }
 
+.f-20 {
+  font-size: 20px !important;
+}
+
 .f-30 {
   font-size: 30px !important;
 }
@@ -46,6 +50,10 @@
 
 .w-60 {
   width: 60%;
+}
+
+.w-80 {
+  width: 80%;
 }
 
 //Font Weight
@@ -176,7 +184,7 @@
   li {
     list-style: none;
     display: block;
-    background: $primary;
+    background: rgba($p-light, 0.56);
     a {
       padding: 15px 30px;
       color: rgba($black, 0.86);
@@ -190,7 +198,21 @@
 
     &.active {
       a {
-        background: $white;
+        background: $primary;
+        color: $white;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-width: 8px 0 8px 10px;
+          border-color: transparent $primary;
+          border-style: solid;
+          display: inline-block;
+          left: 100%;
+          z-index: 9;
+        }
       }
     }
   }
@@ -291,6 +313,13 @@
 
 }
 
+.status-text {
+
+  &.green {
+    color: #2dd112;
+  }
+}
+
 //------------------------------------------------------------------
 //User Profile
 //------------------------------------------------------------------
@@ -341,6 +370,22 @@
   }
 }
 
+.status {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 20px;
+  &.valid {
+    background: url("../images/system/icon/site/16/ic_16-check.png") no-repeat;
+  }
+
+  &.invalid {
+    background: url("../images/system/icon/site/16/ic_16_reject-cross.png") no-repeat;
+  }
+}
+
 //------------------------------------------------------------------
 //Modules
 //------------------------------------------------------------------
@@ -353,3 +398,4 @@
 @import "select";
 @import "states-dot";
 @import "animation";
+@import "card";

@@ -61,6 +61,7 @@
 
 #searchContent {
   margin: 30px 0;
+  min-height: 500px;
 }
 
 //------------------------------------------------------------------
@@ -114,6 +115,21 @@
 //Data table
 //------------------------------------------------------------------
 .data-table {
+  width: 100%;
+
+  thead {
+    tr {
+      th {
+        background: $secondary;
+        color: $white;
+        padding: 18px 15px;
+        font-weight: $font-w-regular;
+        font-size: 12px;
+        text-transform: uppercase;
+
+      }
+    }
+  }
   tr {
     padding: 0;
 
@@ -121,15 +137,29 @@
       padding: 0;
 
       .data {
-        padding: 10px 12px;
+        padding: 10px 15px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: $black;
+        font-size: 14px;
 
         &:last-child {
           padding-right: 0;
         }
+
+        &.limit {
+          &.l-150 {
+            width: 150px;
+          }
+        }
       }
+    }
+  }
+
+  &.td-border-bottom {
+    td {
+      border-bottom: 1px solid #eaeaec;
     }
   }
 }

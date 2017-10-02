@@ -39,6 +39,20 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'onChange' => 'loadCities()')); ?>
+                                    <label>District</label>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <select id="city" name="city" class="city"></select>
+                                    <label>City</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
                                     <input name="comAddress" type="text" autocomplete="off" required>
@@ -149,6 +163,33 @@
             }
         });
     });
+
+    function loadCities() {
+        $("#city").empty();
+        var id = $('#district_id').val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Site/GetCitiesByDistrictID'; ?>",
+            data: {id: id},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    var cities = responce.data.cityData;
+                    for (var i = 0, max = cities.length; i < max; i++) {
+                        $('#city').append(
+                                $("<option>" + cities[i]['city_name'] + "</option>")
+                                .attr("value", cities[i]['city_id'])
+                                .text(cities[i]['city_name'])
+                                );
+                    }
+
+                    setTimeout(function () {
+                        $('select').material_select();
+                    }, 200)
+                }
+            }
+        });
+    }
 
 
 </script>

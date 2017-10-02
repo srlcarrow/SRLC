@@ -60,7 +60,7 @@ $model = new EmpAdvertisement();
             ?>
 
             <?php
-            if ($user != NULL && $user > 0) {
+            if ($user != NULL && $user > 0 && $userType == 1) {
                 ?>
                 <!--Ex-->
                 <div class="row">
@@ -110,21 +110,13 @@ $model = new EmpAdvertisement();
 
                     <div class="col-md-12 float-block mt-20">
                         <button id="Register" type="submit" onclick=""
-                                class="cm-btn large text-uppercase light-blue right">Register
+                                class="cm-btn large text-uppercase light-blue right">Send CV
                         </button>
                     </div>
                 </div>
                 <?php
             }
             ?>
-
-            <div class="row">
-                <div class="col-md-12 float-block mt-20">
-                    <button id="Register" type="submit" onclick=""
-                            class="cm-btn large text-uppercase light-blue right">Register
-                    </button>
-                </div>
-            </div>
         </form>
     </div>
 </div>

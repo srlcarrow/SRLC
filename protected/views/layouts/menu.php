@@ -7,10 +7,13 @@
         </div>
         <ul class="navbar-nav navbar-right hidden-xs">
 
-            <li ><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate';     ?>">Job
+
+            <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate'; ?>">Job
                     Seeker</a></li>
-            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';     ?>">Employer</a></li>
-            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';     ?>">Contact Us</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/Employer'; ?>">Employer</a></li>
+            <li><a href="<?php // echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';        ?>">Contact
+                    Us</a></li>
+
 
             <?php if (yii::app()->user->isGuest) { ?>
                 <li class="sign-link"><a class="btn-sign-in" href="#">Sign in</a></li>
@@ -20,9 +23,9 @@
 
                 $logUserId = Yii::app()->user->id;
                 $logUserDetails = User::model()->findByAttributes(array('user_id' => $logUserId));
-                
+
                 if ($logUserDetails->user_type == 1) {
-                    $JsBasic = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $logUserDetails->ref_emp_or_js_id));
+                    $JsBasic = JsBasic::model()->findByAttributes(array('js_id' => $logUserDetails->ref_emp_or_js_id));
 
                     if (count($JsBasic) > 0) {
                         $firstName = substr($JsBasic->js_fname, 0, 10);
@@ -32,14 +35,18 @@
                         } else {
                             Yii::app()->user->logout();
                         }
-                    } else { 
-                        $EmpEmployers = EmpEmployers::model()->findByAttributes(array('ref_jsbt_id' => $logUserDetails->ref_emp_or_js_id));
+                    } elseif ($logUserDetails->user_type == 2) {
+                        $EmpEmployers = EmpEmployers::model()->findByAttributes(array('employer_id' => $logUserDetails->ref_emp_or_js_id));
                         $firstName = substr($EmpEmployers->employer_name, 0, 10);
                         $fullName = $EmpEmployers->employer_name;
                         $email = $EmpEmployers->employer_email;
                         ?> <li class="profile-link"><a href="<?php echo Yii::app()->request->baseUrl . '/Employer/ProfileDetails'; ?>">My Account</a></li><?php
+                    } else {
+                        $firstName = $logUserDetails->user_name;
+                        $fullName = $logUserDetails->user_name;
+                        $email = "";
                     }
-                    ?>                
+                    ?>
 
                 <li class="profile-link">
                     <a class="" href="#">
@@ -56,7 +63,8 @@
                             <h6 class="col-md-12 text-black text-light-3"><?php echo $email; ?></h6>
 
                             <div class="col-md-12 mt-10">
-                                <a href="<?php echo Yii::app()->request->baseUrl . '/Default/Logout'; ?>" class="logout">Logout</a>
+                                <a href="<?php echo Yii::app()->request->baseUrl . '/Default/Logout'; ?>"
+                                   class="logout">Logout</a>
                             </div>
                         </div>
 

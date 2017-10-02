@@ -54,6 +54,10 @@
     &.ic-cross {
       background: url("../images/system/icon/site/16/ic_16-cross.png");
     }
+
+    &.ic-view {
+      background: url("../images/system/icon/site/16/ic_16-view.png");
+    }
   }
 
   &.icon-10 {
@@ -72,6 +76,16 @@
     &.ic-resend {
       height: 31px;
       background: url("../images/system/icon/site/35/ic_35-re_send.png");
+    }
+  }
+
+  &.icon-55 {
+    width: 55px;
+    height: 55px;
+
+    &.icon-check {
+      background: url("../images/system/icon/site/55/ic_55-check.png") no-repeat;
+
     }
   }
 

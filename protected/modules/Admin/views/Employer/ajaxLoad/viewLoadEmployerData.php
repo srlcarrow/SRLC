@@ -1,12 +1,10 @@
 <!--<div class="row expand-card-content mb-0 ">
     <div class="col s12 mt-20">-->
 <!--<div class="row mb-0">-->
-<div class="col s8">
+<div class="col s8 ">
     <ul class="tabs">
-        <li class="tab col s3"><a class="pl-0 left-align active"
-                                  href="#tab1_<?php echo $id; ?>">General</a></li>
-        <li class="tab col s3"><a class="pl-0 left-align"
-                                  href="#tab2_<?php echo $id; ?>">Transection</a></li>
+        <li class="tab col s3"><a class="pl-0 left-align active" href="#tab1_<?php echo $id; ?>">General</a></li>
+        <li class="tab col s3"><a class="pl-0 left-align" href="#tab2_<?php echo $id; ?>">Transection</a></li>
     </ul>
 </div>
 <div id="tab1_<?php echo $id; ?>" class="col s12 mt-30">
@@ -17,7 +15,7 @@
                 <div class="col s12">
                     <div class="logo-wrp ">
                         <img
-                            src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/logo23.png"
+                            src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $employerData->employer_image; ?>"
                             alt="">
                     </div>
                 </div>
@@ -129,12 +127,7 @@
 <!--    </div>
 </div>-->
 
-<script>
-    function loadTab() {
-        $('.company-cards').each(function () {
-            $(this).find('ul.tabs').tabs();
-        });
-    }
+<script>   
 
     function getPopupTemplate() {
         var html = null;
@@ -165,5 +158,5 @@
             }
         });
     });
- 
+
 </script>

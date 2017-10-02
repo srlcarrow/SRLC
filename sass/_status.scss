@@ -230,9 +230,9 @@ header {
     > li {
 
       a {
-        color: rgba($blue-dark, $opt-3);
+        color: rgba($blue-dark, 1);
         border-bottom: 1px solid $gray-light;
-        padding: 30px 24px 20px 24px;
+        padding: 20px 24px;
         @include float-block;
         @include transition($animation-1);
 
@@ -243,28 +243,26 @@ header {
 
         h3 {
           color: $blue-dark;
-          margin-bottom: 10px;
           font-weight: $font-w-medium;
         }
 
         h6 {
-          color: rgba($blue-dark, $opt-3);
+          color: rgba($blue-dark, $opt-2);
           display: inline-block;
           width: 100%;
           font-weight: $font-w-light;
+        }
+        span {
 
-          span {
+          vertical-align: middle;
 
-            vertical-align: middle;
-
-            &.time-left {
-              float: right;
-            }
+          &.time-left {
+            float: right;
+            color: $primary;
           }
         }
 
         ul.more-details-list {
-          margin-top: 10px;
           @include float-block;
 
           li {
@@ -295,8 +293,7 @@ header {
 
 //Search area
 .search-area {
-  margin-top: 130px;
-  margin-bottom: 15px;
+  margin-top: 110px;
 
   //Media Query
   @include breakpoint($small) {
@@ -305,7 +302,8 @@ header {
 }
 
 .full-height {
-  height: 655px;
+  //height: 655px;
+  z-index: 998;
 }
 
 //Icon
@@ -342,7 +340,7 @@ header {
 }
 
 .filters {
-  margin-top: 15px;
+  margin-bottom: 10px;
   opacity: 0;
   @include transition($animation-1);
 
@@ -354,6 +352,10 @@ header {
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     border-bottom: 1px dashed rgba($white, $opt-3);
+  }
+
+  .selector {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.56);
   }
 }
 
@@ -367,7 +369,6 @@ header {
 //Search result style
 //------------------------------------------------------------------
 ul.more-details-list {
-  margin-top: 10px;
 
   li {
     .dot {
@@ -380,7 +381,7 @@ ul.more-details-list {
 .popup-container {
   &.isShow {
     opacity: 1;
-    z-index: 1001;
+    z-index: 99999;
 
     .popup {
       @include transform(scale(1));
@@ -688,3 +689,32 @@ input[type="radio"] {
 
 }
 
+.package-block {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: $white-light;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.datepicker {
+
+  .datepicker--day-name {
+    color: #445a64;
+  }
+
+  .datepicker--cell.-current- {
+    color: $primary;
+
+    &.-focus- {
+      color: $white;
+      background: $primary;
+    }
+
+  }
+
+  .datepicker--cell.-selected-,
+  .datepicker--cell.-selected-.-current- {
+    color: $white;
+    background: $p-light;
+  }
+}

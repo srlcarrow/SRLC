@@ -9,7 +9,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
     <div class="card-content">
         <h5 class="grey-text text-darken-1">Add Advertisement</h5>
         <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>" >
-        
+
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
@@ -151,7 +151,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                                 $image = $model->ad_image_url;
                             }
                             ?>
-                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" value="<?php echo $image; ?>" required>
+                            <input id="imagePath" name="imagePath" class="file-path validate" type="text" value="<?php echo $image; ?>">
                         </div>
                     </div>
                     <a href="<?php echo Yii::app()->baseUrl . '/' . $model->ad_image_url; ?>">Download Advertisement</a>                 
@@ -204,6 +204,8 @@ if ($adId > 0) {
                 if (responce.code == 200) {
                     Message.success(responce.msg);
                     document.getElementById("formAddAdvertisement").reset();
+                } else {
+                    Message.success(responce.msg);
                 }
             }
         });

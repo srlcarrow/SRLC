@@ -81,17 +81,28 @@
         submitHandler: function () {
 
             var emailAdd = $("#email").val();
-            var stat = validateEmail(emailAdd);
+            var stat = isValidEmail(emailAdd);
 
-            if (stat == true) {
-                userRegistration();
+            if (stat) {
+                checkEmail(emailAdd, function (valid) {
+                    console.log('is Valid ', valid)
+                    if (!valid) {
+                        userRegistration();
+                    } else {
+                        $('.message').Error('This email already taken');
+                    }
+                });
+            } else {
+                $('.message').Error('Invalid Email Address');
             }
         }
     });
-    function loadVerifyPage() {
+
+    function loadVerifyPage(accessKey) {
         $.ajax({
             type: 'GET',
-            url: "<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>",
+            url: '<?php echo Yii::app()->baseUrl . '/Site/VerifyPopup'; ?>',
+            data: {accessKey: accessKey},
             success: function (res) {
                 Popup.loadNewLayout(res);
                 Popup.addClass('size-50');
@@ -99,12 +110,12 @@
         });
     }
 
-    function userRegistration() { 
+    function userRegistration() {
 
-        Animation.load();   
+        Animation.load();
 
         var isCheckedJobSeeker = $('#job_seeker').is(':checked');
-        currentRequest = jQuery.ajax({
+        var currentRequest = jQuery.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Registration/Register'; ?>",
             data: $('#formRegister').serialize() + "&isCheckedJobSeeker=" + isCheckedJobSeeker,
@@ -115,49 +126,37 @@
                 }
             },
             success: function (responce) {
-                if (responce.code == 200) {   
-                    Animation.load(); 
-                    loadVerifyPage();
+                if (responce.code == 200) {
+                    loadVerifyPage(responce.data.encryptedId);
+                    Animation.hide();
 //                    Popup.loadNewLayout('<div class="pop-message success">Registration Successfully</div>');
                 }
             }
         });
     }
 
-    function validateEmail(emailField) {
-        if (isValidEmail(emailField) == false) {
-            alert('Invalid Email Address');
-            return false;
-        }
-
-        if (isExistingEmail(emailField) == false) {
-            alert('Existing Email');
-            return false;
-        }
-        return true;
-    }
-
-    function isValidEmail(emailField) {
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(emailField) == false) {
-            return false;
-        }
-
-        return true;
-    }
-
-    function isExistingEmail(emailField) {
+    function checkEmail(emailField, callback) {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
             data: {email: emailField},
             dataType: 'json',
             success: function (responce) {
-                if (responce.code == 200 && responce.data.isExistingEmail == 1) {
-                    return false;
+                //console.log(emailField, ' -- ', responce)
+                if (responce.code == 200) {
+                    callback(responce.data.isExistingEmail);
                 }
             }
         });
     }
+
+    function isValidEmail(emailField) {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (!reg.test(emailField)) {
+            return false;
+        }
+        return true;
+    }
+
 </script>
 

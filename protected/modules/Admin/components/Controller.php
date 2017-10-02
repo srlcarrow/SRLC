@@ -83,8 +83,13 @@ class Controller extends CController {
         return $path . '/' . $fileName;
     }
 
-    public static function getEmployeeReferenceNo($id) {
+    public static function getAdvertisementReferenceNo($id) {
         $reference = "1" . str_pad($id, 8, '0', STR_PAD_LEFT);
+        return $reference;
+    }
+
+    public static function getEmployeeReferenceNo($id) {
+        $reference = "E1" . str_pad($id, 5, '0', STR_PAD_LEFT);
         return $reference;
     }
 
@@ -224,15 +229,39 @@ class Controller extends CController {
 
 //    Employer Search
 
-
-
-
-
-
-
-
     public function getActiveFilter() {
         return array('active' => 'Active', 'expired' => 'expired');
+    }
+
+    public function saveImageInMultipleSizes($widthArray, $fileName, $upload_dir, $data) {
+        foreach ($widthArray as $newWidth) {
+            $image = imagecreatefromstring($data);
+            $width = imagesx($image);
+            $height = imagesy($image);
+            $newHeight = ($height / $width) * $newWidth;
+// Resample
+            $image_p = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($image_p, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+// Buffering
+            ob_start();
+            imagepng($image_p);
+            $data = ob_get_contents();
+            ob_end_clean();
+            $file = $upload_dir . "/" . $fileName;
+            $result = file_put_contents($file, $data);
+        }
+        return $result;
+    }
+
+    public static function randomPassword($length = 8) {
+        $chars = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*";
+        $password = substr(str_shuffle($chars), 0, $length);
+        return $password;
+    }
+
+    public static function getUserType($id) {
+        $userType = User::model()->findByPk($id)->user_type;
+        return $userType;
     }
 
 }

@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <!--        <div class="cm-message success">Save Success</div>-->
 
-        <button type="button" class="cm-btn light-blue right export">Export</button>
+        <button type="button" class="cm-btn light-blue right export">Upload</button>
     </div>
 
 </div>
