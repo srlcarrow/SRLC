@@ -97,9 +97,12 @@ var JobSearch = (function () {
 
     //Show category Popup
     $('.show-category').on('click', function () {
+        Popup.beforeShow();
         //Get layout
         //Call to server js and get layout
         CategoryPopup().html(function (html) {
+            Popup.addClass('size-60');
+            Popup.addClass('no-padding');
             Popup.show(html);
         });
     });

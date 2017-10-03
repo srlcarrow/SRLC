@@ -471,6 +471,20 @@ ul.more-details-list {
       padding: 30px 100px;
     }
   }
+
+  &.size-60 {
+    .popup {
+      width: 60%;
+      left: calc(50% - 30%);
+      padding: 30px 100px;
+    }
+  }
+
+  &.no-padding {
+    .popup {
+      padding: 0;
+    }
+  }
 }
 
 //-------------------------------------
@@ -716,5 +730,10 @@ input[type="radio"] {
   .datepicker--cell.-selected-.-current- {
     color: $white;
     background: $p-light;
+  }
+}
+.fr-box {
+  .fr-toolbar {
+    z-index: 1;
   }
 }
