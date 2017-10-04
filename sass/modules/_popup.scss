@@ -14,9 +14,9 @@
     @include transition($animation-popup);
     position: fixed;
     z-index: 999;
-    width: 60%;
+    width: 40%;
     top: calc(100% - 90%);
-    left: calc(100% - 80%);
+    left: calc(50% - 20%);
     background: $white;
     @include border-radius(10px);
     @include transform(scale(0));
