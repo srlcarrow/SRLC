@@ -55,7 +55,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
         var rePasswordInput = $("#repassword");
         var result = false;
         // Validate length
-        if (passwordInput.val().length >= 8) {
+        if (passwordInput.val().length >= 6) {
             $('#statusPassword').removeClass("invalid");
             $('#statusPassword').addClass("valid");
 
