@@ -11,24 +11,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>" >
 
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m8">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
-                    <label>District</label>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>           
-                    <!--<ul class="option-list"></ul>-->
-                    <select id="city" name="city" class="city"></select>
-                    <label>City</label>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>           
-                    <label>Industry</label>
+                    <input id="title" name="title" type="text" class="designation"  value="<?php echo $model->ad_title; ?>">
+                    <label>Advertisement title</label>
                 </div>
             </div>
         </div>
@@ -90,17 +76,42 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <input id="title" name="title" type="text" class="designation"  value="<?php echo $model->ad_title; ?>">
-                    <label>Advertisement title</label>
+                    <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
+                    <label>District</label>
                 </div>
             </div>
-
             <div class="col s12 m4">
                 <div class="input-field">
-                    <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php echo $model->ad_is_use_desig_as_title == 1 ? "on" : ""; ?>"/>
-                    <label for="isDesigAsTitle">Use designation as title</label>
+                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>           
+                    <!--<ul class="option-list"></ul>-->
+                    <select id="city" name="city" class="city"></select>
+                    <label>City</label>
                 </div>
             </div>
+            <div class="col s12 m4">
+                <div class="input-field">
+                    <input id="intern" name="intern" name="isNegotiable" class="filled-in" type="checkbox" 
+                           type="checkbox" <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
+                    <label for="intern">Intern Opportunity</label>
+                </div>
+            </div>
+<!--            <div class="col s12 m4">
+                <div class="input-field">
+                    <?php //echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>           
+                    <label>Industry</label>
+                </div>
+            </div>-->
+        </div>
+
+        <div class="row">
+
+
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";  ?>"/>
+                                <label for="isDesigAsTitle">Use designation as title</label>
+                            </div>
+                        </div>-->
 
             <div class="col m4">
                 <div class="input-field">

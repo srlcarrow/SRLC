@@ -11,27 +11,16 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>">
         <input type="hidden" id="empId" name="empId" value="<?php echo $empId; ?>">
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m8">
                 <div class="input-field">
-                    <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
-                    <label>District</label>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>
-                    <!--<ul class="option-list"></ul>-->
-                    <select id="city" name="city" class="city"></select>
-                    <label>City</label>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>
-                    <label>Industry</label>
+                    <input id="title" name="title" type="text" class="designation"
+                           value="<?php echo $model->ad_title; ?>">
+                    <label>Advertisement title</label>
                 </div>
             </div>
         </div>
+
+
 
         <div class="row">
             <div class="col s12 m4">
@@ -89,24 +78,46 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col s12 m4">
                 <div class="input-field">
-                    <input id="title" name="title" type="text" class="designation"
-                           value="<?php echo $model->ad_title; ?>">
-                    <label>Advertisement title</label>
+                    <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'Select District', 'options' => array($model->ref_district_id => array('selected' => true)), 'onChange' => 'loadCities()')); ?>
+                    <label>District</label>
                 </div>
             </div>
+            <div class="col s12 m4">
+                <div class="input-field">
+                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>
+                    <!--<ul class="option-list"></ul>-->
+                    <select id="city" name="city" class="city"></select>
+                    <label>City</label>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="input-field">
+                    <input id="intern" name="intern" name="isNegotiable" class="filled-in" type="checkbox" 
+                           type="checkbox" <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
+                    <label for="intern">Intern Opportunity</label>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">
+                    <div class="col s12 m4">
+                        <div class="input-field">
+                            <input id="title" name="title" type="text" class="designation"
+                                   value="<?php //echo $model->ad_title;    ?>">
+                            <label>Advertisement title</label>
+                        </div>
+                    </div>-->
 
-            <!--            <div class="col s12 m4">
-                            <div class="input-field">
-                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
-                                       checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";    ?>"/>
-                                <label for="isDesigAsTitle">Use designation as title</label>
-                            </div>
-                        </div>-->
-
+        <!--            <div class="col s12 m4">
+                        <div class="input-field">
+                            <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
+                                   checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";       ?>"/>
+                            <label for="isDesigAsTitle">Use designation as title</label>
+                        </div>
+                    </div>-->
+        <div class="row">
             <div class="col m4">
                 <div class="input-field">
                     <input id="expireDate" name="expireDate" type="text" class="datepicker"
@@ -115,72 +126,73 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col m6">
-                <p>
-                    <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="uploader"
-                           value="1" checked="<?php echo $model->ad_is_image == 1 ? "checked" : ""; ?>"/>
-                    <label for="uploader">Upload Image</label>
-                </p>
-            </div>
-            <div class="col m6">
-                <p>
-                    <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="text-editor"
-                           value="2"/>
-                    <label for="text-editor">User Text Editor</label>
-                </p>
-            </div>
+    <div class="row">
+        <div class="col m6">
+            <p>
+                <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="uploader"
+                       value="1" checked="<?php echo $model->ad_is_image == 1 ? "checked" : ""; ?>"/>
+                <label for="uploader">Upload Image</label>
+            </p>
+        </div>
+        <div class="col m6">
+            <p>
+                <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="text-editor"
+                       value="2"/>
+                <label for="text-editor">User Text Editor</label>
+            </p>
+        </div>
 
-            <div class="col s12 uploader">
-                <div class="col s12">
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>Upload</span>
-                            <?php
-                            if ($adId == 0) {
-                                $model = new EmpAdvertisement();
-                            } else {
-                                $model = EmpAdvertisement::model()->findByPk($adId);
-                            }
+        <div class="col s12 uploader">
+            <div class="col s12">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Upload</span>
+                        <?php
+                        if ($adId == 0) {
+                            $model = new EmpAdvertisement();
+                        } else {
+                            $model = EmpAdvertisement::model()->findByPk($adId);
+                        }
 
-                            echo CHtml::activeFileField($model, 'AdverImage');
-                            echo $form->error($model, 'AdverImage');
-                            ?>
-                        </div>
-
-                        <div class="file-path-wrapper">
-                            <?php
-                            if ($adId > 0) {
-                                $image = end(split('/', $model->ad_image_url));
-                            } else {
-                                $image = $model->ad_image_url;
-                            }
-                            ?>
-                            <input id="imagePath" name="imagePath" class="file-path validate" type="text"
-                                   value="<?php echo $image; ?>">
-                        </div>
+                        echo CHtml::activeFileField($model, 'AdverImage');
+                        echo $form->error($model, 'AdverImage');
+                        ?>
                     </div>
-                    <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;   ?>">Download Advertisement</a>-->
-                </div>
-            </div>
 
-            <div class="col s12 editor hide-block">
-                <div class="input-field col s12">
-                    <textarea id="textarea1" name="advertisementText" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Textarea</label>
+                    <div class="file-path-wrapper">
+                        <?php
+                        if ($adId > 0) {
+                            $image = end(split('/', $model->ad_image_url));
+                        } else {
+                            $image = $model->ad_image_url;
+                        }
+                        ?>
+                        <input id="imagePath" name="imagePath" class="file-path validate" type="text"
+                               value="<?php echo $image; ?>">
+                    </div>
                 </div>
+                <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;      ?>">Download Advertisement</a>-->
+            </div>
+        </div>
+
+        <div class="col s12 editor hide-block">
+            <div class="input-field col s12">
+                <textarea id="textarea1" name="advertisementText" class="materialize-textarea"></textarea>
+                <label for="textarea1">Textarea</label>
             </div>
         </div>
     </div>
-    <div class="card-action right-align">
-        <button id="closeAddAdvertisement" type="button" onclick="close()"
-                class=" btn_close btn waves-effect waves-light red lighten-1">Close
-        </button>
-        <button id="clearAddAdvertisement" type="button" class=" btn waves-effect waves-light red lighten-1">Clear
-        </button>
-        <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
-    </div>
+</div>
+<div class="card-action right-align">
+    <button id="closeAddAdvertisement" type="button" onclick="close()"
+            class=" btn_close btn waves-effect waves-light red lighten-1">Close
+    </button>
+    <button id="clearAddAdvertisement" type="button" class=" btn waves-effect waves-light red lighten-1">Clear
+    </button>
+    <button type="submit" class="btn waves-effect waves-light blue lighten-1">Save</button>
+</div>
 </div>
 <?php $this->endWidget(); ?>
 
@@ -217,7 +229,7 @@ if ($adId > 0) {
         });
         e.preventDefault();
     });
-   
+
     function loadSubCategories(id) {
         $("#subCategories").empty();
 

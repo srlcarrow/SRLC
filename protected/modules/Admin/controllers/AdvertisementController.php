@@ -38,6 +38,7 @@ class AdvertisementController extends Controller {
         try {
             if ($_POST['adId'] > 0) {
                 $model = EmpAdvertisement::model()->findByPk($_POST['adId']);
+                $refEmpId = EmpAdvertisement::model()->findByPk($_POST['adId'])->ref_employer_id;
             }
 
             $status = 1;
@@ -59,9 +60,12 @@ class AdvertisementController extends Controller {
             }
 
             if ($status == 1) {
+                $employerData = EmpEmployers::model()->findByPk($refEmpId);
+
                 $model->ref_district_id = $_POST['district_id'];
                 $model->ref_city_id = $_POST['city'];
-                $model->ref_industry_id = $_POST['ref_industry_id'];
+//                $model->ref_industry_id = $_POST['ref_industry_id'];
+                $model->ref_industry_id = $employerData->ref_ind_id;
                 $model->ref_cat_id = $_POST['ref_cat_id'];
                 $model->ref_subcat_id = $_POST['subCategories'];
                 $model->ref_designation_id = $_POST['designations'];
@@ -70,9 +74,10 @@ class AdvertisementController extends Controller {
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
                 $model->ref_work_type_id = $_POST['ref_work_type_id'];
                 $model->ad_title = $_POST['title'];
-                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
+//                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
+                $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
 //                $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
@@ -93,6 +98,42 @@ class AdvertisementController extends Controller {
         } catch (Exception $exc) {
             $this->msgHandler(400, $exc->getTraceAsString());
         }
+    }
+
+    public function actionViewPendingAdvertisementsToPublish() {
+        $this->render('viewPendingAdsToPub');
+    }
+
+    public function actionViewPendingAdvertisementsToPublishData() {
+        $sql = Yii::app()->db->createCommand()
+                ->select('ad.ad_id,ad.ref_designation_id,ad.ad_reference,ad.ad_reference,ad.ad_expected_experience,ad.ad_salary,ad.ad_is_negotiable,ad.ad_title,ad.ad_is_use_desig_as_title,ad.ad_expire_date,desig.desig_name,emp.employer_name,awt.wt_name,acity.city_name')
+                ->from('emp_advertisement ad')
+                ->where('ad_is_published=1')
+                ->getText();
+
+        $limit = 15;
+        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
+
+        $result = $data['result'];
+        $pageCount = $data['count'];
+        $currentPage = Yii::app()->request->getPost('page');
+
+        $this->renderPartial('ajaxLoad/viewPendingAdsToPubData', array('data' => $result, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
+    }
+
+    public function actionViewPreviewAdToPub($id) {
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_id' => $id));
+        $this->render('/advertisement/viewPreviewAdvertisement', array('adData' => $adData, 'id' => $id));
+    }
+
+    public function actionPublishAdvertisement() {
+        $id = $_POST['id'];
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_id' => $id));
+        $adData->ad_token = "";
+        $adData->ad_is_published = 2;
+        $adData->ad_published_time = date('Y-m-d H:i:s');
+        $adData->save(false);
+        $this->msgHandler(200, "Successfully Saved...");
     }
 
 }

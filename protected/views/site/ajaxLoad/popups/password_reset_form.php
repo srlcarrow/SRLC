@@ -31,7 +31,7 @@
 
     $("#resetPaswd").validate({
         submitHandler: function () {
-            resetPassword();
+            //resetPassword();
         }
     });
 
@@ -46,10 +46,9 @@
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    //window.location = http_path + 'site';
-                    $('.message').Success('New Password has been sent to your email!');
+                    $('.message').Success(responce.msg);
                 } else {
-                    $('.message').Error('Incorrect Username!');
+                    $('.message').Error(responce.msg);
                 }
             }
         });

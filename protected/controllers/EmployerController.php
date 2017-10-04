@@ -367,8 +367,7 @@ class EmployerController extends Controller {
         $adToken = $_POST['id'];
 
         $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $adToken));
-        if (count($adData) > 0) {
-            $adData->ad_token = "";
+        if (count($adData) > 0) {          
             $adData->ad_is_published = 1;
             $adData->ad_published_time = date('Y-m-d H:i:s');
             $adData->save(false);

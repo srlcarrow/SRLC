@@ -125,13 +125,14 @@ class EmployerController extends Controller {
                 if (isset($_POST['designations'])) {
                     $designationData = AdmDesignation::model()->findByPk($_POST['designations']);
                 }
-
+                $employerData = EmpEmployers::model()->findByPk($_POST['empId']);
 
                 $model->ad_reference = 0;
                 $model->ref_employer_id = $_POST['empId'];
                 $model->ref_district_id = $_POST['district_id'];
                 $model->ref_city_id = $_POST['city'];
-                $model->ref_industry_id = $_POST['ref_industry_id'];
+//                $model->ref_industry_id = $_POST['ref_industry_id'];
+                $model->ref_industry_id = $employerData->ref_ind_id;
                 $model->ref_cat_id = $_POST['ref_cat_id'];
                 $model->ref_subcat_id = $_POST['subCategories'];
                 $model->ref_designation_id = $_POST['designations'];
@@ -144,7 +145,9 @@ class EmployerController extends Controller {
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
                 $model->ad_image_url = "";
+                $model->ad_created_time = date('Y-m-d H:i:s');
                 $model->ad_text = $_POST['advertisementText'];
+                $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
                     if ($_POST['group1'] == 1) {
