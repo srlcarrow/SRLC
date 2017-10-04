@@ -38,6 +38,7 @@ class AdvertisementController extends Controller {
         try {
             if ($_POST['adId'] > 0) {
                 $model = EmpAdvertisement::model()->findByPk($_POST['adId']);
+                $refEmpId = EmpAdvertisement::model()->findByPk($_POST['adId'])->ref_employer_id;
             }
 
             $status = 1;
@@ -59,9 +60,12 @@ class AdvertisementController extends Controller {
             }
 
             if ($status == 1) {
+                $employerData = EmpEmployers::model()->findByPk($refEmpId);
+
                 $model->ref_district_id = $_POST['district_id'];
                 $model->ref_city_id = $_POST['city'];
-                $model->ref_industry_id = $_POST['ref_industry_id'];
+//                $model->ref_industry_id = $_POST['ref_industry_id'];
+                $model->ref_industry_id = $employerData->ref_ind_id;
                 $model->ref_cat_id = $_POST['ref_cat_id'];
                 $model->ref_subcat_id = $_POST['subCategories'];
                 $model->ref_designation_id = $_POST['designations'];
@@ -73,6 +77,7 @@ class AdvertisementController extends Controller {
 //                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
+                $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
 //                $model->ad_image_url = "";
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
