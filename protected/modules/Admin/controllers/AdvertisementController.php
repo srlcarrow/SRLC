@@ -70,7 +70,7 @@ class AdvertisementController extends Controller {
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
                 $model->ref_work_type_id = $_POST['ref_work_type_id'];
                 $model->ad_title = $_POST['title'];
-                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
+//                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
 //                $model->ad_image_url = "";

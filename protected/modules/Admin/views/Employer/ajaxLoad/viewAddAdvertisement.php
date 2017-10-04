@@ -11,7 +11,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <input type="hidden" id="adId" name="adId" value="<?php echo $adId; ?>">
         <input type="hidden" id="empId" name="empId" value="<?php echo $empId; ?>">
         <div class="row">
-            <div class="col s12 m12">
+            <div class="col s12 m8">
                 <div class="input-field">
                     <input id="title" name="title" type="text" class="designation"
                            value="<?php echo $model->ad_title; ?>">
@@ -95,11 +95,6 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-<!--                    <input id="isNegotiable" name="isNegotiable" class="filled-in" type="checkbox" id="negotiable"
-                           checked="<?php //echo $model->ad_is_negotiable == 1 ? "on" : "";  ?>"/>
-                    <label for="isNegotiable">Negotiable</label>-->
-
-
                     <input id="intern" name="intern" name="isNegotiable" class="filled-in" type="checkbox" 
                            type="checkbox" <?php echo $model->ad_is_intern == 1 ? "checked=checked" : ""; ?>>
                     <label for="intern">Intern Opportunity</label>
@@ -110,7 +105,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <div class="col s12 m4">
                         <div class="input-field">
                             <input id="title" name="title" type="text" class="designation"
-                                   value="<?php //echo $model->ad_title;   ?>">
+                                   value="<?php //echo $model->ad_title;    ?>">
                             <label>Advertisement title</label>
                         </div>
                     </div>-->
@@ -118,16 +113,17 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <!--            <div class="col s12 m4">
                         <div class="input-field">
                             <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
-                                   checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";      ?>"/>
+                                   checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";       ?>"/>
                             <label for="isDesigAsTitle">Use designation as title</label>
                         </div>
                     </div>-->
-
-        <div class="col m4">
-            <div class="input-field">
-                <input id="expireDate" name="expireDate" type="text" class="datepicker"
-                       value="<?php echo $model->ad_expire_date; ?>">
-                <label for="designation">Expire Date</label>
+        <div class="row">
+            <div class="col m4">
+                <div class="input-field">
+                    <input id="expireDate" name="expireDate" type="text" class="datepicker"
+                           value="<?php echo $model->ad_expire_date; ?>">
+                    <label for="designation">Expire Date</label>
+                </div>
             </div>
         </div>
     </div>
@@ -177,7 +173,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                                value="<?php echo $image; ?>">
                     </div>
                 </div>
-                <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;     ?>">Download Advertisement</a>-->
+                <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;      ?>">Download Advertisement</a>-->
             </div>
         </div>
 

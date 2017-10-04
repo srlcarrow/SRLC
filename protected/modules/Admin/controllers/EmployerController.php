@@ -124,7 +124,7 @@ class EmployerController extends Controller {
                 if (isset($_POST['designations'])) {
                     $designationData = AdmDesignation::model()->findByPk($_POST['designations']);
                 }
-
+                $employerData = EmpEmployers::model()->findByPk($_POST['empId']);
 
                 $model->ad_reference = 0;
                 $model->ref_employer_id = $_POST['empId'];
@@ -144,6 +144,7 @@ class EmployerController extends Controller {
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
                 $model->ad_image_url = "";
+                $model->ad_created_time = date('Y-m-d H:i:s');
                 $model->ad_text = $_POST['advertisementText'];
                 $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
                 if ($model->save(false)) {
