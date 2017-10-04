@@ -173,7 +173,7 @@ class SiteController extends Controller {
             $rePassword = $_POST['repassword'];
             if ($password != $rePassword) {
                 $this->msgHandler(400, "Mismatch Password");
-            } elseif (strlen($password) < 7) {
+            } elseif (strlen($password) < 6) {
                 $this->msgHandler(400, "There should be greater than 6 characters");
             } else {
                 $jsbtData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
