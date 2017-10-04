@@ -17,7 +17,8 @@
                                         <div class="company-logo-wrp">
                                             <img src="" alt="">
                                         </div>
-                                        <button type="button" class="cm-btn large cmp_logo_upload">Upload Company Logo </button>
+                                        <button type="button" class="cm-btn large cmp_logo_upload">Upload Company Logo
+                                        </button>
                                     </div>
                                 </div>
 
@@ -85,7 +86,9 @@
                             </div>
 
                             <div class="col-md-12 mt-20">
-                                <button id="Register" type="submit" class="cm-btn large text-uppercase light-blue right">Finish</button>
+                                <button id="Register" type="submit"
+                                        class="cm-btn large text-uppercase light-blue right">Finish
+                                </button>
                             </div>
 
                         </div>
@@ -101,6 +104,8 @@
 
 <script>
     $('.cmp_logo_upload').on('click', function () {
+
+        Popup.beforeShow();
 
         loadLayoutByAjax('/Employer/CompanyLogoUploadPopup', function (html) {
             Popup.addClass('small-size');
@@ -123,10 +128,10 @@
                     var cities = responce.data.cityData;
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
-                                $("<option>" + cities[i]['city_name'] + "</option>")
+                            $("<option>" + cities[i]['city_name'] + "</option>")
                                 .attr("value", cities[i]['city_id'])
                                 .text(cities[i]['city_name'])
-                                );
+                        );
                     }
 
                     setTimeout(function () {

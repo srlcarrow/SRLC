@@ -112,7 +112,7 @@ Search Result Section
         loadAdvertisementData(1);
     });
     
-    var loaderHtml = "<div id='loadingmessage'><img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/></div>";
+    var loaderHtml = "<div class='absolute' id='loadingmessage'><img src='<?php echo Yii::app()->baseUrl; ?>/images/system/loader/frontLoader.gif'/></div>";
 
     var currentRequest = null;
 
@@ -137,6 +137,7 @@ Search Result Section
             success: function (responce) {
                
                 $("#ajaxLoadAdvertisements").html(responce);
+                scrollToDown()
             }
         });
     }

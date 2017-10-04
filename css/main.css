@@ -390,10 +390,6 @@ input[type="checkbox"] {
       color: rgba(44, 43, 63, 0.86);
       font-weight: 300; }
 
-#searchContent {
-  margin: 30px 0;
-  min-height: 500px; }
-
 .site-pagination {
   margin: 30px 0;
   float: right; }
@@ -3066,10 +3062,19 @@ input[type="radio"] + label {
   #loadingmessage img {
     margin: 0 auto;
     display: block; }
+  #loadingmessage.absolute {
+    position: absolute;
+    top: 0; }
+    #loadingmessage.absolute img {
+      position: absolute;
+      left: calc(50% - 100px); }
 
 #ajaxLoadAdvertisements {
   float: left;
-  width: 100%; }
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  margin: 30px 0; }
 
 .mCS-4you-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
   background-color: rgba(0, 0, 0, 0.56);
