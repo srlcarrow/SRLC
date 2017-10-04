@@ -251,7 +251,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                                             echo $form->error($imageModel, 'AdverImage');
                                                             ?>
                                                         </div>
-                                                        <p class="text-dark-blue text-light-3 f-12 ml-25 mt-7">File size
+                                                        <p class="text-dark-blue text-light-2 f-12 ml-25 mt-7">File size
                                                             Should
                                                             be less than 2 MB and JPG/PNG fomat . Image width should not
                                                             be

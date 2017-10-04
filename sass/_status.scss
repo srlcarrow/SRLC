@@ -638,11 +638,23 @@ input[type="radio"] {
     margin: 0 auto;
     display: block;
   }
+
+  &.absolute {
+    position: absolute;
+    top: 0;
+    img {
+      position: absolute;
+      left: calc(50% - 100px);
+    }
+  }
 }
 
 #ajaxLoadAdvertisements {
   float: left;
+  position: relative;
   width: 100%;
+  min-height: 500px;
+  margin: 30px 0;
 }
 
 //Scroll Bar
@@ -732,6 +744,7 @@ input[type="radio"] {
     background: $p-light;
   }
 }
+
 .fr-box {
   .fr-toolbar {
     z-index: 1;

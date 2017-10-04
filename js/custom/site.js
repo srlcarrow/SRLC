@@ -1,6 +1,20 @@
 var $isTitleHide = false;
+var isScrollTop = false;
 //Job category Selection
 
+//Get job title position in the top.
+var $titleTopSpace = ($('#searchWrapper').offset().top + 85);
+
+
+function scrollToDown() {
+    var _titleTopSpace = $titleTopSpace + 5;
+    if (!$(window).scrollTop() > 0) {
+        $("html, body").animate({scrollTop: _titleTopSpace}, 500);
+    } else {
+        $("html, body").scrollTop(_titleTopSpace);
+    }
+
+}
 
 var SelectedCategory = (function () {
     var _category = {
@@ -29,6 +43,7 @@ var SelectedCategory = (function () {
             //If select main category All that popup will be hide
             if ($this.hasClass('all')) {
                 loadJobsByCategory();
+                scrollToDown();
             }
         }
 
@@ -42,7 +57,9 @@ var SelectedCategory = (function () {
             ];
             //Call after select
             loadJobsByCategory();
+            scrollToDown();
         }
+
 
     });
 
@@ -85,9 +102,9 @@ var JobSearch = (function () {
 
     //On input focus
     $jobInput.on('focus', function () {
-        $isTitleHide = true;
-        $(this).select();
-        search.changeTitle();
+        // $isTitleHide = true;
+        //$(this).select();
+        // search.changeTitle();
     });
 
     //On input blur
@@ -120,9 +137,9 @@ function loadJobsByCategory() {
     $('.subCategory').text(category.sub[1]);
 
     // if($isTitleHide)
-    $isTitleHide = true;
+    //$isTitleHide = true;
 
-    JobSearch.changeTitle();
+    //JobSearch.changeTitle();
     //Call to server
     loadJobData(category);
     // hide popup
@@ -161,8 +178,6 @@ function responsivePageHeight() {
         e.returnValue = false;
     }
 
-    //Get job title position in the top.
-    var $titleTopSpace = ($('#searchWrapper').offset().top + 85);
 
     var jobScene = new ScrollMagic.Scene({
         triggerElement: '.search-section',
@@ -174,11 +189,11 @@ function responsivePageHeight() {
     jobScene.addTo(controller);
     jobScene.setPin('.search-section', {pushFollowers: false});
     jobScene.on('start', function () {
-        window.onwheel = preventDefault;
-        window.ontouch = preventDefault;
-        setTimeout(function () {
-            window.onwheel = null;
-        }, 1000)
+        // window.onwheel = preventDefault;
+        // window.ontouch = preventDefault;
+        // setTimeout(function () {
+        //     window.onwheel = null;
+        // }, 1000)
     });
 
     //S 2
@@ -210,7 +225,7 @@ function responsivePageHeight() {
     });
 
     $('#searchText').on('focus click', function () {
-        $("html, body").animate({scrollTop: $titleTopSpace + 5}, 10);
+        scrollToDown();
     });
 
 })($);
