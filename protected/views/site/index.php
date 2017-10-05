@@ -16,8 +16,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         <div class="row">
 
             <div class="col-md-12 main-title" id="title">
-                <h1>Find a job fit to your life style</h1>
-                <h3>Simply dummy text of the printing and typesetting industry</h3>
+                <h1>Find a job that fits your life style</h1>
+<!--                <h3>Simply dummy text of the printing and typesetting industry</h3>-->
             </div>
 
             <div id="searchWrapper" class="col-sm-12 col-md-10 col-md-offset-1">
