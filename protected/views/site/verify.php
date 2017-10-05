@@ -48,7 +48,9 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
 
 <script>
     //disabled Submit buton
-    $('.formBtn').Button({disabled: true});
+    $(function () {
+        $('.formBtn').Button({disabled: true});
+    });
 
     $('#repassword').bind("cut copy paste", function (e) {
         e.preventDefault();
