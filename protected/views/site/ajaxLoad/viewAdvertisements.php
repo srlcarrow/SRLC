@@ -16,24 +16,24 @@
                         <ul class="float-block job-list">
                             <?php
                             foreach ($data as $value) {
-                                if (date('Y-m-d', strtotime($value->ad_created_time)) == date('Y-m-d') && (strtotime(date('Y-m-d H:i:s')) - strtotime($value->ad_created_time)) > 3600) {
-                                    $datetime1 = new DateTime($value->ad_created_time);
+                                if (date('Y-m-d', strtotime($value->ad_published_time)) == date('Y-m-d') && (strtotime(date('Y-m-d H:i:s')) - strtotime($value->ad_published_time)) > 3600) {
+                                    $datetime1 = new DateTime($value->ad_published_time);
                                     $datetime2 = new DateTime(date('Y-m-d H:i:s'));
 
                                     $interval = $datetime1->diff($datetime2);
-                                    $adPublishedTime = $interval->format('%h') . " hrs ago";
-                                } elseif (date('Y-m-d', strtotime($value->ad_created_time)) == date('Y-m-d') && (strtotime(date('Y-m-d H:i:s')) - strtotime($value->ad_created_time)) < 3600) {
+                                    $adPublishedTime = $interval->format('%h') . " hrs";
+                                } elseif (date('Y-m-d', strtotime($value->ad_published_time)) == date('Y-m-d') && (strtotime(date('Y-m-d H:i:s')) - strtotime($value->ad_published_time)) < 3600) {
                                     $datetime1 = strtotime(date('H:i:s'));
-                                    $datetime2 = strtotime(date('H:i:s', strtotime($value->ad_created_time)));
+                                    $datetime2 = strtotime(date('H:i:s', strtotime($value->ad_published_time)));
                                     $adPublishedTime = (($datetime1 - $datetime2) - (($datetime1 - $datetime2) % 60)) / (60);
 
-                                    $adPublishedTime = $adPublishedTime . " min ago";
-                                } elseif (date('Y-m-d', strtotime($value->ad_created_time)) < date('Y-m-d')) {
+                                    $adPublishedTime = $adPublishedTime . " min";
+                                } elseif (date('Y-m-d', strtotime($value->ad_published_time)) < date('Y-m-d')) {
                                     $datetime1 = strtotime(date('Y-m-d'));
-                                    $datetime2 = strtotime(date('Y-m-d', strtotime($value->ad_created_time)));
+                                    $datetime2 = strtotime(date('Y-m-d', strtotime($value->ad_published_time)));
                                     $adPublishedTime = ($datetime1 - $datetime2) / (24 * 3600);
 
-                                    $adPublishedTime = ($adPublishedTime < 2) ? $adPublishedTime . " day ago" : $adPublishedTime . " days ago";
+                                    $adPublishedTime = ($adPublishedTime < 2) ? $adPublishedTime . " day" : $adPublishedTime . " days";
                                 }
 
                                 $title = $value->ad_is_use_desig_as_title == 1 ? $value->desig_name : $value->ad_title;

@@ -7,7 +7,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 ?>
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'frmAdver')); ?>
 <?php
-$empId = Controller::getRefEmpOrJsId(Yii::app()->user->id);
+$empId = $adData->ref_employer_id;
 
 $employerData = EmpEmployers::model()->findByPk($empId);
 $companyLogo = count($employerData) > 0 ? $employerData->employer_image : '';

@@ -100,6 +100,42 @@ class AdvertisementController extends Controller {
         }
     }
 
+    public function actionViewPendingAdvertisementsToPublish() {
+        $this->render('viewPendingAdsToPub');
+    }
+
+    public function actionViewPendingAdvertisementsToPublishData() {
+        $sql = Yii::app()->db->createCommand()
+                ->select('ad.ad_id,ad.ref_designation_id,ad.ad_reference,ad.ad_reference,ad.ad_expected_experience,ad.ad_salary,ad.ad_is_negotiable,ad.ad_title,ad.ad_is_use_desig_as_title,ad.ad_expire_date,desig.desig_name,emp.employer_name,awt.wt_name,acity.city_name')
+                ->from('emp_advertisement ad')
+                ->where('ad_is_published=1')
+                ->getText();
+
+        $limit = 15;
+        $data = Controller::createSearchCriteriaForAdvertisement($sql, '', Yii::app()->request->getPost('page'), $limit);
+
+        $result = $data['result'];
+        $pageCount = $data['count'];
+        $currentPage = Yii::app()->request->getPost('page');
+
+        $this->renderPartial('ajaxLoad/viewPendingAdsToPubData', array('data' => $result, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
+    }
+
+    public function actionViewPreviewAdToPub($id) {
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_id' => $id));
+        $this->render('/advertisement/viewPreviewAdvertisement', array('adData' => $adData, 'id' => $id));
+    }
+
+    public function actionPublishAdvertisement() {
+        $id = $_POST['id'];
+        $adData = EmpAdvertisement::model()->findByAttributes(array('ad_id' => $id));
+        $adData->ad_token = "";
+        $adData->ad_is_published = 2;
+        $adData->ad_published_time = date('Y-m-d H:i:s');
+        $adData->save(false);
+        $this->msgHandler(200, "Successfully Saved...");
+    }
+
 }
 ?>
 

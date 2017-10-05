@@ -3,7 +3,7 @@
 class EmployerController extends Controller {
 
     public function actionViewEmployer() {
-        $this->render('ViewEmployer');
+        $this->render('/Employer/ViewEmployer');
     }
 
     public function actionViewEmployerData() {
@@ -20,31 +20,31 @@ class EmployerController extends Controller {
         $currentPage = Yii::app()->request->getPost('page');
 
 
-        $this->renderPartial('ajaxLoad/ViewEmployerData', array('employers' => $employers, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
+        $this->renderPartial('/Employer/ajaxLoad/ViewEmployerData', array('employers' => $employers, 'pageCount' => $pageCount, 'currentPage' => $currentPage, 'limit' => $limit));
     }
 
     public function actionLoadEmployerData() {
         $employerData = EmpEmployers::model()->findByPk($_POST['id']);
-        $this->renderPartial('ajaxLoad/viewLoadEmployerData', array('employerData' => $employerData, 'id' => $_POST['id']));
+        $this->renderPartial('/Employer/ajaxLoad/viewLoadEmployerData', array('employerData' => $employerData, 'id' => $_POST['id']));
     }
 
     public function actionViewAddAdvertisement() {
         $empId = $_POST['id'];
         $model = new EmpAdvertisement();
         $adId = 0;
-        $this->renderPartial('ajaxLoad/viewAddAdvertisement', array('model' => $model, 'adId' => $adId, 'empId' => $empId));
+        $this->renderPartial('/Employer/ajaxLoad/viewAddAdvertisement', array('model' => $model, 'adId' => $adId, 'empId' => $empId));
     }
 
     public function actionLoadPaymentPopup() {
-        $this->renderPartial('ajaxLoad/paymentPopup');
+        $this->renderPartial('/Employer/ajaxLoad/paymentPopup');
     }
 
     public function actionLogoUploadPopup() {
-        $this->renderPartial('ajaxLoad/logoUpload');
+        $this->renderPartial('/Employer/ajaxLoad/logoUpload');
     }
 
     public function actionEmployerAdd() {
-        $this->renderPartial('ajaxLoad/addEmployer');
+        $this->renderPartial('/Employer/ajaxLoad/addEmployer');
     }
 
     public function actionSaveEmployer() {
@@ -76,6 +76,7 @@ class EmployerController extends Controller {
             $user->user_access_token = '';
             $user->user_type = 2;
             $user->user_is_verified = 1;
+            $user->user_is_finished = 1;
             $user->user_created_date = date('Y-m-d H:i:s');
             $user->save(false);
 

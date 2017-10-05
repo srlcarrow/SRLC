@@ -52,7 +52,7 @@ class Controller extends CController {
         return $reference;
     }
 
-    public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL) {
+    public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL, $orderBy = NULL) {
         $sqlLimit = '';
         if ($limit == NULL) {
             $limit = 10;
@@ -76,7 +76,9 @@ class Controller extends CController {
             $askedWhere = $askedQuery[1] == NULL ? '' : ' AND ' . $askedQuery[1];
         }
 
-        $returnQuery = $askedQuery[0] . $join . ' WHERE ' . $where . $askedWhere . ' ' . $sqlLimit;
+        $orderBy = $orderBy != NULL ? 'ORDER BY ' . $orderBy . " DESC" : "";
+
+        $returnQuery = $askedQuery[0] . $join . ' WHERE ' . $where . $askedWhere . ' ' . $orderBy . $sqlLimit;
         $returnQueryCount = $askedQuery[0] . $join . ' WHERE ' . $where . $askedWhere . ' ';
         $result = yii::app()->db->createCommand($returnQuery)->setFetchMode(PDO::FETCH_OBJ)->queryAll();
         $count = count(yii::app()->db->createCommand($returnQueryCount)->setFetchMode(PDO::FETCH_OBJ)->queryAll());
@@ -101,7 +103,7 @@ class Controller extends CController {
 
     public static function searchWhereCriterias() {
         $str = "ad.ad_id !=0 ";
-        $str .= " AND ad.ad_is_published = 1";
+        $str .= " AND ad.ad_is_published = 2";
 
         if (!empty($_REQUEST['ref_cat_id']) && $_REQUEST['ref_cat_id'] != 'undefined' && $_REQUEST['ref_cat_id'] != 0) {
             $str .= " AND ad.ref_cat_id = " . $_REQUEST['ref_cat_id'];

@@ -90,13 +90,13 @@ class EmailGenerator {
         $replacearrBody = array(
             '[url]' => self::employerVerificationUrl($basicTemp->jsbt_encrypted_id),
             '[name]' => $basicTemp->jsbt_fname,
-            '[user_name]' => $basicTemp->jsbt_email,
-            '[user_password]' => $pwd,
+//            '[user_name]' => $basicTemp->jsbt_email,
+//            '[user_password]' => $pwd,
         );        
         $new_msg = self::str_replace_assoc($replacearrBody, $msg);
 
         $replacearrFull = array(
-            '[header_logo]' => Yii::app()->getBaseUrl(true) . "/images/system/email/logo/logo-160.png",
+//            '[header_logo]' => Yii::app()->getBaseUrl(true) . "/images/system/email/logo/logo-160.png",
             '[email_subject]' => $subject,
             '[email_message_body]' => $new_msg);
         $mailbody = self::str_replace_assoc($replacearrFull, $top);
