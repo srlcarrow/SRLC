@@ -7,10 +7,11 @@
             <div class="row">
 
                 <div class="col-md-5">
-                    <h2 class="f-30 text-black">A powerful tool, handcrafted to cater to your needs</h2>
+                    <h2 class="f-30 text-black">A powerful custom-made tool to cater to your needs</h2>
 
-                    <p class="mt-30 text-light-2 text-black">A tailor made job vacancy and a social networking website, completely catered to those who thrive in seeking career paths and social connections, where aspired job become a reality.</p>
-                    <p class="mt-30 text-light-2 text-black">So come visit us at 4you.lk,Where we do things different! While others are just an example!</p>
+                    <p class="mt-30 text-light-2 text-black">A tailor made job vacancy and a social networking website, entirely dedicated to those who seek important social connections and thriving careers, while your aspired job becomes a reality.
+So come visit us at 4you.lk, where we do things differently, while others become just an example!</p>
+                    
                 </div>
 
                 <div class="col-md-7">
@@ -31,9 +32,9 @@
 
                 <div class="col-md-7">
                     <div class="row">
-                        <h2 class="col-md-8 f-30 text-black">Job application with your personal account</h2>
+                        <h2 class="col-md-8 f-30 text-black">Job Application with your personal account</h2>
                         <div class="col-md-11">
-                            <p class="mt-30 text-light-2 text-black">This Portal has its own Terms and Conditions, where only once when you get an automated link through your Mailing address or registered mobile devices, may the Company 4You.lk grant permission as a valid document ready for uploading, and approval. (Fake documents or e-mails will be automatically terminated)</p>
+                            <p class="mt-30 text-light-2 text-black">This portal has its own terms and conditions. You will get an automated link through your email address or your registered mobile device and 4you.lk will then grant permission for you to upload your documents. Please note that the fake documents or emails will automatically be terminated.</p>
                          
                         </div>
 
@@ -55,7 +56,7 @@
                         <div class="col-md-8">
                             <h2 class="f-30 text-black">Suitable jobs at your availability</h2>
 
-                            <p class=" mt-30 text-light-2 text-black">As per your personal carrier goal, our smart system will select job availabilities, that most likely to suit your Curriculum Vitae.</p>
+                            <p class=" mt-30 text-light-2 text-black">As per your career aspiration, our system will select job openings that most likely suit your curriculum vitae.</p>
 
                         </div>
                     </div>

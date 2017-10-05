@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-md-12">
-                <h5 class="text-black text-light-2 text-uppercase">Register as a Employer</h5>
+                <h5 class="text-black text-light-2 text-uppercase" style="color: #fbab18;">Register as an Employer</h5>
             </div>
 
             <div class="col-md-12 mt-10 hide-show job_seeker">

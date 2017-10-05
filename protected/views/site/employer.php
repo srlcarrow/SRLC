@@ -9,8 +9,7 @@
                 <div class="col-md-5">
                     <h2 class="f-30 text-black">Jobs / Careers under one roof </h2>
 
-                    <p class="mt-30 text-light-2 text-black">4you.lk represents a vast Social and a free networking website, where it’s mainly catered to the eager mindsets of individuals thriving for their aspired career paths, which becomes a reality as
-4you, creates the bond with top notch CEO’s and job seekers to curb the pathway into success, making individual Curriculum Vitaes recognized instantly.</p>
+                    <p class="mt-30 text-light-2 text-black">4you.lk represents a vast social and a free networking website which is mainly catered to eager individuals who want to thrive in their aspired career paths.  This becomes a reality, as 4you.lk creates the link between top notch CEOs and keen job seekers to curb the pathway into success, making individual curriculum vitaes recognized instantly.</p>
                 </div>
 
                 <div class="col-md-4">
@@ -36,7 +35,7 @@
                             <h2 class="f-30 text-black">Choose a category that suits you</h2>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <p class="mt-30 text-light-2 text-black">We as 4you.lk, let our prestigious partners to decide on 3 tailor made package to suit your requirements.</p>
+                                    <p class="mt-30 text-light-2 text-black">We 4you.lk, let our prestigious partners to decide on 3 tailor made packages to suit their requirements.</p>
                                 </div>
                             </div>
                         </div>
