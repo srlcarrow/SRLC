@@ -628,10 +628,31 @@ var Button = function (ele) {
         disabled: function () {
             $(document).find(ele).prop('disabled', true);
         },
-        active: function () {
+        enabled: function () {
             $(document).find(ele).prop('disabled', false);
         }
     };
+};
+
+$.fn.Button = function (options) {
+    var defaultOption = {
+        disabled: false,
+        enabled: false
+    };
+
+    var option = $.extend(defaultOption, options);
+
+    $(this).each(function () {
+        var $this = $(this);
+
+        if (option.disabled) {
+            $(document).find($this).prop('disabled', true);
+        } else {
+            $(document).find($this).prop('disabled', false);
+        }
+
+    });
+
 };
 
 (function () {
@@ -658,6 +679,7 @@ var Button = function (ele) {
 
         if (parentDiv.hasClass('file-uploader')) {
             var span = $('<span class="fileName"></span>');
+            var spanClose = $('<span class="btn-close"></span>');
             span.attr('title', fileName);
 
             if (parentDiv.find('.fileName').length === 1) {
@@ -666,6 +688,8 @@ var Button = function (ele) {
             } else {
                 parentDiv.append(span.text(fileName));
             }
+
+           // span.append(spanClose);
 
         }
     }

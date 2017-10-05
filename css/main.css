@@ -2547,7 +2547,7 @@ a.cm-btn {
   .file-uploader .fileName {
     display: inline-block;
     position: absolute;
-    width: 200px;
+    max-width: 200px;
     overflow: hidden;
     top: 20px;
     left: calc(100% + 10px);
@@ -2556,6 +2556,13 @@ a.cm-btn {
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap; }
+    .file-uploader .fileName .btn-close {
+      width: 16px;
+      height: 16px;
+      background: #000;
+      display: inline-block;
+      position: absolute;
+      left: calc(100% - 20px); }
 
 .selector {
   position: relative;

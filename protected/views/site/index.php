@@ -137,7 +137,7 @@ Search Result Section
             success: function (responce) {
                
                 $("#ajaxLoadAdvertisements").html(responce);
-                scrollToDown()
+               // scrollToDown()
             }
         });
     }

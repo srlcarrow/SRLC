@@ -4,7 +4,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
     'htmlOptions' => array(
         'enctype' => 'multipart/form-data',
         'novalidate' => 'novalidate',
-        )));
+    )));
 ?>
 <div class="nav-bar-space"></div>
 <div class="col-md-12 text-center mt-50">
@@ -25,7 +25,8 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                 <h4 class="text-black text-light-2 f-20 col-md-12">Enter your Password to Continue...</h4>
                 <div class="col-md-10 col-md-offset-1 mt-5">
                     <div class="input-wrapper">
-                        <input id="password" name="password" type="password" onkeyup="validatePassword()"  pattern="(?=.*\d)(?=.*[A-Z]).{8,}" required>
+                        <input id="password" name="password" type="password" onkeyup="validatePassword()"
+                               pattern="(?=.*\d)(?=.*[A-Z]).{8,}" required>
                         <div class="float-text">Password</div>
                         <span id="statusPassword" class="status invalid"></span>
                     </div>
@@ -35,7 +36,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                         <span id="statusMatchPassword" class="status invalid"></span>
                     </div>
                     <div class="float-block mt-15">
-                        <button  type="submit" class="cm-btn large text-uppercase light-blue right formBtn">Save
+                        <button type="submit" class="cm-btn large text-uppercase light-blue right formBtn">Save
                         </button>
                     </div>
                 </div>
@@ -46,6 +47,9 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
 <?php $this->endWidget(); ?>
 
 <script>
+    //disabled Submit buton
+    $('.formBtn').Button({disabled: true});
+
     $('#repassword').bind("cut copy paste", function (e) {
         e.preventDefault();
     });
@@ -61,6 +65,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
 
             if (passwordInput.val() === rePasswordInput.val()) {
                 $('#statusMatchPassword').removeClass("invalid").addClass("valid");
+
+                //enabled Submit button
+                $('.formBtn').Button({disabled: false});
+
                 result = true;
             } else {
                 $('#statusMatchPassword').removeClass("valid").addClass("invalid");
@@ -85,10 +93,10 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
         if (!$form.valid())
             return;
 
+        //disabled Submit button
+        $('.formBtn').Button({disabled: true});
+
         if (validatePassword() === true) {
-
-            Button('.formBtn').disabled();
-
             $.ajax({
                 url: "<?php echo Yii::app()->baseUrl . '/site/PasswordSave'; ?>",
                 type: 'POST',
@@ -98,7 +106,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                     if (responce.code == 200) {
                         $('.message').Success(responce.msg);
                         setTimeout(function () {
-                            var url = '<?php echo Yii::app()->baseUrl; ?>' + responce.data.url + '/id/' + '<?php echo $accessId; ?> ';                          
+                            var url = '<?php echo Yii::app()->baseUrl; ?>' + responce.data.url + '/id/' + '<?php echo $accessId; ?> ';
                             window.location.href = url;
                         }, 800)
 

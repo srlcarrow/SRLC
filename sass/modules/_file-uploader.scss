@@ -27,7 +27,7 @@
   .fileName {
     display: inline-block;
     position: absolute;
-    width: 200px;
+    max-width: 200px;
     overflow: hidden;
     top: 20px;
     left: calc(100% + 10px);
@@ -36,5 +36,20 @@
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
+    //height: 28px;
+    //border-radius: 4px;
+    //padding: 6px 10px;
+    //background: rgba($black, 0.15);
+
+    .btn-close {
+      width: 16px;
+      height: 16px;
+      background: #000;
+      display: inline-block;
+      position: absolute;
+      left: calc(100% - 20px);
+    }
+
   }
+
 }

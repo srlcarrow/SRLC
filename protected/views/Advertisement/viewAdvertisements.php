@@ -85,7 +85,7 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
                             </div>
 
                             <div class="side-panel-row">
-                                <button type="button" class="cm-btn large light-blue-4 up-case btn-apply-job">Apply</button>
+<!--                                <button type="button" class="cm-btn large light-blue-4 up-case btn-apply-job">Apply</button>-->
                             </div>
                         </div>
                     </div>

@@ -19,9 +19,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 text-right mt-10">
-                    <a class="forget_password" href="#">Forget Password</a>
-                </div>
+<!--                <div class="col-md-12 text-right mt-10">-->
+<!--                    <a class="forget_password" href="#">Forget Password</a>-->
+<!--                </div>-->
 
                 <div class="col-md-12  mt-10">
                     <div class="message cm-message"></div> 
