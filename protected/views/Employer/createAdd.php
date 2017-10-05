@@ -276,7 +276,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                     <div class="col-md-12 mt-20">
                                         <button type="submit"
-                                                class="cm-btn large text-uppercase light-blue right">Save
+                                                class="cm-btn large text-uppercase light-blue right btnSave">Save
                                         </button>
                                     </div>
                                 </div>
@@ -314,8 +314,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
     $('#formAddAdvertisement').submit(function (e) {
         e.preventDefault();
         var $form = $(this);
+
         if (!$form.valid())
             return;
+
+        $('.btnSave').Button({disabled: true});
+
         $.ajax({
             url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
             type: 'POST',
@@ -328,6 +332,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                     var adId = responce.data.adId;
                     $('.message').Success(responce.msg);
                     document.getElementById("formAddAdvertisement").reset();
+
+                    $('.btnSave').Button({disabled: false});
+
                     setTimeout(function () {
                         window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ViewPreviewJobAdvertisement/id/'; ?>' + adId;
                     }, 800)
