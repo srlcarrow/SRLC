@@ -1,7 +1,7 @@
 <nav class="navbar light-blue nav-bottom-space">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="" href="<?php echo Yii::app()->baseUrl ?>">
+            <a class="" href="<?php echo Yii::app()->baseUrl?>/site">
                 <img src="<?php echo Yii::app()->baseUrl ?>/images/system/logo/logo.png" alt="Logo">
             </a>
         </div>
