@@ -74,6 +74,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                 result = true;
             } else {
                 $('#statusMatchPassword').removeClass("valid").addClass("invalid");
+                $('.formBtn').Button({disabled: true});
                 result = false;
             }
 
@@ -119,6 +120,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
             });
         } else {
             //Invalid password
+            $('.formBtn').Button({disabled: true});
         }
 
     });
