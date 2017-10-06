@@ -147,6 +147,7 @@ class EmployerController extends Controller {
                 $model->ad_image_url = "";
                 $model->ad_created_time = date('Y-m-d H:i:s');
                 $model->ad_text = $_POST['advertisementText'];
+                $model->ad_is_published = 1;
                 $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
