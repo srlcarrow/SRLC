@@ -589,13 +589,15 @@ $('.popup-container').on('click', '.forget_password', function (evt) {
 var Animation = (function () {
     var ele = null;
     return {
-        load: function (_ele) {
+        load: function (_ele, message) {
             ele = _ele !== undefined ? _ele : '.popup';
+            var message = message !== undefined ? message : 'Please wait...';
+
             var html = '';
             html += '<div class="animation-outer">';
             html += '<div class="animation">';
             html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
-            html += '<h5 class="text-orange">Please wait...</h5>';
+            html += '<h5 class="text-orange">' + message + '</h5>';
             html += '</div>';
             html += '</div>';
 
@@ -616,7 +618,8 @@ var Animation = (function () {
             html += '</div>';
             html += '</div>';
             return html;
-        }
+        },
+
     }
 })();
 
@@ -689,7 +692,7 @@ $.fn.Button = function (options) {
                 parentDiv.append(span.text(fileName));
             }
 
-           // span.append(spanClose);
+            // span.append(spanClose);
 
         }
     }

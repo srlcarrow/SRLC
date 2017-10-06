@@ -524,6 +524,10 @@
     padding-right: 30px !important;
 }
 
+.top-0 {
+    top: 0 !important;
+}
+
 .top-20 {
     top: 20px !important;
 }
@@ -545,6 +549,7 @@
 ==================================*/
 .material-icons {
     cursor: pointer;
+    vertical-align: middle;
 }
 
 /*================================
@@ -564,10 +569,10 @@
 }
 
 .paginations a {
-    margin-left:10px;
+    margin-left: 10px;
     border-radius: 3px;
-    color: rgba(0,0,0,0.86);
-    padding:6px 10px;
+    color: rgba(0, 0, 0, 0.86);
+    padding: 6px 10px;
     font-size: 14px;
     line-height: 14px;
 }
@@ -578,5 +583,5 @@
 }
 
 .paginations a.disabled {
-    color: rgba(0,0,0,0.30);
+    color: rgba(0, 0, 0, 0.30);
 }
