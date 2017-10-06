@@ -59,7 +59,7 @@ class AdvertisementController extends Controller {
                 }
             }
 
-            if ($status == 1) {
+            if ($status == 1) { 
                 $employerData = EmpEmployers::model()->findByPk($refEmpId);
 
                 $model->ref_district_id = $_POST['district_id'];
