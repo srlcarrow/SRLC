@@ -558,3 +558,25 @@
 .blue.lighten-1 {
     background: #445a64 !important;
 }
+
+.paginations {
+    text-align: right;
+}
+
+.paginations a {
+    margin-left:10px;
+    border-radius: 3px;
+    color: rgba(0,0,0,0.86);
+    padding:6px 10px;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.paginations a.current {
+    background: #FCB51D;
+    color: #fff;
+}
+
+.paginations a.disabled {
+    color: rgba(0,0,0,0.30);
+}

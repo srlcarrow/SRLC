@@ -10,9 +10,9 @@
                         <div class="row mb-0">
                             <div class="col s1 ps-relative">
                                 <input value="12" type="text" disabled="disabled" class="disabled h-20">
-                                <button class="cm-btn ps-absolute right-5 btn-editAndSave">
-                                    <i class="material-icons m-0 red-text">edit</i>
-                                </button>
+<!--                                <button class="cm-btn ps-absolute right-5 btn-editAndSave">-->
+<!--                                    <i class="material-icons m-0 red-text">edit</i>-->
+<!--                                </button>-->
                             </div>
                             <div class="col s3">
                                 <h6 class="grey-text text-darken-1 "><?php echo $value->ad_reference; ?></h6>
@@ -25,8 +25,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s1 mt-5">
-                        <button id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)">Edit</button>
+                    <div class="col s1 mt-5 right-align">
+
+                            <i id="<?php echo $value->ad_id; ?>" onclick="edit(this.id)" class="material-icons m-0 red-text">edit</i>
+<!--                        <button class="cm-btn right-5 " id="--><?php //echo $value->ad_id; ?><!--" onclick="edit(this.id)">-->
+                        </button>
     <!--                        <i id="<?php // echo $value->ad_id;             ?>" class="right material-icons btn_expand" onclick="edit(this.id)">expand_more</i>                        -->
                     </div>                   
                 </div>
