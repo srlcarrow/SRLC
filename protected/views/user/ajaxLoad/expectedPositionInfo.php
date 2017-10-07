@@ -4,6 +4,7 @@ $user = User::model()->findByAttributes(array('user_id' => $userId));
 $userType = $user->user_type;
 if ($userType == 1) {
     $model = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $user->ref_emp_or_js_id));
+    $employment = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $user->ref_emp_or_js_id));
 } else {
     $model = new JsBasic();
 }
@@ -28,12 +29,12 @@ if ($userType == 1) {
                 <tr>
                     <td>
                         <div class="data">
-                            <h6 class="text-black text-light-2">Address</h6>
+                            <h6 class="text-black text-light-2">Industry</h6>
                         </div>
                     </td>
                     <td>
                         <div class="data">
-                            <h6 class="text-black"><?php echo $model->js_address; ?></h6>
+                            <h6 class="text-black"><?php echo AdmIndustry::model()->findByPk($employment->ref_industry_id)->ind_name; ?></h6>
                         </div>
                     </td>
                 </tr>
@@ -41,12 +42,12 @@ if ($userType == 1) {
                 <tr>
                     <td>
                         <div class="data">
-                            <h6 class="text-black text-light-2">Date of Birth</h6>
+                            <h6 class="text-black text-light-2">Category (Field)</h6>
                         </div>
                     </td>
                     <td>
                         <div class="data">
-                            <h6 class="text-black"><?php echo date('d/m/Y',strtotime($model->js_dob)); ?></h6>
+                            <h6 class="text-black"><?php echo AdmCategory::model()->findByPk($employment->ref_category_id)->cat_name; ?></h6>
                         </div>
                     </td>
                 </tr>
@@ -54,13 +55,12 @@ if ($userType == 1) {
                 <tr>
                     <td>
                         <div class="data">
-                            <h6 class="text-black text-light-2">Total No of years
-                                experience</h6>
+                            <h6 class="text-black text-light-2">Sub Category</h6>
                         </div>
                     </td>
                     <td>
                         <div class="data">
-                            <h6 class="text-black"><?php echo $model->js_experience; ?> Year(s)</h6>
+                            <h6 class="text-black"><?php echo AdmSubcategory::model()->findByPk($employment->ref_sub_category_id)->scat_name; ?></h6>
                         </div>
                     </td>
                 </tr>
@@ -68,43 +68,15 @@ if ($userType == 1) {
                 <tr>
                     <td>
                         <div class="data">
-                            <h6 class="text-black text-light-2">Highest Acadamic
-                                Qualification</h6>
+                            <h6 class="text-black text-light-2">Current Job title</h6>
                         </div>
                     </td>
                     <td>
                         <div class="data">
-                            <h6 class="text-black"><?php echo $model->js_highest_academic_quali; ?></h6>
+                            <h6 class="text-black"><?php echo AdmDesignation::model()->findByPk($employment->ref_designation_id)->desig_name; ?></h6>
                         </div>
                     </td>
                 </tr>
-
-                <tr>
-                    <td>
-                        <div class="data">
-                            <h6 class="text-black text-light-2">Professional Qualification</h6>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="data">
-                            <h6 class="text-black"><?php echo $model->js_nameof_academic_quali; ?></h6>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="data">
-                            <h6 class="text-black text-light-2">Membership</h6>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="data">
-                            <h6 class="text-black">CIM</h6>
-                        </div>
-                    </td>
-                </tr>
-
             </tbody>
         </table>
     </div>

@@ -54,14 +54,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <div class="d-table-cell pl-25">
                                         <h5 class="text-dark-blue text-light-1">
                                             <i class="icon icon-24 email mr-10 v-middle"></i>
-                                            <span><?php echo $model->js_email; ?></span>
+                                            <span><?php echo $model->js_email; ?></span> 
                                         </h5>
                                     </div>
                                 </div>
 
                                 <h5 class="text-dark-blue text-light-1 mt-20">
                                     <i class="icon icon-20 linkedin mr-10 v-middle"></i>
-                                    <span>linkedin.com/in/thamara-1ba64a54</span>
+                                    <span><?php //echo $model->js_email; ?></span>
                                 </h5>
                             </div>
                         </div>

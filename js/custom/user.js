@@ -6,11 +6,11 @@ $(function () {
             form: '/user/PersonalInfoEdit'
         },
         tab2: {
-            view: 't',
+            view: '/user/CurrentPositionInfo',
             form: 't'
         },
         tab3: {
-            view: 't',
+            view: '/user/ExpectedPositionInfo',  
             form: 't'
         },
         tab4: {

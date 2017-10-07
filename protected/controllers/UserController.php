@@ -29,7 +29,15 @@ class UserController extends Controller {
     public function actionPersonalInfoEdit() {
         $this->renderPartial('ajaxLoad/personalInformation_form');
     }
-
+    
+    public function actionCurrentPositionInfo() { 
+        $this->renderPartial('ajaxLoad/currentPositionInfo');
+    }
+    
+    public function actionExpectedPositionInfo() { 
+        $this->renderPartial('ajaxLoad/expectedPositionInfo');
+    }
+    
     //Popup
     public function actionImageCrop() {
         $this->renderPartial('ajaxLoad/popup/imageCrop');
