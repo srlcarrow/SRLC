@@ -68,7 +68,7 @@ class EmployerController extends Controller {
             $model->employer_image = '';
             $model->save(false);
 
-            $password = $this->randomPassword();
+            $password = $model->employer_reference_no;
             $user = new User();
             $user->ref_emp_or_js_id = $model->employer_id;
             $user->user_name = strtolower(str_replace(' ', '', $_POST['comEmail']));
@@ -135,7 +135,7 @@ class EmployerController extends Controller {
                 $model->ref_industry_id = $employerData->ref_ind_id;
                 $model->ref_cat_id = $_POST['ref_cat_id'];
                 $model->ref_subcat_id = $_POST['subCategories'];
-                $model->ref_designation_id = $_POST['designations'];
+                $model->ref_designation_id = 0;
                 $model->ad_expected_experience = $_POST['experience'];
                 $model->ad_salary = $_POST['salary'];
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
@@ -147,8 +147,9 @@ class EmployerController extends Controller {
                 $model->ad_image_url = "";
                 $model->ad_created_time = date('Y-m-d H:i:s');
                 $model->ad_text = $_POST['advertisementText'];
-                $model->ad_is_published = 1;
                 $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
+                $model->ad_is_published = 1;
+                $model->ad_published_time = "0000-00-00 00:00:00";
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
                     if ($_POST['group1'] == 1) {
@@ -157,7 +158,6 @@ class EmployerController extends Controller {
                     }
 
                     $model->save(false);
-
                     $this->msgHandler(200, "Successfully Saved...");
                 }
             } else {

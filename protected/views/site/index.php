@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <span>District</span>
                                         </div>
                                         <ul class="option-list"></ul>
-                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'District', 'onChange' => 'loadCities()')); ?>
+                                        <?php echo Chtml::dropDownList('district_id', "", CHtml::listData(AdmDistrict::model()->findAll(), 'district_id', 'district_name'), array('empty' => 'District', 'onChange' => 'loadCities()'), array('order' => 'district_name')); ?>
                                     </div>
                                 </div>
                                 <div class="selector-wrap col-xs-12 col-sm-4 col-md-4 lg-ml-20">

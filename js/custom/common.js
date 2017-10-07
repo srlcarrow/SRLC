@@ -590,17 +590,37 @@ var Animation = (function () {
     var ele = null;
     return {
         load: function (_ele) {
+            var self = this;
             ele = _ele !== undefined ? _ele : '.popup';
-            var html = '';
-            html += '<div class="animation-outer">';
-            html += '<div class="animation">';
-            html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
-            html += '<h5 class="text-orange">Please wait...</h5>';
-            html += '</div>';
-            html += '</div>';
+            this.message = this.message !== undefined ? this.message : 'Please wait...';
 
-            $('.popup').css('overflow', 'hidden');
-            $(ele).append(html);
+            showLoader();
+
+            (function () {
+                var oldMsg = self.message;
+                setInterval(function () {
+                    if (oldMsg !== self.message) {
+                        oldMsg = self.message;
+                        $('.animation-outer').find('.text-orange').text(oldMsg);
+                    }
+                }, 100);
+            }());
+
+            function showLoader() {
+                console.log('Self',self)
+                var html = '';
+                html += '<div class="animation-outer">';
+                html += '<div class="animation">';
+                html += '<img src="' + BASE_URL + '/images/system/loader/frontLoader.gif" alt="">';
+                html += '<h5 class="text-orange">' + self.message + '</h5>';
+                html += '</div>';
+                html += '</div>';
+
+                $('.popup').css('overflow', 'hidden');
+                $(ele).append(html);
+            }
+
+            return this;
         },
         hide: function () {
             if (ele) {
@@ -616,7 +636,8 @@ var Animation = (function () {
             html += '</div>';
             html += '</div>';
             return html;
-        }
+        },
+
     }
 })();
 
@@ -689,7 +710,7 @@ $.fn.Button = function (options) {
                 parentDiv.append(span.text(fileName));
             }
 
-           // span.append(spanClose);
+            // span.append(spanClose);
 
         }
     }

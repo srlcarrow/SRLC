@@ -293,6 +293,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
 
 <script>
+    var isUploaded = true;
     var nowDate = new Date();
     var expDate = nowDate.setDate(nowDate.getDate() + 14);
     $('.datePicker').datepicker({
@@ -302,6 +303,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         autoClose: true
     });
     $(document).ready(function () {
+
         <?php
         if ($adId != 0) {
         ?>
@@ -310,6 +312,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         <?php
         }
         ?>
+
+        if ($('#adId').val().length > 0) {
+            isUploaded = false;
+        }
     });
     $('#formAddAdvertisement').submit(function (e) {
         e.preventDefault();
@@ -318,7 +324,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         if (!$form.valid())
             return;
 
-        $('.btnSave').Button({disabled: true});
+        if (isUploaded) {
+            if ($('#upload').is(':checked') && !$('#EmpAdvertisement_AdverImage').get(0).files.length) {
+                $('.message').Error('Please select an Advertisement');
+                return;
+            }
+        }
+
+        var loader = Animation.load('body');
 
         $.ajax({
             url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
@@ -330,16 +343,16 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
             success: function (responce) {
                 if (responce.code == 200) {
                     var adId = responce.data.adId;
-                    $('.message').Success(responce.msg);
+
+                    loader.message = responce.msg;
+
                     document.getElementById("formAddAdvertisement").reset();
-
-                    $('.btnSave').Button({disabled: false});
-
                     setTimeout(function () {
                         window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ViewPreviewJobAdvertisement/id/'; ?>' + adId;
                     }, 800)
 
                 } else {
+                    Animation.hide();
                     $('.message').Error(responce.msg);
                 }
             }
