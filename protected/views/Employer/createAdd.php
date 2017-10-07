@@ -331,7 +331,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
             }
         }
 
-        Animation.load('body');
+        var loader = Animation.load('body');
 
         $.ajax({
             url: "<?php echo Yii::app()->baseUrl . '/Employer/SaveAdvertisement'; ?>",
@@ -343,11 +343,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
             success: function (responce) {
                 if (responce.code == 200) {
                     var adId = responce.data.adId;
-                    $('.message').Success(responce.msg);
+
+                    loader.message = responce.msg;
+
                     document.getElementById("formAddAdvertisement").reset();
                     setTimeout(function () {
                         window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ViewPreviewJobAdvertisement/id/'; ?>' + adId;
-                        Animation.hide();
                     }, 800)
 
                 } else {
