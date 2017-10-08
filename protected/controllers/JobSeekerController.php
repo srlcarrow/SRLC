@@ -236,7 +236,8 @@ class JobSeekerController extends Controller {
 
     public function actionSaveStepThree() {
         try {
-            var_dump($_POST);exit;
+//            var_dump($_FILES);
+//            exit;
             $skills = explode(',', $_POST['skills']);
             $skillsString = '';
             $skillsArray = array();
@@ -278,11 +279,13 @@ class JobSeekerController extends Controller {
             $model->jsemp_expected_salary = $_POST['salary'];
             $model->jsemp_no_of_experience_years = $_POST['experience'];
             $model->jsemp_no_of_experience_months = 0;
-            $model->jsemp_expected_cities_to_work = $_POST['cities'];
+            $model->jsemp_expected_cities_to_work = $_POST['city'];
             $model->jsemp_skills = $skillsString;
             $model->jsemp_create_time = date('Y-m-d H:i:s');
             $model->jsemp_updated_time = date('Y-m-d H:i:s');
             if ($model->save(false)) {
+                $target_dir = "uploads/CV/Registered/";
+                $path = $this->UploadCV($_FILES, $target_dir, "000001");
                 $jsBasic = JsBasic::model()->findByPk($jsId);
                 $jsBasicTempData = JsBasicTemp::model()->findByPk($jsBasic->ref_jsbt_id);
                 $jsBasicTempData->jsbt_is_finished = 1;

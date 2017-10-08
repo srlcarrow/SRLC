@@ -280,5 +280,22 @@ class Controller extends CController {
         move_uploaded_file($fileData["EmpAdvertisement"]["tmp_name"]["AdverImage"], $path . '/' . $fileName);
         return $path . '/' . $fileName;
     }
+    
+      public static function UploadCV($fileData, $targetDir, $fileName) {
+        $year = date('Y');
+        $month = date('F');
+
+        $targetFile = $targetDir . basename($fileData["JsBasic"]["name"]['cv']);
+        $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
+
+        $path = $targetDir;
+        if (!file_exists($path)) {
+            mkdir($path, 0, true);
+        }
+
+        $fileName = $fileName . "." . $imageFileType;
+        move_uploaded_file($fileData["JsBasic"]["tmp_name"]["cv"], $path . '/' . $fileName);
+        return $path . '/' . $fileName;
+    }
 
 }

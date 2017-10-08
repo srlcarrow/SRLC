@@ -456,10 +456,17 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
         var skills = getItems('.skills-item .item');
         var workType = workTypes();
 
+        alert(workType.toString());
+
+        var formData = new FormData(this);
+        formData.append('city', city.toString());
+        formData.append('skills', skills.toString());
+        formData.append('accessId', '<?php echo $accessId; ?>');
+
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
-            data: {cvData: new FormData(this), cities: city},
+            data: formData,
             dataType: 'json',
             processData: false,
             contentType: false,
