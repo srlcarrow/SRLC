@@ -1,9 +1,16 @@
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formStepOne')); ?>
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'formStepOne',
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+        'novalidate' => 'novalidate',
+    )
+        ));
+?>
 <div class="col-md-12">
     <div class="row mb-15">
         <div class="col-md-12">
             <div class="input-wrapper">
-                <input id="address" name="address" type="text" value="<?php echo $jsBasicData->js_address; ?>">
+                <input id="address" name="address" type="text" value="<?php echo $jsBasicData->js_address; ?>" required>
                 <div class="float-text">Address</div>
             </div>
         </div>
@@ -35,13 +42,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-wrapper mb-0">
-                        <input class="mt-0" id="experience" placeholder="Year" name="experience" type="text"
-                               value="<?php echo $jsBasicData->js_experience; ?>">
+                        <input class="mt-0" id="experience" placeholder="Year" name="experienceYear" type="text"
+                               value="<?php echo $jsBasicData->js_experience_years; ?>">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="input-wrapper  mb-0">
-                        <input class="mt-0" name="experience" type="text" placeholder="Month">
+                        <input class="mt-0" name="experienceMonth" type="text" placeholder="Month" value="<?php echo $jsBasicData->js_experience_months; ?>">
                     </div>
                 </div>
             </div>
@@ -158,15 +165,14 @@
     </div>
 
     <div class="col-md-12 mt-20">
-        <button type="button" class="cm-btn large text-uppercase light-blue right btn-next">Next</button>
+        <button type="submit" class="cm-btn large text-uppercase light-blue right btn-next">Next</button>
+        <button type="button" onclick="skip()" class="cm-btn large text-uppercase light-blue right">Skip</button>
     </div>
     <?php $this->endWidget(); ?>
 
-
     <script>
         Input.init();
-
-
+        
         //Date piker
         $('.datePicker').datepicker({
             language: 'en',
@@ -196,9 +202,9 @@
 
             $('.addInput').on('click', function () {
                 var $this = $(this),
-                    $inputCollection = $this.parents('.input-collection'),
-                    $inputContainer = $inputCollection.find('.input-container'),
-                    $dataButton = $this.attr('data-btn');
+                        $inputCollection = $this.parents('.input-collection'),
+                        $inputContainer = $inputCollection.find('.input-container'),
+                        $dataButton = $this.attr('data-btn');
 
                 if ($this.hasClass('membership')) {
                     $inputContainer.append(htmlInput('Membership', $dataButton));
@@ -220,20 +226,27 @@
             });
         });
 
-        //Next step
-        $('.btn-next').on('click', function () {
+        $('#formStepOne').submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+
+            if (!$form.valid())
+                return;
+
             saveStepOne();
+
         });
 
         function saveStepOne() {
             $.ajax({
                 type: 'POST',
                 url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepOne'; ?>",
-                data: $('#formStepOne').serialize() + '&jsBasicKey=<?php echo $jsBasicKey; ?>',
+                data: $('#formStepOne').serialize() + '&accessId=<?php echo $accessId; ?>',
                 dataType: 'json',
                 success: function (responce) {
                     if (responce.code == 200) {
-                        goToStepTwo(responce.data.jsBasicKey);
+                        isStepOneCompleted = 1;
+                        goToStepTwo(responce.data.accessId);
                     }
                 }
             });
@@ -248,16 +261,34 @@
             });
         }
 
-        function goToStepTwo(jsBasicKey) {
+        function goToStepTwo(accessId) {
             $.ajax({
                 type: 'POST',
                 url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
-                data: {jsBasicKey: jsBasicKey},
+                data: {accessId: accessId},
                 success: function (responce) {
                     $("#step").html(responce);
                 }
             });
         }
 
+        function skip() {
+            isStepOneCompleted = 0;
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/IsFistrStepFinished'; ?>",
+                data: {accessId: '<?php echo $accessId; ?>'},
+                dataType: 'json',
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        if (responce.data.status == 1) {
+                            isStepOneCompleted = 1;
+                        }
+                    }
+                }
+            });
+
+            goToStepTwo('<?php echo $accessId; ?>');
+        }
 
     </script>

@@ -1,4 +1,9 @@
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formStepTwo')); ?>
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'formStepTwo', 'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+        'novalidate' => 'novalidate',
+        )));
+?>
 <div class="col-md-12 ">
 
     <div class="row mb-15">
@@ -10,7 +15,7 @@
                 </div>
 
                 <ul class="option-list"></ul>
-                <?php echo Chtml::dropDownList('ind_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Type')); ?>
+                <?php echo Chtml::dropDownList('ind_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($jsEmploymentData->ref_industry_id => array('selected' => true)))); ?>
 
             </div>
         </div>
@@ -32,8 +37,7 @@
                     <span>Category (Field)</span>
                 </div>
                 <ul class="option-list"></ul>
-
-                <?php echo Chtml::dropDownList('cat_id', "", CHtml::listData(AdmCategory::model()->findAll(array('order' => 'cat_order')), 'cat_id', 'cat_name'), array('empty' => 'Select District', 'options' => array($jsEmploymentData->ref_category_id => array('selected' => true)), 'onChange' => 'loadSubCategories()')); ?>
+                <?php echo Chtml::dropDownList('cat_id', "", CHtml::listData(AdmCategory::model()->findAll(array('order' => 'cat_order')), 'cat_id', 'cat_name'), array('empty' => 'Select Category', 'options' => array($jsEmploymentData->ref_category_id => array('selected' => true)), 'required' => 'required', 'onChange' => 'loadSubCategories()')); ?>
             </div>
         </div>
 
@@ -80,6 +84,7 @@
 <div class="col-md-12 mt-20">
     <button type="submit" class="cm-btn large text-uppercase light-blue right btn-next">Next</button>
     <button type="button" class="cm-btn large text-uppercase light-blue right" onclick="goToStepOne()">Back</button>
+    <button type="button" onclick="skip()" class="cm-btn large text-uppercase light-blue right">Skip</button>
 </div>
 <?php $this->endWidget(); ?>
 
@@ -109,7 +114,8 @@
                     }
 
                     setTimeout(function () {
-                        Select.init(".subCategories-select");
+                        $("#subCategories > [value=" + '<?php echo $jsEmploymentData->ref_sub_category_id; ?>' + "]").attr("selected", "true");
+                        Select.init('.subSelector');
                     }, 200);
 
                     loadDesignations();
@@ -157,22 +163,23 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepTwo'; ?>",
-            data: $('#formStepTwo').serialize() + '&jsBasicKey=<?php echo $jsBasicKey; ?>',
+            data: $('#formStepTwo').serialize() + '&accessId=<?php echo $accessId; ?>',
             dataType: 'json',
             success: function (responce) {
                 if (responce.code == 200) {
-                    goToStepThree(responce.data.jsBasicKey);
+                    isStepTwoCompleted = 1;
+                    goToStepThree(responce.data.accessId);
                 }
             }
         });
     }
 
 
-    function goToStepThree(jsBasicKey) {
+    function goToStepThree(accessId) {
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepThree'; ?>",
-            data: {jsBasicKey: jsBasicKey},
+            data: {accessId: accessId},
             success: function (responce) {
                 $("#step").html(responce);
             }
@@ -183,11 +190,30 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepOne'; ?>",
-            data: {jsBasicKey: '<?php echo $jsBasicKey; ?>'},
+            data: {accessId: '<?php echo $accessId; ?>'},
             success: function (responce) {
                 $("#step").html(responce);
             }
         });
+    }
+
+    function skip() {
+        isStepTwoCompleted = 0;
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/IsSecondStepFinished'; ?>",
+            data: {accessId: '<?php echo $accessId; ?>'},
+            dataType: 'json',
+            success: function (responce) {
+                if (responce.code == 200) {
+                    if (responce.data.status == 1) {
+                        isStepTwoCompleted = 1;
+                    }
+                }
+            }
+        });
+
+        goToStepThree('<?php echo $accessId; ?>');
     }
 
 </script>

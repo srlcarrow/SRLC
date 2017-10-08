@@ -63,6 +63,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 </section>
 
 <script>
+    var isStepOneCompleted = 0;
+    var isStepTwoCompleted = 0;
     $(document).ready(function (e) {
         stepOne();
     });
@@ -71,7 +73,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepOne'; ?>",
-            data: {accessId: '<?php echo $accessId; ?>'},
+            data: {accessId: "<?php echo $accessId; ?>"},
             success: function (responce) {
                 $("#step").html(responce);
             }

@@ -176,12 +176,11 @@ class SiteController extends Controller {
             } elseif (strlen($password) < 6) {
                 $this->msgHandler(400, "There should be greater than 6 characters");
             } else {
-                $jsbtData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
-
+                $jsbtData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));        
                 if (count($jsbtData) > 0) {
                     if ($jsbtData->jsbt_is_verified == 0) {
                         $userData = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsbtData->jsbt_id));
-//                          var_dump($userData);exit;
+     
                         $userData->user_password = md5(md5('SRLC' . $password . $password));
                         $userData->user_is_verified = 1;
                         $userData->save(false);

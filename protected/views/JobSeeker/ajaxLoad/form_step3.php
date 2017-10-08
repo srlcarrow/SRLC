@@ -1,4 +1,11 @@
-<?php $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree', 'enableAjaxValidation' => false, 'htmlOptions' => array('enctype' => 'multipart/form-data'))); ?>
+<?php
+$form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
+    'stateful' => true,
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+        'novalidate' => 'novalidate',
+        )));
+?>
 <div class="col-md-12 ">
     <div class="row mb-15">
         <div class="col-md-6">
@@ -190,7 +197,11 @@
             <h5>Upload CV</h5>
             <div class="file-uploader">
                 <div class="button">Brows...</div>
-
+                <?php
+                $cvModel = new JsBasic();
+                echo CHtml::activeFileField($cvModel, 'cv');
+                echo $form->error($cvModel, 'cv');
+                ?>
             </div>
         </div>
     </div>
@@ -200,6 +211,7 @@
 <div class="col-md-12 mt-20">
     <button type="submit" class="cm-btn large text-uppercase light-blue right">Finish</button>
     <button type="button" class="cm-btn large text-uppercase light-blue right" onclick="back()">Back</button>
+    <button type="submit" onclick="skip()" class="cm-btn large text-uppercase light-blue right">Skip</button>
 </div>
 <?php $this->endWidget(); ?>
 
@@ -239,7 +251,6 @@
     var selectedItems = mainWrap.find('.selected-items');
 
     function loadSkillFnc() {
-
         $('.input-search-box').SearchBox({
             itemClick: function (item) {
                 selectedItems.append(html(item.text(), item.attr('id')));
@@ -249,7 +260,6 @@
                     var h = html(input.val(), input.val());
                     selectedItems.append(h);
                 }
-
             }
         });
     }
@@ -398,7 +408,7 @@
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/FormStepTwo'; ?>",
-            data: {jsBasicKey: '<?php echo $jsBasicKey; ?>'},
+            data: {accessId: '<?php echo $accessId; ?>'},
             success: function (responce) {
                 $("#step").html(responce);
             }
@@ -435,33 +445,34 @@
         });
     }
 
-    $("#formStepThree").validate({
-        submitHandler: function () {
-            saveStepThree();
-        }
-    });
+    $('#formStepThree').submit(function (e) {
+        e.preventDefault();
+        var $form = $(this);
 
-// var city = getItems('.city-item .item');
-//    var skills = getItems('.skills-item .item');
-//    var workType = workTypes();
-    function saveStepThree() {
+        if (!$form.valid())
+            return;
 
         var city = getItems('.city-item .item');
         var skills = getItems('.skills-item .item');
         var workType = workTypes();
 
-
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
-            data: $('#formStepThree').serialize() + '&cities=' + city + '&skills=' + skills + '&workType=' + workType + '&jsBasicKey=<?php echo $jsBasicKey; ?>',
+            data: {cvData: new FormData(this), cities: city},
             dataType: 'json',
+            processData: false,
+            contentType: false,
             success: function (responce) {
                 if (responce.code == 200) {
-                   window.location =  http_path + 'Site/Index'  ;
+                    window.location = http_path + 'Site/Index';
                 }
             }
         });
+    });
+
+    function skip() {
+
     }
 
 </script>
