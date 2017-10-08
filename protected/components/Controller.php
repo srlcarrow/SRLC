@@ -51,13 +51,11 @@ class Controller extends CController {
         $reference = "E1" . str_pad($id, 5, '0', STR_PAD_LEFT);
         return $reference;
     }
-    
+
     public static function getJobSeekerReferenceNo($id) {
         $reference = "JS1" . str_pad($id, 5, '0', STR_PAD_LEFT);
         return $reference;
     }
-    
-    
 
     public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL, $orderBy = NULL) {
         $sqlLimit = '';
@@ -280,15 +278,17 @@ class Controller extends CController {
 
         $path = $targetDir . $year . "/$month";
         if (!file_exists($path)) {
-            mkdir($path, 0, true);
+            $oldmask = umask(0);
+            mkdir($path, 0777);
+            umask($oldmask);
         }
 
         $fileName = $fileName . "." . $imageFileType;
         move_uploaded_file($fileData["EmpAdvertisement"]["tmp_name"]["AdverImage"], $path . '/' . $fileName);
         return $path . '/' . $fileName;
     }
-    
-      public static function UploadCV($fileData, $targetDir, $fileName) {
+
+    public static function UploadCV($fileData, $targetDir, $fileName) {
         $year = date('Y');
         $month = date('F');
 

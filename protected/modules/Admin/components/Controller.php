@@ -75,7 +75,9 @@ class Controller extends CController {
 
         $path = $targetDir . $year . "/$month";
         if (!file_exists($path)) {
-            mkdir($path, 0, true);
+            $oldmask = umask(0);
+            mkdir($path, 0777);
+            umask($oldmask);
         }
 
         $fileName = $fileName . "." . $imageFileType;

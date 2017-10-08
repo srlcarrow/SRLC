@@ -110,7 +110,7 @@ class EmployerController extends Controller {
             $status = 1;
             $reason = "";
             if ($_POST['group1'] == 1) {
-                $target_dir = "uploads/jobAdvertisements/";
+                $target_dir = "uploads/JobAdvertisements/";
                 $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
                 $validateData = Controller::validateImage($_FILES, $target_dir);
                 $status = $validateData["status"];
