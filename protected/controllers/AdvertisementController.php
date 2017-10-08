@@ -27,28 +27,35 @@ class AdvertisementController extends Controller {
 
     public function actionViewAdvertisement($id) {
         $adData = EmpAdvertisement::model()->findByPk($id);
-        $this->render('/Advertisement/viewAdvertisements', array('adData' => $adData));
+        $this->render('/Advertisement/viewAdvertisements', array('adData' => $adData, 'adId' => $id));
     }
 
     //Popup
     public function actionApplyJob() {
         $userId = Yii::app()->user->getId();
-        $userType = Controller::getUserType($userId);
-        $this->renderPartial('ajaxLoad/popup/jobApply', array('user' => $userId, 'userType' => $userType));
+        $userType = 0;
+        if (isset($userId)) {
+            $userType = Controller::getUserType($userId);
+        }
+        $this->renderPartial('ajaxLoad/popup/jobApply', array('user' => $userId, 'userType' => $userType, 'adId' => $_POST['adId']));
     }
 
-    public function actionUploadCV() {
-        $target_dir = "uploads/cv/";
-
-        $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['image']);
-        $uploadOk = 1;
-        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-
-        if (isset($_POST)) {
-            $check = getimagesize($_FILES['EmpAdvertisement']['tmp_name']['image']);
-            move_uploaded_file($_FILES["EmpAdvertisement"]["tmp_name"]['image'], $target_file);
-        }
-        exit;
+    public function actionApplyVacancy() {
+        $userId = Yii::app()->user->getId();
+        $appliedData = new JsAppliedDetails();
+        $appliedData->ref_advertisement_id = $_POST['adId'];
+        $appliedData->is_registered_user = $userId == NULL ? 0 : $userId;
+        $appliedData->ref_js_id = $userId == NULL ? 0 : Controller::getRefEmpOrJsId($userId);
+        $appliedData->jsad_name = $userId == NULL ? $_POST['fname'] : "";
+        $appliedData->jsad_email = $userId == NULL ? $_POST['email'] : "";
+        $appliedData->jsad_cv_path = 1;
+        $appliedData->jsad_applied_time = date('Y-m-d H:i:s');
+        $appliedData->jsad_applied_user = $userId == NULL ? 0 : $userId;
+        $appliedData->save(false);
+        
+        $target_dir = "uploads/CV/Unregistered/";
+        $cvName = "00006";
+        $path = $this->UploadCV($_FILES, $target_dir, $cvName);
     }
 
 }

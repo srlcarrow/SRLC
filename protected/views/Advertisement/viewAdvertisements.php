@@ -85,7 +85,7 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
                             </div>
 
                             <div class="side-panel-row">
-<!--                                <button type="button" class="cm-btn large light-blue-4 up-case btn-apply-job">Apply</button>-->
+                                <button type="button" class="cm-btn large light-blue-4 up-case btn-apply-job">Apply</button>
                             </div>
                         </div>
                     </div>
@@ -95,3 +95,31 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
     </div>
 </section>
 <?php $this->endWidget(); ?>
+
+<script>
+    $(function () {
+        $('.btn-apply-job').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/advertisement/ApplyJob'; ?>",
+                data: {adId: '<?php echo $adId; ?>'},
+                success: function (html) {
+                    Popup.addClass('small-size');
+                    Popup.show(html)
+                }
+            });
+        });
+    })
+</script>
+
+<!-- _ajax(
+                    {
+                        type: 'POST',
+                        url: '/advertisement/ApplyJob',
+                        data: {adId: '<?php // echo $adId;    ?>'},
+                    },
+                    function (html) {
+                        Popup.addClass('small-size');
+                        Popup.show(html)
+                    }
+            );-->

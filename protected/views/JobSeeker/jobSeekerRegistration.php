@@ -87,4 +87,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
     function stepThree() {
         alert('step Three');
     }
+
+    function addEmptyToAjaxDropDowns(id, defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
+        $('#' + id).append(
+                $("<option>Select</option>")
+                .attr("value", 0)
+                .text("Select")
+                );
+    }
 </script>

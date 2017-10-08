@@ -1,10 +1,15 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array('id' => 'frmApplyJob',
-    'enableAjaxValidation' => false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data'),));
+    'stateful' => true,
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+        'novalidate' => 'novalidate',
+    )
+        ));
 
 $model = new EmpAdvertisement();
 ?>
+<input type="hidden" name="adId" id="adId" value="<?php echo $adId; ?>">
 <div class="row">
     <div class="col-md-12">
         <h3 class="text-black mb-50 text-center">Apply Job</h3>
@@ -44,15 +49,20 @@ $model = new EmpAdvertisement();
                                     <div class="file-uploader width-100">
                                         <div class="button width-100 text-center">Brows...</div>
                                         <?php
-//                                        echo $form->labelEx($model, 'image');
-                                        echo CHtml::activeFileField($model, 'image');
-                                        echo $form->error($model, 'image');
+                                        $cvModel = new JsBasic();
+                                        echo CHtml::activeFileField($cvModel, 'cv');
+                                        echo $form->error($cvModel, 'cv');
                                         ?>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 float-block mt-20">
+                        <button id="Register" type="submit"
+                                class="cm-btn large text-uppercase light-blue right">Send CV
+                        </button>
                     </div>
                 </div>
                 <?php
@@ -138,7 +148,7 @@ $model = new EmpAdvertisement();
 
     $('#frmApplyJob').submit(function (e) {
         $.ajax({
-            url: "<?php echo Yii::app()->baseUrl . '/Advertisement/UploadCV'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Advertisement/ApplyVacancy'; ?>",
             type: 'POST',
             data: new FormData(this),
             processData: false,

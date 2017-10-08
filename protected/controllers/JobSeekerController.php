@@ -59,9 +59,9 @@ class JobSeekerController extends Controller {
 
                         if ($jsBasic->save(false)) {
                             $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
-//                            $user->ref_emp_or_js_id = $jsBasic->js_id;
-//                            $user->user_is_verified = 1;
-//                            $user->save(false);
+                            $user->ref_emp_or_js_id = $jsBasic->js_id;
+                            $user->user_is_verified = 1;
+                            $user->save(false);
                             $status = 1; // Verified But Not Finished
                         }
                     }
@@ -236,8 +236,6 @@ class JobSeekerController extends Controller {
 
     public function actionSaveStepThree() {
         try {
-//            var_dump($_FILES);
-//            exit;
             $skills = explode(',', $_POST['skills']);
             $skillsString = '';
             $skillsArray = array();
@@ -284,9 +282,10 @@ class JobSeekerController extends Controller {
             $model->jsemp_create_time = date('Y-m-d H:i:s');
             $model->jsemp_updated_time = date('Y-m-d H:i:s');
             if ($model->save(false)) {
-                $target_dir = "uploads/CV/Registered/";
-                $path = $this->UploadCV($_FILES, $target_dir, "000001");
                 $jsBasic = JsBasic::model()->findByPk($jsId);
+                $cvName = Controller::getJobSeekerReferenceNo($jsId);
+                $target_dir = "uploads/CV/Registered/";
+                $path = $this->UploadCV($_FILES, $target_dir, $cvName);
                 $jsBasicTempData = JsBasicTemp::model()->findByPk($jsBasic->ref_jsbt_id);
                 $jsBasicTempData->jsbt_is_finished = 1;
                 $jsBasicTempData->save(false);

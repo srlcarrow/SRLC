@@ -41,6 +41,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
                 <ul class="option-list"></ul>
 
                 <select class="type" name="subCategories" id="subCategories">
+                    <option id="0">Select Sub Category</option>
                 </select>
             </div>
         </div>
@@ -58,6 +59,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
                 <ul class="option-list"></ul>
 
                 <select class="type" name="designations" id="designations">
+
                 </select>
             </div>
         </div>
@@ -144,7 +146,9 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
                 </div>
                 <ul class="option-list"></ul>
 
-                <select id="city" name="city" class="city"></select>
+                <select id="city" name="city" class="city">
+
+                </select>
             </div>
         </div>
     </div>
@@ -166,9 +170,6 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
 
                 <div class="search-result">
                     <ul id="skills">
-                        <li id="2">Javascript</li>
-                        <li id="22">Java</li>
-                        <li id="26">PHP</li>
                     </ul>
                 </div>
             </div>
@@ -329,6 +330,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
             success: function (responce) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
+                    addEmptyToAjaxDropDowns('subCategories', 'Sub Category');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                                 $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -360,6 +362,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
             success: function (responce) {
                 if (responce.code == 200) {
                     var designations = responce.data.designationData;
+                    addEmptyToAjaxDropDowns('designations', 'Designation');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
                                 $("<option>" + designations[i]['desig_name'] + "</option>")
@@ -388,6 +391,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
+                    addEmptyToAjaxDropDowns('city', 'city');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                                 $("<option>" + cities[i]['city_name'] + "</option>")

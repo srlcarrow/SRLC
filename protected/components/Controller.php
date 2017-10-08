@@ -51,6 +51,13 @@ class Controller extends CController {
         $reference = "E1" . str_pad($id, 5, '0', STR_PAD_LEFT);
         return $reference;
     }
+    
+    public static function getJobSeekerReferenceNo($id) {
+        $reference = "JS1" . str_pad($id, 5, '0', STR_PAD_LEFT);
+        return $reference;
+    }
+    
+    
 
     public static function createSearchCriteriaForAdvertisement($query, $joinUsing, $page, $limit = NULL, $orderBy = NULL) {
         $sqlLimit = '';
