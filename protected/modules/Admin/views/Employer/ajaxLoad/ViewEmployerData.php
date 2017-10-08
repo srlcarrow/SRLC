@@ -19,14 +19,14 @@ foreach ($employers as $employer) {
                         </div>
                     </div>
                     <div class="col s1 mt-5">
-                        <i id="<?php echo $employer->employer_id; ?>" class="right material-icons btn_expand" onclick="loadEmployerData(this.id)">expand_more</i>
+                        <i id="<?php echo $employer->employer_id; ?>" class="right material-icons btn_expand" onclick="loadEmployerData(this.id,this)">expand_more</i>
                     </div>
                 </div>
 
                 <div class="row expand-card-content mb-0 ">
                     <div class="col s12 mt-20">
                         <div class="row mb-0">
-                            <div id="ajaxLoad"></div>
+                            <div class="ajaxLoad"></div>
                         </div>
                     </div>
                 </div>
@@ -78,13 +78,14 @@ foreach ($employers as $employer) {
     });
     
     
-    function loadEmployerData(id) {
+    function loadEmployerData(id,_this) {
+        var $parent = $(_this).parents('.expand-card');
         $.ajax({
             type: 'POST',
             url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LoadEmployerData'; ?>",
             data: {id: id},
             success: function (responce) {
-                $("#ajaxLoad").html(responce);
+                $parent.find('.ajaxLoad').html(responce);
             }
         });
     }
