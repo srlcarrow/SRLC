@@ -19,7 +19,7 @@
             </div>
 
             <p class="col-md-12 f-18 text-black text-light-2">
-                Please check email adreess and click on resend
+                Please check email address and click resend
             </p>
 
             <div class="col-md-12 mt-30">
