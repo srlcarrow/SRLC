@@ -10,6 +10,7 @@
 <link href="<?php echo $this->module->assetsUrl ?>/css/plugins/editor/froala_style.min.css" rel="stylesheet"
       type="text/css"/>
 
+
 <div class="row">
     <div class="col s12">
         <button class="cm-btn add right addNewCompany" type="button" onclick="addEmployer()">
