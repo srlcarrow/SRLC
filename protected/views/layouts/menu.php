@@ -11,7 +11,7 @@
             <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate'; ?>">Job
                     Seeker</a></li>
             <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/Employer'; ?>">Employer</a></li>
-            <!--<li><a href="<?php /*echo Yii::app()->request->baseUrl . '/JobSeeker/ViewRegistration';*/?>">Contact Us</a></li>-->
+            <li><a href="<?php echo Yii::app()->request->baseUrl . '/Contact';?>">Contact Us</a></li>
 
 
             <?php if (yii::app()->user->isGuest) { ?>
