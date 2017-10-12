@@ -39,7 +39,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'searchEmployer'));
                     <button class="border-r-0 btn waves-effect waves-light btn-search deep-orange">Search</button>
                 </div>
                 <div class="search-action">
-                    <button type="button" class="waves-effect waves-teal btn-flat btnAdvance">Advance</button>
+                    <button type="button" class="waves-effect waves-teal btn-flat">Advance</button>
                     <!--<button class="waves-effect waves-teal btn-flat btnAdvance">Advance</button>-->
                 </div>
             </div>
