@@ -37,14 +37,14 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
-            <div class="col s12 m4">
+<!--            <div class="col s12 m4">
                 <div class="input-field">
                     <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>
                     <select class="type" name="designations" id="designations">
                     </select>
                     <label>Designation</label>
                 </div>
-            </div>
+            </div>-->
         </div>
 
         <div class="row">
@@ -255,41 +255,41 @@ if ($adId > 0) {
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                     }, 200);
 
-                    loadDesignations();
+//                    loadDesignations();
 
                 }
             }
         });
     }
 
-    function loadDesignations() {
-        $("#designations").empty();
-
-        var id = $('#ref_cat_id').val();
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
-            data: {id: id},
-            dataType: 'json',
-            success: function (responce) {
-                if (responce.code == 200) {
-                    var designations = responce.data.designationData;
-                    for (var i = 0, max = designations.length; i < max; i++) {
-                        $('#designations').append(
-                                $("<option>" + designations[i]['desig_name'] + "</option>")
-                                .attr("value", designations[i]['desig_id'])
-                                .text(designations[i]['desig_name'])
-                                );
-                    }
-
-                    setTimeout(function () {
-                        $('select').material_select();
-                        $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
-                    }, 200);
-                }
-            }
-        });
-    }
+//    function loadDesignations() {
+//        $("#designations").empty();
+//
+//        var id = $('#ref_cat_id').val();
+//        $.ajax({
+//            type: 'POST',
+//            url: "<?php // echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
+//            data: {id: id},
+//            dataType: 'json',
+//            success: function (responce) {
+//                if (responce.code == 200) {
+//                    var designations = responce.data.designationData;
+//                    for (var i = 0, max = designations.length; i < max; i++) {
+//                        $('#designations').append(
+//                                $("<option>" + designations[i]['desig_name'] + "</option>")
+//                                .attr("value", designations[i]['desig_id'])
+//                                .text(designations[i]['desig_name'])
+//                                );
+//                    }
+//
+//                    setTimeout(function () {
+//                        $('select').material_select();
+//                        $("#designations > [value=" + '<?php // echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
+//                    }, 200);
+//                }
+//            }
+//        });
+//    }
 
     function loadCities() {
         $("#city").empty();

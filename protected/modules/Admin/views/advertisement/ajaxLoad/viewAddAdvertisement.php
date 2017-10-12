@@ -34,20 +34,20 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
-            <div class="col s12 m4">
+<!--            <div class="col s12 m4">
                 <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>           
+                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));   ?>           
                     <select class="type" name="designations" id="designations">
                     </select>
                     <label>Designation</label>
                 </div>
-            </div>
+            </div>-->
         </div>
 
         <div class="row">
             <div class="col s12 m4">  
                 <div class="input-field">
-                    <input id="experience" name="experience" type="text" class="salary-input" value="<?php echo $model->ad_expected_experience ?>" required>
+                    <input id="experience" name="experience" type="text" class="salary-input" value="<?php echo $model->ad_expected_experience  ?>" required>
                     <label>Expected Experience (Yrs)</label>
                 </div>
             </div>
@@ -82,7 +82,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>           
+                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));   ?>           
                     <!--<ul class="option-list"></ul>-->
                     <select id="city" name="city" class="city"></select>
                     <label>City</label>
@@ -95,12 +95,12 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label for="intern">Intern Opportunity</label>
                 </div>
             </div>
-<!--            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php //echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>           
-                    <label>Industry</label>
-                </div>
-            </div>-->
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+            <?php //echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),));  ?>           
+                                <label>Industry</label>
+                            </div>
+                        </div>-->
         </div>
 
         <div class="row">
@@ -108,7 +108,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <!--            <div class="col s12 m4">
                             <div class="input-field">
-                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";  ?>"/>
+                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";   ?>"/>
                                 <label for="isDesigAsTitle">Use designation as title</label>
                             </div>
                         </div>-->
@@ -157,7 +157,8 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                         <div class="file-path-wrapper">
                             <?php
                             if ($adId > 0) {
-                                $image = end(split('/', $model->ad_image_url));
+                                $image = explode('/', $model->ad_image_url);
+                                $image = $image[4];
                             } else {
                                 $image = $model->ad_image_url;
                             }
@@ -248,7 +249,7 @@ if ($adId > 0) {
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                     }, 200);
 
-                    loadDesignations();
+//                    loadDesignations();
 
                 }
             }

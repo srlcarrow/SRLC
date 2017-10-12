@@ -4,7 +4,7 @@
 <div class="col s8 ">
     <ul class="tabs">
         <li class="tab col s3"><a class="pl-0 left-align active" href="#tab1_<?php echo $id; ?>">General</a></li>
-        <li class="tab col s3"><a class="pl-0 left-align" href="#tab2_<?php echo $id; ?>">Transection</a></li>
+<!--        <li class="tab col s3"><a class="pl-0 left-align" href="#tab2_<?php //echo $id; ?>">Transection</a></li>-->
     </ul>
 </div>
 <div id="tab1_<?php echo $id; ?>" class="col s12 mt-30">
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div id="tab2_<?php echo $id; ?>" class="col s12 mt-30">
+<!--<div id="tab2_<?php //echo $id; ?>" class="col s12 mt-30">
 
     <div class="row">
         <div class="col s12">
@@ -119,7 +119,7 @@
         </div>
     </div>
 
-</div>
+</div>-->
 
 <!--</div>-->
 

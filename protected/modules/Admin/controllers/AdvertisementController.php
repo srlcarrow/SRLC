@@ -59,7 +59,7 @@ class AdvertisementController extends Controller {
                 }
             }
 
-            if ($status == 1) { 
+            if ($status == 1) {
                 $employerData = EmpEmployers::model()->findByPk($refEmpId);
 
                 $model->ref_district_id = $_POST['district_id'];
@@ -74,20 +74,36 @@ class AdvertisementController extends Controller {
                 $model->ad_is_negotiable = isset($_POST['isNegotiable']) && $_POST['isNegotiable'] == "on" ? 1 : 0;
                 $model->ref_work_type_id = $_POST['ref_work_type_id'];
                 $model->ad_title = $_POST['title'];
-//                $model->ad_is_use_desig_as_title = isset($_POST['isDesigAsTitle']) && $_POST['isDesigAsTitle'] == "on" ? 1 : 0;
                 $model->ad_expire_date = date('Y-m-d', strtotime($_POST['expireDate']));
                 $model->ad_is_image = $_POST['group1'] == 1 ? 1 : 0;
+                $model->ad_image_url = ($model->ad_image_url == NULL ? "" : $model->ad_image_url);
                 $model->ad_is_intern = isset($_POST['intern']) && $_POST['intern'] == "on" ? 1 : 0;
-//                $model->ad_image_url = "";
+                
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
+//                    if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
+//                        $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);                       
+//                        $model->ad_image_url = $path;
+//                    } else {
+//                        $model->ad_image_url = $model->ad_image_url == "" ? "" : $model->ad_image_url;
+//                    }
+
                     if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                         $model->ad_image_url = $path;
-                    } else {
+                    } elseif ($_POST['group1'] == 2) {
+                        if ($model->ad_image_url != "") {
+                            chmod($model->ad_image_url, 0777);
+                            unlink($model->ad_image_url);
+                        }
+                        $model->ad_is_image = 0;
                         $model->ad_image_url = "";
+                    } elseif ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                        $model->ad_image_url = $model->ad_image_url;
                     }
+
+
                     $model->save(false);
 
                     $this->msgHandler(200, "Successfully Saved...");
@@ -128,6 +144,7 @@ class AdvertisementController extends Controller {
 
     public function actionPublishAdvertisement() {
         $id = $_POST['id'];
+
         $adData = EmpAdvertisement::model()->findByAttributes(array('ad_id' => $id));
         $adData->ad_token = "";
         $adData->ad_is_published = 2;

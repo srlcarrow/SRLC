@@ -32,11 +32,13 @@
 
 
 <!--JS | Image Crop-->
-<script crossorigin="anonymous" src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery.2.0.0.js'; ?>"></script>
+
+<script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery.2.0.0.js'; ?>"></script>
 <script src="<?php echo Yii::app()->baseUrl . '/js/plugins/cropit/jquery.cropit.js'; ?>"></script>
 
 
 <script>
+
 
     $(function () {
         $('.image-editor').cropit({

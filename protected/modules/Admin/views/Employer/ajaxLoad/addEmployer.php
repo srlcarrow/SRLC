@@ -1,4 +1,3 @@
-
 <?php $form = $this->beginWidget('CActiveForm', array('id' => 'formAddEmployer')); ?>
 
 <div class="row">
@@ -150,7 +149,6 @@
     $(document).ready(function () {
         $('select').material_select();
     });
-
 
     (function ($) {
         $(function () {

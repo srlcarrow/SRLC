@@ -73,16 +73,17 @@ class Controller extends CController {
         $targetFile = $targetDir . basename($fileData["EmpAdvertisement"]["name"]['AdverImage']);
         $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
 
-        $path = $targetDir . $year . "/$month";
+        $path = $targetDir . $year . "/$month/";     
         if (!file_exists($path)) {
             $oldmask = umask(0);
             mkdir($path, 0777);
             umask($oldmask);
         }
-
+  
         $fileName = $fileName . "." . $imageFileType;
-        move_uploaded_file($fileData["EmpAdvertisement"]["tmp_name"]["AdverImage"], $path . '/' . $fileName);
-        return $path . '/' . $fileName;
+     
+        move_uploaded_file($fileData["EmpAdvertisement"]["tmp_name"]["AdverImage"], $path . $fileName);
+        return $path . $fileName;
     }
 
     public static function getAdvertisementReferenceNo($id) {

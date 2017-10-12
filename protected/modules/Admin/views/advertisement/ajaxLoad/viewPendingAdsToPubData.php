@@ -6,25 +6,26 @@
             ?>
             <div class="card-panel expand-card detail-card outer-tb-15">
                 <div class="row mb-0 expand-card-head">
-                    <div class="col s9">
-                        <div class="row mb-0">                         
+<!--                    <div class="col s10">-->
+                                                 
                             <div class="col s2">
                                 <h6 class="grey-text text-darken-1 "><?php echo $value->ad_reference; ?></h6>
                             </div>
                             <div class="col s4">
                                 <h6 class="grey-text text-darken-1"><?php echo $value->ad_is_use_desig_as_title == 1 ? $designation->desig_name : $value->ad_title; ?></h6>
                             </div>
-                            <div class="col s3">
+                            <div class="col s2">
                                 <h6 class="grey-text text-darken-1"><?php echo $value->ad_expire_date ?></h6>
                             </div>
-                            <div class="col s3">
-                                <button class="border-r-0 btn waves-effect waves-light deep-orange" id="<?php echo $value->ad_id; ?>" onclick="viewAndPub(this.id)">View And Publish</button>
-                            </div>                   
-                        </div>
-                    </div>
-                    <div class="col s3">
-                        <button class="border-r-0 btn waves-effect waves-light deep-orange" id="<?php echo $value->ad_id; ?>" onclick="Publish(this.id)">Publish</button>
-                    </div>                   
+                            <div class="col s2">
+                                <button class="border-r-0 btn waves-effect waves-light" id="<?php echo $value->ad_id; ?>" onclick="viewAndPub(this.id)">View &AMP; Publish</button>    
+                            </div>  
+                            <div class="col s2">
+                                <button class="border-r-0 btn waves-effect waves-light deep-orange" id="<?php echo $value->ad_id; ?>" onclick="Publish(this.id)">Publish</button>    
+                            </div> 
+                        
+<!--                    </div>-->
+                                      
                 </div>
             </div>
 
