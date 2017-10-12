@@ -34,14 +34,14 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
-            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>           
-                    <select class="type" name="designations" id="designations">
-                    </select>
-                    <label>Designation</label>
-                </div>
-            </div>
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+            <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));   ?>           
+                                <select class="type" name="designations" id="designations">
+                                </select>
+                                <label>Designation</label>
+                            </div>
+                        </div>-->
         </div>
 
         <div class="row">
@@ -82,7 +82,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             </div>
             <div class="col s12 m4">
                 <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));  ?>           
+                    <?php // echo Chtml::dropDownList('ref_city_id', "", CHtml::listData(AdmCity::model()->findAll(), 'city_id', 'city_name'), array('empty' => 'Select City'));   ?>           
                     <!--<ul class="option-list"></ul>-->
                     <select id="city" name="city" class="city"></select>
                     <label>City</label>
@@ -95,12 +95,12 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label for="intern">Intern Opportunity</label>
                 </div>
             </div>
-<!--            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php //echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),)); ?>           
-                    <label>Industry</label>
-                </div>
-            </div>-->
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+            <?php //echo Chtml::dropDownList('ref_industry_id', "", CHtml::listData(AdmIndustry::model()->findAll(), 'ind_id', 'ind_name'), array('empty' => 'Select Industry', 'options' => array($model->ref_industry_id => array('selected' => true)),));  ?>           
+                                <label>Industry</label>
+                            </div>
+                        </div>-->
         </div>
 
         <div class="row">
@@ -108,7 +108,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <!--            <div class="col s12 m4">
                             <div class="input-field">
-                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";  ?>"/>
+                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";          ?>"/>
                                 <label for="isDesigAsTitle">Use designation as title</label>
                             </div>
                         </div>-->
@@ -125,14 +125,14 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             <div class="col m6">
                 <p>
                     <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="uploader"
-                           value="1" checked="<?php echo $model->ad_is_image == 1 ? "checked" : ""; ?>"/>
+                           value="1" <?php echo $model->ad_is_image == 1 ? "checked=checked" : ""; ?>/>
                     <label for="uploader">Upload Image</label>
                 </p>
             </div>
             <div class="col m6">
                 <p>
                     <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="text-editor"
-                           value="2"/>
+                           value="2" <?php echo $model->ad_is_image == 0 ? "checked=checked" : ""; ?>/>
                     <label for="text-editor">User Text Editor</label>
                 </p>
             </div>
@@ -157,7 +157,8 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                         <div class="file-path-wrapper">
                             <?php
                             if ($adId > 0) {
-                                $image = end(split('/', $model->ad_image_url));
+                                $image = explode('/', $model->ad_image_url);
+                                $image = $image[4];
                             } else {
                                 $image = $model->ad_image_url;
                             }
@@ -171,7 +172,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <div class="col s12 editor hide-block">
                 <div class="input-field col s12">
-                    <textarea id="textarea1" name="advertisementText" class="materialize-textarea"></textarea>
+                    <textarea id="textarea1" name="advertisementText" class="materialize-textarea"><?php echo $model->ad_text; ?></textarea>
                     <label for="textarea1">Textarea</label>
                 </div>
             </div>
@@ -214,7 +215,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     Message.success(responce.msg);
-                    document.getElementById("formAddAdvertisement").reset();
+                    window.location = '<?php echo Yii::app()->request->baseUrl; ?>/Admin/Advertisement/Index';
                 } else {
                     Message.success(responce.msg);
                 }
@@ -235,6 +236,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
+                    addEmptyToAjaxDropDowns("subCategories", 'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                                 $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -248,7 +250,7 @@ if ($adId > 0) {
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                     }, 200);
 
-                    loadDesignations();
+//                    loadDesignations();
 
                 }
             }
@@ -267,6 +269,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var designations = responce.data.designationData;
+                    addEmptyToAjaxDropDowns('designations', 'Designation');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
                                 $("<option>" + designations[i]['desig_name'] + "</option>")
@@ -295,6 +298,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
+                    addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                                 $("<option>" + cities[i]['city_name'] + "</option>")
@@ -372,6 +376,15 @@ if ($adId > 0) {
             $('.designation').prop('disabled', false);
         }
     });
+
+    function addEmptyToAjaxDropDowns(id, defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
+        $('#' + id).append(
+                $("<option>Select</option>")
+                .attr("value", 0)
+                .text("Select")
+                );
+    }
 </script>
 
 <!-- Include external JS libs. -->

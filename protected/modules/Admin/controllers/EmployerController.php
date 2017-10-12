@@ -110,11 +110,19 @@ class EmployerController extends Controller {
             $status = 1;
             $reason = "";
             if ($_POST['group1'] == 1) {
-                $target_dir = "uploads/JobAdvertisements/";
-                $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
-                $validateData = Controller::validateImage($_FILES, $target_dir);
-                $status = $validateData["status"];
-                $reason = $validateData["reason"];
+                if ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                    $status = 1;
+                    $reason = "";
+                } elseif ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 0) {
+                    $status = 0;
+                    $reason = "Please Select an Advertisement";
+                } else {
+                    $target_dir = "uploads/JobAdvertisements/";
+                    $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
+                    $validateData = Controller::validateImage($_FILES, $target_dir);
+                    $status = $validateData["status"];
+                    $reason = $validateData["reason"];
+                }
             }
 
             if ($status == 1) {
@@ -152,11 +160,21 @@ class EmployerController extends Controller {
                 $model->ad_published_time = "0000-00-00 00:00:00";
                 if ($model->save(false)) {
                     $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
-                    if ($_POST['group1'] == 1) {
+                    if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                         $model->ad_image_url = $path;
+                    } elseif ($_POST['group1'] == 2) {
+                        if ($model->ad_image_url != "") {
+                            chmod($model->ad_image_url, 0777);
+                            unlink($model->ad_image_url);
+                        }
+                        $model->ad_is_image = 0;
+                        $model->ad_image_url = "";
+                    } elseif ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
+                        $model->ad_image_url = $model->ad_image_url;
                     }
-
+                    
+                    $model->ad_token = md5('adId-' . $model->ad_id);
                     $model->save(false);
                     $this->msgHandler(200, "Successfully Saved...");
                 }

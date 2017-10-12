@@ -37,14 +37,14 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
-            <div class="col s12 m4">
-                <div class="input-field">
-                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>
-                    <select class="type" name="designations" id="designations">
-                    </select>
-                    <label>Designation</label>
-                </div>
-            </div>
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+            <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>
+                                <select class="type" name="designations" id="designations">
+                                </select>
+                                <label>Designation</label>
+                            </div>
+                        </div>-->
         </div>
 
         <div class="row">
@@ -105,7 +105,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <div class="col s12 m4">
                         <div class="input-field">
                             <input id="title" name="title" type="text" class="designation"
-                                   value="<?php //echo $model->ad_title;    ?>">
+                                   value="<?php //echo $model->ad_title;       ?>">
                             <label>Advertisement title</label>
                         </div>
                     </div>-->
@@ -113,7 +113,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
         <!--            <div class="col s12 m4">
                         <div class="input-field">
                             <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation"
-                                   checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";       ?>"/>
+                                   checked="<?php // echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";          ?>"/>
                             <label for="isDesigAsTitle">Use designation as title</label>
                         </div>
                     </div>-->
@@ -173,7 +173,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                                value="<?php echo $image; ?>">
                     </div>
                 </div>
-                <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;      ?>">Download Advertisement</a>-->
+                <!--<a href="<?php // echo Yii::app()->baseUrl . '/' . $model->ad_image_url;         ?>">Download Advertisement</a>-->
             </div>
         </div>
 
@@ -223,7 +223,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     Message.success(responce.msg);
-                    document.getElementById("formAddAdvertisement").reset();
+                     window.location = '<?php echo Yii::app()->request->baseUrl; ?>/Admin/Employer/ViewEmployer';
                 }
             }
         });
@@ -242,6 +242,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
+                    addEmptyToAjaxDropDowns("subCategories", 'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                                 $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -255,41 +256,41 @@ if ($adId > 0) {
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                     }, 200);
 
-                    loadDesignations();
+//                    loadDesignations();
 
                 }
             }
         });
     }
 
-    function loadDesignations() {
-        $("#designations").empty();
-
-        var id = $('#ref_cat_id').val();
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
-            data: {id: id},
-            dataType: 'json',
-            success: function (responce) {
-                if (responce.code == 200) {
-                    var designations = responce.data.designationData;
-                    for (var i = 0, max = designations.length; i < max; i++) {
-                        $('#designations').append(
-                                $("<option>" + designations[i]['desig_name'] + "</option>")
-                                .attr("value", designations[i]['desig_id'])
-                                .text(designations[i]['desig_name'])
-                                );
-                    }
-
-                    setTimeout(function () {
-                        $('select').material_select();
-                        $("#designations > [value=" + '<?php echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
-                    }, 200);
-                }
-            }
-        });
-    }
+//    function loadDesignations() {
+//        $("#designations").empty();
+//
+//        var id = $('#ref_cat_id').val();
+//        $.ajax({
+//            type: 'POST',
+//            url: "<?php // echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat';    ?>",
+//            data: {id: id},
+//            dataType: 'json',
+//            success: function (responce) {
+//                if (responce.code == 200) {
+//                    var designations = responce.data.designationData;
+//                    for (var i = 0, max = designations.length; i < max; i++) {
+//                        $('#designations').append(
+//                                $("<option>" + designations[i]['desig_name'] + "</option>")
+//                                .attr("value", designations[i]['desig_id'])
+//                                .text(designations[i]['desig_name'])
+//                                );
+//                    }
+//
+//                    setTimeout(function () {
+//                        $('select').material_select();
+//                        $("#designations > [value=" + '<?php // echo $model->ref_designation_id;    ?>' + "]").attr("selected", "true");
+//                    }, 200);
+//                }
+//            }
+//        });
+//    }
 
     function loadCities() {
         $("#city").empty();
@@ -302,6 +303,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
+                    addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                                 $("<option>" + cities[i]['city_name'] + "</option>")
@@ -317,6 +319,15 @@ if ($adId > 0) {
                 }
             }
         });
+    }
+
+    function addEmptyToAjaxDropDowns(id, defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
+        $('#' + id).append(
+                $("<option>Select</option>")
+                .attr("value", 0)
+                .text("Select")
+                );
     }
 
     $('#clearAddAdvertisement').click(function (e) {

@@ -28,10 +28,28 @@ class EmailGenerator {
 
             // Mailer
             $message = Swift_Message::newInstance();
+//            $headers = $message->getHeaders();
+//            $headers->addTextHeader('X-MC-Track', 'opens, clicks_htmlonly');
+//            $headers->addTextHeader('X-MC-GoogleAnalytics', '4you.lk');
+
             $message->setTo($to);
             $message->setSubject($subject);
             $message->setFrom(array($emailconfig->smtp_user => $emailconfig->email_sender_name));
             $message->setBody($msg, 'text/html');
+
+
+//            $eol = "\n";
+//            $headers .= "MIME-Version: 1.0" . $eol;
+//            $headers .= "Content-type: text/plain; charset=utf-8" . $eol;
+//            $headers .= "Message-ID: <" . time() . "@www.4you.lk>" . $eol;
+//            $headers .= "Return-Path: <info@4you.lk>" . $eol;
+//            $headers .= "X-Sender: info@4you.lk" . $eol;
+//
+//            $headers .= "From: domain <info@4you.lk>" . $eol;
+//            $headers .= "Reply-To: domain <info@4you.lk>" . $eol;
+//
+//            $headers .= "X-Mailer: PHP " . phpversion();
+
 
             if ($attach != "") {
                 $message->attach(Swift_Attachment::fromPath($attach));
@@ -92,7 +110,7 @@ class EmailGenerator {
             '[name]' => $basicTemp->jsbt_fname,
 //            '[user_name]' => $basicTemp->jsbt_email,
 //            '[user_password]' => $pwd,
-        );        
+        );
         $new_msg = self::str_replace_assoc($replacearrBody, $msg);
 
         $replacearrFull = array(

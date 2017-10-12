@@ -10,8 +10,15 @@ class UserController extends Controller {
         $userId = Yii::app()->user->id;
         $user = User::model()->findByPk($userId);
         $userType = $user->user_type;
-
+    
         if ($userType == 1) {
+            if ($user->user_is_finished == 0) {
+                $jsData = JsBasic::model()->findByPk($user->ref_emp_or_js_id);
+                $jsTempData = JsBasicTemp::model()->findByPk($jsData->ref_jsbt_id);
+        
+                $this->redirect(array('JobSeeker/ViewJobSeekerRegistration', 'id' => $jsTempData->jsbt_encrypted_id));
+            }
+
             $model = JsBasic::model()->findByAttributes(array('js_id' => $user->ref_emp_or_js_id));
             $employment = JsEmploymentData::model()->findByAttributes(array('ref_js_id' => $model->js_id));
         }
@@ -29,15 +36,15 @@ class UserController extends Controller {
     public function actionPersonalInfoEdit() {
         $this->renderPartial('ajaxLoad/personalInformation_form');
     }
-    
-    public function actionCurrentPositionInfo() { 
+
+    public function actionCurrentPositionInfo() {
         $this->renderPartial('ajaxLoad/currentPositionInfo');
     }
-    
-    public function actionExpectedPositionInfo() { 
+
+    public function actionExpectedPositionInfo() {
         $this->renderPartial('ajaxLoad/expectedPositionInfo');
     }
-    
+
     //Popup
     public function actionImageCrop() {
         $this->renderPartial('ajaxLoad/popup/imageCrop');

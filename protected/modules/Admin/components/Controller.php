@@ -76,9 +76,10 @@ class Controller extends CController {
         $path = $targetDir . $year . "/$month";
         if (!file_exists($path)) {
             $oldmask = umask(0);
-            mkdir($path, 0777);
+            mkdir($path, 0777, true);
             umask($oldmask);
         }
+
 
         $fileName = $fileName . "." . $imageFileType;
         move_uploaded_file($fileData["EmpAdvertisement"]["tmp_name"]["AdverImage"], $path . '/' . $fileName);
@@ -167,7 +168,7 @@ class Controller extends CController {
             } else {
                 $str .= " AND ad.ad_expire_date >= '" . $currentDate . "' ";
             }
-        }
+        } 
         if (!empty($_REQUEST['searchAddText']) && $_REQUEST['searchAddText'] != 'undefined') {
             $str .= " AND  ( ad.ad_reference Like '%" . $_REQUEST['searchAddText'] . "%' OR emp.employer_name Like '%" . $_REQUEST['searchAddText'] . "%' OR ad.ad_title Like '%" . $_REQUEST['searchAddText'] . "%')";
         }

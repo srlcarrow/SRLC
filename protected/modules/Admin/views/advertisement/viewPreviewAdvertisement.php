@@ -21,30 +21,33 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
 ?>
 <div class="nav-bar-space"></div>
 
-<section class="main-block add-block">
-    <div class="container">
-        <div class="row">
 
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
                 <div class="row">
-                    <?php
-                    if ($adData->ad_is_image == 0) {
-                        ?>
-                        <div class="col-md-12 mb-25">
-                            <img src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $companyLogo; ?>" alt="">
-                        </div>
+                    <div class="col s9">
                         <?php
-                    }
-                    ?>
+                        if ($adData->ad_is_image == 0) {
+                            ?>
+                            <div class="row">
+                                <div class="col s12">
+                                    <img src="<?php echo Yii::app()->baseUrl ?>/uploads/company/logo/<?php echo $companyLogo; ?>" alt="">
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
 
-                    <div class="col-sm-12 col-md-8">
                         <div class="row">
+
                             <!-- Image -->
                             <?php
                             if ($adData->ad_is_image == 1) {
                                 ?>
-                                <div class="col-md-12">                                                           
-                                    <img class="img-responsive" src="<?php echo Yii::app()->baseUrl . "/" . $jobPostUrl; ?>" alt=""/>
+                                <div class="col s12">                                                           
+                                    <img class="responsive-img" src="<?php echo Yii::app()->baseUrl . "/" . $jobPostUrl; ?>" alt=""/>
                                 </div>
                                 <?php
                             }
@@ -53,42 +56,43 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
                             if ($adData->ad_is_image == 0) {
                                 ?>
                                 <!-- text -->
-                                <div class="col-md-12">
-                                    <h2 class="text-dark-blue mb-25"><?php echo $adData->ad_title; ?></h2>
+                                <div class="col s12">
+                                    <h2 class=""><?php echo $adData->ad_title; ?></h2>
 
                                     <?php echo $jobPostText; ?>
                                 </div>
                                 <?php
                             }
                             ?>
+
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-4">
-                        <div class="side-panel">
-                            <div class="side-panel-row">
-                                <h6 class="title">Type</h6>
-                                <h6 class="info"><?php echo $workType; ?></h6>
+                    <div class="col s3">
+                        <div class="row">
+                            <div class="col s12">
+                                <h6 class="f-12 grey-text text-darken-1">Type</h6>
+                                <h5 class="f-14 grey-text text-darken-3"><?php echo $workType; ?></h5>
                             </div>
 
-                            <div class="side-panel-row">
-                                <h6 class="title">Experience</h6>
-                                <h6 class="info"><?php echo $adData->ad_expected_experience . ' Year(s)'; ?></h6>
+                            <div class="col s12">
+                                <h6 class="f-12 grey-text text-darken-1">Experience</h6>
+                                <h65 class="f-14 grey-text text-darken-3"><?php echo $adData->ad_expected_experience . ' Year(s)'; ?></h5>
                             </div>
 
-                            <div class="side-panel-row">
-                                <h6 class="title">Address</h6>
-                                <h6 class="info"><?php echo $employerAddress; ?></h6>
+                            <div class="col s12">
+                                <h6 class="f-12 grey-text text-darken-1">Address</h6>
+                                <h5 class="f-14 grey-text text-darken-3"><?php echo $employerAddress; ?></h5>
                             </div>
 
-                            <div class="side-panel-row">
-                                <h6 class="title">Salary</h6>
-                                <h6 class="info"><?php echo $adData->ad_is_negotiable == 1 ? "Negotiable" : $adData->ad_salary; ?></h6>
+                            <div class="col s12">
+                                <h6 class="f-12 grey-text text-darken-1">Salary</h6>
+                                <h5 class="f-14 grey-text text-darken-3"><?php echo $adData->ad_is_negotiable == 1 ? "Negotiable" : $adData->ad_salary; ?></h5>
                             </div>
 
-                            <div class="side-panel-row">
-                                <button type="button" onclick="publish('<?php echo $id; ?>')" class="cm-btn large light-blue-4 up-case">Send</button>
-                                <button type="button" onclick="edit('<?php echo $id; ?>')" class="cm-btn large light-blue-4 up-case">Edit</button>
+                            <div class="col s12">
+                                <button type="button" onclick="publish('<?php echo $id; ?>')" class="btn waves-effect waves-light blue lighten-1">Publish</button>
+                                <!--<button type="button" onclick="edit('<?php // echo $id; ?>')" class="btn waves-effect waves-light red lighten-1">Edit</button>-->
                             </div>
                         </div>
                     </div>
@@ -96,25 +100,26 @@ $jobPostText = $adData->ad_is_image != 1 ? $adData->ad_text : "";
             </div>
         </div>
     </div>
-</section>
+</div>
+
+
 <?php $this->endWidget(); ?>
 
 <script>
-    function edit(id) {
-        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/CreateAdvertisement/id/'; ?>' + id;
-    }
+//    function edit(id) {
+//        window.location.href = '<?php // echo Yii::app()->baseUrl . '/Admin/Advertisement/EditAdvertisement/id/'; ?>' + id;
+//    }
 
     function publish(id) {
         $.ajax({
-            url: "<?php echo Yii::app()->baseUrl . '/Employer/PublishAdvertisement'; ?>",
+            url: "<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/PublishAdvertisement'; ?>",
             type: 'POST',
             data: {id: id},
             dataType: 'json',
             success: function (responce) {
-                if (responce.code == 200) {
-                    $('.message').Success(responce.msg);
+                if (responce.code == 200) {                
                     setTimeout(function () {
-                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Employer/ProfileDetails'; ?>';
+                        window.location.href = '<?php echo Yii::app()->baseUrl . '/Admin/Advertisement/ViewPendingAdvertisementsToPublish'; ?>';
                     }, 800)
 
                 } else {

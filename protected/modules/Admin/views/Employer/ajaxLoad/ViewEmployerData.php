@@ -7,14 +7,14 @@ foreach ($employers as $employer) {
                 <div class="row mb-0 expand-card-head">
                     <div class="col s11">
                         <div class="row mb-0">
-                            <div class="col s4">
+                            <div class="col s6">
                                 <h6 class="grey-text text-darken-1 "><?php echo $employer->employer_name; ?></h6>
                             </div>
                             <div class="col s3">
                                 <h6 class="grey-text text-darken-1"><?php echo $employer->employer_reference_no; ?></h6>
                             </div>
                             <div class="col s3">
-                                <button id="<?php echo $employer->employer_id; ?>" onclick="publishAdvertisement(this.id)" class="border-r-0 btn waves-effect waves-light deep-orange" type="button">Publish Advertisement</button>                                
+                                <button id="<?php echo $employer->employer_id; ?>" onclick="publishAdvertisement(this.id)" class="border-r-0 btn waves-effect waves-light" type="button">Create Advertisement</button>                                
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,6 @@ class JobSeekerController extends Controller {
             $key = $id;
             $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $key));
             if (count($jsBasicTempData) > 0) {
-
                 if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
                     $this->render('/Error/index', array('error' => "Already Verified Your Account"));
                 } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
@@ -23,24 +22,32 @@ class JobSeekerController extends Controller {
         }
     }
 
-    public function actionVIewJobSeekerRegistration($id) {
-        $this->render('jobSeekerRegistration', array('accessId' => $id));
+    public function actionViewJobSeekerRegistration($id) {
+        if ($id == "") {
+            $this->render('/Error/index', array('error' => "Invalid URL"));
+        } else {
+            $this->render('/JobSeeker/jobSeekerRegistration', array('accessId' => $id));
+        }
     }
 
     public function actionFormStepOne() {
         $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
         $jsTempId = $jsBasicTempData->jsbt_id;
+        $userId = $jsTempId;
 
         $jsBasicId = 0;
         $status = 0;
         if ($jsTempId > 0) {
             $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
             if ($jsBasicTempData->jsbt_type == 1) {
-                if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
-                    $jsBasicTempData->jsbt_is_verified = 1;
+                if ($jsBasicTempData->save(false)) {
+                    $jsBasic = new JsBasic();
+                    $jsData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
 
-                    if ($jsBasicTempData->save(false)) {
-                        $jsBasic = new JsBasic();
+                    if (count($jsData) > 0) {
+                        $jsBasic = $jsData;
+                        $userId = $jsData->js_id;
+                    } else {
                         $jsBasic->ref_jsbt_id = $jsBasicTempData->jsbt_id;
                         $jsBasic->js_fname = $jsBasicTempData->jsbt_fname;
                         $jsBasic->js_lname = $jsBasicTempData->jsbt_lname;
@@ -56,34 +63,38 @@ class JobSeekerController extends Controller {
                         $jsBasic->js_created_time = date('Y-m-d H:i:s');
                         $jsBasic->js_updated_time = date('Y-m-d H:i:s');
                         $jsBasic->js_cv_path = '';
-
-                        if ($jsBasic->save(false)) {
-                            $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsBasicTempData->jsbt_id));
-                            $user->ref_emp_or_js_id = $jsBasic->js_id;
-                            $user->user_is_verified = 1;
-                            $user->save(false);
-                            $status = 1; // Verified But Not Finished
-                        }
                     }
-                } else {
-                    echo "Invalid URL";
+
+                    if ($jsBasic->save(false)) {
+                        $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $userId, 'user_type' => 1));
+                        $user->ref_emp_or_js_id = $jsBasic->js_id;
+                        $user->user_is_verified = 1;
+                        $user->save(false);
+                        $status = 1; // Verified But Not Finished
+                    }
                 }
             }
         }
 
         $jsBasicData = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsTempId));
+
         $jsProfQualifications = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 1));
         $jsMemberships = JsQualifications::model()->findAllByAttributes(array('ref_js_id' => $jsBasicData->js_id, 'jsquali_type' => 2));
 
-        $this->renderPartial('ajaxLoad/form_step1', array('jsBasicData' => $jsBasicData, 'jsProfQualifications' => $jsProfQualifications, 'jsMemberships' => $jsMemberships, 'accessId' => $_POST['accessId']));
+//        $jsProfQualifications = count($jsProfQualifications) > 0 ? $jsProfQualifications : new JsQualifications();
+//        $jsMemberships = count($jsMemberships) > 0 ? $jsMemberships : new JsQualifications();
+
+        $this->renderPartial('/JobSeeker/ajaxLoad/form_step1', array('jsBasicData' => $jsBasicData, 'jsProfQualifications' => $jsProfQualifications, 'jsMemberships' => $jsMemberships, 'accessId' => $_POST['accessId']));
     }
 
     public function actionSaveStepOne() {
-//        try {
+//        try {            
         $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $_POST['accessId']));
+
         $jsbtId = $jsBasicTempData->jsbt_id;
 
         $model = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsbtId));
+
         $model->js_address = $_POST['address'];
         $model->js_contact_no2 = $_POST['contactNo'];
         $model->js_gender = 1;
@@ -173,7 +184,7 @@ class JobSeekerController extends Controller {
             $jsEmploymentData = new JsEmploymentData();
         }
 
-        $this->renderPartial('ajaxLoad/form_step2', array('categories' => $categories, 'accessId' => $accessId, 'jsEmploymentData' => $jsEmploymentData));
+        $this->renderPartial('/JobSeeker/ajaxLoad/form_step2', array('categories' => $categories, 'accessId' => $accessId, 'jsEmploymentData' => $jsEmploymentData));
     }
 
     public function actionGetSubCategories() {
@@ -194,7 +205,7 @@ class JobSeekerController extends Controller {
     public function actionFormStepThree() {
         $accessId = $_POST['accessId'];
         $workTypes = AdmWorkType::model()->findAll();
-        $this->renderPartial('ajaxLoad/form_step3', array('workTypes' => $workTypes, 'accessId' => $accessId));
+        $this->renderPartial('/JobSeeker/ajaxLoad/form_step3', array('workTypes' => $workTypes, 'accessId' => $accessId));
     }
 
     public function actionSaveStepTwo() {
@@ -232,6 +243,19 @@ class JobSeekerController extends Controller {
         } catch (Exception $ex) {
             $this->msgHandler(400, $ex->getTraceAsString());
         }
+    }
+
+    public function actionIsFormsFillingFinished() {
+        $status = 0;
+        $accessId = $_POST['accessId'];
+        $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $accessId));
+        $jsBasic = JsBasic::model()->findByAttributes(array('ref_jsbt_id' => $jsBasicTempData->jsbt_id));
+
+        if ($jsBasic->js_step1_is_finished == 1 && $jsBasic->js_step2_is_finished == 1) {
+            $status = 1;
+        }
+
+        $this->msgHandler(200, "Successfully Saved...", array('status' => $status));
     }
 
     public function actionSaveStepThree() {
@@ -282,13 +306,20 @@ class JobSeekerController extends Controller {
             $model->jsemp_create_time = date('Y-m-d H:i:s');
             $model->jsemp_updated_time = date('Y-m-d H:i:s');
             if ($model->save(false)) {
-                $jsBasic = JsBasic::model()->findByPk($jsId);
                 $cvName = Controller::getJobSeekerReferenceNo($jsId);
                 $target_dir = "uploads/CV/Registered/";
                 $path = $this->UploadCV($_FILES, $target_dir, $cvName);
+
+                $jsBasic = JsBasic::model()->findByPk($jsId);
+                $jsBasic->js_cv_path = $path;
                 $jsBasicTempData = JsBasicTemp::model()->findByPk($jsBasic->ref_jsbt_id);
                 $jsBasicTempData->jsbt_is_finished = 1;
                 $jsBasicTempData->save(false);
+
+                $user = User::model()->findByAttributes(array('ref_emp_or_js_id' => $jsId, 'user_type' => 1));
+                $user->user_is_finished = 1;
+                $user->save(false);
+
                 $this->msgHandler(200, "Successfully Saved...");
             }
         } catch (Exception $ex) {
