@@ -23,6 +23,7 @@
 
     </div>
 </div>
+
 <?php
 $form = $this->beginWidget('CActiveForm', array('id' => 'searchAdvertisement'));
 ?>
