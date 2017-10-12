@@ -34,6 +34,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
+<<<<<<< HEAD
             <!--            <div class="col s12 m4">
                             <div class="input-field">
             <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));   ?>           
@@ -42,12 +43,22 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                                 <label>Designation</label>
                             </div>
                         </div>-->
+=======
+<!--            <div class="col s12 m4">
+                <div class="input-field">
+                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));   ?>           
+                    <select class="type" name="designations" id="designations">
+                    </select>
+                    <label>Designation</label>
+                </div>
+            </div>-->
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
         </div>
 
         <div class="row">
             <div class="col s12 m4">  
                 <div class="input-field">
-                    <input id="experience" name="experience" type="text" class="salary-input" value="<?php echo $model->ad_expected_experience ?>" required>
+                    <input id="experience" name="experience" type="text" class="salary-input" value="<?php echo $model->ad_expected_experience  ?>" required>
                     <label>Expected Experience (Yrs)</label>
                 </div>
             </div>
@@ -108,7 +119,11 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <!--            <div class="col s12 m4">
                             <div class="input-field">
+<<<<<<< HEAD
                                 <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";          ?>"/>
+=======
+                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";   ?>"/>
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
                                 <label for="isDesigAsTitle">Use designation as title</label>
                             </div>
                         </div>-->

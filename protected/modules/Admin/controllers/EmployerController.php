@@ -110,6 +110,7 @@ class EmployerController extends Controller {
             $status = 1;
             $reason = "";
             if ($_POST['group1'] == 1) {
+<<<<<<< HEAD
                 if ($_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
                     $status = 1;
                     $reason = "";
@@ -123,6 +124,13 @@ class EmployerController extends Controller {
                     $status = $validateData["status"];
                     $reason = $validateData["reason"];
                 }
+=======
+                $target_dir = "uploads/jobAdvertisements/";
+                $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
+                $validateData = Controller::validateImage($_FILES, $target_dir);
+                $status = $validateData["status"];
+                $reason = $validateData["reason"];
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
             }
 
             if ($status == 1) {

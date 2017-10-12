@@ -191,19 +191,26 @@
         $('select').material_select();
     });
 
-    $('.btnUpload').on('click', function () {
-        $('#modal1').modal('open', {
-            ready: function (modal, trigger) {
-                $.ajax({
-                    type: 'GET',
-                    url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LogoUploadPopup'; ?>",
-                    success: function (responce) {
-                        $(modal).html(responce);
+    (function ($) {
+        $(function () {
+            $('.btnUpload').on('click', function () {
+                $('#modal1').modal('open', {
+                    ready: function (modal, trigger) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "<?php echo Yii::app()->baseUrl . '/Admin/Employer/LogoUploadPopup'; ?>",
+                            success: function (responce) {
+                                $(modal).html(responce);
+                            }
+                        });
+                    },
+                    complete: function() {
+                        $('#modal1').html('')
                     }
                 });
-            }
-        });
-    });
+            });
+        })
+    }(jQuery));
 
     function loadCities() {
         $("#city").empty();

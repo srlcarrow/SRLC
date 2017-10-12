@@ -37,6 +37,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
+<<<<<<< HEAD
             <!--            <div class="col s12 m4">
                             <div class="input-field">
             <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>
@@ -45,6 +46,16 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                                 <label>Designation</label>
                             </div>
                         </div>-->
+=======
+<!--            <div class="col s12 m4">
+                <div class="input-field">
+                    <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));  ?>
+                    <select class="type" name="designations" id="designations">
+                    </select>
+                    <label>Designation</label>
+                </div>
+            </div>-->
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
         </div>
 
         <div class="row">
@@ -269,7 +280,11 @@ if ($adId > 0) {
 //        var id = $('#ref_cat_id').val();
 //        $.ajax({
 //            type: 'POST',
+<<<<<<< HEAD
 //            url: "<?php // echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat';    ?>",
+=======
+//            url: "<?php // echo Yii::app()->baseUrl . '/JobSeeker/GetDesignationsByCat'; ?>",
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
 //            data: {id: id},
 //            dataType: 'json',
 //            success: function (responce) {
@@ -285,7 +300,11 @@ if ($adId > 0) {
 //
 //                    setTimeout(function () {
 //                        $('select').material_select();
+<<<<<<< HEAD
 //                        $("#designations > [value=" + '<?php // echo $model->ref_designation_id;    ?>' + "]").attr("selected", "true");
+=======
+//                        $("#designations > [value=" + '<?php // echo $model->ref_designation_id; ?>' + "]").attr("selected", "true");
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
 //                    }, 200);
 //                }
 //            }
