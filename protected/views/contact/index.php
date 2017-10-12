@@ -45,9 +45,5 @@
     </div>
 </section>
 
-<script>
-    Input.init();
-</script>
-
 
 
