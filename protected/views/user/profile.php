@@ -75,8 +75,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <li class="active"><a href="#tab1">Personal Information</a></li>
                                     <li><a href="#tab2">Current position</a></li>
                                     <li><a href="#tab3">Expected Position</a></li>
-                                    <li><a href="#tab4">Password</a></li>
-                                    <li><a href="#tab5">Job Apply History</a></li>
+                                    <li><a href="">Password</a></li>
+                                    <li><a href="">Job Apply History</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-9">
