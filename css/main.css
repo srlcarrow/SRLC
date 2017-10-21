@@ -267,6 +267,12 @@ h1, h2, h3, h4, h5, h6, p, a, div, label {
     left: 0;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.56); }
+  .input-wrapper .side-label {
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    bottom: 2px;
+    color: rgba(0, 0, 0, 0.3); }
 
 /*-------------------------------------
    Radio And Checkbox
@@ -2229,6 +2235,7 @@ input[type="checkbox"] {
   .status.invalid {
     background: url("../images/system/icon/site/16/ic_16_reject-cross.png") no-repeat; }
 
+input.cm-btn,
 button.cm-btn,
 a.cm-btn {
   color: #fff;
@@ -2243,36 +2250,45 @@ a.cm-btn {
   margin-left: 0;
   background: #bfbfc5;
   text-transform: uppercase; }
+  input.cm-btn.right,
   button.cm-btn.right,
   a.cm-btn.right {
     float: right;
     margin-right: 0;
     margin-left: 5px; }
+  input.cm-btn:hover,
   button.cm-btn:hover,
   a.cm-btn:hover {
     background: rgba(191, 191, 197, 0.86); }
+  input.cm-btn.large,
   button.cm-btn.large,
   a.cm-btn.large {
     padding: 10px 40px;
     color: #000;
     font-size: 16px; }
+  input.cm-btn.light-blue-4,
   button.cm-btn.light-blue-4,
   a.cm-btn.light-blue-4 {
     color: #000;
     background: #fbab18; }
+    input.cm-btn.light-blue-4:hover,
     button.cm-btn.light-blue-4:hover,
     a.cm-btn.light-blue-4:hover {
       background: rgba(251, 171, 24, 0.86); }
+  input.cm-btn.light-blue,
   button.cm-btn.light-blue,
   a.cm-btn.light-blue {
     color: #fff;
     background: #445a64; }
+    input.cm-btn.light-blue:hover,
     button.cm-btn.light-blue:hover,
     a.cm-btn.light-blue:hover {
       background: rgba(68, 90, 100, 0.86); }
+  input.cm-btn.up-case,
   button.cm-btn.up-case,
   a.cm-btn.up-case {
     text-transform: uppercase; }
+  input.cm-btn:disabled,
   button.cm-btn:disabled,
   a.cm-btn:disabled {
     pointer-events: none;

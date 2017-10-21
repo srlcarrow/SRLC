@@ -34,8 +34,7 @@
 
     <!--JS | Jquery Lib-->
     <script src="<?php echo Yii::app()->baseUrl . '/js/lib/jquery-3.2.1.min.js'; ?>"></script>
-    <!--JS | Admin Validation-->
-    <script src="<?php echo Yii::app()->baseUrl . '/js/validate/jquery.validate.js'; ?>"></script>
+
 
     <title>4You</title>
 </head>
@@ -63,6 +62,9 @@
 <!--========================================================
                      Javascript
  =========================================================-->
+<!--JS | Admin Validation-->
+<script src="<?php echo Yii::app()->baseUrl . '/js/validate/jquery.validate.js'; ?>"></script>
+
 <!--JS | Common js-->
 <script src="<?php echo Yii::app()->baseUrl . '/js/custom/common.js'; ?>"></script>
 <!--JS | Common Server js-->

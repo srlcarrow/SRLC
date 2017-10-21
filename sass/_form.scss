@@ -175,6 +175,14 @@ $animation-none: all 0 cubic-bezier(.64, .1, .27, 1.44);
     }
   }
 
+  .side-label {
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    bottom: 2px;
+    color: rgba($black, 0.30);
+  }
+
 }
 
 /*-------------------------------------

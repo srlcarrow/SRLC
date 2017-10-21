@@ -96,6 +96,8 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
         if (!$form.valid())
             return;
 
+        Animation.load('body');
+
         //disabled Submit button
         $('.formBtn').Button({disabled: true});
 
@@ -109,6 +111,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formVerify',
                     if (responce.code == 200) {
                         $('.message').Success(responce.msg);
                         setTimeout(function () {
+                            Animation.hide();
                             var url = '<?php echo Yii::app()->baseUrl; ?>' + responce.data.url + '/id/' + '<?php echo $accessId; ?> ';
                             window.location.href = url;
                         }, 800)

@@ -676,43 +676,52 @@ $.fn.Button = function (options) {
 
 };
 
-(function () {
-    var $inputFile = $('input[type="file"]');
+var fileUploader = (function () {
 
-    $inputFile.on('change', function () {
-        fileLoad($(this));
-    });
+    load();
 
-    $inputFile.each(function () {
-        fileLoad($(this));
-    });
+    function load() {
+        var $inputFile = $('input[type="file"]');
 
-    //............................................
+        $inputFile.on('change', function () {
+            fileLoad($(this));
+        });
 
-    function fileLoad($this) {
-        var defaultObj = $this.get(0);
+        $inputFile.each(function () {
+            fileLoad($(this));
+        });
 
-        if (!defaultObj.files[0])
-            return;
+        //............................................
 
-        var fileName = defaultObj.files[0].name,
-            parentDiv = $this.parent();
+        function fileLoad($this) {
+            var defaultObj = $this.get(0);
 
-        if (parentDiv.hasClass('file-uploader')) {
-            var span = $('<span class="fileName"></span>');
-            var spanClose = $('<span class="btn-close"></span>');
-            span.attr('title', fileName);
+            if (!defaultObj.files[0])
+                return;
 
-            if (parentDiv.find('.fileName').length === 1) {
-                parentDiv.find('.fileName').remove();
-                parentDiv.append(span.text(fileName));
-            } else {
-                parentDiv.append(span.text(fileName));
+            var fileName = defaultObj.files[0].name,
+                parentDiv = $this.parent();
+
+            if (parentDiv.hasClass('file-uploader')) {
+                var span = $('<span class="fileName"></span>');
+                var spanClose = $('<span class="btn-close"></span>');
+                span.attr('title', fileName);
+
+                if (parentDiv.find('.fileName').length === 1) {
+                    parentDiv.find('.fileName').remove();
+                    parentDiv.append(span.text(fileName));
+                } else {
+                    parentDiv.append(span.text(fileName));
+                }
+
+                // span.append(spanClose);
+
             }
-
-            // span.append(spanClose);
-
         }
+    }
+
+    return {
+        load:load
     }
 
 }());

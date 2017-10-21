@@ -24,21 +24,21 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
 
                 <div class="col-sm-12 search-area search-box">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 job-drop-down show-category">
+                        <div class="col-md-4 col-sm-6 hidden-xs job-drop-down show-category">
                             <div class="selected-item">
                                 <span>Job Category</span>
                                 <i class="icon icon-20 icon-arrow-down right"></i>
                             </div>
                             <div class="list"></div>
                         </div>
-                        <div class="col-md-8 col-sm-6 job-input">
+                        <div class="col-md-8 col-sm-6 col-xs-12 job-input">
                             <input id="searchText" name="searchText" type="text"
                                    placeholder="Type Job Title, Keyword or Company Name">
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-12 col-xs-12 filters">
+                <div class="col-md-12 hidden-xs filters">
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <h4 class="subCategory ">Sub Category</h4>
