@@ -37,7 +37,7 @@
     <div class="col s12">
         <div class="site-pagination">
             <?php
-            Paginations::setLimit(2);
+            Paginations::setLimit($limit);
             Paginations::setPage($currentPage);
             Paginations::setJSCallback("loadPendingAdsToPubData");
             Paginations::setTotalPages($pageCount);

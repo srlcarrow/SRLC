@@ -279,13 +279,44 @@ class Controller extends CController {
         $path = $targetDir . $year . "/$month";
         if (!file_exists($path)) {
             $oldmask = umask(0);
-            mkdir($path, 0777);
+            mkdir($path, 0777, true);
             umask($oldmask);
         }
 
         $fileName = $fileName . "." . $imageFileType;
         move_uploaded_file($fileData["EmpAdvertisement"]["tmp_name"]["AdverImage"], $path . '/' . $fileName);
         return $path . '/' . $fileName;
+    }
+
+    public static function validateCV($fileData, $targetDir) {
+        $targetFile = $targetDir . basename($fileData["JsBasic"]["name"]['cv']);
+        $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
+
+        $status = 1;
+        $reason = "";
+
+        // Check file size
+        if ($fileData["JsBasic"]["size"]["cv"] > 6145728) {
+            $status = 0;
+            $reason = "File is too Large";
+        }
+
+        // Check if file already exists
+        if (file_exists($targetFile)) {
+            $status = 0;
+            $reason = "Sorry, file already exists.";
+        }
+
+        // Check if file type
+        if ($imageFileType != "docx" && $imageFileType != "doc" && $imageFileType != "pdf") {
+            $status = 0;
+            $reason = "Sorry, only doc, docx, pdf files are allowed.";
+        }
+
+        $arr["status"] = $status;
+        $arr["reason"] = $reason;
+
+        return $arr;
     }
 
     public static function UploadCV($fileData, $targetDir, $fileName) {
@@ -297,12 +328,15 @@ class Controller extends CController {
 
         $path = $targetDir;
         if (!file_exists($path)) {
-            mkdir($path, 0, true);
+            $oldmask = umask(0);
+            mkdir($path, 0777);
+            umask($oldmask);
         }
-
+//  var_dump($path);exit;
         $fileName = $fileName . "." . $imageFileType;
-        move_uploaded_file($fileData["JsBasic"]["tmp_name"]["cv"], $path . '/' . $fileName);
-        return $path . '/' . $fileName;
+
+        move_uploaded_file($fileData["JsBasic"]["tmp_name"]["cv"], $path . $fileName);
+        return $path . $fileName;
     }
 
 }

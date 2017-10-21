@@ -34,6 +34,16 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Sub Category</label>
                 </div>
             </div>
+<<<<<<< HEAD
+            <!--            <div class="col s12 m4">
+                            <div class="input-field">
+            <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));   ?>           
+                                <select class="type" name="designations" id="designations">
+                                </select>
+                                <label>Designation</label>
+                            </div>
+                        </div>-->
+=======
 <!--            <div class="col s12 m4">
                 <div class="input-field">
                     <?php // echo Chtml::dropDownList('ref_designation_id', "", CHtml::listData(AdmDesignation::model()->findAll(), 'desig_id', 'desig_name'), array('empty' => 'Select Designation'));   ?>           
@@ -42,6 +52,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
                     <label>Designation</label>
                 </div>
             </div>-->
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
         </div>
 
         <div class="row">
@@ -108,7 +119,11 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <!--            <div class="col s12 m4">
                             <div class="input-field">
+<<<<<<< HEAD
+                                <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";          ?>"/>
+=======
                                 <input id="isDesigAsTitle" name="isDesigAsTitle" class="filled-in" type="checkbox" id="designation" checked="<?php //echo $model->ad_is_use_desig_as_title == 1 ? "on" : "";   ?>"/>
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
                                 <label for="isDesigAsTitle">Use designation as title</label>
                             </div>
                         </div>-->
@@ -125,14 +140,14 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
             <div class="col m6">
                 <p>
                     <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="uploader"
-                           value="1" checked="<?php echo $model->ad_is_image == 1 ? "checked" : ""; ?>"/>
+                           value="1" <?php echo $model->ad_is_image == 1 ? "checked=checked" : ""; ?>/>
                     <label for="uploader">Upload Image</label>
                 </p>
             </div>
             <div class="col m6">
                 <p>
                     <input class="with-gap uploaderOrEditor" name="group1" type="radio" id="text-editor"
-                           value="2"/>
+                           value="2" <?php echo $model->ad_is_image == 0 ? "checked=checked" : ""; ?>/>
                     <label for="text-editor">User Text Editor</label>
                 </p>
             </div>
@@ -172,7 +187,7 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formAddAdvertisement',
 
             <div class="col s12 editor hide-block">
                 <div class="input-field col s12">
-                    <textarea id="textarea1" name="advertisementText" class="materialize-textarea"></textarea>
+                    <textarea id="textarea1" name="advertisementText" class="materialize-textarea"><?php echo $model->ad_text; ?></textarea>
                     <label for="textarea1">Textarea</label>
                 </div>
             </div>
@@ -215,7 +230,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     Message.success(responce.msg);
-                    document.getElementById("formAddAdvertisement").reset();
+                    window.location = '<?php echo Yii::app()->request->baseUrl; ?>/Admin/Advertisement/Index';
                 } else {
                     Message.success(responce.msg);
                 }
@@ -236,6 +251,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var subCats = responce.data.subCategoryData;
+                    addEmptyToAjaxDropDowns("subCategories", 'Sub Categories');
                     for (var i = 0, max = subCats.length; i < max; i++) {
                         $('#subCategories').append(
                                 $("<option>" + subCats[i]['scat_name'] + "</option>")
@@ -268,6 +284,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var designations = responce.data.designationData;
+                    addEmptyToAjaxDropDowns('designations', 'Designation');
                     for (var i = 0, max = designations.length; i < max; i++) {
                         $('#designations').append(
                                 $("<option>" + designations[i]['desig_name'] + "</option>")
@@ -296,6 +313,7 @@ if ($adId > 0) {
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
+                    addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                                 $("<option>" + cities[i]['city_name'] + "</option>")
@@ -373,6 +391,15 @@ if ($adId > 0) {
             $('.designation').prop('disabled', false);
         }
     });
+
+    function addEmptyToAjaxDropDowns(id, defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
+        $('#' + id).append(
+                $("<option>Select</option>")
+                .attr("value", 0)
+                .text("Select")
+                );
+    }
 </script>
 
 <!-- Include external JS libs. -->

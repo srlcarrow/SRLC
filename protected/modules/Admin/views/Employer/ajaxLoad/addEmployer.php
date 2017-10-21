@@ -79,14 +79,14 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comEmail" type="email" autocomplete="off" required>
+                                    <input name="comEmail" id="email" type="email" autocomplete="off" required>
                                     <label>Email</label>
                                 </div>
                             </div>
 
                             <div class="col s6">
                                 <div class="input-field">
-                                    <input name="comConPerson" autocomplete="off" type="text">
+                                    <input name="comConPerson" autocomplete="off" type="text" required>
                                     <label>Contact Person</label>
                                 </div>
                             </div>
@@ -96,6 +96,9 @@
                 </div>
 
 
+            </div>
+            <div class="col-md-12">
+                <div class="cm-message message"></div>
             </div>
             <div class="card-action right-align">
                 <button id="closeAddEmployer" type="button"
@@ -113,9 +116,47 @@
 <!--</div>-->
 
 <script>
+    function isValidEmail(emailField) {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (!reg.test(emailField)) {
+            return false;
+        }
+        return true;
+    }
+
+    function checkEmail(emailField, callback) {
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo Yii::app()->baseUrl . '/Registration/IsExistingEmail'; ?>",
+            data: {email: emailField},
+            dataType: 'json',
+            success: function (responce) {
+                //console.log(emailField, ' -- ', responce)
+                if (responce.code == 200) {
+                    callback(responce.data.isExistingEmail);
+                }
+            }
+        });
+    }
+
     $("#formAddEmployer").validate({
         submitHandler: function () {
-            saveEmployer();
+
+            var emailAdd = $("#email").val();
+            var stat = isValidEmail(emailAdd);
+
+            if (stat) {
+                checkEmail(emailAdd, function (valid) {
+                    console.log('is Valid ', valid)
+                    if (!valid) {
+                        saveEmployer();
+                    } else {
+                        $('.message').Error('This email already taken');
+                    }
+                });
+            } else {
+                $('.message').Error('Invalid Email Address');
+            }
         }
     });
 
@@ -142,7 +183,7 @@
         $("#formAddEmployer")[0].reset();
         $('.company-form').slideUp('fast', function () {
             $('.search-area,.company-cards').slideDown('slow');
-            loadEmployerData();
+            window.location = '<?php echo Yii::app()->request->baseUrl; ?>/Admin/Employer/ViewEmployer';
         })
     });
 
@@ -182,6 +223,7 @@
             success: function (responce) {
                 if (responce.code == 200) {
                     var cities = responce.data.cityData;
+                    addEmptyToAjaxDropDowns('city', 'City');
                     for (var i = 0, max = cities.length; i < max; i++) {
                         $('#city').append(
                                 $("<option>" + cities[i]['city_name'] + "</option>")
@@ -192,10 +234,20 @@
 
                     setTimeout(function () {
                         $('select').material_select();
+                        $("#city > [value=" + '<?php echo $model->ref_city_id; ?>' + "]").attr("selected", "true");
                     }, 200)
                 }
             }
         });
+    }
+
+    function addEmptyToAjaxDropDowns(id, defaultText) {
+        var text = defaultText != undefined ? defaultText : "Select";
+        $('#' + id).append(
+                $("<option>Select</option>")
+                .attr("value", 0)
+                .text("Select")
+                );
     }
 
 

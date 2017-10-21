@@ -460,27 +460,44 @@ $form = $this->beginWidget('CActiveForm', array('id' => 'formStepThree',
         var skills = getItems('.skills-item .item');
         var workType = workTypes();
 
-        alert(workType.toString());
-
         var formData = new FormData(this);
         formData.append('city', city.toString());
         formData.append('skills', skills.toString());
         formData.append('accessId', '<?php echo $accessId; ?>');
 
+//        var status = getFormFinishedStatus();
+//        if (status == 1) {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (responce) {
+                    if (responce.code == 200) {
+                        window.location = http_path + 'Site/Index';
+                    }
+                }
+            });
+//        } else {
+//            alert("Please Complete the skipped Steps to finish.");
+//        }
+    });
+
+    function getFormFinishedStatus() {
         $.ajax({
             type: 'POST',
-            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/SaveStepThree'; ?>",
-            data: formData,
+            url: "<?php echo Yii::app()->baseUrl . '/JobSeeker/IsFormsFillingFinished'; ?>",
+            data: {accessId: '<?php echo $accessId; ?>'},
             dataType: 'json',
-            processData: false,
-            contentType: false,
             success: function (responce) {
                 if (responce.code == 200) {
-                    window.location = http_path + 'Site/Index';
+                    return responce.data.status;
                 }
             }
         });
-    });
+    }
 
     function skip() {
 

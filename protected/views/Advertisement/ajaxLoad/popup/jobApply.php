@@ -24,13 +24,13 @@ $model = new EmpAdvertisement();
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="input-wrapper">
-                                    <input id="fname" name="fname" type="text">
+                                    <input id="fname" name="fname" type="text" required>
                                     <div class="float-text">First Name</div>
                                 </div>
 
 
                                 <div class="input-wrapper">
-                                    <input id="email" name="email" type="text">
+                                    <input id="email" name="email" type="text" required>
                                     <div class="float-text">Email</div>
                                 </div>
                             </div>
@@ -147,14 +147,26 @@ $model = new EmpAdvertisement();
     });
 
     $('#frmApplyJob').submit(function (e) {
+        e.preventDefault();
+        var $form = $(this);
+
+        if (!$form.valid())
+            return;
+
         $.ajax({
             url: "<?php echo Yii::app()->baseUrl . '/Advertisement/ApplyVacancy'; ?>",
             type: 'POST',
             data: new FormData(this),
+            dataType: 'json',
             processData: false,
-            contentType: false
+            contentType: false,
+            success: function (responce) {
+                if (responce.code == 200) {
+                    alert('close the popup');
+                }
+            }
         });
-        e.preventDefault();
+
     });
 
 

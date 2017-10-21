@@ -4,19 +4,19 @@
         <h3 class="text-black mb-50 text-center">Create Account</h3>
 
         <div class="row">
-<!--            <div class="col-md-6">-->
-<!--                <input class="radio-group" data-show="job_seeker" id="job_seeker" checked="checked" name="group1"-->
-<!--                       type="radio">-->
-<!--                <label for="job_seeker">Job Seeker</label>-->
-<!--            </div>-->
-            <div class="col-md-6" style="opacity:0; height: 0;">
-                <input checked="checked" class="radio-group " data-show="employer" id="employer" name="group1" type="radio">
+            <div class="col-md-6">
+                <input class="radio-group" data-show="job_seeker" id="job_seeker" checked="checked" name="group1"
+                       type="radio">
+                <label for="job_seeker">Job Seeker</label>
+            </div>
+            <div class="col-md-6">
+                <input  class="radio-group " data-show="employer" id="employer" name="group1" type="radio">
                 <label for="employer">Employer</label>
             </div>
 
-            <div class="col-md-12">
+<!--            <div class="col-md-12">
                 <h5 class="text-black text-light-2 text-uppercase" style="color: #fbab18;">Register as an Employer</h5>
-            </div>
+            </div>-->
 
             <div class="col-md-12 mt-10 hide-show job_seeker">
                 <div class="input-wrapper">

@@ -26,9 +26,7 @@ class EmployerController extends Controller {
     public function actionViewEmployerRegistration($id) {
         $jsBasicTempData = JsBasicTemp::model()->findByAttributes(array('jsbt_encrypted_id' => $id));
         if (count($jsBasicTempData) > 0) {
-            if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
-                $this->render('/Error/index', array('error' => "Already Verified Your Account"));
-            } elseif ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
+            if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 1) {
                 $this->render('/Error/index', array('error' => "Expired URL"));
             } else {
                 $this->render('/Employer/viewEmployerRegistration', array('accessId' => $id));
@@ -50,7 +48,7 @@ class EmployerController extends Controller {
         if ($jsTempId > 0) {
             $jsBasicTempData = JsBasicTemp::model()->findByPk($jsTempId);
             if ($jsBasicTempData->jsbt_type == 2) {
-                if ($jsBasicTempData->jsbt_is_verified == 0 && $jsBasicTempData->jsbt_is_finished == 0) {
+                if ($jsBasicTempData->jsbt_is_verified == 1 && $jsBasicTempData->jsbt_is_finished == 0) {
                     $jsBasicTempData->jsbt_is_verified = 1;
                     if ($jsBasicTempData->save(false)) {
                         $empEmployers = new EmpEmployers();
@@ -332,7 +330,7 @@ class EmployerController extends Controller {
             $model->ad_published_time = "0000-00-00 00:00:00";
 
             if ($model->save(false)) {
-                $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
+                $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
                 if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
                     $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
                     $model->ad_image_url = $path;
@@ -367,7 +365,7 @@ class EmployerController extends Controller {
         $adToken = $_POST['id'];
 
         $adData = EmpAdvertisement::model()->findByAttributes(array('ad_token' => $adToken));
-        if (count($adData) > 0) {          
+        if (count($adData) > 0) {
             $adData->ad_is_published = 1;
             $adData->ad_published_time = date('Y-m-d H:i:s');
             $adData->save(false);

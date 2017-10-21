@@ -38,8 +38,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                             <div class="col-md-9 pl-0 pt-30 pb-20 bottom-line">  
                                 <h2 class="text-black mb-5"><?php echo $model->js_fname . ' ' . $model->js_lname; ?></h2>
                                 <h5 class="text-dark-blue text-light-2 text-uppercase"><?php
-                                    if ($employment->ref_designation_id != NULL) {
-                                        echo AdmDesignation::model()->findByPk($employment->ref_designation_id)->desig_name;
+                                    if ($employment->ref_designation_id != '') {
+                                        $AdmDesignation = AdmDesignation::model()->findByPk($employment->ref_designation_id);
+                                        if(count($AdmDesignation)>0){
+                                            echo $AdmDesignation->desig_name;
+                                        }
                                     }
                                     ?></h5>
 
@@ -75,8 +78,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     <li class="active"><a href="#tab1">Personal Information</a></li>
                                     <li><a href="#tab2">Current position</a></li>
                                     <li><a href="#tab3">Expected Position</a></li>
-                                    <li><a href="#tab4">Password</a></li>
-                                    <li><a href="#tab5">Job Apply History</a></li>
+                                    <li><a href="">Password</a></li>
+                                    <li><a href="">Job Apply History</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-9">

@@ -51,7 +51,7 @@ class AdvertisementController extends Controller {
                     $status = 0;
                     $reason = "Please Select an Advertisement";
                 } else {
-                    $target_dir = "uploads/jobAdvertisement/";
+                    $target_dir = "uploads/JobAdvertisements/";
                     $target_file = $target_dir . basename($_FILES["EmpAdvertisement"]["name"]['AdverImage']);
                     $validateData = Controller::validateImage($_FILES, $target_dir);
                     $status = $validateData["status"];
@@ -81,6 +81,9 @@ class AdvertisementController extends Controller {
                 
                 $model->ad_text = $_POST['advertisementText'];
                 if ($model->save(false)) {
+<<<<<<< HEAD
+                    $model->ad_reference = Controller::getAdvertisementReferenceNo($model->ad_id);
+=======
                     $model->ad_reference = Controller::getEmployeeReferenceNo($model->ad_id);
 //                    if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
 //                        $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);                       
@@ -88,6 +91,7 @@ class AdvertisementController extends Controller {
 //                    } else {
 //                        $model->ad_image_url = $model->ad_image_url == "" ? "" : $model->ad_image_url;
 //                    }
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
 
                     if ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] != "") {
                         $path = $this->UploadImage($_FILES, $target_dir, $model->ad_reference);
@@ -102,8 +106,12 @@ class AdvertisementController extends Controller {
                     } elseif ($_POST['group1'] == 1 && $_FILES['EmpAdvertisement']['name']['AdverImage'] == "" && $model->ad_is_image == 1) {
                         $model->ad_image_url = $model->ad_image_url;
                     }
+<<<<<<< HEAD
+                    $model->ad_token = $model->ad_token;
+=======
 
 
+>>>>>>> 6f18ee44e81d8d8191c7ad828e47a21b0d063b29
                     $model->save(false);
 
                     $this->msgHandler(200, "Successfully Saved...");

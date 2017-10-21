@@ -87,7 +87,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                     </div>
                                 </div>
 
-                                <div class="row mb-15">
+<!--                                <div class="row mb-15">
                                     <div class="col-md-6">
                                         <div class="selector dark designationsSelector">
                                             <div class="selected-option">
@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                                             <input id="otherDesignation" name="otherDesignation" type="text" value="">
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="row mb-15">
                                     <div class="col-md-6">
@@ -466,7 +466,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . '/js
                         $("#subCategories > [value=" + '<?php echo $model->ref_subcat_id; ?>' + "]").attr("selected", "true");
                         Select.init('.subSelector');
                     }, 200);
-                    loadDesignations();
+//                    loadDesignations();
                 }
             }
         });
