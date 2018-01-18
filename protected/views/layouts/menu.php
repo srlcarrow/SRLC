@@ -1,9 +1,12 @@
 <nav class="navbar light-blue nav-bottom-space">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="" href="<?php echo Yii::app()->baseUrl?>/site">
+            <a class="" href="<?php echo Yii::app()->baseUrl ?>/site">
                 <img src="<?php echo Yii::app()->baseUrl ?>/images/system/logo/logo.png" alt="Logo">
             </a>
+            <span class="mobile-menu">
+                <img src="<?php echo Yii::app()->baseUrl ?>/images/system/icon/site/30/ic_bar_menu.png" alt="">
+            </span>
         </div>
         <ul class="navbar-nav navbar-right hidden-xs">
 
@@ -11,7 +14,7 @@
             <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/candidate'; ?>">Job
                     Seeker</a></li>
             <li><a href="<?php echo Yii::app()->request->baseUrl . '/site/Employer'; ?>">Employer</a></li>
-            <li><a href="<?php echo Yii::app()->request->baseUrl . '/Contact';?>">Contact Us</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl . '/Contact'; ?>">Contact Us</a></li>
 
 
             <?php if (yii::app()->user->isGuest) { ?>
@@ -30,22 +33,28 @@
                         $firstName = substr($JsBasic->js_fname, 0, 10);
                         $fullName = $JsBasic->js_fname . ' ' . $JsBasic->js_lname;
                         $email = $JsBasic->js_email;
-                        ?> <li class="profile-link"><a href="<?php echo Yii::app()->request->baseUrl . '/User/Profile'; ?>">My Account</a></li><?php
-                        } else {
-                            Yii::app()->user->logout();
-                        }
-                    } elseif ($logUserDetails->user_type == 2) {
-                        $EmpEmployers = EmpEmployers::model()->findByAttributes(array('employer_id' => $logUserDetails->ref_emp_or_js_id));
-                        $firstName = substr($EmpEmployers->employer_name, 0, 10);
-                        $fullName = $EmpEmployers->employer_name;
-                        $email = $EmpEmployers->employer_email;
-                        ?> <li class="profile-link"><a href="<?php echo Yii::app()->request->baseUrl . '/Employer/ProfileDetails'; ?>">My Account</a></li><?php
+                        ?>
+                        <li class="profile-link"><a
+                                href="<?php echo Yii::app()->request->baseUrl . '/User/Profile'; ?>">My Account</a>
+                        </li><?php
                     } else {
-                        $firstName = $logUserDetails->user_name;
-                        $fullName = $logUserDetails->user_name;
-                        $email = "";
+                        Yii::app()->user->logout();
                     }
+                } elseif ($logUserDetails->user_type == 2) {
+                    $EmpEmployers = EmpEmployers::model()->findByAttributes(array('employer_id' => $logUserDetails->ref_emp_or_js_id));
+                    $firstName = substr($EmpEmployers->employer_name, 0, 10);
+                    $fullName = $EmpEmployers->employer_name;
+                    $email = $EmpEmployers->employer_email;
                     ?>
+                    <li class="profile-link"><a
+                            href="<?php echo Yii::app()->request->baseUrl . '/Employer/ProfileDetails'; ?>">My
+                        Account</a></li><?php
+                } else {
+                    $firstName = $logUserDetails->user_name;
+                    $fullName = $logUserDetails->user_name;
+                    $email = "";
+                }
+                ?>
 
                 <li class="profile-link">
                     <a class="" href="#">

@@ -3,11 +3,23 @@ var isScrollTop = false;
 //Job category Selection
 
 //Get job title position in the top.
-var $titleTopSpace = ($('#searchWrapper').offset().top + 85);
+var $titleOffset = ($('#searchWrapper').offset().top),
+    breakpoint = calSize();
+
+function calSize() {
+    var val = 0;
+    var deviceWidth = $(window)[0].innerWidth;
+    if (deviceWidth > 425) {
+        val = $titleOffset + 90;
+    } else {
+        val = $titleOffset - 80;
+    }
+    return val;
+}
 
 
 function scrollToDown() {
-    var _titleTopSpace = $titleTopSpace + 5;
+    var _titleTopSpace = $titleOffset + 90;
     if (!$(window).scrollTop() > 0) {
         $("html, body").animate({scrollTop: _titleTopSpace}, 500);
     } else {
@@ -66,23 +78,6 @@ var SelectedCategory = (function () {
     return _category;
 
 })();
-
-// function hideTitle($isTitleHide) {
-//     var $title = $('.main-title');
-//     var searchSection = $('.search-section');
-//
-//     if ($isTitleHide) {
-//         $title.addClass('hide-title');
-//         $('.full-height').css('height', '');
-//         searchSection.removeClass('full-height').addClass('is-search-fixed');
-//         var $searchSectionHeight = searchSection.height();
-//         $('#ajaxLoadAdvertisements').animate({'marginTop': '226px'}, 0);
-//         $(window).scrollTop(0);
-//     } else {
-//         $title.removeClass('hide-title');
-//     }
-// }
-
 
 //Job Search
 var JobSearch = (function () {
@@ -147,14 +142,21 @@ function loadJobsByCategory() {
 }
 
 function responsivePageHeight() {
+    var deviceWidth = $(window)[0].innerWidth;
     var pageHeight = $(window)[0].innerHeight;
-    $('.full-height').css('height', pageHeight + 'px');
+
+    if (deviceWidth > 425) {
+        $('.full-height').css('height', pageHeight + 'px');
+    }else {
+        $('.full-height').css('height','100%');
+    }
 }
 
 (function () {
 
     $(window).on('load resize', function () {
         responsivePageHeight();
+        breakpoint = calSize();
     });
 
     $('.navbar').removeClass('light-blue').css('backgroundColor', 'transparent');
@@ -170,6 +172,7 @@ function responsivePageHeight() {
     );
     var progress = 1;
     var jobTitle = 'title';
+    var pVal = 0;
 
     function preventDefault(e) {
         e = e || window.event;
@@ -183,7 +186,7 @@ function responsivePageHeight() {
         triggerElement: '.search-section',
         duration: '300%',
         triggerHook: 0,
-        offset: $titleTopSpace,
+        offset: breakpoint
     });
 
     jobScene.addTo(controller);
@@ -205,9 +208,14 @@ function responsivePageHeight() {
 
     Scene.addTo(controller);
     Scene.on('progress', function (e) {
-        var opt = 1 - (e.progress);
+        // var opt = 1 - (e.progress);
+        var opt = Math.max(0, Math.min(1, (1 - (e.progress))));
+
         $('#title').css({'opacity': opt});
-        $('header').css({'opacity': opt, 'z-index': ''});
+        $('header').css({'pointer-events': 'none'});
+        $('header .navbar-nav').css({'opacity': opt,'pointer-events': 'none'});
+
+        $('.filters').animate({'opacity': e.progress}, 0);
 
         $('.full-height').css('height', '');
     });
@@ -220,8 +228,9 @@ function responsivePageHeight() {
     });
 
     Scene.on('shift', function (e) {
-        $('.filters').animate({'opacity': 1}, 10);
-        $('header').css({'z-index': -1});
+        // $('.filters').animate({'opacity': 1}, 0);
+        $('header').css({'pointer-events': 'none'});
+        $('header navbar-nav').css({'pointer-events': 'none'});
     });
 
     $('#searchText').on('focus click', function () {

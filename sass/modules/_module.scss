@@ -357,6 +357,14 @@
     padding: 18px 0;
     margin-bottom: 20px;
     background: $white;
+
+    & + h5 {
+     @include breakpoint($small) {
+       display: inline-block;
+       vertical-align: middle;
+       padding-left:15px;
+     }
+    }
   }
   .line-wrp {
     position: absolute;

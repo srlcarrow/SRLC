@@ -1,0 +1,1 @@
+function loadJobData(n){MAIN_ID=n.main.length>0?n.main[0]:"0",SUB_ID=n.sub.length>0?n.sub[0]:"0"}function CategoryPopup(){return{html:function(n){$.ajax({type:"GET",url:base_url("/Site/CategoryPopup"),success:function(t){n(t)}})}}}var MAIN_ID="0",SUB_ID="0";window.clearCategoryIds=function(){MAIN_ID="0",SUB_ID="0"};

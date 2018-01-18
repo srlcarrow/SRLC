@@ -116,5 +116,26 @@
       }
     }
 
+
+    @include breakpoint($small) {
+      width: 100% !important;
+      height:100%;
+      top: 0 !important;
+      left: 0 !important;
+      background: $white;
+      padding: calc(50% / 2) 30px !important;
+      @include border-radius(0);
+
+      .close {
+        right: 30px;
+        top: 30px;
+        background: url("../images/system/icon/site/26/ic_26-cross-black.png") no-repeat center center;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
   }
 }

@@ -640,7 +640,7 @@ var Animation = (function () {
 
     }
 })();
-
+fileUploader
 var Button = function (ele) {
 
     var ele = ele !== undefined ? ele : ".disabled";
@@ -676,7 +676,7 @@ $.fn.Button = function (options) {
 
 };
 
-var fileUploader = (function () {
+var  = (function () {
 
     load();
 
@@ -748,3 +748,10 @@ var Toast = (function () {
 }());
 
 // Toast.success('Success')
+
+(function () {
+    var isOpen = false;
+    $('.mobile-menu').on('click',function () {
+        alert('as')
+    })
+})();
